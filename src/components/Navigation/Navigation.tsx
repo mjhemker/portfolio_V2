@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppContext } from '../../contexts/AppContext';
 import type { Tab } from '../../types';
@@ -10,7 +10,12 @@ const tabs: Tab[] = [
   { id: 'about', label: 'About' }
 ];
 
-const NavigationContainer = styled(motion.nav)`
+const lightModeGlow = keyframes`
+  0%, 100% { box-shadow: 0 8px 32px rgba(0, 123, 255, 0.15); }
+  50% { box-shadow: 0 12px 48px rgba(0, 123, 255, 0.25); }
+`;
+
+const NavigationContainer = styled(motion.nav)<{ $isArtTab: boolean }>`
   position: fixed;
   top: 2rem;
   left: 0;
@@ -23,19 +28,36 @@ const NavigationContainer = styled(motion.nav)`
   
   > div {
     pointer-events: all;
-    background: rgba(26, 26, 26, 0.9);
+    background: ${({ $isArtTab }) => 
+      $isArtTab 
+        ? 'rgba(255, 255, 255, 0.95)' 
+        : 'rgba(26, 26, 26, 0.9)'
+    };
     backdrop-filter: blur(20px);
-    border: 1px solid ${({ theme }) => theme.colors.border};
+    border: 1px solid ${({ $isArtTab, theme }) => 
+      $isArtTab 
+        ? 'rgba(0, 123, 255, 0.2)' 
+        : theme.colors.border
+    };
     border-radius: ${({ theme }) => theme.borderRadius.full};
     padding: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.25rem;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    ${({ $isArtTab }) => $isArtTab && `
+      animation: ${lightModeGlow} 4s ease-in-out infinite;
+      box-shadow: 0 8px 32px rgba(0, 123, 255, 0.2);
+    `}
   }
 `;
 
-const TabButton = styled(motion.button)<{ $isActive: boolean }>`
+const TabButton = styled(motion.button)<{ 
+  $isActive: boolean;
+  $isArtTab: boolean;
+}>`
   position: relative;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -43,15 +65,20 @@ const TabButton = styled(motion.button)<{ $isActive: boolean }>`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ $isActive, theme }) => 
-    $isActive ? theme.colors.text.primary : theme.colors.text.secondary
-  };
-  transition: all 0.3s ease;
+  color: ${({ $isActive, $isArtTab, theme }) => {
+    if ($isArtTab) {
+      return $isActive ? '#007bff' : '#6c757d';
+    }
+    return $isActive ? theme.colors.text.primary : theme.colors.text.secondary;
+  }};
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   white-space: nowrap;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ $isArtTab, theme }) => 
+      $isArtTab ? '#007bff' : theme.colors.text.primary
+    };
     transform: scale(1.02);
   }
 
@@ -61,22 +88,36 @@ const TabButton = styled(motion.button)<{ $isActive: boolean }>`
   }
 `;
 
-const ActiveIndicator = styled(motion.div)`
+const ActiveIndicator = styled(motion.div)<{ $isArtTab: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: ${({ theme }) => theme.colors.surface};
+  background: ${({ $isArtTab, theme }) => 
+    $isArtTab 
+      ? 'linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0.05))'
+      : theme.colors.surface
+  };
+  border: ${({ $isArtTab }) => 
+    $isArtTab ? '1px solid rgba(0, 123, 255, 0.2)' : 'none'
+  };
   border-radius: ${({ theme }) => theme.borderRadius.full};
   z-index: -1;
+  box-shadow: ${({ $isArtTab }) => 
+    $isArtTab 
+      ? '0 4px 16px rgba(0, 123, 255, 0.15)'
+      : 'none'
+  };
 `;
 
 export const Navigation: React.FC = () => {
   const { activeTab, setActiveTab } = useAppContext();
+  const isArtTab = activeTab === 'art';
 
   return (
     <NavigationContainer
+      $isArtTab={isArtTab}
       initial={{ opacity: 0, y: -20 }}
       animate={{ 
         opacity: 1, 
@@ -89,11 +130,22 @@ export const Navigation: React.FC = () => {
         damping: 15
       }}
     >
-      <div>
+      <motion.div
+        animate={{
+          background: isArtTab 
+            ? 'rgba(255, 255, 255, 0.95)' 
+            : 'rgba(26, 26, 26, 0.9)',
+          borderColor: isArtTab 
+            ? 'rgba(0, 123, 255, 0.2)' 
+            : 'rgba(255, 255, 255, 0.1)'
+        }}
+        transition={{ duration: 0.6 }}
+      >
         {tabs.map((tab) => (
           <TabButton
             key={tab.id}
             $isActive={activeTab === tab.id}
+            $isArtTab={isArtTab}
             onClick={() => setActiveTab(tab.id)}
             whileHover={{ 
               scale: 1.02,
@@ -105,6 +157,7 @@ export const Navigation: React.FC = () => {
             <AnimatePresence>
               {activeTab === tab.id && (
                 <ActiveIndicator
+                  $isArtTab={isArtTab}
                   layoutId="activeTab"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -118,10 +171,19 @@ export const Navigation: React.FC = () => {
                 />
               )}
             </AnimatePresence>
-            <span>{tab.label}</span>
+            <motion.span
+              animate={{
+                color: isArtTab 
+                  ? (activeTab === tab.id ? '#007bff' : '#6c757d')
+                  : (activeTab === tab.id ? '#ffffff' : '#a0a0a0')
+              }}
+              transition={{ duration: 0.4 }}
+            >
+              {tab.label}
+            </motion.span>
           </TabButton>
         ))}
-      </div>
+      </motion.div>
     </NavigationContainer>
   );
 };

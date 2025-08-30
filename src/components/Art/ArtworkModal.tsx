@@ -17,10 +17,10 @@ const ModalContent = styled.div`
   display: flex;
   max-width: 90vw;
   max-height: 90vh;
-  background: ${({ theme }) => theme.colors.secondary};
+  background: #ffffff;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   overflow: hidden;
-  box-shadow: ${({ theme }) => theme.shadows.xl};
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -34,7 +34,7 @@ const ImageSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }) => theme.colors.surface};
+  background: #f8f9fa;
   min-height: 400px;
 
   @media (max-width: 768px) {
@@ -60,7 +60,7 @@ const InfoSection = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   min-width: 300px;
-  background: ${({ theme }) => theme.colors.secondary};
+  background: #ffffff;
 
   @media (max-width: 768px) {
     padding: 1.5rem;
@@ -71,7 +71,7 @@ const InfoSection = styled.div`
 const ArtworkTitle = styled.h2`
   font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: #212529;
   margin: 0;
 
   @media (max-width: 768px) {
@@ -93,12 +93,12 @@ const MetaItem = styled.div`
 `;
 
 const MetaLabel = styled.span`
-  color: ${({ theme }) => theme.colors.text.secondary};
+  color: #6c757d;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
 `;
 
 const MetaValue = styled.span`
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: #212529;
 `;
 
 const ArtworkDescription = styled.div`
@@ -108,13 +108,13 @@ const ArtworkDescription = styled.div`
 const DescriptionTitle = styled.h3`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: #212529;
   margin-bottom: 1rem;
 `;
 
 const DescriptionText = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.base};
-  color: ${({ theme }) => theme.colors.text.secondary};
+  color: #6c757d;
   line-height: 1.6;
   margin: 0;
 `;
@@ -124,7 +124,7 @@ const NavigationButtons = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-top: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+  border-top: 1px solid #dee2e6;
 `;
 
 const NavButton = styled(Button)`
@@ -137,9 +137,9 @@ const ImageNavButton = styled(motion.button)`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.text.primary};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: rgba(255, 255, 255, 0.9);
+  color: #212529;
+  border: none;
   border-radius: 50%;
   width: 48px;
   height: 48px;
@@ -149,10 +149,10 @@ const ImageNavButton = styled(motion.button)`
   cursor: pointer;
   backdrop-filter: blur(4px);
   z-index: 10;
-  box-shadow: ${({ theme }) => theme.shadows.md};
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   
   &:hover {
-    background: ${({ theme }) => theme.colors.accent};
+    background: #ffffff;
     transform: translateY(-50%) scale(1.1);
   }
 
