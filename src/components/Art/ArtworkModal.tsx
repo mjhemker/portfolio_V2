@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Modal } from '../UI/Modal';
 import { Button } from '../UI/Button';
-import type { Artwork } from '../../types';
+import type { Artwork } from '../../types/index';
 
 interface ArtworkModalProps {
   artwork: Artwork;

@@ -1,4 +1,4 @@
-import type { Artwork } from '../types';
+import type { Artwork } from '../types/index';
 
 export const artworkByYear: Record<number, Artwork[]> = {
   2025: [

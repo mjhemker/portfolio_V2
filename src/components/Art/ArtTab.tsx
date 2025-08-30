@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { artworkByYear, drawingsByCategory } from '../../data/artwork';
-import type { Artwork } from '../../types';
+import type { Artwork } from '../../types/index';
 import { ArtworkModal } from './ArtworkModal';
 
 const ArtContainer = styled(motion.div)`
