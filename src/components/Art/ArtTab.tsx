@@ -1,72 +1,383 @@
-import React from 'react';
-import { artworkByYear } from '../../data/artwork';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import { artworkByYear, drawingsByCategory } from '../../data/artwork';
+import type { Artwork } from '../../types/index';
+import { ArtworkModal } from './ArtworkModal';
 
+const ArtContainer = styled(motion.div)`
+  padding: 6rem 0 2rem;
+  min-height: 100vh;
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 2rem;
 
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 6rem 1rem 1rem;
+    gap: 1rem;
+  }
+`;
+
+const Sidebar = styled.div`
+  width: 250px;
+  height: fit-content;
+  position: sticky;
+  top: 8rem;
+  padding: 2rem 1rem;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    position: static;
+    padding: 1rem;
+  }
+`;
+
+const SidebarNav = styled.nav`
+  background: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  padding: 1.5rem;
+  box-shadow: ${({ theme }) => theme.shadows.md};
+`;
+
+const SidebarTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
+const SidebarList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const SidebarItem = styled.li`
+  margin-bottom: 0.5rem;
+`;
+
+const SidebarLink = styled.a<{ $isActive?: boolean }>`
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  color: ${({ $isActive, theme }) => 
+    $isActive ? theme.colors.accent : theme.colors.text.secondary
+  };
+  background: ${({ $isActive, theme }) => 
+    $isActive ? theme.colors.surface : 'transparent'
+  };
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  text-decoration: none;
+  transition: all ${({ theme }) => theme.animations.fast};
+  cursor: pointer;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.hover};
+    color: ${({ theme }) => theme.colors.accent};
+    transform: translateX(4px);
+  }
+`;
+
+const MainContent = styled.div`
+  flex: 1;
+  padding: 0 2rem;
+
+  @media (max-width: 1024px) {
+    padding: 0;
+  }
+`;
+
+const ArtHeader = styled(motion.div)`
+  text-align: center;
+  margin-bottom: 3rem;
+`;
+
+const ArtTitle = styled.h1`
+  font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+  }
+`;
+
+const ArtSubtitle = styled.p`
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
+  }
+`;
+
+const YearSection = styled(motion.section)`
+  margin-bottom: 4rem;
+`;
+
+const YearHeader = styled.h2`
+  font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+`;
+
+const ArtworkGrid = styled.div`
+  columns: 3;
+  column-gap: 1.5rem;
+  break-inside: avoid;
+
+  @media (max-width: 1024px) {
+    columns: 2;
+    column-gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    columns: 1;
+    column-gap: 1rem;
+  }
+`;
+
+const ArtworkCard = styled(motion.div)`
+  background: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  overflow: hidden;
+  cursor: pointer;
+  transition: all ${({ theme }) => theme.animations.fast};
+  display: flex;
+  flex-direction: column;
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  width: 100%;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.accent};
+    transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+  }
+`;
+
+const ArtworkImage = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform ${({ theme }) => theme.animations.normal};
+
+  ${ArtworkCard}:hover & {
+    transform: scale(1.02);
+  }
+`;
+
+const ArtworkInfo = styled.div`
+  padding: 1rem 1.5rem;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    padding: 0.75rem 1rem;
+  }
+`;
+
+const ArtworkTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin: 0;
+  text-align: center;
+`;
 
 export const ArtTab: React.FC = () => {
-  console.log('ArtTab component rendering...'); // Debug log
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
+  const [activeSection, setActiveSection] = useState<string>('');
   
-  // Test with minimal component first
+  const years = Object.keys(artworkByYear)
+    .map(Number)
+    .sort((a, b) => b - a); // Sort descending (newest first)
+  
+  const allSections = [
+    ...years.map(year => ({ id: year.toString(), label: year.toString() })),
+    { id: 'drawings', label: 'Drawings' }
+  ];
+
+  const handleArtworkClick = (artwork: Artwork) => {
+    setSelectedArtwork(artwork);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedArtwork(null);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(`section-${sectionId}`);
+    if (element) {
+      const offset = 120; // Account for fixed nav
+      const elementPosition = element.offsetTop - offset;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+      setActiveSection(sectionId);
+    }
+  };
+
+  const getAllArtworks = () => {
+    const yearArtworks = years.flatMap(year => artworkByYear[year]);
+    const drawingArtworks = Object.values(drawingsByCategory).flat();
+    return [...yearArtworks, ...drawingArtworks];
+  };
+
+  const findAdjacentArtwork = (currentId: string, direction: 'prev' | 'next') => {
+    const allArtworks = getAllArtworks();
+    const currentIndex = allArtworks.findIndex(art => art.id === currentId);
+    
+    if (direction === 'prev') {
+      return currentIndex > 0 ? allArtworks[currentIndex - 1] : allArtworks[allArtworks.length - 1];
+    } else {
+      return currentIndex < allArtworks.length - 1 ? allArtworks[currentIndex + 1] : allArtworks[0];
+    }
+  };
+
   return (
-    <div style={{ 
-      padding: '6rem 2rem 2rem', 
-      minHeight: '100vh', 
-      background: '#ffffff',
-      color: '#000000',
-      position: 'relative',
-      zIndex: 1
-    }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Art Gallery</h1>
-      <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
-        A curated collection of my artistic works exploring various mediums and themes.
-      </p>
-      
-      {/* Test with just a few sample artworks */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-        gap: '2rem',
-        marginTop: '2rem'
-      }}>
-        {Object.entries(artworkByYear).slice(0, 2).map(([year, artworks]) => (
-          <div key={year} style={{ 
-            background: '#f8f9fa', 
-            padding: '1.5rem', 
-            borderRadius: '12px',
-            border: '1px solid #e9ecef'
-          }}>
-            <h2 style={{ marginBottom: '1rem', color: '#212529' }}>{year}</h2>
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-              gap: '1rem'
-            }}>
-              {artworks.slice(0, 3).map((artwork) => (
-                <div key={artwork.id} style={{ 
-                  background: '#ffffff', 
-                  borderRadius: '8px', 
-                  overflow: 'hidden',
-                  border: '1px solid #dee2e6'
-                }}>
-                  <img 
-                    src={artwork.image} 
-                    alt={artwork.title}
-                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                    onError={(e) => {
-                      console.log('Image failed to load:', artwork.image);
-                      (e.target as HTMLImageElement).style.background = '#f8f9fa';
-                      (e.target as HTMLImageElement).alt = 'Image not found';
-                    }}
-                  />
-                  <div style={{ padding: '1rem' }}>
-                    <h3 style={{ margin: 0, fontSize: '1rem' }}>{artwork.title}</h3>
-                  </div>
-                </div>
+    <>
+      <ArtContainer
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.4 }}
+      >
+        <Sidebar>
+          <SidebarNav>
+            <SidebarTitle>Navigate Gallery</SidebarTitle>
+            <SidebarList>
+              {allSections.map((section) => (
+                <SidebarItem key={section.id}>
+                  <SidebarLink
+                    $isActive={activeSection === section.id}
+                    onClick={() => scrollToSection(section.id)}
+                  >
+                    {section.label}
+                  </SidebarLink>
+                </SidebarItem>
               ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+            </SidebarList>
+          </SidebarNav>
+        </Sidebar>
+
+        <MainContent>
+          <ArtHeader
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <ArtTitle>Art Gallery</ArtTitle>
+            <ArtSubtitle>
+              A curated collection of my artistic works exploring various mediums and themes, 
+              from digital paintings to traditional canvas works.
+            </ArtSubtitle>
+          </ArtHeader>
+
+          {years.map((year, yearIndex) => (
+            <YearSection
+              key={year}
+              id={`section-${year}`}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: yearIndex * 0.1 }}
+            >
+              <YearHeader>{year}</YearHeader>
+              <ArtworkGrid>
+                {artworkByYear[year].map((artwork, index) => (
+                  <ArtworkCard
+                    key={artwork.id}
+                    onClick={() => handleArtworkClick(artwork)}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ 
+                      delay: (yearIndex * 0.1) + (index * 0.05),
+                      duration: 0.3 
+                    }}
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <ArtworkImage
+                      src={artwork.image}
+                      alt={artwork.title}
+                    />
+                    <ArtworkInfo>
+                      <ArtworkTitle>{artwork.title}</ArtworkTitle>
+                    </ArtworkInfo>
+                  </ArtworkCard>
+                ))}
+              </ArtworkGrid>
+            </YearSection>
+          ))}
+
+          {Object.entries(drawingsByCategory).map(([category, artworks], categoryIndex) => (
+            <YearSection
+              key={category}
+              id={`section-drawings`}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: (years.length + categoryIndex) * 0.1 }}
+            >
+              <YearHeader>{category}</YearHeader>
+              <ArtworkGrid>
+                {artworks.map((artwork, index) => (
+                  <ArtworkCard
+                    key={artwork.id}
+                    onClick={() => handleArtworkClick(artwork)}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ 
+                      delay: ((years.length + categoryIndex) * 0.1) + (index * 0.05),
+                      duration: 0.3 
+                    }}
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <ArtworkImage
+                      src={artwork.image}
+                      alt={artwork.title}
+                    />
+                    <ArtworkInfo>
+                      <ArtworkTitle>{artwork.title}</ArtworkTitle>
+                    </ArtworkInfo>
+                  </ArtworkCard>
+                ))}
+              </ArtworkGrid>
+            </YearSection>
+          ))}
+        </MainContent>
+      </ArtContainer>
+
+      {selectedArtwork && (
+        <ArtworkModal
+          artwork={selectedArtwork}
+          onClose={handleCloseModal}
+          onPrevious={() => {
+            const prevArtwork = findAdjacentArtwork(selectedArtwork.id, 'prev');
+            setSelectedArtwork(prevArtwork);
+          }}
+          onNext={() => {
+            const nextArtwork = findAdjacentArtwork(selectedArtwork.id, 'next');
+            setSelectedArtwork(nextArtwork);
+          }}
+        />
+      )}
+    </>
   );
 };
