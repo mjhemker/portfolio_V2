@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, SkipBack, SkipForward, ExternalLink, Github, Sparkles } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, ExternalLink, Github } from 'lucide-react';
 import { useAppContext } from '../../contexts/AppContext';
 import { projects } from '../../data/projects';
 import { Button } from '../UI/Button';
@@ -29,10 +29,7 @@ const ripple = keyframes`
   100% { transform: scale(2.4); opacity: 0; }
 `;
 
-const sparkle = keyframes`
-  0%, 100% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1); }
-`;
+
 
 const ProjectDisplay = styled(motion.div)<{ $isPlaying: boolean }>`
   flex: 1;
@@ -197,7 +194,7 @@ const ControlButtons = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-const PlayButton = styled(Button)<{ $isPlaying: boolean }>`
+const PlayButton = styled(motion.button)<{ $isPlaying: boolean }>`
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -555,12 +552,15 @@ export const MusicPlayer: React.FC = () => {
         <AudioVisualizer isPlaying={playerState.isPlaying} />
         
         <ControlButtons>
-          <Button 
-            icon={<SkipBack size={20} />} 
-            onClick={handlePrevious}
+          <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-          />
+          >
+            <Button 
+              icon={<SkipBack size={20} />} 
+              onClick={handlePrevious}
+            />
+          </motion.div>
           <PlayButton 
             $isPlaying={playerState.isPlaying}
             onClick={handlePlayPause}
@@ -591,12 +591,15 @@ export const MusicPlayer: React.FC = () => {
               )}
             </AnimatePresence>
           </PlayButton>
-          <Button 
-            icon={<SkipForward size={20} />} 
-            onClick={handleNext}
+          <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-          />
+          >
+            <Button 
+              icon={<SkipForward size={20} />} 
+              onClick={handleNext}
+            />
+          </motion.div>
         </ControlButtons>
         
         <ProgressContainer>

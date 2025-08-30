@@ -10,10 +10,7 @@ const float = keyframes`
   66% { transform: translateY(-10px) rotate(-3deg); }
 `;
 
-const pulse = keyframes`
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-`;
+
 
 const orbit = keyframes`
   0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }

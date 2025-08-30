@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Music, Zap } from 'lucide-react';
+import { Music, Zap } from 'lucide-react';
 import { useAppContext } from '../../contexts/AppContext';
 import { projects } from '../../data/projects';
 
@@ -115,7 +115,7 @@ const QueueItem = styled(motion.div)<{ $isActive: boolean; $isPlaying: boolean }
   `}
 
   &:hover {
-    background: ${({ $isActive }) => 
+    background: ${({ $isActive, theme }) => 
       $isActive 
         ? 'linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(30, 144, 255, 0.15))' 
         : 'rgba(138, 43, 226, 0.05)'
