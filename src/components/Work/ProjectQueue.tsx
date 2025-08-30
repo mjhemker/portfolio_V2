@@ -89,10 +89,10 @@ const QueueItem = styled(motion.div)<{ $isActive: boolean; $isPlaying: boolean }
   padding: 0.75rem;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   cursor: pointer;
-  background: ${({ $isActive, theme }) => 
+  background: ${({ $isActive }) => 
     $isActive ? 'linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(30, 144, 255, 0.1))' : 'transparent'
   };
-  border: 1px solid ${({ $isActive, theme }) => 
+  border: 1px solid ${({ $isActive }) => 
     $isActive ? 'rgba(138, 43, 226, 0.5)' : 'transparent'
   };
   position: relative;
@@ -115,7 +115,7 @@ const QueueItem = styled(motion.div)<{ $isActive: boolean; $isPlaying: boolean }
   `}
 
   &:hover {
-    background: ${({ $isActive, theme }) => 
+    background: ${({ $isActive }) => 
       $isActive 
         ? 'linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(30, 144, 255, 0.15))' 
         : 'rgba(138, 43, 226, 0.05)'
