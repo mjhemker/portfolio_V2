@@ -272,183 +272,69 @@ const ArtworkTitle = styled.h3`
 
 
 export const ArtTab: React.FC = () => {
-  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
-  const [activeSection, setActiveSection] = useState<string>('');
+  console.log('ArtTab component rendering...'); // Debug log
   
-  const years = Object.keys(artworkByYear)
-    .map(Number)
-    .sort((a, b) => b - a); // Sort descending (newest first)
-  
-  const allSections = [
-    ...years.map(year => ({ id: year.toString(), label: year.toString() })),
-    { id: 'drawings', label: 'Drawings' }
-  ];
-
-  const handleArtworkClick = (artwork: Artwork) => {
-    setSelectedArtwork(artwork);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedArtwork(null);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(`section-${sectionId}`);
-    if (element) {
-      const offset = 120; // Account for fixed nav
-      const elementPosition = element.offsetTop - offset;
-      window.scrollTo({
-        top: elementPosition,
-        behavior: 'smooth'
-      });
-      setActiveSection(sectionId);
-    }
-  };
-
-  const getAllArtworks = () => {
-    const yearArtworks = years.flatMap(year => artworkByYear[year]);
-    const drawingArtworks = Object.values(drawingsByCategory).flat();
-    return [...yearArtworks, ...drawingArtworks];
-  };
-
-  const findAdjacentArtwork = (currentId: string, direction: 'prev' | 'next') => {
-    const allArtworks = getAllArtworks();
-    const currentIndex = allArtworks.findIndex(art => art.id === currentId);
-    
-    if (direction === 'prev') {
-      return currentIndex > 0 ? allArtworks[currentIndex - 1] : allArtworks[allArtworks.length - 1];
-    } else {
-      return currentIndex < allArtworks.length - 1 ? allArtworks[currentIndex + 1] : allArtworks[0];
-    }
-  };
-
+  // Test with minimal component first
   return (
-    <>
-      <ArtContainer
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.4 }}
-      >
-        <Sidebar>
-          <SidebarNav>
-            <SidebarTitle>Navigate Gallery</SidebarTitle>
-            <SidebarList>
-              {allSections.map((section) => (
-                <SidebarItem key={section.id}>
-                  <SidebarLink
-                    $isActive={activeSection === section.id}
-                    onClick={() => scrollToSection(section.id)}
-                  >
-                    {section.label}
-                  </SidebarLink>
-                </SidebarItem>
-              ))}
-            </SidebarList>
-          </SidebarNav>
-        </Sidebar>
-
-        <MainContent>
-          <ArtHeader
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <ArtTitle>Art Gallery</ArtTitle>
-            <ArtSubtitle>
-              A curated collection of my artistic works exploring various mediums and themes, 
-              from digital paintings to traditional canvas works.
-            </ArtSubtitle>
-          </ArtHeader>
-
-          {years.map((year, yearIndex) => (
-            <YearSection
-              key={year}
-              id={`section-${year}`}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: yearIndex * 0.1 }}
-            >
-              <YearHeader>{year}</YearHeader>
-            <ArtworkGrid>
-              {artworkByYear[year].map((artwork, index) => (
-                <ArtworkCard
-                  key={artwork.id}
-                  onClick={() => handleArtworkClick(artwork)}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    delay: (yearIndex * 0.1) + (index * 0.05),
-                    duration: 0.3 
-                  }}
-                  whileHover={{ y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <ArtworkImage
-                    src={artwork.image}
+    <div style={{ 
+      padding: '6rem 2rem 2rem', 
+      minHeight: '100vh', 
+      background: '#ffffff',
+      color: '#000000',
+      position: 'relative',
+      zIndex: 1
+    }}>
+      <h1 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Art Gallery</h1>
+      <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>
+        A curated collection of my artistic works exploring various mediums and themes.
+      </p>
+      
+      {/* Test with just a few sample artworks */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        gap: '2rem',
+        marginTop: '2rem'
+      }}>
+        {Object.entries(artworkByYear).slice(0, 2).map(([year, artworks]) => (
+          <div key={year} style={{ 
+            background: '#f8f9fa', 
+            padding: '1.5rem', 
+            borderRadius: '12px',
+            border: '1px solid #e9ecef'
+          }}>
+            <h2 style={{ marginBottom: '1rem', color: '#212529' }}>{year}</h2>
+            <div style={{ 
+              display: 'grid', 
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+              gap: '1rem'
+            }}>
+              {artworks.slice(0, 3).map((artwork) => (
+                <div key={artwork.id} style={{ 
+                  background: '#ffffff', 
+                  borderRadius: '8px', 
+                  overflow: 'hidden',
+                  border: '1px solid #dee2e6'
+                }}>
+                  <img 
+                    src={artwork.image} 
                     alt={artwork.title}
+                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                    onError={(e) => {
+                      console.log('Image failed to load:', artwork.image);
+                      (e.target as HTMLImageElement).style.background = '#f8f9fa';
+                      (e.target as HTMLImageElement).alt = 'Image not found';
+                    }}
                   />
-                  <ArtworkInfo>
-                    <ArtworkTitle>{artwork.title}</ArtworkTitle>
-                  </ArtworkInfo>
-                </ArtworkCard>
+                  <div style={{ padding: '1rem' }}>
+                    <h3 style={{ margin: 0, fontSize: '1rem' }}>{artwork.title}</h3>
+                  </div>
+                </div>
               ))}
-              </ArtworkGrid>
-            </YearSection>
-          ))}
-
-          {Object.entries(drawingsByCategory).map(([category, artworks], categoryIndex) => (
-            <YearSection
-              key={category}
-              id={`section-drawings`}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: (years.length + categoryIndex) * 0.1 }}
-            >
-              <YearHeader>{category}</YearHeader>
-            <ArtworkGrid>
-              {artworks.map((artwork, index) => (
-                <ArtworkCard
-                  key={artwork.id}
-                  onClick={() => handleArtworkClick(artwork)}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    delay: ((years.length + categoryIndex) * 0.1) + (index * 0.05),
-                    duration: 0.3 
-                  }}
-                  whileHover={{ y: -4 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <ArtworkImage
-                    src={artwork.image}
-                    alt={artwork.title}
-                  />
-                  <ArtworkInfo>
-                    <ArtworkTitle>{artwork.title}</ArtworkTitle>
-                  </ArtworkInfo>
-                </ArtworkCard>
-              ))}
-              </ArtworkGrid>
-            </YearSection>
-          ))}
-        </MainContent>
-      </ArtContainer>
-
-      {selectedArtwork && (
-        <ArtworkModal
-          artwork={selectedArtwork}
-          onClose={handleCloseModal}
-          onPrevious={() => {
-            const prevArtwork = findAdjacentArtwork(selectedArtwork.id, 'prev');
-            setSelectedArtwork(prevArtwork);
-          }}
-          onNext={() => {
-            const nextArtwork = findAdjacentArtwork(selectedArtwork.id, 'next');
-            setSelectedArtwork(nextArtwork);
-          }}
-        />
-      )}
-    </>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
