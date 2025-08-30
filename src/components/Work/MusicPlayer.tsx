@@ -326,7 +326,7 @@ const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
             duration: 0.8,
             repeat: Infinity,
             delay: bar.delay,
-            ease: 'easeInOut'
+            ease: 'easeInOut' as const
           }}
         />
       ))}
@@ -387,7 +387,7 @@ const FloatingParticles: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
               duration: 4 + Math.random() * 2,
               repeat: Infinity,
               delay: particle.id * 0.5,
-              ease: 'linear'
+              ease: 'linear' as const
             }}
           />
         ))}
@@ -472,12 +472,12 @@ export const MusicPlayer: React.FC = () => {
         initial={{ opacity: 0, x: 50, rotateY: 15 }}
         animate={{ opacity: 1, x: 0, rotateY: 0 }}
         exit={{ opacity: 0, x: -50, rotateY: -15 }}
-        transition={{ duration: 0.5, type: 'spring', stiffness: 100 }}
+        transition={{ duration: 0.5, type: 'spring' as const, stiffness: 100 }}
         whileHover={{ 
           rotateX: 2, 
           rotateY: 2, 
           scale: 1.02,
-          transition: { duration: 0.2 }
+          transition: { duration: 0.2, ease: "easeOut" as const }
         }}
       >
         <ProjectImageContainer $isPlaying={playerState.isPlaying}>
@@ -487,7 +487,7 @@ export const MusicPlayer: React.FC = () => {
             $isPlaying={playerState.isPlaying}
             initial={{ scale: 1.1 }}
             animate={{ scale: playerState.isPlaying ? 1.05 : 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: "easeOut" as const }}
           />
           <FloatingParticles isPlaying={playerState.isPlaying} />
         </ProjectImageContainer>

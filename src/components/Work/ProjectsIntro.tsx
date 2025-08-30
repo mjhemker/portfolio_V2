@@ -288,7 +288,10 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
     exit: {
       opacity: 0,
       scale: 0.8,
-      transition: { duration: 0.8, ease: "easeInOut" }
+      transition: { 
+        duration: 0.8, 
+        ease: "easeInOut" as const
+      }
     }
   };
 
@@ -303,7 +306,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
       opacity: 1, 
       rotateX: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 15,
         duration: 1.2
@@ -320,7 +323,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
       y: 0, 
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 80,
         damping: 12,
         duration: 0.8
@@ -359,7 +362,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
                 duration: particle.duration,
                 repeat: Infinity,
                 delay: particle.delay,
-                ease: "linear"
+                ease: "linear" as const
               }}
             />
           ))}
@@ -384,7 +387,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
               $y={y}
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 0.6, scale: 1 }}
-              transition={{ delay: 1.5 + index * 0.2, duration: 0.5 }}
+              transition={{ delay: 1.5 + index * 0.2, duration: 0.5, ease: "easeOut" as const }}
             >
               <Icon size={24} />
             </FloatingIcon>
@@ -406,7 +409,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
           whileTap={{ scale: 0.95 }}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2 }}
+          transition={{ delay: 2, ease: "easeOut" as const }}
         >
           Skip Intro
         </SkipButton>
@@ -435,7 +438,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2, duration: 0.6 }}
+                transition={{ delay: 2, duration: 0.6, ease: "easeOut" as const }}
               >
                 <ContinueButton
                   onClick={handleContinue}
@@ -448,7 +451,7 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
                   Explore My Work
                   <motion.div
                     animate={{ y: [0, 5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}
                   >
                     <ChevronDown size={20} />
                   </motion.div>

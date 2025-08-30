@@ -127,7 +127,7 @@ export const Navigation: React.FC = () => {
       }}
       transition={{ 
         duration: 0.6, 
-        type: 'spring', 
+        type: 'spring' as const, 
         stiffness: 100,
         damping: 15
       }}
@@ -152,7 +152,7 @@ export const Navigation: React.FC = () => {
               y: -1
             }}
             whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.2, ease: "easeOut" as const }}
           >
             <AnimatePresence>
               {activeTab === tab.id && (
@@ -163,7 +163,7 @@ export const Navigation: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ 
-                    type: 'spring', 
+                    type: 'spring' as const, 
                     stiffness: 300, 
                     damping: 30,
                     duration: 0.4

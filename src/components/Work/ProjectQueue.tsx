@@ -257,18 +257,18 @@ export const ProjectQueue: React.FC = () => {
     <QueueContainer
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
+      transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" as const }}
     >
       <QueueHeader
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" as const }}
       >
         <Music size={20} />
         Queue
         <motion.div
           animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' as const }}
         >
           <QueueCounter>{projects.length}</QueueCounter>
         </motion.div>
@@ -336,7 +336,7 @@ export const ProjectQueue: React.FC = () => {
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0 }}
-                      transition={{ duration: 0.3 }}
+                      transition={{ duration: 0.3, ease: "easeOut" as const }}
                     >
                       {[...Array(3)].map((_, i) => (
                         <WaveBar
@@ -348,7 +348,7 @@ export const ProjectQueue: React.FC = () => {
                             duration: 1.2,
                             repeat: Infinity,
                             delay: i * 0.2,
-                            ease: 'easeInOut'
+                            ease: 'easeInOut' as const
                           }}
                         />
                       ))}
