@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { MusicPlayer } from './MusicPlayer';
 import { ProjectQueue } from './ProjectQueue';
 import { ProjectsIntro } from './ProjectsIntro';
-import { ProjectPreview } from './ProjectPreview';
 import { ProjectModal } from './ProjectModal';
 
 const WorkContainer = styled(motion.div)`
@@ -29,7 +28,6 @@ const PlayerSection = styled.div`
   display: flex;
   flex-direction: column;
   min-width: 0;
-  gap: 1.5rem;
 `;
 
 const QueueSection = styled.div`
@@ -46,10 +44,6 @@ const QueueSection = styled.div`
 export const WorkTab: React.FC = () => {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
-  const handleProjectClick = () => {
-    setIsProjectModalOpen(true);
-  };
-
   const handleCloseModal = () => {
     setIsProjectModalOpen(false);
   };
@@ -64,11 +58,10 @@ export const WorkTab: React.FC = () => {
         transition={{ duration: 0.4, ease: "easeOut" as const }}
       >
         <PlayerSection>
-          <ProjectPreview onProjectClick={handleProjectClick} />
           <MusicPlayer />
         </PlayerSection>
         <QueueSection>
-          <ProjectQueue />
+          <ProjectQueue onProjectModalOpen={() => setIsProjectModalOpen(true)} />
         </QueueSection>
       </WorkContainer>
       

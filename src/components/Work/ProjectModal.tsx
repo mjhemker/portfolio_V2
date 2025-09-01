@@ -64,94 +64,231 @@ const ScrollContainer = styled.div`
 const HeroSection = styled.div`
   position: relative;
   background: linear-gradient(135deg, 
-    rgba(255, 140, 0, 0.1) 0%, 
-    rgba(255, 69, 0, 0.05) 100%);
-  padding: 3rem 2rem;
+    rgba(255, 140, 0, 0.15) 0%, 
+    rgba(255, 69, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.9) 100%);
+  padding: 4rem 3rem;
   text-align: center;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png') center/contain no-repeat;
+    opacity: 0.1;
+    filter: blur(2px);
+  }
+`;
+
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 `;
 
 const ProjectLogo = styled.img`
-  width: 80px;
-  height: 80px;
-  margin-bottom: 1rem;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
+  width: 120px;
+  height: 120px;
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  box-shadow: 0 20px 40px rgba(255, 140, 0, 0.3);
+  filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.4));
 `;
 
 const ProjectTitle = styled.h1`
-  font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
+  font-size: ${({ theme }) => theme.typography.fontSize['4xl']};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #ff8c00, #ff4500);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff8c00, #ff4500, #ff6b35);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
 `;
 
 const ProjectTagline = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: ${({ theme }) => theme.colors.text.secondary};
-  margin-bottom: 2rem;
-  font-style: italic;
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  color: ${({ theme }) => theme.colors.text.primary};
+  margin-bottom: 3rem;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
 `;
 
 const ActionButtons = styled.div`
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
 `;
 
 const ActionButton = styled(motion.button)`
-  background: rgba(255, 140, 0, 0.1);
-  border: 1px solid rgba(255, 140, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 69, 0, 0.1));
+  border: 2px solid rgba(255, 140, 0, 0.4);
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   color: #ff8c00;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
   
   &:hover {
-    background: rgba(255, 140, 0, 0.2);
-    border-color: rgba(255, 140, 0, 0.5);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.3), rgba(255, 69, 0, 0.2));
+    border-color: rgba(255, 140, 0, 0.6);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.2);
   }
 `;
 
-const ContentSection = styled.div`
+const FeatureSection = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 3rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+`;
+
+const FeatureCard = styled(motion.div)`
+  background: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff8c00, #ff4500);
+  }
+`;
+
+const FeatureTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: #ff8c00;
+  margin-bottom: 1rem;
+`;
+
+const FeatureText = styled.p`
+  color: ${({ theme }) => theme.colors.text.secondary};
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+`;
+
+const MediaShowcase = styled.div`
+  padding: 3rem;
+  background: linear-gradient(135deg, 
+    rgba(255, 140, 0, 0.05) 0%, 
+    rgba(0, 0, 0, 0.95) 100%);
+`;
+
+const ShowcaseGrid = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const MainMediaCard = styled(motion.div)`
+  background: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid rgba(255, 140, 0, 0.3);
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  overflow: hidden;
+  position: relative;
+`;
+
+const SideMediaGrid = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem;
 `;
 
 const SectionTitle = styled.h2`
   font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: ${({ theme }) => theme.colors.text.primary};
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(255, 140, 0, 0.2);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff8c00, #ff4500);
+    border-radius: 2px;
+  }
 `;
 
 const MediaGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 `;
 
 const MediaCard = styled(motion.div)`
   background: ${({ theme }) => theme.colors.secondary};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  border: 1px solid rgba(255, 140, 0, 0.2);
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
   cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: rgba(255, 140, 0, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.15);
+  }
 `;
 
 const MediaImage = styled.img`
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
 `;
 
@@ -160,7 +297,7 @@ const MediaInfo = styled.div`
 `;
 
 const MediaTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
@@ -168,7 +305,7 @@ const MediaTitle = styled.h3`
 
 const VideoPlayer = styled.video`
   width: 100%;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius.md};
 `;
@@ -178,7 +315,7 @@ const PlayButton = styled(motion.div)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.9), rgba(255, 69, 0, 0.9));
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -187,11 +324,14 @@ const PlayButton = styled(motion.div)`
   justify-content: center;
   color: white;
   pointer-events: none;
+  box-shadow: 0 8px 25px rgba(255, 140, 0, 0.3);
 `;
 
 const VideoWrapper = styled.div`
   position: relative;
   cursor: pointer;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  overflow: hidden;
 `;
 
 const DescriptionText = styled.div`
@@ -310,50 +450,228 @@ Society has set the narrative that *"Gen Z Can't Cook."* But what Gen Z **is** g
 
         <ScrollContainer>
           <HeroSection>
-            <ProjectLogo 
-              src="/projects_assets/pantreat/app+name.png" 
-              alt="Pantreat Logo"
-            />
+            <LogoContainer>
+              <ProjectLogo 
+                src="/projects_assets/pantreat/app+name.png" 
+                alt="Pantreat Logo"
+              />
+            </LogoContainer>
             <ProjectTitle>Pantreat</ProjectTitle>
             <ProjectTagline>
-              Your all-in-one AI-Kitchen assistant that makes cooking cool again
+              Your all-in-one AI-Kitchen assistant that makes cooking cool again.
+              Unlike expensive meal services or smart fridges, all you need is your phone and an appetite.
             </ProjectTagline>
             
             <ActionButtons>
               <ActionButton
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Play size={18} />
+                <Play size={20} />
                 Watch Demo
               </ActionButton>
               <ActionButton
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Github size={18} />
+                <Github size={20} />
                 View Code
               </ActionButton>
               <ActionButton
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <ExternalLink size={18} />
+                <ExternalLink size={20} />
                 Live Demo
               </ActionButton>
             </ActionButtons>
           </HeroSection>
 
-          <ContentSection>
-            <SectionTitle>Project Overview</SectionTitle>
-            <DescriptionText
-              dangerouslySetInnerHTML={{ 
-                __html: description.replace(/\n/g, '<br/>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')
-              }}
-            />
+          <FeatureSection>
+            <FeatureCard
+              whileHover={{ y: -4 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <FeatureTitle>🎯 Problem</FeatureTitle>
+              <FeatureText>
+                Society has set the narrative that "Gen Z Can't Cook." But what Gen Z is good at 
+                is learning from each other. After interviewing ~30 students and young adults, 
+                the three biggest cooking struggles were: Organization, Anxiety, and Lack of Excitement.
+              </FeatureText>
+            </FeatureCard>
+            
+            <FeatureCard
+              whileHover={{ y: -4 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <FeatureTitle>💡 Solution</FeatureTitle>
+              <FeatureText>
+                Pantreat taps into Gen Z's habit of learning from social media. It combines AI-powered 
+                recipe suggestions, pantry management, and a TikTok-style feed where every cooking 
+                video has an attached recipe and instant grocery ordering.
+              </FeatureText>
+            </FeatureCard>
+          </FeatureSection>
 
+          <MediaShowcase>
+            <SectionTitle>Product Journey</SectionTitle>
+            
+            <ShowcaseGrid>
+              <MainMediaCard
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4')}>
+                  <VideoPlayer
+                    src="/projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                    muted
+                    loop
+                    playsInline
+                    ref={(video) => {
+                      if (video) {
+                        if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                  />
+                  <AnimatePresence>
+                    {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
+                      <PlayButton
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Play size={32} />
+                      </PlayButton>
+                    )}
+                  </AnimatePresence>
+                </VideoWrapper>
+              </MainMediaCard>
+              
+              <SideMediaGrid>
+                <MediaCard
+                  whileHover={{ scale: 1.02 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <MediaImage src="/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png" alt="App Mockups" />
+                  <MediaInfo>
+                    <MediaTitle>UI/UX Design</MediaTitle>
+                  </MediaInfo>
+                </MediaCard>
+                
+                <MediaCard
+                  whileHover={{ scale: 1.02 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/recipes.mp4')}>
+                    <VideoPlayer
+                      src="/projects_assets/pantreat/demo_videos/recipes.mp4"
+                      muted
+                      loop
+                      playsInline
+                      style={{ height: '120px' }}
+                      ref={(video) => {
+                        if (video) {
+                          if (playingVideo === '/projects_assets/pantreat/demo_videos/recipes.mp4') {
+                            video.play();
+                          } else {
+                            video.pause();
+                          }
+                        }
+                      }}
+                    />
+                    <AnimatePresence>
+                      {playingVideo !== '/projects_assets/pantreat/demo_videos/recipes.mp4' && (
+                        <PlayButton
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          <Play size={20} />
+                        </PlayButton>
+                      )}
+                    </AnimatePresence>
+                  </VideoWrapper>
+                  <MediaInfo>
+                    <MediaTitle>Recipe Discovery</MediaTitle>
+                  </MediaInfo>
+                </MediaCard>
+              </SideMediaGrid>
+            </ShowcaseGrid>
+
+            
+            <MediaGrid>
+              <MediaCard
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/input+filters.mp4')}>
+                  <VideoPlayer
+                    src="/projects_assets/pantreat/demo_videos/input+filters.mp4"
+                    muted
+                    loop
+                    playsInline
+                    style={{ height: '150px' }}
+                    ref={(video) => {
+                      if (video) {
+                        if (playingVideo === '/projects_assets/pantreat/demo_videos/input+filters.mp4') {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                  />
+                  <AnimatePresence>
+                    {playingVideo !== '/projects_assets/pantreat/demo_videos/input+filters.mp4' && (
+                      <PlayButton
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        <Play size={20} />
+                      </PlayButton>
+                    )}
+                  </AnimatePresence>
+                </VideoWrapper>
+                <MediaInfo>
+                  <MediaTitle>Smart Filtering</MediaTitle>
+                </MediaInfo>
+              </MediaCard>
+              
+              <MediaCard
+                whileHover={{ scale: 1.02 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <MediaImage src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" alt="Cook Mode" />
+                <MediaInfo>
+                  <MediaTitle>AI Cook Mode</MediaTitle>
+                </MediaInfo>
+              </MediaCard>
+            </MediaGrid>
+            
             <TechStackSection>
-              <SectionTitle>Tech Stack</SectionTitle>
+              <SectionTitle>Built With</SectionTitle>
               <TechStack>
                 <TechTag>React Native</TechTag>
                 <TechTag>TypeScript</TechTag>
@@ -365,57 +683,7 @@ Society has set the narrative that *"Gen Z Can't Cook."* But what Gen Z **is** g
                 <TechTag>AI/ML</TechTag>
               </TechStack>
             </TechStackSection>
-
-            <SectionTitle>Media Gallery</SectionTitle>
-            <MediaGrid>
-              {mediaItems.map((item, index) => (
-                <MediaCard
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.4 }}
-                  whileHover={{ y: -4, boxShadow: "0 8px 25px rgba(0, 0, 0, 0.1)" }}
-                >
-                  {item.type === 'image' ? (
-                    <MediaImage src={item.src} alt={item.title} />
-                  ) : (
-                    <VideoWrapper onClick={() => handleVideoClick(item.src)}>
-                      <VideoPlayer
-                        src={item.src}
-                        muted
-                        loop
-                        playsInline
-                        ref={(video) => {
-                          if (video) {
-                            if (playingVideo === item.src) {
-                              video.play();
-                            } else {
-                              video.pause();
-                            }
-                          }
-                        }}
-                      />
-                      <AnimatePresence>
-                        {playingVideo !== item.src && (
-                          <PlayButton
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            whileHover={{ scale: 1.1 }}
-                          >
-                            <Play size={24} />
-                          </PlayButton>
-                        )}
-                      </AnimatePresence>
-                    </VideoWrapper>
-                  )}
-                  <MediaInfo>
-                    <MediaTitle>{item.title}</MediaTitle>
-                  </MediaInfo>
-                </MediaCard>
-              ))}
-            </MediaGrid>
-          </ContentSection>
+          </MediaShowcase>
         </ScrollContainer>
       </ModalContent>
     </Modal>

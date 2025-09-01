@@ -3,13 +3,13 @@ import type { Project } from '../types';
 export const projects: Project[] = [
   {
     id: '1',
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution built with React and Node.js, featuring user authentication, payment processing, and admin dashboard.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'TypeScript'],
-    image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
+    title: 'Pantreat',
+    description: 'AI-Kitchen assistant that makes cooking cool again. Your all-in-one solution for recipe discovery, pantry management, and culinary inspiration.',
+    technologies: ['React Native', 'TypeScript', 'Supabase', 'OpenAI API', 'Expo'],
+    image: '/projects_assets/pantreat/app+name.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '3:45'
+    duration: '4:28'
   },
   {
     id: '2',
