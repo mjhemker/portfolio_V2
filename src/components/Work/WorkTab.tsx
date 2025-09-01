@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MusicPlayer } from './MusicPlayer';
 import { ProjectQueue } from './ProjectQueue';
 import { ProjectsIntro } from './ProjectsIntro';
@@ -41,41 +41,14 @@ const QueueSection = styled.div`
 `;
 
 export const WorkTab: React.FC = () => {
-  const [showIntro, setShowIntro] = useState(() => {
-    // Check if user has seen the intro before (stored in localStorage)
-    return localStorage.getItem('hasSeenProjectsIntro') !== 'true';
-  });
-
-  const handleIntroComplete = () => {
-    localStorage.setItem('hasSeenProjectsIntro', 'true');
-    setShowIntro(false);
-  };
-
-  // Reset intro visibility for development/testing (remove in production)
-  useEffect(() => {
-    const resetIntro = () => {
-      if (window.location.search.includes('reset-intro')) {
-        localStorage.removeItem('hasSeenProjectsIntro');
-        setShowIntro(true);
-      }
-    };
-    resetIntro();
-  }, []);
-
   return (
     <>
-      <AnimatePresence>
-        {showIntro && (
-          <ProjectsIntro onComplete={handleIntroComplete} />
-        )}
-      </AnimatePresence>
-      
+      <ProjectsIntro />
       <WorkContainer
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.4, delay: showIntro ? 0 : 0, ease: "easeOut" as const }}
-        style={{ pointerEvents: showIntro ? 'none' : 'auto' }}
+        transition={{ duration: 0.4, ease: "easeOut" as const }}
       >
         <PlayerSection>
           <MusicPlayer />

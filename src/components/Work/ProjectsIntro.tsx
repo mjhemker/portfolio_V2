@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Code2, Sparkles, Zap, Cpu, Rocket, ChevronDown } from 'lucide-react';
 
 // Keyframe animations
@@ -10,11 +10,9 @@ const float = keyframes`
   66% { transform: translateY(-10px) rotate(-3deg); }
 `;
 
-
-
 const orbit = keyframes`
-  0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
-  100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+  0% { transform: rotate(0deg) translateX(80px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(80px) rotate(-360deg); }
 `;
 
 const twinkle = keyframes`
@@ -23,22 +21,33 @@ const twinkle = keyframes`
 `;
 
 // Styled components
-const IntroContainer = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at center, 
-    rgba(138, 43, 226, 0.1) 0%, 
-    rgba(0, 0, 0, 0.9) 70%,
-    #000000 100%);
+const IntroSection = styled(motion.div)`
+  position: relative;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  background: linear-gradient(135deg, 
+    rgba(138, 43, 226, 0.1) 0%, 
+    rgba(0, 0, 0, 0.95) 70%,
+    #000000 100%);
   overflow: hidden;
+  z-index: 10;
+`;
+
+const ScrollIndicator = styled(motion.div)`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  z-index: 20;
 `;
 
 const ParticleField = styled.div`
@@ -155,56 +164,6 @@ const FloatingIcon = styled(motion.div)<{ $x: number; $y: number }>`
   animation-delay: ${() => Math.random() * 3}s;
 `;
 
-const ContinueButton = styled(motion.button)`
-  background: linear-gradient(135deg, #8A2BE2, #1E90FF);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
-  
-  &:hover {
-    box-shadow: 0 15px 40px rgba(138, 43, 226, 0.5);
-    transform: translateY(-2px);
-  }
-
-  @media (max-width: 768px) {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-  }
-`;
-
-const SkipButton = styled(motion.button)`
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 1);
-  }
-
-  @media (max-width: 768px) {
-    top: 1rem;
-    right: 1rem;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
-`;
 
 const TwinkleEffect = styled.div<{ $x: number; $y: number; $delay: number }>`
   position: absolute;
@@ -218,28 +177,16 @@ const TwinkleEffect = styled.div<{ $x: number; $y: number; $delay: number }>`
   animation-delay: ${({ $delay }) => $delay}s;
 `;
 
-interface ProjectsIntroProps {
-  onComplete: () => void;
-}
+export const ProjectsIntro: React.FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
 
-export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
-  const [showContent, setShowContent] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleSkip = () => {
-    onComplete();
-  };
-
-  const handleContinue = () => {
-    onComplete();
-  };
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 0.5, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
   // Generate particles
   const particles = Array.from({ length: 50 }, (_, i) => ({
@@ -273,191 +220,117 @@ export const ProjectsIntro: React.FC<ProjectsIntroProps> = ({ onComplete }) => {
     delay: Math.random() * 3
   }));
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        staggerChildren: 0.3
-      }
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.8,
-      transition: { 
-        duration: 0.8, 
-        ease: "easeInOut" as const
-      }
-    }
-  };
-
-  const titleVariants = {
-    hidden: { 
-      y: 100, 
-      opacity: 0, 
-      rotateX: -90 
-    },
-    visible: { 
-      y: 0, 
-      opacity: 1, 
-      rotateX: 0,
-      transition: {
-        type: "spring" as const,
-        stiffness: 100,
-        damping: 15,
-        duration: 1.2
-      }
-    }
-  };
-
-  const subtitleVariants = {
-    hidden: { 
-      y: 50, 
-      opacity: 0 
-    },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: {
-        type: "spring" as const,
-        stiffness: 80,
-        damping: 12,
-        duration: 0.8
-      }
-    }
-  };
 
   return (
-    <AnimatePresence>
-      <IntroContainer
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      >
-        {/* Background Particles */}
-        <ParticleField>
-          {particles.map((particle) => (
-            <Particle
-              key={particle.id}
-              $size={particle.size}
-              $color={particle.color}
-              $duration={particle.duration}
-              $delay={particle.delay}
-              initial={{
-                x: `${particle.x}%`,
-                y: `${particle.y}%`,
-                opacity: 0
-              }}
-              animate={{
-                x: [`${particle.x}%`, `${(particle.x + 30) % 100}%`, `${particle.x}%`],
-                y: [`${particle.y}%`, `${(particle.y + 20) % 100}%`, `${particle.y}%`],
-                opacity: [0, 0.6, 0]
-              }}
-              transition={{
-                duration: particle.duration,
-                repeat: Infinity,
-                delay: particle.delay,
-                ease: "linear" as const
-              }}
-            />
-          ))}
-        </ParticleField>
-
-        {/* Twinkle Effects */}
-        {twinkles.map((twinkle) => (
-          <TwinkleEffect
-            key={twinkle.id}
-            $x={twinkle.x}
-            $y={twinkle.y}
-            $delay={twinkle.delay}
+    <IntroSection
+      ref={ref}
+      style={{
+        y,
+        opacity,
+        scale
+      }}
+    >
+      {/* Background Particles */}
+      <ParticleField>
+        {particles.map((particle) => (
+          <Particle
+            key={particle.id}
+            $size={particle.size}
+            $color={particle.color}
+            $duration={particle.duration}
+            $delay={particle.delay}
+            initial={{
+              x: `${particle.x}%`,
+              y: `${particle.y}%`,
+              opacity: 0
+            }}
+            animate={{
+              x: [`${particle.x}%`, `${(particle.x + 30) % 100}%`, `${particle.x}%`],
+              y: [`${particle.y}%`, `${(particle.y + 20) % 100}%`, `${particle.y}%`],
+              opacity: [0, 0.6, 0]
+            }}
+            transition={{
+              duration: particle.duration,
+              repeat: Infinity,
+              delay: particle.delay,
+              ease: "linear" as const
+            }}
           />
         ))}
+      </ParticleField>
 
-        {/* Floating Icons */}
-        <IconCloud>
-          {floatingIcons.map(({ Icon, x, y }, index) => (
-            <FloatingIcon
-              key={index}
-              $x={x}
-              $y={y}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.6, scale: 1 }}
-              transition={{ delay: 1.5 + index * 0.2, duration: 0.5, ease: "easeOut" as const }}
-            >
-              <Icon size={24} />
-            </FloatingIcon>
-          ))}
-        </IconCloud>
+      {/* Twinkle Effects */}
+      {twinkles.map((twinkle) => (
+        <TwinkleEffect
+          key={twinkle.id}
+          $x={twinkle.x}
+          $y={twinkle.y}
+          $delay={twinkle.delay}
+        />
+      ))}
 
-        {/* Orbiting Icons */}
-        <OrbitingIcon $radius={150} $duration={15}>
-          <Sparkles size={20} />
-        </OrbitingIcon>
-        <OrbitingIcon $radius={120} $duration={12}>
-          <Zap size={16} />
-        </OrbitingIcon>
+      {/* Floating Icons */}
+      <IconCloud>
+        {floatingIcons.map(({ Icon, x, y }, index) => (
+          <FloatingIcon
+            key={index}
+            $x={x}
+            $y={y}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 0.6, scale: 1 }}
+            transition={{ delay: 1.5 + index * 0.2, duration: 0.5, ease: "easeOut" as const }}
+          >
+            <Icon size={24} />
+          </FloatingIcon>
+        ))}
+      </IconCloud>
 
-        {/* Skip Button */}
-        <SkipButton
-          onClick={handleSkip}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, ease: "easeOut" as const }}
+      {/* Orbiting Icons */}
+      <OrbitingIcon $radius={120} $duration={15}>
+        <Sparkles size={20} />
+      </OrbitingIcon>
+      <OrbitingIcon $radius={100} $duration={12}>
+        <Zap size={16} />
+      </OrbitingIcon>
+
+      {/* Main Content */}
+      <MainTitle
+        data-text="Michael Hemker"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 1, ease: "easeOut" as const }}
+        whileHover={{ 
+          scale: 1.02,
+          textShadow: "0 0 50px rgba(138, 43, 226, 0.5)"
+        }}
+      >
+        Michael Hemker
+      </MainTitle>
+
+      <Subtitle 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.8, ease: "easeOut" as const }}
+      >
+        I like making <span className="highlight">cool</span> and{' '}
+        <span className="highlight">practical tools</span> with{' '}
+        <span className="highlight">AI</span>
+      </Subtitle>
+
+      {/* Scroll Indicator */}
+      <ScrollIndicator
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 0.6 }}
+      >
+        <span>Scroll to explore</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}
         >
-          Skip Intro
-        </SkipButton>
-
-        {/* Main Content */}
-        <AnimatePresence>
-          {showContent && (
-            <>
-              <MainTitle
-                data-text="Michael Hemker"
-                variants={titleVariants}
-                whileHover={{ 
-                  scale: 1.02,
-                  textShadow: "0 0 50px rgba(138, 43, 226, 0.5)"
-                }}
-              >
-                Michael Hemker
-              </MainTitle>
-
-              <Subtitle variants={subtitleVariants}>
-                I like making <span className="highlight">cool</span> and{' '}
-                <span className="highlight">practical tools</span> with{' '}
-                <span className="highlight">AI</span>
-              </Subtitle>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2, duration: 0.6, ease: "easeOut" as const }}
-              >
-                <ContinueButton
-                  onClick={handleContinue}
-                  whileHover={{ 
-                    scale: 1.05,
-                    boxShadow: "0 20px 50px rgba(138, 43, 226, 0.6)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Explore My Work
-                  <motion.div
-                    animate={{ y: [0, 5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" as const }}
-                  >
-                    <ChevronDown size={20} />
-                  </motion.div>
-                </ContinueButton>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </IntroContainer>
-    </AnimatePresence>
+          <ChevronDown size={24} />
+        </motion.div>
+      </ScrollIndicator>
+    </IntroSection>
   );
 };

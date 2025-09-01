@@ -1,30 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { artworkByYear, drawingsByCategory } from '../../data/artwork';
 import type { Artwork } from '../../types/index';
 import { ArtworkModal } from './ArtworkModal';
 
-const ArtContainer = styled(motion.div)`
+const ArtContainer = styled.div`
   padding: 6rem 0 2rem;
   min-height: 100vh;
   display: flex;
   max-width: 1400px;
   margin: 0 auto;
   gap: 2rem;
-  background: #ffffff;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #ffffff;
-    z-index: -10;
-  }
 
   @media (max-width: 1024px) {
     flex-direction: column;
@@ -143,7 +129,7 @@ const MainContent = styled.div`
   }
 `;
 
-const ArtHeader = styled(motion.div)`
+const ArtHeader = styled.div`
   text-align: center;
   margin-bottom: 3rem;
   background: linear-gradient(135deg, #f8f9fa, #ffffff);
@@ -188,7 +174,7 @@ const ArtSubtitle = styled.p`
   }
 `;
 
-const YearSection = styled(motion.section)`
+const YearSection = styled.section`
   margin-bottom: 4rem;
 `;
 
@@ -217,7 +203,7 @@ const ArtworkGrid = styled.div`
   }
 `;
 
-const ArtworkCard = styled(motion.div)`
+const ArtworkCard = styled.div`
   background: #ffffff;
   border: 1px solid #e9ecef;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
@@ -323,12 +309,7 @@ export const ArtTab: React.FC = () => {
 
   return (
     <>
-      <ArtContainer
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.4 }}
-      >
+      <ArtContainer>
         <Sidebar>
           <SidebarNav>
             <SidebarTitle>Navigate Gallery</SidebarTitle>
@@ -348,11 +329,7 @@ export const ArtTab: React.FC = () => {
         </Sidebar>
 
         <MainContent>
-          <ArtHeader
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <ArtHeader>
             <ArtTitle>Art Gallery</ArtTitle>
             <ArtSubtitle>
               A curated collection of my artistic works exploring various mediums and themes, 
@@ -360,28 +337,17 @@ export const ArtTab: React.FC = () => {
             </ArtSubtitle>
           </ArtHeader>
 
-          {years.map((year, yearIndex) => (
+          {years.map((year) => (
             <YearSection
               key={year}
               id={`section-${year}`}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: yearIndex * 0.1 }}
             >
               <YearHeader>{year}</YearHeader>
               <ArtworkGrid>
-                {artworkByYear[year].map((artwork, index) => (
+                {artworkByYear[year].map((artwork) => (
                   <ArtworkCard
                     key={artwork.id}
                     onClick={() => handleArtworkClick(artwork)}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      delay: (yearIndex * 0.1) + (index * 0.05),
-                      duration: 0.3 
-                    }}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
                   >
                     <ArtworkImage
                       src={artwork.image}
@@ -396,28 +362,17 @@ export const ArtTab: React.FC = () => {
             </YearSection>
           ))}
 
-          {Object.entries(drawingsByCategory).map(([category, artworks], categoryIndex) => (
+          {Object.entries(drawingsByCategory).map(([category, artworks]) => (
             <YearSection
               key={category}
               id={`section-drawings`}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: (years.length + categoryIndex) * 0.1 }}
             >
               <YearHeader>{category}</YearHeader>
               <ArtworkGrid>
-                {artworks.map((artwork, index) => (
+                {artworks.map((artwork) => (
                   <ArtworkCard
                     key={artwork.id}
                     onClick={() => handleArtworkClick(artwork)}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      delay: ((years.length + categoryIndex) * 0.1) + (index * 0.05),
-                      duration: 0.3 
-                    }}
-                    whileHover={{ y: -4 }}
-                    whileTap={{ scale: 0.98 }}
                   >
                     <ArtworkImage
                       src={artwork.image}
