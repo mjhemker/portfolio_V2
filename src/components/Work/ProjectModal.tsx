@@ -10,7 +10,7 @@ interface ProjectModalProps {
 }
 
 const ModalContent = styled(motion.div)`
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   width: 95vw;
   max-width: 1200px;
