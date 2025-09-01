@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Play, ExternalLink, Github } from 'lucide-react';
+import { X, Play, ExternalLink } from 'lucide-react';
 import { Modal } from '../UI/Modal';
 
 interface ProjectModalProps {

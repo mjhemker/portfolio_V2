@@ -489,40 +489,58 @@ export const MusicPlayer: React.FC = () => {
             {currentProject.description}
           </ProjectDescription>
           
-          <TechnologyList
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            {currentProject.technologies.map((tech) => (
-              <TechnologyTag key={tech}>{tech}</TechnologyTag>
-            ))}
-          </TechnologyList>
+          {currentProject.id !== '1' && (
+            <motion.div
+              style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', margin: '1rem 0' }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              {currentProject.technologies.map((tech) => (
+                <span 
+                  key={tech}
+                  style={{
+                    background: 'var(--theme-colors-surface)',
+                    color: 'var(--theme-colors-text-primary)',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '9999px',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    border: '1px solid var(--theme-colors-border)'
+                  }}
+                >
+                  {tech}
+                </span>
+              ))}
+            </motion.div>
+          )}
           
-          <ProjectLinks
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            {currentProject.liveUrl && (
-              <Button
-                variant="primary"
-                icon={<ExternalLink size={16} />}
-                onClick={() => window.open(currentProject.liveUrl, '_blank')}
-              >
-                Live Demo
-              </Button>
-            )}
-            {currentProject.repoUrl && (
-              <Button
-                variant="secondary"
-                icon={<Github size={16} />}
-                onClick={() => window.open(currentProject.repoUrl, '_blank')}
-              >
-                Source Code
-              </Button>
-            )}
-          </ProjectLinks>
+          {currentProject.id !== '1' && (
+            <ProjectLinks
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              {currentProject.liveUrl && (
+                <Button
+                  variant="primary"
+                  icon={<ExternalLink size={16} />}
+                  onClick={() => window.open(currentProject.liveUrl, '_blank')}
+                >
+                  Live Demo
+                </Button>
+              )}
+              {currentProject.repoUrl && (
+                <Button
+                  variant="secondary"
+                  icon={<Github size={16} />}
+                  onClick={() => window.open(currentProject.repoUrl, '_blank')}
+                >
+                  Source Code
+                </Button>
+              )}
+            </ProjectLinks>
+          )}
         </ProjectInfo>
       </ProjectDisplay>
 
