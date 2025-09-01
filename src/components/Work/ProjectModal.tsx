@@ -334,31 +334,6 @@ const VideoWrapper = styled.div`
   overflow: hidden;
 `;
 
-const DescriptionText = styled.div`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
-  color: ${({ theme }) => theme.colors.text.secondary};
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  
-  h3 {
-    color: ${({ theme }) => theme.colors.text.primary};
-    font-size: ${({ theme }) => theme.typography.fontSize.lg};
-    margin: 2rem 0 1rem 0;
-  }
-  
-  p {
-    margin-bottom: 1rem;
-  }
-  
-  ul {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-  }
-  
-  li {
-    margin-bottom: 0.5rem;
-  }
-`;
 
 const TechStackSection = styled.div`
   margin-bottom: 2rem;
@@ -383,54 +358,9 @@ const TechTag = styled.span`
 export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
-  const mediaItems = [
-    {
-      type: 'image',
-      src: '/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png',
-      title: 'App Mockups',
-      description: 'UI/UX design showcasing the main interface'
-    },
-    {
-      type: 'video',
-      src: '/projects_assets/pantreat/demo_videos/MyPantry.mp4',
-      title: 'My Pantry Feature',
-      description: 'Inventory management and organization'
-    },
-    {
-      type: 'video',
-      src: '/projects_assets/pantreat/demo_videos/recipes.mp4',
-      title: 'Recipe Discovery',
-      description: 'AI-powered recipe suggestions'
-    },
-    {
-      type: 'video',
-      src: '/projects_assets/pantreat/demo_videos/input+filters.mp4',
-      title: 'Smart Filtering',
-      description: 'Ingredient-based recipe filtering'
-    }
-  ];
-
   const handleVideoClick = (src: string) => {
     setPlayingVideo(playingVideo === src ? null : src);
   };
-
-  const description = `
-**Your all-in-one AI-Kitchen assistant that makes cooking cool again.**
-Unlike other kitchen aids (meal services or smart fridges that cost a fortune), all you need is your **phone and an appetite.**
-
-### Background
-I grew up in a household where cooking was not just a task, but a way to bring people together — a way to prioritize health as well as the wallet. Sadly, this isn't the case for many younger generations today.
-
-Society has set the narrative that *"Gen Z Can't Cook."* But what Gen Z **is** good at is learning from each other. Pantreat taps into this habit, giving Gen Z a platform to do what they do best — influence and inspire one another.
-
-### How Pantreat Helps
-
-**Organization:** Cooking consistently is hard. Plans change, value packs pile up, and suddenly you're staring at a fridge full of forgotten ingredients. Pantreat helps you make meals with what you already have and keeps you organized with expiration reminders.
-
-**Reduces Anxiety:** Pantreat's Cook Mode acts as your custom AI-sous chef, walking you through recipes step-by-step with built-in timers, voice responses, and smart substitutions.
-
-**Excitement & Discovery:** The feed features short-form cooking videos from friends, influencers, and creators. Unlike Instagram or TikTok, every video has an attached recipe and auto-adjusting grocery list.
-  `;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
