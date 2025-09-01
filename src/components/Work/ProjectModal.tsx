@@ -329,15 +329,6 @@ const BusinessSection = styled.div`
   background: ${({ theme }) => theme.colors.secondary};
 `;
 
-const BusinessGrid = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 3rem;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`;
 
 const BusinessCard = styled.div`
   background: ${({ theme }) => theme.colors.primary};
