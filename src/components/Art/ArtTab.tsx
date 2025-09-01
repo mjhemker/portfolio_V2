@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 import { artworkByYear, drawingsByCategory } from '../../data/artwork';
 import type { Artwork } from '../../types/index';
 import { ArtworkModal } from './ArtworkModal';
 
-const ArtContainer = styled.div`
+const ArtContainer = styled(motion.div)`
   padding: 6rem 0 2rem;
   min-height: 100vh;
   display: flex;
@@ -34,29 +35,17 @@ const Sidebar = styled.div`
 `;
 
 const SidebarNav = styled.nav`
-  background: #ffffff;
-  border: 1px solid #e9ecef;
+  background: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: 1.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #007bff, #40a9ff, #007bff);
-    border-radius: ${({ theme }) => theme.borderRadius.xl} ${({ theme }) => theme.borderRadius.xl} 0 0;
-  }
+  box-shadow: ${({ theme }) => theme.shadows.md};
 `;
 
 const SidebarTitle = styled.h3`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: #212529;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 1rem;
   text-align: center;
 `;
@@ -73,50 +62,23 @@ const SidebarItem = styled.li`
 
 const SidebarLink = styled.a<{ $isActive?: boolean }>`
   display: block;
-  padding: 0.875rem 1.25rem;
+  padding: 0.75rem 1rem;
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ $isActive }) => 
-    $isActive ? '#007bff' : '#6c757d'
+  color: ${({ $isActive, theme }) => 
+    $isActive ? theme.colors.accent : theme.colors.text.secondary
   };
-  background: ${({ $isActive }) => 
-    $isActive ? 'linear-gradient(135deg, #e3f2fd, #f0f8ff)' : 'transparent'
+  background: ${({ $isActive, theme }) => 
+    $isActive ? theme.colors.surface : 'transparent'
   };
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all ${({ theme }) => theme.animations.fast};
   cursor: pointer;
-  border: 1px solid ${({ $isActive }) => 
-    $isActive ? '#b3d9ff' : 'transparent'
-  };
-  font-weight: ${({ $isActive }) => $isActive ? '500' : '400'};
-  position: relative;
-  
-  ${({ $isActive }) => $isActive && `
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
-    
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 3px;
-      height: 60%;
-      background: #007bff;
-      border-radius: 0 2px 2px 0;
-    }
-  `}
 
   &:hover {
-    background: ${({ $isActive }) => 
-      $isActive 
-        ? 'linear-gradient(135deg, #d6edff, #e8f4ff)' 
-        : '#f8f9fa'
-    };
-    color: #007bff;
-    border-color: #b3d9ff;
-    transform: translateX(6px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
+    background: ${({ theme }) => theme.colors.hover};
+    color: ${({ theme }) => theme.colors.accent};
+    transform: translateX(4px);
   }
 `;
 
@@ -129,32 +91,15 @@ const MainContent = styled.div`
   }
 `;
 
-const ArtHeader = styled.div`
+const ArtHeader = styled(motion.div)`
   text-align: center;
   margin-bottom: 3rem;
-  background: linear-gradient(135deg, #f8f9fa, #ffffff);
-  padding: 2rem;
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  border: 1px solid #e9ecef;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #007bff, #40a9ff, #007bff);
-    border-radius: ${({ theme }) => theme.borderRadius.xl} ${({ theme }) => theme.borderRadius.xl} 0 0;
-  }
 `;
 
 const ArtTitle = styled.h1`
   font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: #212529;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 1rem;
 
   @media (max-width: 768px) {
@@ -164,7 +109,7 @@ const ArtTitle = styled.h1`
 
 const ArtSubtitle = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: #6c757d;
+  color: ${({ theme }) => theme.colors.text.secondary};
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -174,17 +119,17 @@ const ArtSubtitle = styled.p`
   }
 `;
 
-const YearSection = styled.section`
+const YearSection = styled(motion.section)`
   margin-bottom: 4rem;
 `;
 
 const YearHeader = styled.h2`
   font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: #212529;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: 2rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const ArtworkGrid = styled.div`
@@ -203,10 +148,10 @@ const ArtworkGrid = styled.div`
   }
 `;
 
-const ArtworkCard = styled.div`
-  background: #ffffff;
-  border: 1px solid #e9ecef;
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
+const ArtworkCard = styled(motion.div)`
+  background: ${({ theme }) => theme.colors.secondary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
   cursor: pointer;
   transition: all ${({ theme }) => theme.animations.fast};
@@ -215,12 +160,11 @@ const ArtworkCard = styled.div`
   break-inside: avoid;
   margin-bottom: 1.5rem;
   width: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   &:hover {
-    border-color: #007bff;
+    border-color: ${({ theme }) => theme.colors.accent};
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
   }
 
   @media (max-width: 768px) {
@@ -251,7 +195,7 @@ const ArtworkInfo = styled.div`
 const ArtworkTitle = styled.h3`
   font-size: ${({ theme }) => theme.typography.fontSize.base};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  color: #212529;
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
   text-align: center;
 `;
@@ -309,7 +253,12 @@ export const ArtTab: React.FC = () => {
 
   return (
     <>
-      <ArtContainer>
+      <ArtContainer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         <Sidebar>
           <SidebarNav>
             <SidebarTitle>Navigate Gallery</SidebarTitle>
@@ -329,7 +278,11 @@ export const ArtTab: React.FC = () => {
         </Sidebar>
 
         <MainContent>
-          <ArtHeader>
+          <ArtHeader
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
             <ArtTitle>Art Gallery</ArtTitle>
             <ArtSubtitle>
               A curated collection of my artistic works exploring various mediums and themes, 
@@ -341,6 +294,9 @@ export const ArtTab: React.FC = () => {
             <YearSection
               key={year}
               id={`section-${year}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <YearHeader>{year}</YearHeader>
               <ArtworkGrid>
@@ -348,6 +304,10 @@ export const ArtTab: React.FC = () => {
                   <ArtworkCard
                     key={artwork.id}
                     onClick={() => handleArtworkClick(artwork)}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    whileHover={{ y: -8, transition: { duration: 0.2 } }}
                   >
                     <ArtworkImage
                       src={artwork.image}
@@ -366,6 +326,9 @@ export const ArtTab: React.FC = () => {
             <YearSection
               key={category}
               id={`section-drawings`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <YearHeader>{category}</YearHeader>
               <ArtworkGrid>
@@ -373,6 +336,10 @@ export const ArtTab: React.FC = () => {
                   <ArtworkCard
                     key={artwork.id}
                     onClick={() => handleArtworkClick(artwork)}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    whileHover={{ y: -8, transition: { duration: 0.2 } }}
                   >
                     <ArtworkImage
                       src={artwork.image}
