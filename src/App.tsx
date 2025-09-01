@@ -11,21 +11,18 @@ import { ArtTab } from './components/Art/ArtTab';
 import { AboutTab } from './components/About/AboutTab';
 import { useKeyboardControls } from './hooks/useKeyboardControls';
 
-const BackgroundTransition = styled(motion.div)<{ $isArtTab: boolean }>`
+const BackgroundTransition = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: -20;
-  background: ${({ $isArtTab }) => 
-    $isArtTab ? '#ffffff' : '#0a0a0a'
-  };
+  background: #0a0a0a;
 `;
 
 const AppContent: React.FC = () => {
   const { activeTab } = useAppContext();
-  const isArtTab = activeTab === 'art';
   
   // Initialize keyboard controls
   useKeyboardControls();
@@ -46,16 +43,7 @@ const AppContent: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      <BackgroundTransition
-        $isArtTab={isArtTab}
-        animate={{
-          background: isArtTab ? '#ffffff' : '#0a0a0a'
-        }}
-        transition={{ 
-          duration: 0.8, 
-          ease: [0.4, 0, 0.2, 1]
-        }}
-      />
+      <BackgroundTransition />
       <Navigation />
       <AnimatePresence mode="wait">
         {renderActiveTab()}
