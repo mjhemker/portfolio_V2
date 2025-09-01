@@ -125,23 +125,6 @@ const ProjectDescription = styled(motion.p)`
   margin: 0;
 `;
 
-const TechnologyList = styled(motion.div)`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0;
-`;
-
-const TechnologyTag = styled.span`
-  background: ${({ theme }) => theme.colors.surface};
-  color: ${({ theme }) => theme.colors.text.primary};
-  padding: 0.25rem 0.75rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
 const ProjectLinks = styled(motion.div)`
   display: flex;
   gap: 1rem;

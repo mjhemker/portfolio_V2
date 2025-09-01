@@ -216,7 +216,8 @@ const AssetCard = styled(motion.div)`
 const MediaImage = styled.img`
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+  max-height: 400px;
 `;
 
 const FeatureShowcase = styled.div`
@@ -295,9 +296,11 @@ const FeatureMedia = styled.div`
 
 const VideoPlayer = styled.video`
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: contain;
   border-radius: ${({ theme }) => theme.borderRadius.md};
+  background: rgba(0, 0, 0, 0.1);
 `;
 
 const PlayButton = styled(motion.div)`
@@ -401,7 +404,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
         <ScrollContainer>
           <HeroSection>
             <ProjectLogo 
-              src="/projects_assets/pantreat/app+name.png" 
+              src="/projects_assets/pantreat/app_cover.png" 
               alt="Pantreat Logo"
             />
             <ProjectTitle>Pantreat</ProjectTitle>
@@ -411,22 +414,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
             </ProjectTagline>
             
             <ActionButtons>
-              <ActionButton
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4')}
-              >
-                <Play size={20} />
-                Watch Demo
-              </ActionButton>
-              <ActionButton
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('https://github.com/mjhemker', '_blank')}
-              >
-                <Github size={20} />
-                View Code
-              </ActionButton>
               <ActionButton
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -464,7 +451,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <MediaImage src="/projects_assets/pantreat/screen_shots/App_preview_Home.png" alt="Home Screen" />
+                <MediaImage 
+                  src="/projects_assets/pantreat/screen_shots/App_preview_Home.png" 
+                  alt="Home Screen"
+                  style={{ padding: '1rem', background: 'transparent' }}
+                />
               </AssetCard>
             </ContentGrid>
           </ContentSection>
@@ -478,7 +469,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <MediaImage src="/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png" alt="App Mockups" />
+                <MediaImage 
+                  src="/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png" 
+                  alt="App Mockups"
+                  style={{ padding: '2rem', background: 'transparent' }}
+                />
               </AssetCard>
               <TextBlock>
                 <SubTitle>Research Results</SubTitle>
@@ -521,6 +516,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                       muted
                       loop
                       playsInline
+                      style={{ maxHeight: '300px' }}
                       ref={(video) => {
                         if (video) {
                           if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
@@ -564,7 +560,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                 </FeatureContent>
                 <FeatureMedia>
                   <AssetCard>
-                    <MediaImage src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" alt="Cook Mode" />
+                    <MediaImage 
+                      src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
+                      alt="Cook Mode"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
                   </AssetCard>
                 </FeatureMedia>
               </FeatureBlock>
@@ -589,6 +589,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                       muted
                       loop
                       playsInline
+                      style={{ maxHeight: '300px' }}
                       ref={(video) => {
                         if (video) {
                           if (playingVideo === '/projects_assets/pantreat/demo_videos/recipes.mp4') {
@@ -641,7 +642,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <MediaImage src="/projects_assets/pantreat/screen_shots/App_preview_Profile.png" alt="Profile Screen" />
+                <MediaImage 
+                  src="/projects_assets/pantreat/screen_shots/App_preview_Profile.png" 
+                  alt="Profile Screen"
+                  style={{ padding: '1rem', background: 'transparent' }}
+                />
               </AssetCard>
             </ContentGrid>
           </BusinessSection>
@@ -661,6 +666,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
                     muted
                     loop
                     playsInline
+                    style={{ maxHeight: '300px' }}
                     ref={(video) => {
                       if (video) {
                         if (playingVideo === '/projects_assets/pantreat/demo_videos/input+filters.mp4') {
