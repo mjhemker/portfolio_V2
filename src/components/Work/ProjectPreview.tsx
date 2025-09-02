@@ -60,16 +60,6 @@ const ProjectInfo = styled.div`
   flex: 1;
 `;
 
-const ProjectTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text.primary};
-  margin: 0 0 0.25rem 0;
-  background: linear-gradient(135deg, #ff8c00, #ff4500);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-`;
 
 const ProjectTagline = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
