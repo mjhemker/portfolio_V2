@@ -46,13 +46,14 @@ const ProjectHeader = styled.div`
 `;
 
 const ProjectLogo = styled.img`
-  width: 60px;
   height: 60px;
+  width: auto;
+  max-width: 200px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   box-shadow: 0 4px 12px rgba(255, 140, 0, 0.2);
   object-fit: contain;
   background: white;
-  padding: 0.25rem;
+  padding: 0.5rem;
 `;
 
 const ProjectInfo = styled.div`
@@ -127,7 +128,6 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           alt="Pantreat Logo"
         />
         <ProjectInfo>
-          <ProjectTitle>Pantreat</ProjectTitle>
           <ProjectTagline>AI-Kitchen assistant that makes cooking cool again</ProjectTagline>
         </ProjectInfo>
         <ProjectActions>

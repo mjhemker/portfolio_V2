@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: 'Pantreat',
     description: 'AI-Kitchen assistant that makes cooking cool again. Your all-in-one solution for recipe discovery, pantry management, and culinary inspiration.',
     technologies: ['React Native', 'TypeScript', 'Supabase', 'OpenAI API', 'Expo'],
-    image: '/projects_assets/pantreat/app+name.png',
+    image: '/projects_assets/pantreat/app_cover.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
     duration: '4:28'
