@@ -242,25 +242,15 @@ const QueueCounter = styled.span`
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
 `;
 
-interface ProjectQueueProps {
-  onProjectModalOpen: () => void;
-}
-
-export const ProjectQueue: React.FC<ProjectQueueProps> = ({ onProjectModalOpen }) => {
+export const ProjectQueue: React.FC = () => {
   const { playerState, setPlayerState } = useAppContext();
 
   const handleProjectClick = (index: number) => {
-    if (index === 0) {
-      // Pantreat project - open modal
-      onProjectModalOpen();
-    } else {
-      // Other projects - play normally
-      setPlayerState((prev) => ({
-        ...prev,
-        currentProjectIndex: index,
-        isPlaying: true
-      }));
-    }
+    setPlayerState((prev) => ({
+      ...prev,
+      currentProjectIndex: index,
+      isPlaying: false
+    }));
   };
 
   return (

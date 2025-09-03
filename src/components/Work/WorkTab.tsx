@@ -6,6 +6,7 @@ import { ProjectQueue } from './ProjectQueue';
 import { ProjectsIntro } from './ProjectsIntro';
 import { ProjectModal } from './ProjectModal';
 import { ProjectPreview } from './ProjectPreview';
+import { useAppContext } from '../../contexts/AppContext';
 
 const WorkContainer = styled(motion.div)`
   display: flex;
@@ -45,6 +46,7 @@ const QueueSection = styled.div`
 
 export const WorkTab: React.FC = () => {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const { playerState } = useAppContext();
 
   const handleProjectClick = () => {
     setIsProjectModalOpen(true);
@@ -64,11 +66,14 @@ export const WorkTab: React.FC = () => {
         transition={{ duration: 0.4, ease: "easeOut" as const }}
       >
         <PlayerSection>
-          <ProjectPreview onProjectClick={handleProjectClick} />
-          <MusicPlayer />
+          {playerState.currentProjectIndex === 0 ? (
+            <ProjectPreview onProjectClick={handleProjectClick} />
+          ) : (
+            <MusicPlayer key={playerState.currentProjectIndex} />
+          )}
         </PlayerSection>
         <QueueSection>
-          <ProjectQueue onProjectModalOpen={() => setIsProjectModalOpen(true)} />
+          <ProjectQueue />
         </QueueSection>
       </WorkContainer>
       

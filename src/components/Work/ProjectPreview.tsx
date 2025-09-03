@@ -137,7 +137,10 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
             as={motion.button}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={onProjectClick}
+            onClick={(e) => {
+              e.stopPropagation();
+              onProjectClick();
+            }}
           >
             <ArrowRight size={16} />
             Learn More
