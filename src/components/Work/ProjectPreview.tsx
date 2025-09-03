@@ -19,7 +19,7 @@ const PreviewCard = styled(motion.div)`
   position: relative;
   overflow: hidden;
   flex: 1;
-  height: 400px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   
@@ -104,36 +104,6 @@ const ProjectContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-`;
-
-const ProjectStats = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin: 1rem 0;
-`;
-
-const StatItem = styled.div`
-  background: rgba(255, 140, 0, 0.08);
-  border: 1px solid rgba(255, 140, 0, 0.2);
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  padding: 1rem;
-  text-align: center;
-  
-  .stat-value {
-    display: block;
-    font-size: ${({ theme }) => theme.typography.fontSize.lg};
-    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-    color: #ff8c00;
-    margin-bottom: 0.25rem;
-  }
-  
-  .stat-label {
-    font-size: ${({ theme }) => theme.typography.fontSize.xs};
-    color: ${({ theme }) => theme.colors.text.secondary};
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
 `;
 
 const ProjectFeatures = styled.div`
@@ -260,6 +230,7 @@ const ShowcaseImage = styled(motion.img)`
 export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }) => {
   return (
     <PreviewCard
+      onClick={onProjectClick}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -290,16 +261,33 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           "The future of cooking is here - intelligent, social, and accessible to everyone"
         </ProjectHighlight>
         
-        <ProjectStats>
-          <StatItem>
-            <span className="stat-value">10K+</span>
-            <span className="stat-label">Active Users</span>
-          </StatItem>
-          <StatItem>
-            <span className="stat-value">50K+</span>
-            <span className="stat-label">Recipes Generated</span>
-          </StatItem>
-        </ProjectStats>
+        <div style={{ position: 'relative', height: '120px', margin: '1rem 0', borderRadius: '12px', overflow: 'hidden' }}>
+          <img 
+            src="/projects_assets/pantreat/iphone_app_mockups/mockrocket-capture.png"
+            alt="Pantreat App Mockup"
+            style={{
+              position: 'absolute',
+              right: '-20px',
+              top: '-10px',
+              height: '140px',
+              width: 'auto',
+              opacity: 0.3,
+              zIndex: 1
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            left: '1rem',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 2,
+            color: '#ff8c00',
+            fontWeight: 'bold'
+          }}>
+            <div style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>React Native + AI</div>
+            <div style={{ fontSize: '0.875rem', opacity: 0.8 }}>Cross-platform mobile experience</div>
+          </div>
+        </div>
         
         <ProjectFeatures>
           <FeatureTag>AI Recipe Generation</FeatureTag>
@@ -324,11 +312,6 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
             src="/projects_assets/pantreat/mockups/mockup_3.png" 
             alt="Social Features"
             whileHover={{ rotate: 5 }}
-          />
-          <ShowcaseImage 
-            src="/projects_assets/pantreat/app_cover.png" 
-            alt="Pantreat Icon"
-            whileHover={{ scale: 1.2 }}
           />
         </ImageShowcase>
       </ProjectContent>
