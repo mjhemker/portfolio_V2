@@ -94,12 +94,18 @@ const ProjectInfo = styled.div`
 
 
 const ProjectTagline = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
   color: #fff;
   margin: 0;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  line-height: 1.3;
+  font-weight: 900;
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+  background: linear-gradient(135deg, #fff, #ff8c00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 `;
 
 const ProjectContent = styled.div`
@@ -116,18 +122,22 @@ const ProjectContent = styled.div`
 const ProjectFeatures = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+  gap: 0.75rem;
+  margin: 1rem 0;
 `;
 
-const FeatureTag = styled.span`
-  background: rgba(255, 140, 0, 0.1);
-  color: #ff8c00;
-  padding: 0.25rem 0.75rem;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-size: ${({ theme }) => theme.typography.fontSize.xs};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  border: 1px solid rgba(255, 140, 0, 0.2);
+const FeatureTag = styled(motion.span)`
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 69, 0, 0.1));
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  border: 2px solid rgba(255, 140, 0, 0.4);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
 `;
 
 const ProjectActions = styled.div`
@@ -205,19 +215,6 @@ const ProjectDescription = styled.p`
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
-const ProjectHighlight = styled.div`
-  background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 69, 0, 0.1));
-  border-left: 4px solid #ff8c00;
-  padding: 1.5rem;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  font-style: italic;
-  color: #fff;
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.2);
-`;
-
 const ImageShowcase = styled.div`
   display: flex;
   gap: 1rem;
@@ -272,17 +269,37 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           to make cooking exciting again.
         </ProjectDescription>
         
-        <ProjectHighlight>
-          "The future of cooking is here - intelligent, social, and accessible to everyone"
-        </ProjectHighlight>
-        
-        
         <ProjectFeatures>
-          <FeatureTag>AI Recipe Generation</FeatureTag>
-          <FeatureTag>Smart Inventory</FeatureTag>
-          <FeatureTag>Social Cooking</FeatureTag>
-          <FeatureTag>Video Content</FeatureTag>
-          <FeatureTag>Mobile First</FeatureTag>
+          <FeatureTag
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            AI Recipe Generation
+          </FeatureTag>
+          <FeatureTag
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Smart Inventory
+          </FeatureTag>
+          <FeatureTag
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Social Cooking
+          </FeatureTag>
+          <FeatureTag
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Video Content
+          </FeatureTag>
+          <FeatureTag
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Mobile First
+          </FeatureTag>
         </ProjectFeatures>
         
         <ImageShowcase>
