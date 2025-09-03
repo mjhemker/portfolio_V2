@@ -9,16 +9,17 @@ interface ProjectPreviewProps {
 
 const PreviewCard = styled(motion.div)`
   background: linear-gradient(135deg, 
-    rgba(255, 140, 0, 0.1) 0%, 
-    rgba(255, 69, 0, 0.05) 100%);
-  border: 1px solid rgba(255, 140, 0, 0.2);
+    rgba(255, 140, 0, 0.15) 0%, 
+    rgba(255, 69, 0, 0.08) 50%,
+    rgba(255, 140, 0, 0.05) 100%);
+  border: 1px solid rgba(255, 140, 0, 0.3);
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  padding: 2rem;
+  padding: 0;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   flex: 1;
-  height: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   
@@ -31,7 +32,7 @@ const PreviewCard = styled(motion.div)`
     height: 100%;
     background: linear-gradient(90deg, 
       transparent, 
-      rgba(255, 140, 0, 0.1), 
+      rgba(255, 140, 0, 0.15), 
       transparent);
     transition: left 0.5s ease;
   }
@@ -39,24 +40,45 @@ const PreviewCard = styled(motion.div)`
   &:hover::before {
     left: 100%;
   }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 140, 0, 0.8) 50%, 
+      transparent 100%);
+  }
 `;
 
 const ProjectHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  margin-bottom: 1rem;
+  padding: 2rem 2rem 1rem;
+  background: rgba(255, 140, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 140, 0, 0.1);
 `;
 
 const ProjectLogo = styled.img`
-  height: 60px;
+  height: 80px;
   width: auto;
-  max-width: 200px;
+  max-width: 250px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow: 0 4px 12px rgba(255, 140, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
   object-fit: contain;
   background: white;
-  padding: 0.5rem;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(255, 140, 0, 0.4);
+  }
 `;
 
 const ProjectInfo = styled.div`
@@ -65,53 +87,185 @@ const ProjectInfo = styled.div`
 
 
 const ProjectTagline = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ theme }) => theme.colors.text.secondary};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  color: ${({ theme }) => theme.colors.text.primary};
   margin: 0;
-  font-style: italic;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  background: linear-gradient(135deg, #ff8c00, #ff4500);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 4px rgba(255, 140, 0, 0.2);
+`;
+
+const ProjectContent = styled.div`
+  flex: 1;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const ProjectStats = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+`;
+
+const StatItem = styled.div`
+  background: rgba(255, 140, 0, 0.08);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  padding: 1rem;
+  text-align: center;
+  
+  .stat-value {
+    display: block;
+    font-size: ${({ theme }) => theme.typography.fontSize.lg};
+    font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+    color: #ff8c00;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-label {
+    font-size: ${({ theme }) => theme.typography.fontSize.xs};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+`;
+
+const ProjectFeatures = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+`;
+
+const FeatureTag = styled.span`
+  background: rgba(255, 140, 0, 0.1);
+  color: #ff8c00;
+  padding: 0.25rem 0.75rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  border: 1px solid rgba(255, 140, 0, 0.2);
 `;
 
 const ProjectActions = styled.div`
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
+  padding: 1.5rem 2rem 2rem;
+  margin-top: auto;
 `;
 
 const ActionButton = styled(motion.button)`
-  background: rgba(255, 140, 0, 0.1);
-  border: 1px solid rgba(255, 140, 0, 0.3);
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  padding: 0.75rem 1.25rem;
-  color: #ff8c00;
+  background: linear-gradient(135deg, #ff8c00, #ff4500);
+  border: none;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: 1rem 2rem;
+  color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  flex: 1;
+  box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.2), 
+      transparent);
+    transition: left 0.5s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 140, 0, 0.4);
+    
+    &::before {
+      left: 100%;
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const SecondaryActionButton = styled(ActionButton)`
+  background: rgba(255, 140, 0, 0.1);
+  color: #ff8c00;
+  border: 2px solid rgba(255, 140, 0, 0.3);
   
   &:hover {
     background: rgba(255, 140, 0, 0.2);
     border-color: rgba(255, 140, 0, 0.5);
+    color: #fff;
   }
 `;
 
 const ProjectDescription = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  color: ${({ theme }) => theme.colors.text.primary};
+  line-height: 1.7;
+  margin: 0;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+`;
+
+const ProjectHighlight = styled.div`
+  background: rgba(255, 140, 0, 0.08);
+  border-left: 4px solid #ff8c00;
+  padding: 1rem;
+  border-radius: 0 ${({ theme }) => theme.borderRadius.md} ${({ theme }) => theme.borderRadius.md} 0;
+  font-style: italic;
   color: ${({ theme }) => theme.colors.text.secondary};
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+`;
+
+const ImageShowcase = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+`;
+
+const ShowcaseImage = styled(motion.img)`
+  height: 60px;
+  width: 60px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  object-fit: cover;
+  border: 2px solid rgba(255, 140, 0, 0.2);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1) rotate(5deg);
+    border-color: rgba(255, 140, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+  }
 `;
 
 export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }) => {
   return (
     <PreviewCard
-      onClick={onProjectClick}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       whileHover={{ 
         y: -4,
-        boxShadow: "0 8px 25px rgba(255, 140, 0, 0.15)"
+        boxShadow: "0 12px 35px rgba(255, 140, 0, 0.2)"
       }}
       whileTap={{ scale: 0.98 }}
     >
@@ -123,39 +277,88 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
         <ProjectInfo>
           <ProjectTagline>AI-Kitchen assistant that makes cooking cool again</ProjectTagline>
         </ProjectInfo>
-        <ProjectActions>
-          <ActionButton
-            as={motion.button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              window.open('https://www.getpantreat.com', '_blank');
-            }}
-          >
-            <ExternalLink size={16} />
-            Visit Site
-          </ActionButton>
-          <ActionButton
-            as={motion.button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onProjectClick();
-            }}
-          >
-            <ArrowRight size={16} />
-            Learn More
-          </ActionButton>
-        </ProjectActions>
       </ProjectHeader>
       
-      <ProjectDescription>
-        Your all-in-one AI Kitchen assistant. Unlike expensive meal services or smart fridges, 
-        all you need is your phone and an appetite. Combines AI, community, and short-form content 
-        to make cooking exciting again.
-      </ProjectDescription>
+      <ProjectContent>
+        <ProjectDescription>
+          Your all-in-one AI Kitchen assistant. Unlike expensive meal services or smart fridges, 
+          all you need is your phone and an appetite. Combines AI, community, and short-form content 
+          to make cooking exciting again.
+        </ProjectDescription>
+        
+        <ProjectHighlight>
+          "The future of cooking is here - intelligent, social, and accessible to everyone"
+        </ProjectHighlight>
+        
+        <ProjectStats>
+          <StatItem>
+            <span className="stat-value">10K+</span>
+            <span className="stat-label">Active Users</span>
+          </StatItem>
+          <StatItem>
+            <span className="stat-value">50K+</span>
+            <span className="stat-label">Recipes Generated</span>
+          </StatItem>
+        </ProjectStats>
+        
+        <ProjectFeatures>
+          <FeatureTag>AI Recipe Generation</FeatureTag>
+          <FeatureTag>Smart Inventory</FeatureTag>
+          <FeatureTag>Social Cooking</FeatureTag>
+          <FeatureTag>Video Content</FeatureTag>
+          <FeatureTag>Mobile First</FeatureTag>
+        </ProjectFeatures>
+        
+        <ImageShowcase>
+          <ShowcaseImage 
+            src="/projects_assets/pantreat/mockups/mockup_1.png" 
+            alt="Pantreat App Interface"
+            whileHover={{ rotate: 5 }}
+          />
+          <ShowcaseImage 
+            src="/projects_assets/pantreat/mockups/mockup_2.png" 
+            alt="Recipe Generation"
+            whileHover={{ rotate: -5 }}
+          />
+          <ShowcaseImage 
+            src="/projects_assets/pantreat/mockups/mockup_3.png" 
+            alt="Social Features"
+            whileHover={{ rotate: 5 }}
+          />
+          <ShowcaseImage 
+            src="/projects_assets/pantreat/app_cover.png" 
+            alt="Pantreat Icon"
+            whileHover={{ scale: 1.2 }}
+          />
+        </ImageShowcase>
+      </ProjectContent>
+      
+      <ProjectActions>
+        <SecondaryActionButton
+          as={motion.button}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onProjectClick();
+          }}
+        >
+          <ArrowRight size={20} />
+          Learn More
+        </SecondaryActionButton>
+        <ActionButton
+          as={motion.button}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            window.open('https://www.getpantreat.com', '_blank');
+          }}
+        >
+          <ExternalLink size={20} />
+          Visit Site
+        </ActionButton>
+      </ProjectActions>
     </PreviewCard>
   );
 };
