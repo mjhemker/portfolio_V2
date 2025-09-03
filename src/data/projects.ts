@@ -13,10 +13,10 @@ export const projects: Project[] = [
   },
   {
     id: '2',
-    title: 'Weather Dashboard',
-    description: 'Real-time weather application with interactive maps, detailed forecasts, and location-based alerts using OpenWeather API.',
-    technologies: ['Vue.js', 'D3.js', 'OpenWeather API', 'SCSS', 'PWA'],
-    image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=600&fit=crop',
+    title: 'INKD',
+    description: 'Social platform connecting tattoo artists and enthusiasts. Discover artists, explore designs, and book appointments in your local area.',
+    technologies: ['React Native', 'TypeScript', 'Firebase', 'Google Maps', 'Stripe'],
+    image: '/projects_assets/inkd/INKD_app_version1.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
     duration: '4:12'

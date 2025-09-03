@@ -5,6 +5,7 @@ import { ExternalLink, ArrowRight } from 'lucide-react';
 
 interface ProjectPreviewProps {
   onProjectClick: () => void;
+  projectId: string;
 }
 
 const PreviewCard = styled(motion.div)`
@@ -29,7 +30,7 @@ const PreviewCard = styled(motion.div)`
     right: 0;
     width: 60%;
     height: 100%;
-    background-image: url('/projects_assets/pantreat/iphone_app_mockups/mockrocket-capture.png');
+    background-image: var(--background-image);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center right;
@@ -216,7 +217,50 @@ const ProjectDescription = styled.p`
 `;
 
 
-export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }) => {
+export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick, projectId }) => {
+  const getProjectData = () => {
+    if (projectId === '1') {
+      return {
+        logo: "/projects_assets/pantreat/app+name.png",
+        tagline: "Make Cooking Cool Again",
+        description: "Your all-in-one AI Kitchen assistant. Unlike expensive meal services or smart fridges, all you need is your phone and an appetite. Combines AI, community, and short-form content to make cooking exciting again.",
+        features: ["AI Recipe Generation", "Smart Inventory", "Social Cooking", "Video Content", "Mobile First"],
+        backgroundImage: "/projects_assets/pantreat/iphone_app_mockups/mockrocket-capture.png",
+        colors: {
+          primary: "255, 140, 0",
+          secondary: "255, 69, 0",
+          accent: "#ff8c00"
+        },
+        siteUrl: "https://www.getpantreat.com"
+      };
+    } else if (projectId === '2') {
+      return {
+        logo: "/projects_assets/inkd/INKD_app_logo_v2.png",
+        tagline: "Where Ink Meets Inspiration",
+        description: "The modern hub for tattoos. Connect tattoo artists and enthusiasts, discover local talent, and modernize the tattoo booking experience with AR visualization and smart discovery.",
+        features: ["Local Discovery", "AR Visualization", "Smart Booking", "Artist Showcase", "Community Hub"],
+        backgroundImage: "/projects_assets/inkd/INKD_Home_page.png",
+        colors: {
+          primary: "138, 43, 226",
+          secondary: "75, 0, 130",
+          accent: "#8a2be2"
+        },
+        siteUrl: "https://www.getinkd.co"
+      };
+    }
+    return null;
+  };
+
+  const project = getProjectData();
+  if (!project) return null;
+
+  const cardStyles = {
+    background: `radial-gradient(circle at 20% 30%, rgba(${project.colors.primary}, 0.2) 0%, rgba(${project.colors.secondary}, 0.1) 40%, rgba(0, 0, 0, 0.8) 100%)`,
+    border: `2px solid rgba(${project.colors.primary}, 0.4)`,
+    beforeBackground: `url('${project.backgroundImage}')`,
+    hoverBoxShadow: `0 12px 35px rgba(${project.colors.primary}, 0.2)`
+  };
+
   return (
     <PreviewCard
       onClick={onProjectClick}
@@ -225,58 +269,57 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
       transition={{ duration: 0.6, ease: "easeOut" }}
       whileHover={{ 
         y: -4,
-        boxShadow: "0 12px 35px rgba(255, 140, 0, 0.2)"
+        boxShadow: cardStyles.hoverBoxShadow
       }}
       whileTap={{ scale: 0.98 }}
+      style={{ 
+        background: cardStyles.background,
+        border: cardStyles.border,
+        '--background-image': `url('${project.backgroundImage}')`
+      } as React.CSSProperties & { '--background-image': string }}
     >
       <ProjectHeader>
         <ProjectLogo 
-          src="/projects_assets/pantreat/app+name.png" 
-          alt="Pantreat Logo"
+          src={project.logo}
+          alt={`${projectId === '1' ? 'Pantreat' : 'INKD'} Logo`}
+          style={{ 
+            boxShadow: `0 12px 30px rgba(${project.colors.primary}, 0.4)`,
+            borderColor: `rgba(${project.colors.primary}, 0.2)`
+          }}
         />
         <ProjectInfo>
-          <ProjectTagline>Make Cooking Cool Again</ProjectTagline>
+          <ProjectTagline 
+            style={{ 
+              background: `linear-gradient(135deg, #fff, ${project.colors.accent})`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            {project.tagline}
+          </ProjectTagline>
         </ProjectInfo>
       </ProjectHeader>
       
       <ProjectContent>
         <ProjectDescription>
-          Your all-in-one AI Kitchen assistant. Unlike expensive meal services or smart fridges, 
-          all you need is your phone and an appetite. Combines AI, community, and short-form content 
-          to make cooking exciting again.
+          {project.description}
         </ProjectDescription>
         
         <ProjectFeatures>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            AI Recipe Generation
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Smart Inventory
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Social Cooking
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Video Content
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Mobile First
-          </FeatureTag>
+          {project.features.map((feature) => (
+            <FeatureTag
+              key={feature}
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                boxShadow: `0 4px 12px rgba(${project.colors.primary}, 0.2)`
+              }}
+            >
+              {feature}
+            </FeatureTag>
+          ))}
         </ProjectFeatures>
         
       </ProjectContent>
@@ -290,6 +333,11 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
             e.stopPropagation();
             onProjectClick();
           }}
+          style={{
+            background: `rgba(${project.colors.primary}, 0.1)`,
+            color: project.colors.accent,
+            borderColor: `rgba(${project.colors.primary}, 0.3)`
+          }}
         >
           <ArrowRight size={20} />
           Learn More
@@ -300,7 +348,10 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           whileTap={{ scale: 0.98 }}
           onClick={(e) => {
             e.stopPropagation();
-            window.open('https://www.getpantreat.com', '_blank');
+            window.open(project.siteUrl, '_blank');
+          }}
+          style={{
+            background: `linear-gradient(135deg, ${project.colors.accent}, rgba(${project.colors.secondary}, 0.8))`
           }}
         >
           <ExternalLink size={20} />

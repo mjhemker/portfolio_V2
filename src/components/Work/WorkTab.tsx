@@ -96,6 +96,10 @@ const QueueSection = styled.div`
 export const WorkTab: React.FC = () => {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const { playerState } = useAppContext();
+  
+  const getCurrentProjectId = () => {
+    return playerState.currentProjectIndex === 0 ? '1' : '2';
+  };
 
   const handleProjectClick = () => {
     setIsProjectModalOpen(true);
@@ -117,7 +121,9 @@ export const WorkTab: React.FC = () => {
       >
         <PlayerSection>
           {playerState.currentProjectIndex === 0 ? (
-            <ProjectPreview onProjectClick={handleProjectClick} />
+            <ProjectPreview onProjectClick={handleProjectClick} projectId="1" />
+          ) : playerState.currentProjectIndex === 1 ? (
+            <ProjectPreview onProjectClick={handleProjectClick} projectId="2" />
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}
@@ -131,6 +137,7 @@ export const WorkTab: React.FC = () => {
       <ProjectModal 
         isOpen={isProjectModalOpen} 
         onClose={handleCloseModal}
+        projectId={getCurrentProjectId()}
       />
     </>
   );

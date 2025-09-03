@@ -7,6 +7,7 @@ import { Modal } from '../UI/Modal';
 interface ProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
+  projectId: string;
 }
 
 const ModalContent = styled(motion.div)`
@@ -166,7 +167,7 @@ const ContentGrid = styled.div`
 
 const TextBlock = styled.div``;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h2<{ $accent?: string }>`
   font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: ${({ theme }) => theme.colors.text.primary};
@@ -182,7 +183,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: linear-gradient(90deg, #ff8c00, #ff4500);
+    background: ${({ $accent }) => $accent ? `linear-gradient(90deg, ${$accent}, ${$accent}aa)` : 'linear-gradient(90deg, #ff8c00, #ff4500)'};
     border-radius: 2px;
   }
 `;
@@ -274,15 +275,6 @@ const FeatureText = styled.p`
   }
 `;
 
-const FeatureList = styled.div`
-  color: ${({ theme }) => theme.colors.text.secondary};
-  line-height: 1.8;
-  margin-top: 1rem;
-  
-  strong {
-    color: ${({ theme }) => theme.colors.text.primary};
-  }
-`;
 
 const FeatureMedia = styled.div`
   width: 300px;
@@ -378,12 +370,88 @@ const TechTag = styled.span`
   border: 1px solid rgba(255, 140, 0, 0.2);
 `;
 
-export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) => {
+export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, projectId }) => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
   const handleVideoClick = (src: string) => {
     setPlayingVideo(playingVideo === src ? null : src);
   };
+
+  const getProjectData = () => {
+    if (projectId === '1') {
+      return {
+        logo: "/projects_assets/pantreat/app_cover.png",
+        title: "Pantreat",
+        tagline: "Your all-in-one AI-Kitchen assistant that makes cooking cool again. Unlike expensive meal services or smart fridges, all you need is your phone and an appetite.",
+        colors: {
+          primary: "255, 140, 0",
+          secondary: "255, 69, 0",
+          accent: "#ff8c00"
+        },
+        siteUrl: "https://www.getpantreat.com",
+        technologies: ["React Native", "TypeScript", "Expo", "Supabase", "OpenAI API", "Instacart API", "Real-time Chat", "AI/ML"],
+        content: {
+          sections: [
+            {
+              title: "Background",
+              subtitle: "The Problem with Gen Z & Cooking",
+              text: "I grew up in a household where cooking was not just a task, but a way to bring people together — a way to prioritize health as well as the wallet. Sadly, this isn't the case for many younger generations today. Recipes are no longer passed down, and people spend more time in front of a screen than a stove.",
+              image: "/projects_assets/pantreat/screen_shots/App_preview_Home.png",
+              features: [
+                {
+                  number: "01",
+                  title: "Organization",
+                  description: "Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces.",
+                  video: "/projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                }
+              ]
+            }
+          ]
+        }
+      };
+    } else if (projectId === '2') {
+      return {
+        logo: "/projects_assets/inkd/INKD_app_logo_v2.png",
+        title: "INKD",
+        tagline: "The modern hub for tattoos. Connect artists and enthusiasts, discover local talent, and modernize the tattoo booking experience with AR visualization and smart discovery.",
+        colors: {
+          primary: "138, 43, 226",
+          secondary: "75, 0, 130", 
+          accent: "#8a2be2"
+        },
+        siteUrl: "https://www.getinkd.co",
+        technologies: ["React Native", "TypeScript", "Firebase", "Google Maps", "Stripe", "AR Kit", "Real-time Chat"],
+        content: {
+          sections: [
+            {
+              title: "Mission",
+              subtitle: "Modernizing the Tattoo Industry",
+              text: "Today, tattoo culture is scattered across Instagram, TikTok, Pinterest, and outdated forums. Artists juggle a dozen tools for design, booking, promotion, and community, while clients struggle to find local artists who match their style, price, and availability.",
+              image: "/projects_assets/inkd/INKD_Home_page.png",
+              features: [
+                {
+                  number: "01",
+                  title: "Local Discovery", 
+                  description: "Find nearby artists that match your style through smart location-based search and AR visualization to preview designs on your body.",
+                  video: null
+                },
+                {
+                  number: "02",
+                  title: "Artist Tools",
+                  description: "Portfolio showcase, AI business assistant for scheduling, and comprehensive client management all in one platform.",
+                  video: null
+                }
+              ]
+            }
+          ]
+        }
+      };
+    }
+    return null;
+  };
+
+  const project = getProjectData();
+  if (!project) return null;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -392,6 +460,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
+        style={{
+          '--scrollbar-color': `rgba(${project.colors.primary}, 0.3)`
+        } as React.CSSProperties & { '--scrollbar-color': string }}
       >
         <CloseButton
           onClick={onClose}
@@ -401,328 +472,264 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose }) =
           <X size={20} />
         </CloseButton>
 
-        <ScrollContainer>
-          <HeroSection>
+        <ScrollContainer style={{ scrollbarColor: `rgba(${project.colors.primary}, 0.3) transparent` }}>
+          <HeroSection 
+            style={{
+              background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.15) 0%, rgba(${project.colors.secondary}, 0.1) 50%, rgba(0, 0, 0, 0.9) 100%)`
+            }}
+          >
             <ProjectLogo 
-              src="/projects_assets/pantreat/app_cover.png" 
-              alt="Pantreat Logo"
+              src={project.logo}
+              alt={`${project.title} Logo`}
+              style={{
+                boxShadow: `0 20px 40px rgba(${project.colors.primary}, 0.3)`,
+                filter: `drop-shadow(0 0 20px rgba(${project.colors.primary}, 0.4))`
+              }}
             />
-            <ProjectTitle>Pantreat</ProjectTitle>
+            <ProjectTitle 
+              style={{
+                background: `linear-gradient(135deg, ${project.colors.accent}, rgba(${project.colors.secondary}, 0.8))`,
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: `0 0 30px rgba(${project.colors.primary}, 0.3)`
+              }}
+            >
+              {project.title}
+            </ProjectTitle>
             <ProjectTagline>
-              Your all-in-one AI-Kitchen assistant that makes cooking cool again.
-              Unlike expensive meal services or smart fridges, all you need is your phone and an appetite.
+              {project.tagline}
             </ProjectTagline>
             
             <ActionButtons>
               <ActionButton
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('https://www.getpantreat.com', '_blank')}
+                onClick={() => window.open(project.siteUrl, '_blank')}
+                style={{
+                  background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                  borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                  color: project.colors.accent
+                }}
               >
                 <ExternalLink size={20} />
-                Visit Pantreat
+                Visit {project.title}
               </ActionButton>
             </ActionButtons>
           </HeroSection>
 
-          <ContentSection>
-            <SectionTitle>Background</SectionTitle>
-            <ContentGrid>
-              <TextBlock>
-                <SubTitle>The Problem with Gen Z & Cooking</SubTitle>
-                <ContentText>
-                  I grew up in a household where cooking was not just a task, but a way to bring people together — 
-                  a way to prioritize health as well as the wallet. Sadly, this isn't the case for many younger generations today.
-                  Recipes are no longer passed down, and people spend more time in front of a screen than a stove.
-                </ContentText>
-                <ContentText>
-                  Society has set the narrative that <strong>"Gen Z Can't Cook."</strong>
-                  <br />• Gen Z doesn't want to spend 30 minutes watching a TV cooking show.
-                  <br />• Home Ec classes no longer exist.
-                  <br />• And flipping through cookbooks? Forget it.
-                </ContentText>
-                <ContentText>
-                  But what Gen Z <strong>is</strong> good at is learning from each other. On social media, young people teach each other about nutrition, weight training, art, and more. Pantreat taps into this habit, giving Gen Z a platform to do what they do best — influence and inspire one another.
-                </ContentText>
-              </TextBlock>
-              <AssetCard
-                whileHover={{ scale: 1.02 }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <MediaImage 
-                  src="/projects_assets/pantreat/screen_shots/App_preview_Home.png" 
-                  alt="Home Screen"
-                  style={{ padding: '1rem', background: 'transparent' }}
-                />
-              </AssetCard>
-            </ContentGrid>
-          </ContentSection>
-
-          <ContentSection>
-            <SectionTitle>Need Finding</SectionTitle>
-            <ContentGrid>
-              <AssetCard
-                whileHover={{ scale: 1.02 }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <MediaImage 
-                  src="/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png" 
-                  alt="App Mockups"
-                  style={{ padding: '2rem', background: 'transparent' }}
-                />
-              </AssetCard>
-              <TextBlock>
-                <SubTitle>Research Results</SubTitle>
-                <ContentText>
-                  I interviewed ~30 students, parents, and young adults from <strong>Baltimore City</strong> and <strong>Stanford</strong>. 
-                  Results were surprisingly consistent: <strong>everyone needs help in the kitchen.</strong>
-                </ContentText>
-                <ContentText>
-                  The three biggest struggles were:
-                  <br />1. <strong>Organization</strong>
-                  <br />2. <strong>Anxiety</strong>
-                  <br />3. <strong>Lack of Excitement / Discovery</strong>
-                </ContentText>
-              </TextBlock>
-            </ContentGrid>
-          </ContentSection>
-
-          <ContentSection>
-            <SectionTitle>How Pantreat Helps</SectionTitle>
-            
-            <FeatureShowcase>
-              <FeatureBlock>
-                <FeatureNumber>01</FeatureNumber>
-                <FeatureContent>
-                  <FeatureTitle>Organization</FeatureTitle>
-                  <FeatureText>
-                    Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces. On average, Americans throw away <strong>20% of their groceries.</strong>
-                  </FeatureText>
-                  <FeatureList>
-                    • Helping you make meals with what you already have
-                    <br />• Keeping you accountable and organized with reminders for expiration dates
-                    <br />• Suggesting daily, personalized meals based on your schedule and dietary preferences
-                    <br /><br /><strong>Result:</strong> More good food on the table, and extra cash in your pocket.
-                  </FeatureList>
-                </FeatureContent>
-                <FeatureMedia>
-                  <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4')}>
-                    <VideoPlayer
-                      src="/projects_assets/pantreat/demo_videos/MyPantry.mp4"
-                      muted
-                      loop
-                      playsInline
-                      style={{ maxHeight: '300px' }}
-                      ref={(video) => {
-                        if (video) {
-                          if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
-                            video.play();
-                          } else {
-                            video.pause();
-                          }
-                        }
-                      }}
-                    />
-                    <AnimatePresence>
-                      {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
-                        <PlayButton
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <Play size={24} />
-                        </PlayButton>
-                      )}
-                    </AnimatePresence>
-                  </VideoWrapper>
-                </FeatureMedia>
-              </FeatureBlock>
-
-              <FeatureBlock>
-                <FeatureNumber>02</FeatureNumber>
-                <FeatureContent>
-                  <FeatureTitle>Anxiety</FeatureTitle>
-                  <FeatureText>
-                    People want to cook — they know the benefits — but friction and lack of confidence hold them back.
-                  </FeatureText>
-                  <FeatureList>
-                    Pantreat's <strong>Cook Mode</strong> acts as your custom <strong>AI-sous chef</strong>, walking you through recipes step-by-step with:
-                    <br />• Built-in timers
-                    <br />• Voice responses
-                    <br />• Smart substitutions
-                    <br /><br />This helps beginners gain confidence while encouraging consistency. To keep motivation high, users can share creations with friends for <strong>group accountability</strong> — think <em>Strava, but for cooking.</em>
-                  </FeatureList>
-                </FeatureContent>
-                <FeatureMedia>
-                  <AssetCard>
+          {projectId === '1' ? (
+            // Pantreat content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Background</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>The Problem with Gen Z & Cooking</SubTitle>
+                    <ContentText>
+                      I grew up in a household where cooking was not just a task, but a way to bring people together — 
+                      a way to prioritize health as well as the wallet. Sadly, this isn't the case for many younger generations today.
+                      Recipes are no longer passed down, and people spend more time in front of a screen than a stove.
+                    </ContentText>
+                  </TextBlock>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
                     <MediaImage 
-                      src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
-                      alt="Cook Mode"
+                      src="/projects_assets/pantreat/screen_shots/App_preview_Home.png" 
+                      alt="Home Screen"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
                   </AssetCard>
-                </FeatureMedia>
-              </FeatureBlock>
-
-              <FeatureBlock>
-                <FeatureNumber>03</FeatureNumber>
-                <FeatureContent>
-                  <FeatureTitle>Excitement & Discovery</FeatureTitle>
-                  <FeatureText>
-                    Motivation alone isn't enough. Cooking needs excitement. That's where Pantreat's <strong>Feed</strong> comes in.
-                  </FeatureText>
-                  <FeatureList>
-                    The feed features <strong>short-form cooking videos</strong> from:
-                    <br />• Friends • Influencers • Creators • Other users
-                    <br /><br />Unlike Instagram or TikTok, every video has an attached <strong>recipe and auto-adjusting grocery list.</strong> With Instacart's API, you can order ingredients instantly and have them delivered within the hour — making it easy to <em>literally cook what you see.</em>
-                  </FeatureList>
-                </FeatureContent>
-                <FeatureMedia>
-                  <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/recipes.mp4')}>
-                    <VideoPlayer
-                      src="/projects_assets/pantreat/demo_videos/recipes.mp4"
-                      muted
-                      loop
-                      playsInline
-                      style={{ maxHeight: '300px' }}
-                      ref={(video) => {
-                        if (video) {
-                          if (playingVideo === '/projects_assets/pantreat/demo_videos/recipes.mp4') {
-                            video.play();
-                          } else {
-                            video.pause();
-                          }
-                        }
-                      }}
+                </ContentGrid>
+              </ContentSection>
+              
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>How Pantreat Helps</SectionTitle>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Organization</FeatureTitle>
+                      <FeatureText>
+                        Cooking is hard — and cooking consistently is even harder. On average, Americans throw away <strong>20% of their groceries.</strong>
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4')}>
+                        <VideoPlayer
+                          src="/projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                          muted loop playsInline
+                          ref={(video) => {
+                            if (video && playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
+                              video.play();
+                            }
+                          }}
+                        />
+                        <AnimatePresence>
+                          {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
+                            <PlayButton
+                              style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
+                            >
+                              <Play size={24} />
+                            </PlayButton>
+                          )}
+                        </AnimatePresence>
+                      </VideoWrapper>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+            </>
+          ) : (
+            // INKD content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Mission</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Modernizing the Tattoo Industry</SubTitle>
+                    <ContentText>
+                      Today, tattoo culture is scattered across Instagram, TikTok, Pinterest, and outdated forums. 
+                      Artists juggle a dozen tools for design, booking, promotion, and community, while clients struggle 
+                      to find local artists who match their style, price, and availability.
+                    </ContentText>
+                    <ContentText>
+                      With the U.S. tattoo market valued at <strong>$1.75B in 2023</strong> and growing, 
+                      INKD addresses a clear gap: a modern, centralized, tattoo-first platform.
+                    </ContentText>
+                  </TextBlock>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/inkd/INKD_Home_page.png" 
+                      alt="INKD Home"
+                      style={{ padding: '1rem', background: 'transparent' }}
                     />
-                    <AnimatePresence>
-                      {playingVideo !== '/projects_assets/pantreat/demo_videos/recipes.mp4' && (
-                        <PlayButton
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.8 }}
-                          whileHover={{ scale: 1.1 }}
-                        >
-                          <Play size={24} />
-                        </PlayButton>
-                      )}
-                    </AnimatePresence>
-                  </VideoWrapper>
-                </FeatureMedia>
-              </FeatureBlock>
-            </FeatureShowcase>
-          </ContentSection>
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+              
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>For Everyone</SectionTitle>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>For Tattoo Enthusiasts</FeatureTitle>
+                      <FeatureText>
+                        <strong>Local Discovery</strong> — Find nearby artists that match your style through smart location-based search.
+                        <br /><br />
+                        <strong>AR Visualization</strong> — Preview designs on your body with augmented reality before committing.
+                        <br /><br />
+                        <strong>Smart Booking</strong> — Book instantly with artists whose calendars sync seamlessly.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/inkd/INKD_Local_page.png" 
+                          alt="Local Discovery"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
 
-          <BusinessSection>
-            <SectionTitle>Business Model</SectionTitle>
-            <ContentGrid>
-              <BusinessCard>
-                <BusinessTitle>Revenue Streams</BusinessTitle>
-                <BusinessText>
-                  Pantreat is sticky because it integrates into <strong>daily routines</strong>, creating multiple natural revenue streams:
-                  <br /><br />
-                  • <strong>Grocery Affiliate Partnerships</strong> (Instacart, Amazon, Walmart)
-                  <br />• U.S. Grocery Market Sales (2025): <strong>$1.6 trillion</strong> (+3.1% YoY growth)
-                  <br />• Online U.S. Grocery Sales (May 2025): <strong>$8.7 billion</strong> (+27% YoY)
-                  <br /><br />
-                  • <strong>Advertisements & Algorithmic Product Suggestions</strong>
-                  <br />• <strong>Long-Term:</strong> Data-driven personalization for health/fitness integrations
-                  <br /><br />
-                  <strong>Creator Incentive:</strong> Whenever a user orders groceries linked to a creator's recipe video, that creator gets a cut — encouraging more content and engagement.
-                </BusinessText>
-              </BusinessCard>
-              <AssetCard
-                whileHover={{ scale: 1.02 }}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                <MediaImage 
-                  src="/projects_assets/pantreat/screen_shots/App_preview_Profile.png" 
-                  alt="Profile Screen"
-                  style={{ padding: '1rem', background: 'transparent' }}
-                />
-              </AssetCard>
-            </ContentGrid>
-          </BusinessSection>
-
-          <ContentSection>
-            <SectionTitle>Conclusion</SectionTitle>
-            <ContentGrid>
-              <AssetCard
-                whileHover={{ scale: 1.02 }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/input+filters.mp4')}>
-                  <VideoPlayer
-                    src="/projects_assets/pantreat/demo_videos/input+filters.mp4"
-                    muted
-                    loop
-                    playsInline
-                    style={{ maxHeight: '300px' }}
-                    ref={(video) => {
-                      if (video) {
-                        if (playingVideo === '/projects_assets/pantreat/demo_videos/input+filters.mp4') {
-                          video.play();
-                        } else {
-                          video.pause();
-                        }
-                      }
-                    }}
-                  />
-                  <AnimatePresence>
-                    {playingVideo !== '/projects_assets/pantreat/demo_videos/input+filters.mp4' && (
-                      <PlayButton
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        whileHover={{ scale: 1.1 }}
-                      >
-                        <Play size={24} />
-                      </PlayButton>
-                    )}
-                  </AnimatePresence>
-                </VideoWrapper>
-              </AssetCard>
-              <TextBlock>
-                <SubTitle>Making Cooking Cool Again</SubTitle>
-                <ContentText>
-                  Pantreat combines <strong>AI, community, and short-form content</strong> to remove the friction of cooking, reduce waste, and make the kitchen exciting again.
-                </ContentText>
-                <ContentText>
-                  With tools to organize, motivate, and inspire, Pantreat empowers a new generation to step away from delivery apps and rediscover the joy of home cooking.
-                </ContentText>
-                <ActionButton
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => window.open('https://www.getpantreat.com', '_blank')}
-                  style={{ marginTop: '1rem' }}
-                >
-                  <ExternalLink size={18} />
-                  Try Pantreat Now
-                </ActionButton>
-              </TextBlock>
-            </ContentGrid>
-          </ContentSection>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>For Tattoo Artists</FeatureTitle>
+                      <FeatureText>
+                        <strong>Portfolio Showcase</strong> — Present your work beautifully and professionally.
+                        <br /><br />
+                        <strong>AI Business Assistant</strong> — Automate scheduling, follow-ups, and admin tasks so you can focus on your art.
+                        <br /><br />
+                        <strong>Client Management</strong> — Track relationships, consultations, and payments all in one place.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/inkd/INKD_3_profile_tabs.png" 
+                          alt="Artist Profile"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+              
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Market Opportunity</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Target Market</BusinessTitle>
+                    <BusinessText>
+                      INKD addresses a clear gap in a growing market:
+                      <br /><br />
+                      • U.S. tattoo market: <strong>$1.75B in 2023</strong> and growing
+                      <br />• Over <strong>107M tattooed Americans</strong>
+                      <br />• <strong>64% are Millennials and Gen Z</strong> — digital natives seeking modern solutions
+                      <br /><br />
+                      <strong>INKD isn't just another social platform</strong> — it's a dedicated ecosystem built for tattoos.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/inkd/INKD_onboarding_page.png" 
+                      alt="Onboarding"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
+          )}
 
           <TechStackSection>
-            <SectionTitle>Built With</SectionTitle>
+            <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Built With</SectionTitle>
             <TechStack>
-              <TechTag>React Native</TechTag>
-              <TechTag>TypeScript</TechTag>
-              <TechTag>Expo</TechTag>
-              <TechTag>Supabase</TechTag>
-              <TechTag>OpenAI API</TechTag>
-              <TechTag>Instacart API</TechTag>
-              <TechTag>Real-time Chat</TechTag>
-              <TechTag>AI/ML</TechTag>
+              {project.technologies.map((tech) => (
+                <TechTag 
+                  key={tech}
+                  style={{
+                    background: `rgba(${project.colors.primary}, 0.1)`,
+                    color: project.colors.accent,
+                    borderColor: `rgba(${project.colors.primary}, 0.2)`
+                  }}
+                >
+                  {tech}
+                </TechTag>
+              ))}
             </TechStack>
           </TechStackSection>
         </ScrollContainer>
