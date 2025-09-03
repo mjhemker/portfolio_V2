@@ -6,6 +6,7 @@ import { ProjectQueue } from './ProjectQueue';
 import { ProjectsIntro } from './ProjectsIntro';
 import { ProjectModal } from './ProjectModal';
 import { ProjectPreview } from './ProjectPreview';
+import { INKDPreview } from './INKDPreview';
 import { useAppContext } from '../../contexts/AppContext';
 
 const float = keyframes`
@@ -121,9 +122,9 @@ export const WorkTab: React.FC = () => {
       >
         <PlayerSection>
           {playerState.currentProjectIndex === 0 ? (
-            <ProjectPreview onProjectClick={handleProjectClick} projectId="1" />
+            <ProjectPreview onProjectClick={handleProjectClick} />
           ) : playerState.currentProjectIndex === 1 ? (
-            <ProjectPreview onProjectClick={handleProjectClick} projectId="2" />
+            <INKDPreview onProjectClick={handleProjectClick} />
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}

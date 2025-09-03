@@ -532,8 +532,8 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = fal
     );
   }
 
-  // Don't render music player for Pantreat
-  if (currentProject.id === '1') {
+  // Don't render music player for Pantreat or INKD
+  if (currentProject.id === '1' || currentProject.id === '2') {
     return null;
   }
 
