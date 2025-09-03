@@ -19,8 +19,8 @@ const PreviewCard = styled(motion.div)`
   overflow: hidden;
   flex: 1;
   height: 500px;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   
   &::before {
     content: '';
@@ -104,12 +104,13 @@ const ProjectTagline = styled.p`
 
 const ProjectContent = styled.div`
   flex: 1;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 2rem 0;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   position: relative;
   z-index: 3;
+  min-height: 0;
 `;
 
 const ProjectFeatures = styled.div`
@@ -260,7 +261,7 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           alt="Pantreat Logo"
         />
         <ProjectInfo>
-          <ProjectTagline>AI-Kitchen assistant that makes cooking cool again</ProjectTagline>
+          <ProjectTagline>Make Cooking Cool Again</ProjectTagline>
         </ProjectInfo>
       </ProjectHeader>
       
