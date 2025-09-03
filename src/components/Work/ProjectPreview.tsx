@@ -215,29 +215,6 @@ const ProjectDescription = styled.p`
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
-const ImageShowcase = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin: 1.5rem 0;
-  justify-content: flex-start;
-`;
-
-const ShowcaseImage = styled(motion.img)`
-  height: 100px;
-  width: 100px;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  object-fit: cover;
-  border: 3px solid rgba(255, 140, 0, 0.4);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.2);
-  
-  &:hover {
-    transform: scale(1.15) rotate(-5deg) translateY(-10px);
-    border-color: rgba(255, 140, 0, 0.8);
-    box-shadow: 0 15px 35px rgba(255, 140, 0, 0.4);
-    z-index: 10;
-  }
-`;
 
 export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }) => {
   return (
@@ -302,23 +279,6 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           </FeatureTag>
         </ProjectFeatures>
         
-        <ImageShowcase>
-          <ShowcaseImage 
-            src="/projects_assets/pantreat/mockups/mockup_1.png" 
-            alt="Pantreat App Interface"
-            whileHover={{ rotate: 5 }}
-          />
-          <ShowcaseImage 
-            src="/projects_assets/pantreat/mockups/mockup_2.png" 
-            alt="Recipe Generation"
-            whileHover={{ rotate: -5 }}
-          />
-          <ShowcaseImage 
-            src="/projects_assets/pantreat/mockups/mockup_3.png" 
-            alt="Social Features"
-            whileHover={{ rotate: 5 }}
-          />
-        </ImageShowcase>
       </ProjectContent>
       
       <ProjectActions>
