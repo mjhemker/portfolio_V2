@@ -71,6 +71,7 @@ export const WorkTab: React.FC = () => {
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}
+          <MusicPlayer showControlsOnly={true} />
         </PlayerSection>
         <QueueSection>
           <ProjectQueue />

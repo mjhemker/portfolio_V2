@@ -382,7 +382,11 @@ const formatTime = (seconds: number) => {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
-export const MusicPlayer: React.FC = () => {
+interface MusicPlayerProps {
+  showControlsOnly?: boolean;
+}
+
+export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = false }) => {
   const { playerState, setPlayerState } = useAppContext();
   const [localProgress, setLocalProgress] = useState(0);
   
@@ -443,6 +447,77 @@ export const MusicPlayer: React.FC = () => {
   };
 
   const progressPercentage = (localProgress / playerState.duration) * 100;
+
+  // For controls-only mode, just show the visualizer and controls
+  if (showControlsOnly) {
+    return (
+      <PlayerContainer>
+        <Visualizer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
+          <VisualizerBar
+            delay={0}
+            isPlaying={playerState.isPlaying}
+            initial={{ scaleY: 0.2 }}
+            animate={{ 
+              scaleY: playerState.isPlaying 
+                ? [0.2, 1, 0.4, 0.8, 0.3, 0.9, 0.1, 0.7] 
+                : 0.2 
+            }}
+            transition={{
+              duration: 1.2,
+              repeat: playerState.isPlaying ? Infinity : 0,
+              ease: "easeInOut"
+            }}
+          />
+          <VisualizerBar delay={0.1} isPlaying={playerState.isPlaying} />
+          <VisualizerBar delay={0.2} isPlaying={playerState.isPlaying} />
+          <VisualizerBar delay={0.3} isPlaying={playerState.isPlaying} />
+          <VisualizerBar delay={0.4} isPlaying={playerState.isPlaying} />
+          <VisualizerBar delay={0.5} isPlaying={playerState.isPlaying} />
+          <VisualizerBar delay={0.6} isPlaying={playerState.isPlaying} />
+          <VisualizerBar delay={0.7} isPlaying={playerState.isPlaying} />
+        </Visualizer>
+
+        <Controls 
+          $isPlaying={playerState.isPlaying}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
+        >
+          <ControlButton 
+            onClick={previousProject}
+            whileHover={{ scale: 1.1, color: "#8A2BE2" }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <SkipBack size={24} />
+          </ControlButton>
+          
+          <PlayButton
+            $isPlaying={playerState.isPlaying}
+            onClick={togglePlayPause}
+            whileHover={{ 
+              scale: 1.1, 
+              boxShadow: "0 0 30px rgba(138, 43, 226, 0.4)" 
+            }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {playerState.isPlaying ? <Pause size={32} /> : <Play size={32} />}
+          </PlayButton>
+          
+          <ControlButton 
+            onClick={nextProject}
+            whileHover={{ scale: 1.1, color: "#8A2BE2" }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <SkipForward size={24} />
+          </ControlButton>
+        </Controls>
+      </PlayerContainer>
+    );
+  }
 
   // Don't render music player for Pantreat
   if (currentProject.id === '1') {
