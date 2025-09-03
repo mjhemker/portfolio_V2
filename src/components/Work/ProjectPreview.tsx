@@ -8,50 +8,55 @@ interface ProjectPreviewProps {
 }
 
 const PreviewCard = styled(motion.div)`
-  background: linear-gradient(135deg, 
-    rgba(255, 140, 0, 0.15) 0%, 
-    rgba(255, 69, 0, 0.08) 50%,
-    rgba(255, 140, 0, 0.05) 100%);
-  border: 1px solid rgba(255, 140, 0, 0.3);
+  background: radial-gradient(circle at 20% 30%, 
+    rgba(255, 140, 0, 0.2) 0%, 
+    rgba(255, 69, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0.8) 100%);
+  border: 2px solid rgba(255, 140, 0, 0.4);
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  padding: 0;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   flex: 1;
   height: 500px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   
   &::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
+    right: 0;
+    width: 60%;
     height: 100%;
-    background: linear-gradient(90deg, 
-      transparent, 
-      rgba(255, 140, 0, 0.15), 
-      transparent);
-    transition: left 0.5s ease;
+    background-image: url('/projects_assets/pantreat/iphone_app_mockups/mockrocket-capture.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center right;
+    opacity: 0.15;
+    z-index: 1;
+    transition: all 0.5s ease;
   }
   
   &:hover::before {
-    left: 100%;
+    opacity: 0.25;
+    transform: scale(1.05) rotate(3deg);
   }
   
   &::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      rgba(255, 140, 0, 0.8) 50%, 
-      transparent 100%);
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(255, 140, 0, 0.1) 0%, 
+      transparent 40%,
+      transparent 60%,
+      rgba(255, 69, 0, 0.05) 100%);
+    pointer-events: none;
+    z-index: 2;
   }
 `;
 
@@ -59,25 +64,27 @@ const ProjectHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 2rem 2rem 1rem;
-  background: rgba(255, 140, 0, 0.05);
-  border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+  padding: 2rem 2rem 0;
+  position: relative;
+  z-index: 3;
 `;
 
 const ProjectLogo = styled.img`
-  height: 80px;
+  height: 100px;
   width: auto;
-  max-width: 250px;
+  max-width: 300px;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.3);
+  box-shadow: 0 12px 30px rgba(255, 140, 0, 0.4);
   object-fit: contain;
-  background: white;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 140, 0, 0.2);
   
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(255, 140, 0, 0.4);
+    transform: scale(1.08) rotate(-2deg);
+    box-shadow: 0 20px 40px rgba(255, 140, 0, 0.5);
+    border-color: rgba(255, 140, 0, 0.6);
   }
 `;
 
@@ -87,23 +94,22 @@ const ProjectInfo = styled.div`
 
 
 const ProjectTagline = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
-  color: ${({ theme }) => theme.colors.text.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  color: #fff;
   margin: 0;
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  background: linear-gradient(135deg, #ff8c00, #ff4500);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(255, 140, 0, 0.2);
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.3;
 `;
 
 const ProjectContent = styled.div`
   flex: 1;
-  padding: 0 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
+  z-index: 3;
 `;
 
 const ProjectFeatures = styled.div`
@@ -126,8 +132,9 @@ const FeatureTag = styled.span`
 const ProjectActions = styled.div`
   display: flex;
   gap: 1rem;
-  padding: 1.5rem 2rem 2rem;
-  margin-top: auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 3;
 `;
 
 const ActionButton = styled(motion.button)`
@@ -189,41 +196,48 @@ const SecondaryActionButton = styled(ActionButton)`
 `;
 
 const ProjectDescription = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
-  color: ${({ theme }) => theme.colors.text.primary};
-  line-height: 1.7;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
   margin: 0;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 const ProjectHighlight = styled.div`
-  background: rgba(255, 140, 0, 0.08);
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 69, 0, 0.1));
   border-left: 4px solid #ff8c00;
-  padding: 1rem;
-  border-radius: 0 ${({ theme }) => theme.borderRadius.md} ${({ theme }) => theme.borderRadius.md} 0;
+  padding: 1.5rem;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   font-style: italic;
-  color: ${({ theme }) => theme.colors.text.secondary};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  color: #fff;
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.2);
 `;
 
 const ImageShowcase = styled.div`
   display: flex;
-  gap: 0.5rem;
-  margin: 1rem 0;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  justify-content: flex-start;
 `;
 
 const ShowcaseImage = styled(motion.img)`
-  height: 60px;
-  width: 60px;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+  height: 100px;
+  width: 100px;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   object-fit: cover;
-  border: 2px solid rgba(255, 140, 0, 0.2);
-  transition: all 0.3s ease;
+  border: 3px solid rgba(255, 140, 0, 0.4);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 20px rgba(255, 140, 0, 0.2);
   
   &:hover {
-    transform: scale(1.1) rotate(5deg);
-    border-color: rgba(255, 140, 0, 0.5);
-    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+    transform: scale(1.15) rotate(-5deg) translateY(-10px);
+    border-color: rgba(255, 140, 0, 0.8);
+    box-shadow: 0 15px 35px rgba(255, 140, 0, 0.4);
+    z-index: 10;
   }
 `;
 
@@ -261,33 +275,6 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
           "The future of cooking is here - intelligent, social, and accessible to everyone"
         </ProjectHighlight>
         
-        <div style={{ position: 'relative', height: '120px', margin: '1rem 0', borderRadius: '12px', overflow: 'hidden' }}>
-          <img 
-            src="/projects_assets/pantreat/iphone_app_mockups/mockrocket-capture.png"
-            alt="Pantreat App Mockup"
-            style={{
-              position: 'absolute',
-              right: '-20px',
-              top: '-10px',
-              height: '140px',
-              width: 'auto',
-              opacity: 0.3,
-              zIndex: 1
-            }}
-          />
-          <div style={{
-            position: 'absolute',
-            left: '1rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 2,
-            color: '#ff8c00',
-            fontWeight: 'bold'
-          }}>
-            <div style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>React Native + AI</div>
-            <div style={{ fontSize: '0.875rem', opacity: 0.8 }}>Cross-platform mobile experience</div>
-          </div>
-        </div>
         
         <ProjectFeatures>
           <FeatureTag>AI Recipe Generation</FeatureTag>
