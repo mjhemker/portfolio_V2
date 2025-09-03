@@ -13,11 +13,14 @@ const PreviewCard = styled(motion.div)`
     rgba(255, 69, 0, 0.05) 100%);
   border: 1px solid rgba(255, 140, 0, 0.2);
   border-radius: ${({ theme }) => theme.borderRadius.xl};
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  padding: 2rem;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  flex: 1;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
   
   &::before {
     content: '';

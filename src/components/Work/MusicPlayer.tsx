@@ -451,71 +451,84 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = fal
   // For controls-only mode, just show the visualizer and controls
   if (showControlsOnly) {
     return (
-      <PlayerContainer>
-        <Visualizer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-        >
-          <VisualizerBar
-            delay={0}
-            isPlaying={playerState.isPlaying}
-            initial={{ scaleY: 0.2 }}
-            animate={{ 
-              scaleY: playerState.isPlaying 
-                ? [0.2, 1, 0.4, 0.8, 0.3, 0.9, 0.1, 0.7] 
-                : 0.2 
-            }}
-            transition={{
-              duration: 1.2,
-              repeat: playerState.isPlaying ? Infinity : 0,
-              ease: "easeInOut"
-            }}
-          />
-          <VisualizerBar delay={0.1} isPlaying={playerState.isPlaying} />
-          <VisualizerBar delay={0.2} isPlaying={playerState.isPlaying} />
-          <VisualizerBar delay={0.3} isPlaying={playerState.isPlaying} />
-          <VisualizerBar delay={0.4} isPlaying={playerState.isPlaying} />
-          <VisualizerBar delay={0.5} isPlaying={playerState.isPlaying} />
-          <VisualizerBar delay={0.6} isPlaying={playerState.isPlaying} />
-          <VisualizerBar delay={0.7} isPlaying={playerState.isPlaying} />
-        </Visualizer>
-
-        <Controls 
-          $isPlaying={playerState.isPlaying}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-        >
-          <ControlButton 
-            onClick={previousProject}
-            whileHover={{ scale: 1.1, color: "#8A2BE2" }}
-            whileTap={{ scale: 0.9 }}
+      <Controls 
+        $isPlaying={playerState.isPlaying}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+      >
+        <AudioVisualizer isPlaying={playerState.isPlaying} />
+        
+        <ControlButtons>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <SkipBack size={24} />
-          </ControlButton>
-          
-          <PlayButton
+            <Button 
+              icon={<SkipBack size={20} />} 
+              onClick={handlePrevious}
+            />
+          </motion.div>
+          <PlayButton 
             $isPlaying={playerState.isPlaying}
-            onClick={togglePlayPause}
-            whileHover={{ 
-              scale: 1.1, 
-              boxShadow: "0 0 30px rgba(138, 43, 226, 0.4)" 
-            }}
-            whileTap={{ scale: 0.9 }}
+            onClick={handlePlayPause}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {playerState.isPlaying ? <Pause size={32} /> : <Play size={32} />}
+            <AnimatePresence mode="wait">
+              {playerState.isPlaying ? (
+                <motion.div
+                  key="pause"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Pause size={24} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="play"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Play size={24} />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </PlayButton>
-          
-          <ControlButton 
-            onClick={nextProject}
-            whileHover={{ scale: 1.1, color: "#8A2BE2" }}
-            whileTap={{ scale: 0.9 }}
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <SkipForward size={24} />
-          </ControlButton>
-        </Controls>
-      </PlayerContainer>
+            <Button 
+              icon={<SkipForward size={20} />} 
+              onClick={handleNext}
+            />
+          </motion.div>
+        </ControlButtons>
+        
+        <ProgressContainer>
+          <TimeDisplay>{formatTime(localProgress)}</TimeDisplay>
+          <ProgressBar>
+            <ProgressFill
+              $isPlaying={playerState.isPlaying}
+              style={{ width: `${progressPercentage}%` }}
+              transition={{ duration: 0.1 }}
+            />
+          </ProgressBar>
+          <TimeDisplay>{formatTime(playerState.duration)}</TimeDisplay>
+        </ProgressContainer>
+        
+        <NowPlayingInfo>
+          <span>Now Playing:</span>
+          <span>{currentProject.title}</span>
+          <span>•</span>
+          <span>{currentProject.duration}</span>
+        </NowPlayingInfo>
+      </Controls>
     );
   }
 
