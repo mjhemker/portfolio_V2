@@ -206,8 +206,6 @@ const PortraitImage = styled(motion.img)<{
   $size: string; 
   $rotation: number;
   $opacity: number;
-  $animationType: 'float' | 'floatSlow' | 'floatReverse';
-  $glowType: 'glow' | 'glowIntense';
 }>`
   position: absolute;
   top: ${({ $top }) => $top};
@@ -216,55 +214,41 @@ const PortraitImage = styled(motion.img)<{
   height: ${({ $size }) => $size};
   border-radius: 20px;
   object-fit: cover;
-  filter: grayscale(40%) blur(0.5px);
-  transition: all 0.6s ease;
+  filter: grayscale(30%) blur(0.5px);
+  transition: all 0.4s ease;
   z-index: ${({ $zIndex }) => $zIndex};
   opacity: ${({ $opacity }) => $opacity};
-  --rotation: ${({ $rotation }) => $rotation}deg;
-  
-  ${({ $animationType }) => {
-    switch ($animationType) {
-      case 'float':
-        return `animation: ${float} 4s ease-in-out infinite;`;
-      case 'floatSlow':
-        return `animation: ${floatSlow} 6s ease-in-out infinite;`;
-      case 'floatReverse':
-        return `animation: ${floatReverse} 5s ease-in-out infinite;`;
-      default:
-        return '';
-    }
-  }}
-  
-  ${({ $glowType }) => {
-    switch ($glowType) {
-      case 'glow':
-        return `animation: ${glow} 3s ease-in-out infinite;`;
-      case 'glowIntense':
-        return `animation: ${glowIntense} 4s ease-in-out infinite;`;
-      default:
-        return '';
-    }
-  }}
-  
+  transform: rotate(${({ $rotation }) => $rotation}deg);
   border: 2px solid rgba(138, 43, 226, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    filter: grayscale(0%) brightness(1.2) blur(0px);
-    transform: scale(1.08) rotate(calc(var(--rotation) + 5deg));
+    filter: grayscale(0%) brightness(1.1) blur(0px);
+    transform: rotate(${({ $rotation }) => $rotation}deg) scale(1.05);
     z-index: 15;
     opacity: 1;
-    border-color: rgba(138, 43, 226, 0.8);
+    border-color: rgba(138, 43, 226, 0.6);
     box-shadow: 
-      0 25px 60px rgba(0, 0, 0, 0.5),
-      0 0 80px rgba(138, 43, 226, 0.6),
-      0 0 120px rgba(30, 144, 255, 0.4);
-    animation: none;
+      0 20px 50px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(138, 43, 226, 0.5);
   }
 
   @media (max-width: 768px) {
     width: calc(${({ $size }) => $size} * 0.8);
     height: calc(${({ $size }) => $size} * 0.8);
   }
+`;
+
+const FloatingImage1 = styled(PortraitImage)`
+  animation: ${float} 4s ease-in-out infinite, ${glow} 3s ease-in-out infinite;
+`;
+
+const FloatingImage2 = styled(PortraitImage)`
+  animation: ${floatSlow} 6s ease-in-out infinite, ${glowIntense} 4s ease-in-out infinite;
+`;
+
+const FloatingImage3 = styled(PortraitImage)`
+  animation: ${floatReverse} 5s ease-in-out infinite, ${glow} 3s ease-in-out infinite;
 `;
 
 const ContactSection = styled(motion.div)`
@@ -435,7 +419,7 @@ export const AboutTab: React.FC = () => {
           transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
         >
           <ImageContainer>
-            <PortraitImage
+            <FloatingImage1
               src="/images/about/red-light-portrait-1.jpeg"
               alt="Michael Hemker portrait 1"
               $zIndex={3}
@@ -444,13 +428,11 @@ export const AboutTab: React.FC = () => {
               $size="280px"
               $rotation={-8}
               $opacity={0.9}
-              $animationType="float"
-              $glowType="glow"
               initial={{ scale: 0.8, opacity: 0, rotate: -15 }}
               animate={{ scale: 1, opacity: 0.9, rotate: -8 }}
               transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
             />
-            <PortraitImage
+            <FloatingImage2
               src="/images/about/red-light-portrait-2.png"
               alt="Michael Hemker portrait 2"
               $zIndex={2}
@@ -459,13 +441,11 @@ export const AboutTab: React.FC = () => {
               $size="260px"
               $rotation={5}
               $opacity={0.7}
-              $animationType="floatSlow"
-              $glowType="glowIntense"
               initial={{ scale: 0.8, opacity: 0, rotate: 12 }}
               animate={{ scale: 1, opacity: 0.7, rotate: 5 }}
               transition={{ delay: 0.9, duration: 0.8, ease: "easeOut" }}
             />
-            <PortraitImage
+            <FloatingImage3
               src="/images/about/red-light-portrait-3.png"
               alt="Michael Hemker portrait 3"
               $zIndex={1}
@@ -474,8 +454,6 @@ export const AboutTab: React.FC = () => {
               $size="240px"
               $rotation={12}
               $opacity={0.6}
-              $animationType="floatReverse"
-              $glowType="glow"
               initial={{ scale: 0.8, opacity: 0, rotate: 20 }}
               animate={{ scale: 1, opacity: 0.6, rotate: 12 }}
               transition={{ delay: 1.1, duration: 0.8, ease: "easeOut" }}
