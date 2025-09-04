@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Download, MapPin, Calendar, Instagram, Youtube } from 'lucide-react';
+import { Mail, Linkedin, Download, MapPin, Calendar, Instagram, Youtube } from 'lucide-react';
 import { Button } from '../UI/Button';
 
 const AboutContainer = styled(motion.div)`
@@ -388,7 +388,7 @@ export const AboutTab: React.FC = () => {
     >
       <BackgroundImages>
         <BackgroundImage
-          src="/var/folders/tp/zkmkh60s7sq3_ckch9wdj_400000gn/T/TemporaryItems/NSIRD_screencaptureui_k7GExB/Screenshot 2025-09-04 at 12.39.15 AM.png"
+          src="/images/about/red-light-portrait.jpg"
           alt="Red light portrait"
           $opacity={0.15}
           $top="10%"
