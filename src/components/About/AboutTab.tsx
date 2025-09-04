@@ -53,10 +53,26 @@ const ImageSection = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 600px;
+  width: 100%;
 
   @media (max-width: 1024px) {
     order: 1;
+    height: 500px;
   }
+
+  @media (max-width: 768px) {
+    height: 400px;
+  }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const AboutTitle = styled.h1`
@@ -140,40 +156,38 @@ const BioText = styled.p`
     border-radius: 2px;
   }
   
-  &::first-letter {
-    font-size: 2.5rem;
-    font-weight: 700;
-    float: left;
-    line-height: 1;
-    margin-right: 0.5rem;
-    margin-top: 0.1rem;
-    background: linear-gradient(135deg, #8A2BE2, #1E90FF);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
 
   @media (max-width: 768px) {
     font-size: 1rem;
   }
 `;
 
-const PortraitImage = styled(motion.img)`
-  width: 100%;
-  max-width: 500px;
-  height: auto;
+const PortraitImage = styled(motion.img)<{ $zIndex: number; $top: string; $left: string; $size: string; $rotation: number }>`
+  position: absolute;
+  top: ${({ $top }) => $top};
+  left: ${({ $left }) => $left};
+  width: ${({ $size }) => $size};
+  height: ${({ $size }) => $size};
   border-radius: 20px;
   object-fit: cover;
-  filter: grayscale(20%);
-  transition: all 0.3s ease;
+  filter: grayscale(30%);
+  transition: all 0.4s ease;
+  z-index: ${({ $zIndex }) => $zIndex};
+  transform: rotate(${({ $rotation }) => $rotation}deg);
+  border: 2px solid rgba(138, 43, 226, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    filter: grayscale(0%);
-    transform: scale(1.02);
+    filter: grayscale(0%) brightness(1.1);
+    transform: rotate(${({ $rotation }) => $rotation}deg) scale(1.05);
+    z-index: 10;
+    border-color: rgba(138, 43, 226, 0.6);
+    box-shadow: 0 20px 50px rgba(138, 43, 226, 0.4);
   }
 
   @media (max-width: 768px) {
-    max-width: 400px;
+    width: calc(${({ $size }) => $size} * 0.8);
+    height: calc(${({ $size }) => $size} * 0.8);
   }
 `;
 
@@ -344,13 +358,44 @@ export const AboutTab: React.FC = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
         >
-          <PortraitImage
-            src="/images/about/portrait.jpg"
-            alt="Michael Hemker portrait"
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.6, ease: "easeOut" }}
-          />
+          <ImageContainer>
+            <PortraitImage
+              src="/images/about/red-light-portrait-1.jpeg"
+              alt="Michael Hemker portrait 1"
+              $zIndex={3}
+              $top="10%"
+              $left="20%"
+              $size="280px"
+              $rotation={-8}
+              initial={{ scale: 0.8, opacity: 0, rotate: -15 }}
+              animate={{ scale: 1, opacity: 1, rotate: -8 }}
+              transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
+            />
+            <PortraitImage
+              src="/images/about/red-light-portrait-2.png"
+              alt="Michael Hemker portrait 2"
+              $zIndex={2}
+              $top="40%"
+              $left="45%"
+              $size="260px"
+              $rotation={5}
+              initial={{ scale: 0.8, opacity: 0, rotate: 12 }}
+              animate={{ scale: 1, opacity: 1, rotate: 5 }}
+              transition={{ delay: 0.9, duration: 0.8, ease: "easeOut" }}
+            />
+            <PortraitImage
+              src="/images/about/red-light-portrait-3.png"
+              alt="Michael Hemker portrait 3"
+              $zIndex={1}
+              $top="15%"
+              $left="60%"
+              $size="240px"
+              $rotation={12}
+              initial={{ scale: 0.8, opacity: 0, rotate: 20 }}
+              animate={{ scale: 1, opacity: 1, rotate: 12 }}
+              transition={{ delay: 1.1, duration: 0.8, ease: "easeOut" }}
+            />
+          </ImageContainer>
         </ImageSection>
       </MainSection>
 
