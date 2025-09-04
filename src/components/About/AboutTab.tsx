@@ -9,6 +9,43 @@ const shimmer = keyframes`
   100% { background-position: 200% 0; }
 `;
 
+const float = keyframes`
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation)); }
+  50% { transform: translateY(-15px) rotate(calc(var(--rotation) + 2deg)); }
+`;
+
+const floatSlow = keyframes`
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation)) scale(1); }
+  50% { transform: translateY(-8px) rotate(calc(var(--rotation) - 1deg)) scale(1.02); }
+`;
+
+const floatReverse = keyframes`
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation)); }
+  50% { transform: translateY(10px) rotate(calc(var(--rotation) + 3deg)); }
+`;
+
+const glow = keyframes`
+  0%, 100% { 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(138, 43, 226, 0.2); 
+  }
+  50% { 
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(138, 43, 226, 0.4); 
+  }
+`;
+
+const glowIntense = keyframes`
+  0%, 100% { 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(30, 144, 255, 0.3); 
+  }
+  50% { 
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(30, 144, 255, 0.5); 
+  }
+`;
+
 
 const AboutContainer = styled(motion.div)`
   padding: 6rem 2rem 2rem;
@@ -162,7 +199,16 @@ const BioText = styled.p`
   }
 `;
 
-const PortraitImage = styled(motion.img)<{ $zIndex: number; $top: string; $left: string; $size: string; $rotation: number }>`
+const PortraitImage = styled(motion.img)<{ 
+  $zIndex: number; 
+  $top: string; 
+  $left: string; 
+  $size: string; 
+  $rotation: number;
+  $opacity: number;
+  $animationType: 'float' | 'floatSlow' | 'floatReverse';
+  $glowType: 'glow' | 'glowIntense';
+}>`
   position: absolute;
   top: ${({ $top }) => $top};
   left: ${({ $left }) => $left};
@@ -170,19 +216,49 @@ const PortraitImage = styled(motion.img)<{ $zIndex: number; $top: string; $left:
   height: ${({ $size }) => $size};
   border-radius: 20px;
   object-fit: cover;
-  filter: grayscale(30%);
-  transition: all 0.4s ease;
+  filter: grayscale(40%) blur(0.5px);
+  transition: all 0.6s ease;
   z-index: ${({ $zIndex }) => $zIndex};
-  transform: rotate(${({ $rotation }) => $rotation}deg);
-  border: 2px solid rgba(138, 43, 226, 0.2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  opacity: ${({ $opacity }) => $opacity};
+  --rotation: ${({ $rotation }) => $rotation}deg;
+  
+  ${({ $animationType }) => {
+    switch ($animationType) {
+      case 'float':
+        return `animation: ${float} 4s ease-in-out infinite;`;
+      case 'floatSlow':
+        return `animation: ${floatSlow} 6s ease-in-out infinite;`;
+      case 'floatReverse':
+        return `animation: ${floatReverse} 5s ease-in-out infinite;`;
+      default:
+        return '';
+    }
+  }}
+  
+  ${({ $glowType }) => {
+    switch ($glowType) {
+      case 'glow':
+        return `animation: ${glow} 3s ease-in-out infinite;`;
+      case 'glowIntense':
+        return `animation: ${glowIntense} 4s ease-in-out infinite;`;
+      default:
+        return '';
+    }
+  }}
+  
+  border: 2px solid rgba(138, 43, 226, 0.3);
 
   &:hover {
-    filter: grayscale(0%) brightness(1.1);
-    transform: rotate(${({ $rotation }) => $rotation}deg) scale(1.05);
-    z-index: 10;
-    border-color: rgba(138, 43, 226, 0.6);
-    box-shadow: 0 20px 50px rgba(138, 43, 226, 0.4);
+    filter: grayscale(0%) brightness(1.2) blur(0px);
+    transform: scale(1.08) rotate(calc(var(--rotation) + 5deg));
+    z-index: 15;
+    opacity: 1;
+    border-color: rgba(138, 43, 226, 0.8);
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.5),
+      0 0 80px rgba(138, 43, 226, 0.6),
+      0 0 120px rgba(30, 144, 255, 0.4);
+    animation: none;
   }
 
   @media (max-width: 768px) {
@@ -367,8 +443,11 @@ export const AboutTab: React.FC = () => {
               $left="20%"
               $size="280px"
               $rotation={-8}
+              $opacity={0.9}
+              $animationType="float"
+              $glowType="glow"
               initial={{ scale: 0.8, opacity: 0, rotate: -15 }}
-              animate={{ scale: 1, opacity: 1, rotate: -8 }}
+              animate={{ scale: 1, opacity: 0.9, rotate: -8 }}
               transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
             />
             <PortraitImage
@@ -379,8 +458,11 @@ export const AboutTab: React.FC = () => {
               $left="45%"
               $size="260px"
               $rotation={5}
+              $opacity={0.7}
+              $animationType="floatSlow"
+              $glowType="glowIntense"
               initial={{ scale: 0.8, opacity: 0, rotate: 12 }}
-              animate={{ scale: 1, opacity: 1, rotate: 5 }}
+              animate={{ scale: 1, opacity: 0.7, rotate: 5 }}
               transition={{ delay: 0.9, duration: 0.8, ease: "easeOut" }}
             />
             <PortraitImage
@@ -391,8 +473,11 @@ export const AboutTab: React.FC = () => {
               $left="60%"
               $size="240px"
               $rotation={12}
+              $opacity={0.6}
+              $animationType="floatReverse"
+              $glowType="glow"
               initial={{ scale: 0.8, opacity: 0, rotate: 20 }}
-              animate={{ scale: 1, opacity: 1, rotate: 12 }}
+              animate={{ scale: 1, opacity: 0.6, rotate: 12 }}
               transition={{ delay: 1.1, duration: 0.8, ease: "easeOut" }}
             />
           </ImageContainer>
