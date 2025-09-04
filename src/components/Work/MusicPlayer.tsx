@@ -278,19 +278,29 @@ const VisualizerContainer = styled.div<{ $isPlaying: boolean }>`
   transition: opacity 0.3s ease;
 `;
 
-const VisualizerBar = styled(motion.div)<{ $height: number; $delay: number }>`
-  width: 3px;
+const VisualizerBar = styled(motion.div)<{ $height: number; $delay: number; $opacity: number }>`
+  width: 2px;
   background: linear-gradient(180deg, #8A2BE2, #1E90FF);
   border-radius: 2px;
   height: ${({ $height }) => $height}%;
+  opacity: ${({ $opacity }) => $opacity};
+  filter: ${({ $opacity }) => $opacity > 0.7 ? 'drop-shadow(0 0 4px rgba(138, 43, 226, 0.6))' : 'none'};
 `;
 
 const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
-  const bars = Array.from({ length: 80 }, (_, i) => ({
-    id: i,
-    height: Math.random() * 60 + 20,
-    delay: i * 0.025
-  }));
+  const bars = Array.from({ length: 160 }, (_, i) => {
+    const center = 79.5; // Center of 160 bars (0-159)
+    const distanceFromCenter = Math.abs(i - center);
+    const maxDistance = 79.5;
+    const opacity = Math.max(0, 1 - (distanceFromCenter / maxDistance));
+    
+    return {
+      id: i,
+      height: Math.random() * 60 + 20,
+      delay: i * 0.0125,
+      opacity
+    };
+  });
 
   return (
     <VisualizerContainer $isPlaying={isPlaying}>
@@ -299,6 +309,7 @@ const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
           key={bar.id}
           $height={bar.height}
           $delay={bar.delay}
+          $opacity={bar.opacity}
           animate={isPlaying ? {
             height: [bar.height + '%', (Math.random() * 60 + 20) + '%', bar.height + '%']
           } : {}}
