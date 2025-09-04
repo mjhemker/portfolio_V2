@@ -30,7 +30,7 @@ const NavigationContainer = styled(motion.nav)`
     backdrop-filter: blur(25px);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: ${({ theme }) => theme.borderRadius.full};
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,7 @@ const TabButton = styled(motion.button)<{
   $isActive: boolean;
 }>`
   position: relative;
-  padding: 1.25rem 2.5rem;
+  padding: 0.8rem 2.5rem;
   border: none;
   background: none;
   border-radius: ${({ theme }) => theme.borderRadius.full};
