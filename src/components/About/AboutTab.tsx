@@ -1,18 +1,48 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Mail, Github, Linkedin, Download, MapPin, Calendar } from 'lucide-react';
+import { Mail, Github, Linkedin, Download, MapPin, Calendar, Instagram, Youtube } from 'lucide-react';
 import { Button } from '../UI/Button';
 
 const AboutContainer = styled(motion.div)`
   padding: 6rem 2rem 2rem;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
+  position: relative;
 
   @media (max-width: 768px) {
     padding: 6rem 1rem 1rem;
   }
+`;
+
+const BackgroundImages = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+`;
+
+const BackgroundImage = styled(motion.img)<{ $opacity: number; $top: string; $left: string; $size: string; $blur: number }>`
+  position: absolute;
+  top: ${({ $top }) => $top};
+  left: ${({ $left }) => $left};
+  width: ${({ $size }) => $size};
+  height: ${({ $size }) => $size};
+  object-fit: cover;
+  border-radius: 20px;
+  opacity: ${({ $opacity }) => $opacity};
+  filter: blur(${({ $blur }) => $blur}px);
+  transform: rotate(${Math.random() * 20 - 10}deg);
+`;
+
+const ContentWrapper = styled.div`
+  position: relative;
+  z-index: 1;
 `;
 
 const AboutHeader = styled.div`
@@ -318,33 +348,33 @@ const SocialLink = styled(motion.a)`
 `;
 
 const skills = {
-  'Frontend Development': [
-    'React & Next.js',
-    'TypeScript',
-    'CSS & Styled Components',
-    'Framer Motion',
-    'Responsive Design'
+  'Product Design': [
+    'AI-Powered Design',
+    'User Experience Design',
+    'Digital Product Strategy',
+    'Interaction Design',
+    'Prototyping'
   ],
-  'Backend Development': [
-    'Node.js',
-    'Python',
-    'PostgreSQL',
-    'MongoDB',
-    'REST APIs'
-  ],
-  'Design & Art': [
-    'Digital Painting',
+  'Visual Arts': [
+    'Drawing (19+ years)',
+    'Painting (8+ years)',
+    'Digital Art',
     'Traditional Media',
-    'UI/UX Design',
-    'Adobe Creative Suite',
-    'Figma'
+    'Color Theory'
   ],
-  'Tools & Technologies': [
-    'Git & GitHub',
-    'Docker',
-    'AWS',
-    'Vercel',
-    'VS Code'
+  'Technology': [
+    'Design Systems',
+    'Frontend Development',
+    'AI Integration',
+    'User Research',
+    'Design Thinking'
+  ],
+  'Tools & Software': [
+    'Figma',
+    'Adobe Creative Suite',
+    'Sketch',
+    'Principle',
+    'React & TypeScript'
   ]
 };
 
@@ -356,7 +386,23 @@ export const AboutTab: React.FC = () => {
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.4 }}
     >
-      <AboutHeader>
+      <BackgroundImages>
+        <BackgroundImage
+          src="/var/folders/tp/zkmkh60s7sq3_ckch9wdj_400000gn/T/TemporaryItems/NSIRD_screencaptureui_k7GExB/Screenshot 2025-09-04 at 12.39.15 AM.png"
+          alt="Red light portrait"
+          $opacity={0.15}
+          $top="10%"
+          $left="70%"
+          $size="300px"
+          $blur={2}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.15, scale: 1 }}
+          transition={{ delay: 1, duration: 2 }}
+        />
+      </BackgroundImages>
+      
+      <ContentWrapper>
+        <AboutHeader>
         <ProfileImage
           src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
           alt="Profile"
@@ -364,11 +410,15 @@ export const AboutTab: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
         />
-        <AboutTitle>Michael Hemker</AboutTitle>
-        <AboutSubtitle>Full-Stack Developer & Digital Artist</AboutSubtitle>
+        <AboutTitle>Michael Hemker, 21</AboutTitle>
+        <AboutSubtitle>Product Designer: Specializing in AI and Digital Design</AboutSubtitle>
         <AboutLocation>
           <MapPin size={16} />
-          San Francisco, CA
+          Palo Alto, CA and Baltimore, MD
+        </AboutLocation>
+        <AboutLocation>
+          <Calendar size={16} />
+          Stanford University, Class of 2026
         </AboutLocation>
       </AboutHeader>
 
@@ -390,11 +440,15 @@ export const AboutTab: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 0.4 }}
             />
-            <AboutTitle>Michael Hemker</AboutTitle>
-            <AboutSubtitle>Full-Stack Developer & Digital Artist</AboutSubtitle>
+            <AboutTitle>Michael Hemker, 21</AboutTitle>
+            <AboutSubtitle>Product Designer: Specializing in AI and Digital Design</AboutSubtitle>
             <AboutLocation>
               <MapPin size={16} />
-              San Francisco, CA
+              Palo Alto, CA and Baltimore, MD
+            </AboutLocation>
+            <AboutLocation>
+              <Calendar size={16} />
+              Stanford University, Class of 2026
             </AboutLocation>
             
             <StatsGrid>
@@ -445,22 +499,31 @@ export const AboutTab: React.FC = () => {
 
             <SocialLinks>
               <SocialLink
-                href="https://github.com/example"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Github size={20} />
-              </SocialLink>
-              <SocialLink
-                href="https://linkedin.com/in/example"
+                href="https://www.linkedin.com/in/michael-hemker-71549425b/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
                 <Linkedin size={20} />
+              </SocialLink>
+              <SocialLink
+                href="https://www.instagram.com/hemkerart/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Instagram size={20} />
+              </SocialLink>
+              <SocialLink
+                href="https://www.youtube.com/channel/UCFDWSmJpxUSYHJZe-68t6fQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Youtube size={20} />
               </SocialLink>
             </SocialLinks>
           </ContactSection>
@@ -476,18 +539,14 @@ export const AboutTab: React.FC = () => {
             About Me
           </SectionTitle>
           <BioText>
-            I'm a passionate full-stack developer and digital artist with a love for creating 
-            beautiful, functional experiences. My journey started with traditional art, which 
-            taught me to see design from both aesthetic and technical perspectives.
+            I come from an extensive visual arts background. I have been drawing since I was two 
+            and painting since 8th grade. Making art sparked my love for design and creating 
+            things is a passion that will never be satiated.
           </BioText>
           <BioText>
-            When I'm not coding, you'll find me painting, exploring new technologies, or 
-            listening to music that inspires my next project. I believe in the power of 
-            combining creativity with technology to solve real problems.
-          </BioText>
-          <BioText>
-            My goal is to create digital experiences that are not only functional but also 
-            emotionally engaging and visually stunning.
+            Currently attending Stanford University, I specialize in AI and digital design, 
+            combining my artistic foundation with cutting-edge technology to create meaningful 
+            user experiences.
           </BioText>
 
           <SectionTitle style={{ marginTop: '2rem' }}>Skills & Expertise</SectionTitle>
@@ -505,6 +564,7 @@ export const AboutTab: React.FC = () => {
           </SkillsGrid>
         </AboutSection>
       </AboutContent>
+      </ContentWrapper>
     </AboutContainer>
   );
 };
