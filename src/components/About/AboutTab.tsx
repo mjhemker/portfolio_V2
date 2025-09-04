@@ -60,18 +60,27 @@ const ImageSection = styled(motion.div)`
 `;
 
 const AboutTitle = styled.h1`
-  font-size: 4rem;
-  font-weight: 300;
-  color: ${({ theme }) => theme.colors.text.primary};
-  margin-bottom: 2rem;
-  letter-spacing: -0.02em;
+  font-size: 5rem;
+  font-weight: 100;
+  background: linear-gradient(135deg, 
+    ${({ theme }) => theme.colors.text.primary} 0%,
+    rgba(138, 43, 226, 0.8) 50%,
+    ${({ theme }) => theme.colors.text.primary} 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: ${shimmer} 3s ease-in-out infinite;
+  margin-bottom: 3rem;
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 50px rgba(138, 43, 226, 0.3);
 
   @media (max-width: 768px) {
-    font-size: 3rem;
+    font-size: 4rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 2.5rem;
+    font-size: 3rem;
   }
 `;
 
@@ -82,14 +91,20 @@ const PersonalInfo = styled.div`
 `;
 
 const InfoText = styled.p`
-  font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.text.primary};
-  font-weight: 400;
-  line-height: 1.4;
+  font-size: 2rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, 
+    ${({ theme }) => theme.colors.text.primary} 0%,
+    rgba(138, 43, 226, 0.9) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.3;
   margin: 0;
+  letter-spacing: -0.01em;
 
   @media (max-width: 768px) {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
 `;
 
@@ -106,14 +121,40 @@ const SubInfoText = styled.p`
 `;
 
 const BioText = styled.p`
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: ${({ theme }) => theme.colors.text.secondary};
-  line-height: 1.7;
+  line-height: 1.8;
   margin: 0;
   max-width: 500px;
+  position: relative;
+  padding-left: 1.5rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(135deg, #8A2BE2, #1E90FF);
+    border-radius: 2px;
+  }
+  
+  &::first-letter {
+    font-size: 2.5rem;
+    font-weight: 700;
+    float: left;
+    line-height: 1;
+    margin-right: 0.5rem;
+    margin-top: 0.1rem;
+    background: linear-gradient(135deg, #8A2BE2, #1E90FF);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   @media (max-width: 768px) {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 `;
 
