@@ -549,6 +549,38 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               </ContentSection>
               
               <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Need Finding</SectionTitle>
+                <ContentGrid>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png" 
+                      alt="App Mockups"
+                      style={{ padding: '2rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Research Results</SubTitle>
+                    <ContentText>
+                      I interviewed ~30 students, parents, and young adults from <strong>Baltimore City</strong> and <strong>Stanford</strong>. 
+                      Results were surprisingly consistent: <strong>everyone needs help in the kitchen.</strong>
+                    </ContentText>
+                    <ContentText>
+                      The three biggest struggles were:
+                      <br />1. <strong>Organization</strong>
+                      <br />2. <strong>Anxiety</strong>
+                      <br />3. <strong>Lack of Excitement / Discovery</strong>
+                    </ContentText>
+                  </TextBlock>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>How Pantreat Helps</SectionTitle>
                 <FeatureShowcase>
                   <FeatureBlock>
@@ -560,7 +592,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureContent>
                       <FeatureTitle style={{ color: project.colors.accent }}>Organization</FeatureTitle>
                       <FeatureText>
-                        Cooking is hard — and cooking consistently is even harder. On average, Americans throw away <strong>20% of their groceries.</strong>
+                        Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces. On average, Americans throw away <strong>20% of their groceries.</strong>
+                      </FeatureText>
+                      <FeatureText style={{ marginTop: '1rem' }}>
+                        • Helping you make meals with what you already have
+                        <br />• Keeping you accountable and organized with reminders for expiration dates
+                        <br />• Suggesting daily, personalized meals based on your schedule and dietary preferences
+                        <br /><br /><strong>Result:</strong> More good food on the table, and extra cash in your pocket.
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
@@ -568,15 +606,104 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         <VideoPlayer
                           src="/projects_assets/pantreat/demo_videos/MyPantry.mp4"
                           muted loop playsInline
+                          style={{ maxHeight: '300px' }}
                           ref={(video) => {
-                            if (video && playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
-                              video.play();
+                            if (video) {
+                              if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
+                                video.play();
+                              } else {
+                                video.pause();
+                              }
                             }
                           }}
                         />
                         <AnimatePresence>
                           {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
                             <PlayButton
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              whileHover={{ scale: 1.1 }}
+                              style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
+                            >
+                              <Play size={24} />
+                            </PlayButton>
+                          )}
+                        </AnimatePresence>
+                      </VideoWrapper>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Anxiety</FeatureTitle>
+                      <FeatureText>
+                        People want to cook — they know the benefits — but friction and lack of confidence hold them back.
+                      </FeatureText>
+                      <FeatureText style={{ marginTop: '1rem' }}>
+                        Pantreat's <strong>Cook Mode</strong> acts as your custom <strong>AI-sous chef</strong>, walking you through recipes step-by-step with:
+                        <br />• Built-in timers
+                        <br />• Voice responses
+                        <br />• Smart substitutions
+                        <br /><br />This helps beginners gain confidence while encouraging consistency. To keep motivation high, users can share creations with friends for <strong>group accountability</strong> — think <em>Strava, but for cooking.</em>
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
+                          alt="Cook Mode"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Excitement & Discovery</FeatureTitle>
+                      <FeatureText>
+                        Motivation alone isn't enough. Cooking needs excitement. That's where Pantreat's <strong>Feed</strong> comes in.
+                      </FeatureText>
+                      <FeatureText style={{ marginTop: '1rem' }}>
+                        The feed features <strong>short-form cooking videos</strong> from:
+                        <br />• Friends • Influencers • Creators • Other users
+                        <br /><br />Unlike Instagram or TikTok, every video has an attached <strong>recipe and auto-adjusting grocery list.</strong> With Instacart's API, you can order ingredients instantly and have them delivered within the hour — making it easy to <em>literally cook what you see.</em>
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/recipes.mp4')}>
+                        <VideoPlayer
+                          src="/projects_assets/pantreat/demo_videos/recipes.mp4"
+                          muted loop playsInline
+                          style={{ maxHeight: '300px' }}
+                          ref={(video) => {
+                            if (video) {
+                              if (playingVideo === '/projects_assets/pantreat/demo_videos/recipes.mp4') {
+                                video.play();
+                              } else {
+                                video.pause();
+                              }
+                            }
+                          }}
+                        />
+                        <AnimatePresence>
+                          {playingVideo !== '/projects_assets/pantreat/demo_videos/recipes.mp4' && (
+                            <PlayButton
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{ opacity: 0, scale: 0.8 }}
+                              whileHover={{ scale: 1.1 }}
                               style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
                             >
                               <Play size={24} />
@@ -587,6 +714,106 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureMedia>
                   </FeatureBlock>
                 </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Business Model</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Revenue Streams</BusinessTitle>
+                    <BusinessText>
+                      Pantreat is sticky because it integrates into <strong>daily routines</strong>, creating multiple natural revenue streams:
+                      <br /><br />
+                      • <strong>Grocery Affiliate Partnerships</strong> (Instacart, Amazon, Walmart)
+                      <br />• U.S. Grocery Market Sales (2025): <strong>$1.6 trillion</strong> (+3.1% YoY growth)
+                      <br />• Online U.S. Grocery Sales (May 2025): <strong>$8.7 billion</strong> (+27% YoY)
+                      <br /><br />
+                      • <strong>Advertisements & Algorithmic Product Suggestions</strong>
+                      <br />• <strong>Long-Term:</strong> Data-driven personalization for health/fitness integrations
+                      <br /><br />
+                      <strong>Creator Incentive:</strong> Whenever a user orders groceries linked to a creator's recipe video, that creator gets a cut — encouraging more content and engagement.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/pantreat/screen_shots/App_preview_Profile.png" 
+                      alt="Profile Screen"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Conclusion</SectionTitle>
+                <ContentGrid>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.5 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/input+filters.mp4')}>
+                      <VideoPlayer
+                        src="/projects_assets/pantreat/demo_videos/input+filters.mp4"
+                        muted loop playsInline
+                        style={{ maxHeight: '300px' }}
+                        ref={(video) => {
+                          if (video) {
+                            if (playingVideo === '/projects_assets/pantreat/demo_videos/input+filters.mp4') {
+                              video.play();
+                            } else {
+                              video.pause();
+                            }
+                          }
+                        }}
+                      />
+                      <AnimatePresence>
+                        {playingVideo !== '/projects_assets/pantreat/demo_videos/input+filters.mp4' && (
+                          <PlayButton
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            whileHover={{ scale: 1.1 }}
+                            style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
+                          >
+                            <Play size={24} />
+                          </PlayButton>
+                        )}
+                      </AnimatePresence>
+                    </VideoWrapper>
+                  </AssetCard>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Making Cooking Cool Again</SubTitle>
+                    <ContentText>
+                      Pantreat combines <strong>AI, community, and short-form content</strong> to remove the friction of cooking, reduce waste, and make the kitchen exciting again.
+                    </ContentText>
+                    <ContentText>
+                      With tools to organize, motivate, and inspire, Pantreat empowers a new generation to step away from delivery apps and rediscover the joy of home cooking.
+                    </ContentText>
+                    <ActionButton
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => window.open('https://www.getpantreat.com', '_blank')}
+                      style={{ 
+                        marginTop: '1rem',
+                        background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                        borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                        color: project.colors.accent
+                      }}
+                    >
+                      <ExternalLink size={18} />
+                      Try Pantreat Now
+                    </ActionButton>
+                  </TextBlock>
+                </ContentGrid>
               </ContentSection>
             </>
           ) : (

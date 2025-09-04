@@ -23,15 +23,40 @@ const NavigationContainer = styled(motion.nav)`
   
   > div {
     pointer-events: all;
-    background: rgba(26, 26, 26, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid ${({ theme }) => theme.colors.border};
+    background: linear-gradient(135deg, 
+      rgba(26, 26, 26, 0.95) 0%,
+      rgba(40, 40, 40, 0.9) 50%,
+      rgba(26, 26, 26, 0.95) 100%);
+    backdrop-filter: blur(25px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: ${({ theme }) => theme.borderRadius.full};
-    padding: 0.5rem;
+    padding: 1rem 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, 
+        rgba(138, 43, 226, 0.3) 0%,
+        rgba(30, 144, 255, 0.2) 50%,
+        rgba(138, 43, 226, 0.3) 100%);
+      border-radius: ${({ theme }) => theme.borderRadius.full};
+      z-index: -1;
+      filter: blur(8px);
+      opacity: 0.6;
+    }
   }
 `;
 
@@ -39,27 +64,31 @@ const TabButton = styled(motion.button)<{
   $isActive: boolean;
 }>`
   position: relative;
-  padding: 0.75rem 1.5rem;
+  padding: 1.25rem 2.5rem;
   border: none;
   background: none;
   border-radius: ${({ theme }) => theme.borderRadius.full};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
   color: ${({ $isActive, theme }) => 
     $isActive ? theme.colors.text.primary : theme.colors.text.secondary
   };
   transition: all ${({ theme }) => theme.animations.fast};
   cursor: pointer;
   white-space: nowrap;
+  text-shadow: ${({ $isActive }) => 
+    $isActive ? '0 0 10px rgba(255, 255, 255, 0.3)' : 'none'
+  };
 
   &:hover {
     color: ${({ theme }) => theme.colors.text.primary};
-    transform: scale(1.02);
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
   }
 
   @media (max-width: 768px) {
-    padding: 0.625rem 1.25rem;
-    font-size: ${({ theme }) => theme.typography.fontSize.xs};
+    padding: 1rem 2rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
   }
 `;
 
@@ -69,9 +98,16 @@ const ActiveIndicator = styled(motion.div)`
   left: 0;
   right: 0;
   bottom: 0;
-  background: ${({ theme }) => theme.colors.surface};
+  background: linear-gradient(135deg, 
+    rgba(138, 43, 226, 0.2) 0%,
+    rgba(30, 144, 255, 0.15) 50%,
+    rgba(138, 43, 226, 0.2) 100%);
   border-radius: ${({ theme }) => theme.borderRadius.full};
   z-index: -1;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  box-shadow: 
+    0 0 20px rgba(138, 43, 226, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 `;
 
 export const Navigation: React.FC = () => {
