@@ -30,33 +30,17 @@ const NavigationContainer = styled(motion.nav)`
     backdrop-filter: blur(25px);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: ${({ theme }) => theme.borderRadius.full};
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
     box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.4),
-      0 0 40px rgba(255, 255, 255, 0.05),
+      0 0 60px rgba(138, 43, 226, 0.4),
+      0 0 100px rgba(30, 144, 255, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
-    
-    &::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(135deg, 
-        rgba(138, 43, 226, 0.3) 0%,
-        rgba(30, 144, 255, 0.2) 50%,
-        rgba(138, 43, 226, 0.3) 100%);
-      border-radius: ${({ theme }) => theme.borderRadius.full};
-      z-index: -1;
-      filter: blur(8px);
-      opacity: 0.6;
-    }
   }
 `;
 

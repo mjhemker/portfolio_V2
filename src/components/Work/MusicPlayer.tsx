@@ -286,10 +286,10 @@ const VisualizerBar = styled(motion.div)<{ $height: number; $delay: number }>`
 `;
 
 const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
-  const bars = Array.from({ length: 20 }, (_, i) => ({
+  const bars = Array.from({ length: 40 }, (_, i) => ({
     id: i,
     height: Math.random() * 60 + 20,
-    delay: i * 0.1
+    delay: i * 0.05
   }));
 
   return (
