@@ -6,7 +6,7 @@ import type { Artwork } from '../../types/index';
 import { ArtworkModal } from './ArtworkModal';
 
 const ArtContainer = styled(motion.div)`
-  padding: 6rem 0 2rem;
+  padding: 8rem 0 2rem;
   min-height: 100vh;
   display: flex;
   max-width: 1400px;
@@ -15,7 +15,7 @@ const ArtContainer = styled(motion.div)`
 
   @media (max-width: 1024px) {
     flex-direction: column;
-    padding: 6rem 1rem 1rem;
+    padding: 8rem 1rem 1rem;
     gap: 1rem;
   }
 `;
@@ -92,7 +92,7 @@ const MainContent = styled.div`
 `;
 
 const ArtHeader = styled(motion.div)`
-  text-align: center;
+  text-align: left;
   margin-bottom: 3rem;
 `;
 
@@ -111,7 +111,7 @@ const ArtSubtitle = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
   color: ${({ theme }) => theme.colors.text.secondary};
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0;
   line-height: 1.6;
 
   @media (max-width: 768px) {

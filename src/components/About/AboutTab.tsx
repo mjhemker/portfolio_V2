@@ -423,9 +423,9 @@ export const AboutTab: React.FC = () => {
               src="/images/about/red-light-portrait-1.jpeg"
               alt="Michael Hemker portrait 1"
               $zIndex={3}
-              $top="10%"
-              $left="20%"
-              $size="280px"
+              $top="5%"
+              $left="10%"
+              $size="450px"
               $rotation={-8}
               $opacity={0.9}
               initial={{ scale: 0.8, opacity: 0, rotate: -15 }}
@@ -436,9 +436,9 @@ export const AboutTab: React.FC = () => {
               src="/images/about/red-light-portrait-2.png"
               alt="Michael Hemker portrait 2"
               $zIndex={2}
-              $top="40%"
-              $left="45%"
-              $size="260px"
+              $top="30%"
+              $left="35%"
+              $size="420px"
               $rotation={5}
               $opacity={0.7}
               initial={{ scale: 0.8, opacity: 0, rotate: 12 }}
@@ -449,9 +449,9 @@ export const AboutTab: React.FC = () => {
               src="/images/about/red-light-portrait-3.png"
               alt="Michael Hemker portrait 3"
               $zIndex={1}
-              $top="15%"
-              $left="60%"
-              $size="240px"
+              $top="10%"
+              $left="50%"
+              $size="400px"
               $rotation={12}
               $opacity={0.6}
               initial={{ scale: 0.8, opacity: 0, rotate: 20 }}
@@ -482,7 +482,7 @@ export const AboutTab: React.FC = () => {
             <Button
               variant="primary"
               icon={<Mail size={18} />}
-              onClick={() => window.location.href = 'mailto:hello@example.com'}
+              onClick={() => window.location.href = 'mailto:mjhemker@gmail.com'}
             >
               Send Email
             </Button>
