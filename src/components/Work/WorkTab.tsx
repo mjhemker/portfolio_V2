@@ -7,6 +7,7 @@ import { ProjectsIntro } from './ProjectsIntro';
 import { ProjectModal } from './ProjectModal';
 import { ProjectPreview } from './ProjectPreview';
 import { INKDPreview } from './INKDPreview';
+import { FizzPreview } from './FizzPreview';
 import { useAppContext } from '../../contexts/AppContext';
 
 const float = keyframes`
@@ -99,7 +100,12 @@ export const WorkTab: React.FC = () => {
   const { playerState } = useAppContext();
   
   const getCurrentProjectId = () => {
-    return playerState.currentProjectIndex === 0 ? '1' : '2';
+    switch (playerState.currentProjectIndex) {
+      case 0: return '1';
+      case 1: return '2'; 
+      case 2: return '3';
+      default: return '1';
+    }
   };
 
   const handleProjectClick = () => {
@@ -125,6 +131,8 @@ export const WorkTab: React.FC = () => {
             <ProjectPreview onProjectClick={handleProjectClick} />
           ) : playerState.currentProjectIndex === 1 ? (
             <INKDPreview onProjectClick={handleProjectClick} />
+          ) : playerState.currentProjectIndex === 2 ? (
+            <FizzPreview onProjectClick={handleProjectClick} />
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}
