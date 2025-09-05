@@ -297,7 +297,7 @@ export const ProjectQueue: React.FC = () => {
                 whileHover={{ scale: 1.1 }}
               >
                 <ProjectThumbnail
-                  src={project.image}
+                  src={project.id === '3' ? '/projects_assets/fizz/fizz_app_icon.jpeg' : project.image}
                   alt={project.title}
                   $isActive={isActive}
                   $isPlaying={isCurrentlyPlaying}

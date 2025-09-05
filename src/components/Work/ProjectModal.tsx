@@ -446,6 +446,30 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '3') {
+      return {
+        logo: "/projects_assets/fizz/fizz_logo+name.jpeg",
+        title: "Fizz Social Media Redesign",
+        tagline: "Reimagining the student social network for growth and new opportunities. A comprehensive UI redesign with new features for project collaboration and job opportunities.",
+        colors: {
+          primary: "138, 92, 246",
+          secondary: "99, 102, 241", 
+          accent: "#8a5cf6"
+        },
+        siteUrl: "https://example.com",
+        technologies: ["Figma", "UI/UX Design", "Prototyping", "User Research", "Design Systems", "Branding", "Visual Design"],
+        content: {
+          sections: [
+            {
+              title: "Problem",
+              subtitle: "Inconsistent UI and Limited Scope",
+              text: "While popular, Fizz's UI felt inconsistent and limited in scope. The existing design lacked a strong visual identity, and its feature set was focused narrowly on casual posting. Students looking for project collaborators or job opportunities had no dedicated space, leaving those needs unmet.",
+              image: "/projects_assets/fizz/fizz_copy1.png",
+              features: []
+            }
+          ]
+        }
+      };
     }
     return null;
   };
@@ -816,7 +840,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </ContentSection>
             </>
-          ) : (
+          ) : projectId === '2' ? (
             // INKD content
             <>
               <ContentSection>
@@ -940,7 +964,210 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </BusinessSection>
             </>
-          )}
+          ) : projectId === '3' ? (
+            // Fizz content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Problem</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Inconsistent UI and Limited Scope</SubTitle>
+                    <ContentText>
+                      While popular, Fizz's UI felt inconsistent and limited in scope. The existing design lacked a strong 
+                      visual identity, and its feature set was focused narrowly on casual posting.
+                    </ContentText>
+                    <ContentText>
+                      Students looking for project collaborators or job opportunities had no dedicated space, leaving those 
+                      needs unmet.
+                    </ContentText>
+                  </TextBlock>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/fizz/fizz_copy1.png" 
+                      alt="Original Fizz UI"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Process</SectionTitle>
+                <ContentGrid>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/fizz/process_pic_fizz_copy.png" 
+                      alt="Copy Process"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Foundation & Exploration</SubTitle>
+                    <ContentText>
+                      I began by replicating the current Fizz UI to create a foundation for redesign. From there, I:
+                    </ContentText>
+                    <ContentText>
+                      • Developed a <strong>universal color palette</strong> to unify branding and improve readability
+                      <br />• Explored <strong>dramatic color usage, bold layouts, and restructured post/comment relationships</strong> to make the interface more engaging
+                      <br />• Designed prototypes for two <strong>new feature concepts</strong>
+                    </ContentText>
+                  </TextBlock>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Design Evolution</SectionTitle>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Full Redesign Exploration</FeatureTitle>
+                      <FeatureText>
+                        Through <strong>visual experimentation</strong> and <strong>functional expansion</strong>, I explored how 
+                        Fizz could evolve with dramatic color usage and bold layouts while ensuring new ideas aligned with 
+                        the student community's needs.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/fizz/process_pic_fizz_full_redesign.png" 
+                          alt="Full Redesign Process"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Final Design Direction</FeatureTitle>
+                      <FeatureText>
+                        The final design balances visual impact with usability, creating a cohesive experience that maintains 
+                        Fizz's student-focused identity while expanding its capabilities.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/fizz/process_pic_fizz_final_redesign.png" 
+                          alt="Final Redesign Process"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>New Features</SectionTitle>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Project Tags</FeatureTitle>
+                      <FeatureText>
+                        <strong>Custom tags</strong> to help students promote or join campus projects. This feature addresses 
+                        the need for collaboration and project discovery within the student community.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/fizz/fizz_full_redesign1.png" 
+                          alt="Project Tags Feature"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Job Section</FeatureTitle>
+                      <FeatureText>
+                        A <strong>dedicated post type and feed</strong> for campus and local job opportunities. This expansion 
+                        helps students find relevant work opportunities while keeping them engaged with the platform.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/fizz/fizz_full_redesign2.png" 
+                          alt="Jobs Feature"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Final Solution</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Visual Refresh & New Functionality</BusinessTitle>
+                    <BusinessText>
+                      The final redesign delivered both a <strong>visual refresh</strong> and <strong>new functionality</strong>:
+                      <br /><br />
+                      • A cohesive <strong>color palette</strong> and cleaner interface for a stronger brand presence
+                      <br />• A redesigned <strong>post/comment flow</strong> with simplified hierarchies and clearer interactions
+                      <br />• Fully realized <strong>Jobs and Projects features</strong>, offering students practical tools to advance their studies, careers, and collaborations
+                      <br /><br />
+                      By combining a modernized UI with new features, this redesign demonstrates how Fizz could evolve from a 
+                      <strong>niche social app into a central hub for student life</strong> — connecting not only conversations, 
+                      but also opportunities.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/fizz/fizz_final_redesign1.png" 
+                      alt="Final Design"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
+          ) : null}
 
           <TechStackSection>
             <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Built With</SectionTitle>

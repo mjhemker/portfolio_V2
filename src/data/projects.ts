@@ -23,13 +23,13 @@ export const projects: Project[] = [
   },
   {
     id: '3',
-    title: 'Task Management App',
-    description: 'Collaborative task management platform with real-time updates, drag-and-drop functionality, and team workspace features.',
-    technologies: ['React', 'Firebase', 'Material-UI', 'Redux', 'WebSocket'],
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop',
+    title: 'Fizz Redesign',
+    description: 'Reimagining the student social network for growth and new opportunities. A comprehensive UI redesign with new features for project collaboration and job opportunities.',
+    technologies: ['Figma', 'UI/UX Design', 'Prototyping', 'User Research', 'Design Systems'],
+    image: '/projects_assets/fizz/fizz_redesign.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '2:58'
+    duration: '3:45'
   },
   {
     id: '4',
