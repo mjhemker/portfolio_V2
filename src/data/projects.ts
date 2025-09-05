@@ -33,13 +33,13 @@ export const projects: Project[] = [
   },
   {
     id: '4',
-    title: 'Portfolio Website',
-    description: 'Creative portfolio website with smooth animations, dark mode support, and optimized performance using modern web technologies.',
-    technologies: ['Next.js', 'Framer Motion', 'Styled Components', 'Vercel'],
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop',
+    title: 'PocketPeople',
+    description: 'Because remembering the little things is what makes relationships matter. A personal relationship management app that helps you keep important details about the people you love.',
+    technologies: ['React Native', 'TypeScript', 'Expo', 'Tailwind CSS', 'Figma'],
+    image: '/projects_assets/pocketpeople/pocketpeople_home.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '3:21'
+    duration: '4:15'
   },
   {
     id: '5',

@@ -8,6 +8,7 @@ import { ProjectModal } from './ProjectModal';
 import { ProjectPreview } from './ProjectPreview';
 import { INKDPreview } from './INKDPreview';
 import { FizzPreview } from './FizzPreview';
+import { PocketPeoplePreview } from './PocketPeoplePreview';
 import { useAppContext } from '../../contexts/AppContext';
 
 const float = keyframes`
@@ -104,6 +105,7 @@ export const WorkTab: React.FC = () => {
       case 0: return '1';
       case 1: return '2'; 
       case 2: return '3';
+      case 3: return '4';
       default: return '1';
     }
   };
@@ -133,6 +135,8 @@ export const WorkTab: React.FC = () => {
             <INKDPreview onProjectClick={handleProjectClick} />
           ) : playerState.currentProjectIndex === 2 ? (
             <FizzPreview onProjectClick={handleProjectClick} />
+          ) : playerState.currentProjectIndex === 3 ? (
+            <PocketPeoplePreview onProjectClick={handleProjectClick} />
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}

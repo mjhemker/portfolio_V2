@@ -470,6 +470,30 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '4') {
+      return {
+        logo: "/projects_assets/pocketpeople/pocketpeople_home.png",
+        title: "PocketPeople",
+        tagline: "Because remembering the little things is what makes relationships matter. A personal relationship management app that helps you keep important details about the people you love.",
+        colors: {
+          primary: "34, 197, 94",
+          secondary: "16, 185, 129", 
+          accent: "#22c55e"
+        },
+        siteUrl: "https://example.com",
+        technologies: ["React Native", "TypeScript", "Expo", "Tailwind CSS", "Figma", "AI Integration", "Mobile Development"],
+        content: {
+          sections: [
+            {
+              title: "Why It Matters",
+              subtitle: "Thoughtful Relationships Without Perfect Memory",
+              text: "Being thoughtful shouldn't depend on having a perfect memory. Relationships thrive when you remember the details that make people feel seen. Most apps focus on productivity or networking — PocketPeople is built purely for personal connection.",
+              image: "/projects_assets/pocketpeople/pocketpeople_profile.png",
+              features: []
+            }
+          ]
+        }
+      };
     }
     return null;
   };
@@ -1161,6 +1185,182 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <MediaImage 
                       src="/projects_assets/fizz/fizz_final_redesign1.png" 
                       alt="Final Design"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
+          ) : projectId === '4' ? (
+            // PocketPeople content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Why It Matters</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Thoughtful Relationships Without Perfect Memory</SubTitle>
+                    <ContentText>
+                      We all want to be great friends, partners, and family members — but life (and our memory) doesn't always cooperate. 
+                      I often found myself forgetting birthdays, favorite movies, or even how many pets a friend has.
+                    </ContentText>
+                    <ContentText>
+                      Not because I don't care, but because it's hard to keep track of everything. <strong>PocketPeople</strong> was born 
+                      out of that frustration: a fun, personal app that helps you keep all the important details about the people you love 
+                      in one dedicated place.
+                    </ContentText>
+                  </TextBlock>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/pocketpeople/pocketpeople_profile.png" 
+                      alt="PocketPeople Profile"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Concept & Design</SectionTitle>
+                <ContentGrid>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/pocketpeople/pocketpeople_original_plan.png" 
+                      alt="Original Plan"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Digital Deck of Cards for Relationships</SubTitle>
+                    <ContentText>
+                      PocketPeople works like a digital deck of cards for your relationships. Each person gets their own customizable 
+                      profile, where you can add notes, favorite things, important dates, and more.
+                    </ContentText>
+                    <ContentText>
+                      From there, you can set reminders, sort your most important people into favorites, and even play memory games 
+                      to test yourself on the details you've stored.
+                    </ContentText>
+                  </TextBlock>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Key Features</SectionTitle>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Custom Cards</FeatureTitle>
+                      <FeatureText>
+                        Create <strong>personalized cards</strong> for each person, with editable details that grow over time. 
+                        Track birthdays, favorite things, important dates, and meaningful memories all in one place.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/pocketpeople/pocketpeople_adding.png" 
+                          alt="Adding People Feature"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Memory Games</FeatureTitle>
+                      <FeatureText>
+                        Test yourself on friends' facts in a <strong>playful way</strong> that makes remembering effortless. 
+                        Gamification helps turn relationship maintenance into an enjoyable experience.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/pocketpeople/pocketpeople_memory.png" 
+                          alt="Memory Games Feature"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Smart Reminders & Favorites</FeatureTitle>
+                      <FeatureText>
+                        Never miss a birthday, anniversary, or big event again with intelligent reminders. 
+                        Pin your closest connections as <strong>favorites</strong> for quick access to the people who matter most.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/pocketpeople/pocketpeople_home.png" 
+                          alt="Home Screen"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Development & Design</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Technical Implementation</BusinessTitle>
+                    <BusinessText>
+                      PocketPeople was developed using <strong>Cursor, Expo, and React Native</strong>, styled with <strong>Tailwind CSS</strong> 
+                      for a clean, modern interface.
+                      <br /><br />
+                      I designed the layout and flow in <strong>Figma</strong> before coding the final product. The playful <strong>32-bit stickers</strong> 
+                      were created with AI and hand-touched for polish.
+                      <br /><br />
+                      <strong>Current Status:</strong> PocketPeople is awaiting App Store verification and will soon be available for download.
+                      <br /><br />
+                      <em>Being thoughtful shouldn't depend on having a perfect memory.</em> Relationships thrive when you remember the 
+                      details that make people feel seen. Most apps focus on productivity or networking — PocketPeople is built purely 
+                      for personal connection.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/pocketpeople/process_character_sheet.png" 
+                      alt="Character Design Process"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
                   </AssetCard>
