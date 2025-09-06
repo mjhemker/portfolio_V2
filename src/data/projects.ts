@@ -43,13 +43,13 @@ export const projects: Project[] = [
   },
   {
     id: '5',
-    title: 'AI Chat Interface',
-    description: 'Modern chat interface for AI interactions with syntax highlighting, message history, and customizable themes.',
-    technologies: ['React', 'OpenAI API', 'WebSocket', 'Prism.js', 'Context API'],
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
+    title: 'Vinnie Hager Rugs',
+    description: 'Custom large-scale rug and wall installations for Allied Apartments communal lounge spaces. Designs inspired by artist Vinnie Hager, scaled for architectural proportions.',
+    technologies: ['AutoCAD', 'Interior Design', 'Color Theory', 'Architectural Design', 'Collaboration'],
+    image: '/projects_assets/vinnie_hager/vinnie_square_closeup.jpg',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '4:33'
+    duration: '3:22'
   },
   {
     id: '6',

@@ -495,7 +495,12 @@ export const AboutTab: React.FC = () => {
               variant="secondary"
               icon={<Download size={18} />}
               onClick={() => {
-                alert('Resume download would start here');
+                const link = document.createElement('a');
+                link.href = '/Michael_Hemker_Resume.pdf';
+                link.download = 'Michael_Hemker_Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
               }}
             >
               Download Resume

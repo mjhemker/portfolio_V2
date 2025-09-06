@@ -494,6 +494,49 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '5') {
+      return {
+        logo: "/projects_assets/vinnie_hager/vinnie_square_closeup.jpg",
+        title: "Vinnie Hager Rugs",
+        tagline: "Custom large-scale rug and wall installations for Allied Apartments communal lounge spaces. Designs inspired by artist Vinnie Hager, scaled for architectural proportions.",
+        colors: {
+          primary: "184, 48, 143",
+          secondary: "139, 69, 19", 
+          accent: "#b8308f"
+        },
+        siteUrl: "https://example.com",
+        technologies: ["AutoCAD", "Interior Design", "Color Theory", "Architectural Design", "Collaboration", "Material Testing", "Large Scale Installation"],
+        content: {
+          sections: [
+            {
+              title: "Allied Apartments Installation",
+              subtitle: "Custom large-scale designs for communal lounge spaces",
+              text: "I collaborated with Timothy Prieto and Nathalie Beatty to design custom rug and wall pieces for the 8th Floor Lounges of the to-be-built Allied Apartments in Harbor Point, Baltimore. The designs are heavily influenced by the doodle-like work of artist Vinnie Hager, scaled up to fit architectural proportions.",
+              image: "/projects_assets/vinnie_hager/vinnie_carpet_full_room.JPG",
+              features: [
+                "28' x 18' floor rug rendered in AutoCAD",
+                "18' x 14' decorative wall installation", 
+                "2' x 3' strike-off sample by Kebabian's Rugs",
+                "Color palette aligned with apartment's interior themes",
+                "Bold focal point for lounge space"
+              ]
+            },
+            {
+              title: "Design Process",
+              subtitle: "From artist inspiration to architectural scale",
+              text: "The color palette was carefully selected to align with the apartment's diverse interior themes, ensuring each piece complements the building's overall aesthetic. Together, these pieces serve as vibrant, site-specific artworks that bring energy and identity to the Allied Apartments' communal areas.",
+              image: "/projects_assets/vinnie_hager/vinnie_sample.jpg",
+              features: [
+                "Vinnie Hager inspired doodle-like designs",
+                "Architectural proportion scaling",
+                "Material and color accuracy testing",
+                "Site-specific artwork creation",
+                "Statement installations for shared environments"
+              ]
+            }
+          ]
+        }
+      };
     }
     return null;
   };

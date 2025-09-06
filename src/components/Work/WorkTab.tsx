@@ -9,6 +9,7 @@ import { ProjectPreview } from './ProjectPreview';
 import { INKDPreview } from './INKDPreview';
 import { FizzPreview } from './FizzPreview';
 import { PocketPeoplePreview } from './PocketPeoplePreview';
+import { VinnieHagerPreview } from './VinnieHagerPreview';
 import { useAppContext } from '../../contexts/AppContext';
 
 const float = keyframes`
@@ -106,6 +107,7 @@ export const WorkTab: React.FC = () => {
       case 1: return '2'; 
       case 2: return '3';
       case 3: return '4';
+      case 4: return '5';
       default: return '1';
     }
   };
@@ -137,6 +139,8 @@ export const WorkTab: React.FC = () => {
             <FizzPreview onProjectClick={handleProjectClick} />
           ) : playerState.currentProjectIndex === 3 ? (
             <PocketPeoplePreview onProjectClick={handleProjectClick} />
+          ) : playerState.currentProjectIndex === 4 ? (
+            <VinnieHagerPreview onProjectClick={handleProjectClick} />
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}
