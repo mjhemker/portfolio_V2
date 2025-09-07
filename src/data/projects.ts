@@ -70,5 +70,15 @@ export const projects: Project[] = [
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
     duration: '3:15'
+  },
+  {
+    id: '8',
+    title: 'Video Essays',
+    description: 'Exploring storytelling through moving image and sound. Three distinct video essays covering personal reflection, cultural critique, and technological commentary.',
+    technologies: ['Video Editing', 'Storytelling', 'Audio Design', 'Research', 'Final Cut Pro'],
+    image: '/projects_assets/video_essays/video_editting_icon.jpg',
+    liveUrl: 'https://example.com',
+    repoUrl: 'https://github.com/example',
+    duration: '4:30'
   }
 ];

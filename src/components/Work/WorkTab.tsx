@@ -12,6 +12,7 @@ import { PocketPeoplePreview } from './PocketPeoplePreview';
 import { VinnieHagerPreview } from './VinnieHagerPreview';
 import { PeripheryPodcastPreview } from './PeripheryPodcastPreview';
 import { MakeANotePreview } from './MakeANotePreview';
+import { VideoEssaysPreview } from './VideoEssaysPreview';
 import { useAppContext } from '../../contexts/AppContext';
 
 const float = keyframes`
@@ -112,6 +113,7 @@ export const WorkTab: React.FC = () => {
       case 4: return '5';
       case 5: return '6';
       case 6: return '7';
+      case 7: return '8';
       default: return '1';
     }
   };
@@ -149,6 +151,8 @@ export const WorkTab: React.FC = () => {
             <PeripheryPodcastPreview onProjectClick={handleProjectClick} />
           ) : playerState.currentProjectIndex === 6 ? (
             <MakeANotePreview onProjectClick={handleProjectClick} />
+          ) : playerState.currentProjectIndex === 7 ? (
+            <VideoEssaysPreview onProjectClick={handleProjectClick} />
           ) : (
             <MusicPlayer key={playerState.currentProjectIndex} />
           )}

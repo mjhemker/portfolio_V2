@@ -6,3 +6,4 @@ export { PocketPeoplePreview } from './PocketPeoplePreview';
 export { VinnieHagerPreview } from './VinnieHagerPreview';
 export { PeripheryPodcastPreview } from './PeripheryPodcastPreview';
 export { MakeANotePreview } from './MakeANotePreview';
+export { VideoEssaysPreview } from './VideoEssaysPreview';

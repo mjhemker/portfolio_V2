@@ -623,6 +623,49 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '8') {
+      return {
+        logo: "/projects_assets/video_essays/video_editting_icon.jpg",
+        title: "Video Essays",
+        tagline: "Exploring storytelling through moving image and sound. Three distinct video essays covering personal reflection, cultural critique, and technological commentary.",
+        colors: {
+          primary: "220, 53, 69",
+          secondary: "108, 117, 125", 
+          accent: "#dc3545"
+        },
+        siteUrl: "https://example.com",
+        technologies: ["Video Editing", "Storytelling", "Audio Design", "Research", "Final Cut Pro", "Visual Rhythm", "Cultural Analysis"],
+        content: {
+          sections: [
+            {
+              title: "The Art of Video Essays",
+              subtitle: "Exploring storytelling through moving image and sound",
+              text: "As part of a course centered on the art of the video essay, I explored how narrative, visuals, and audio can combine to create compelling forms of storytelling. Over the span of the class, I produced three distinct video essays, each different in subject matter, tone, and creative approach.",
+              image: "/projects_assets/video_essays/video_editting_icon.jpg",
+              features: [
+                "Three distinct video essays produced",
+                "Different subject matter and creative approaches",
+                "Narrative, visual, and audio storytelling",
+                "Compelling forms of digital storytelling",
+                "Course-based exploration of the medium"
+              ]
+            },
+            {
+              title: "Creative Range",
+              subtitle: "From personal narrative to technological commentary",
+              text: "Each project allowed me to experiment with visual rhythm, editing techniques, and audio design, while sharpening my skills in research-based storytelling. This collection of essays demonstrates my ability to move fluidly between personal narrative, cultural critique, and technological commentary — all through the medium of video.",
+              image: "/projects_assets/video_essays/video_editting_icon.jpg",
+              features: [
+                "Visual rhythm and editing techniques",
+                "Audio design and sound storytelling",
+                "Research-based narrative development",
+                "Personal narrative and cultural critique",
+                "Technological commentary and analysis"
+              ]
+            }
+          ]
+        }
+      };
     }
     return null;
   };
@@ -1923,6 +1966,155 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       src="/projects_assets/make_a_note_take_a_note/results.jpeg" 
                       alt="Project Results"
                       style={{ padding: '0.5rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
+          ) : projectId === '8' ? (
+            // Video Essays content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Art of Video Essays</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessText>
+                      As part of a course centered on the <strong>art of the video essay</strong>, I explored how 
+                      narrative, visuals, and audio can combine to create compelling forms of storytelling.
+                      <br /><br />
+                      Over the span of the class, I produced <strong>three distinct video essays</strong>, each different 
+                      in subject matter, tone, and creative approach — demonstrating versatility across multiple 
+                      storytelling formats and topics.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/video_essays/video_editting_icon.jpg" 
+                      alt="Video Editing"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Personal Reflection</FeatureTitle>
+                      <FeatureText>
+                        <strong>Video Essay 1</strong>: A personal reflection on the motivations behind my 
+                        <strong>visual arts practice</strong>, blending voiceover with imagery to connect process and purpose. 
+                        This intimate piece explores the 'why' behind creative work.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/video_essays/video_editting_icon.jpg" 
+                          alt="Personal Video Essay"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Cultural Critique</FeatureTitle>
+                      <FeatureText>
+                        <strong>Video Essay 2</strong>: A critical commentary on the <strong>overuse and overstimulation 
+                        of screens</strong> in modern life, examining how advancing technology reshapes attention, habits, 
+                        and well-being. <em>(This video is featured in the collection.)</em>
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <video 
+                          controls
+                          style={{ 
+                            width: '100%', 
+                            height: 'auto',
+                            borderRadius: '8px'
+                          }}
+                        >
+                          <source src="/projects_assets/video_essays/Michael Final Cut.mp4" type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Technological Commentary</FeatureTitle>
+                      <FeatureText>
+                        <strong>Video Essay 3</strong>: An investigative piece on the rise of <strong>deepfake technology</strong>, 
+                        highlighting its potential dangers not only for public figures, but also for everyday individuals 
+                        navigating issues of trust, privacy, and digital identity.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/video_essays/video_editting_icon.jpg" 
+                          alt="Technology Video Essay"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Creative Range</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Visual Storytelling Mastery</BusinessTitle>
+                    <BusinessText>
+                      Each project allowed me to experiment with <strong>visual rhythm, editing techniques, and audio design</strong>, 
+                      while sharpening my skills in research-based storytelling.
+                      <br /><br />
+                      This collection of essays demonstrates my ability to move fluidly between <strong>personal narrative, 
+                      cultural critique, and technological commentary</strong> — all through the medium of video.
+                      <br /><br />
+                      The work showcases technical proficiency in video editing software while developing a strong 
+                      voice in <strong>visual storytelling and critical analysis</strong>.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/video_essays/video_editting_icon.jpg" 
+                      alt="Video Production"
+                      style={{ padding: '1rem', background: 'transparent' }}
                     />
                   </AssetCard>
                 </ContentGrid>
