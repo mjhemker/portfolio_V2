@@ -2032,22 +2032,43 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   }}>
                     <video 
                       controls
-                      preload="metadata"
+                      preload="none"
+                      poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNsaWNrIHRvIFBsYXkgVmlkZW8gKDMxOU1CKTwvdGV4dD48L3N2Zz4="
                       style={{ 
                         width: '100%', 
                         height: 'auto',
                         display: 'block',
                         backgroundColor: '#000',
                         minHeight: '400px',
-                        objectFit: 'contain'
+                        objectFit: 'contain',
+                        cursor: 'pointer'
                       }}
-                      src="/projects_assets/video_essays/final_cut.mp4"
+                      onLoadStart={() => console.log('Video load started')}
+                      onLoadedMetadata={() => console.log('Video metadata loaded')}
+                      onCanPlay={() => console.log('Video can start playing')}
+                      onError={(e) => {
+                        console.error('Video error:', e);
+                        console.error('Video error details:', e.target.error);
+                        if (e.target.error) {
+                          console.error('Error code:', e.target.error.code);
+                          console.error('Error message:', e.target.error.message);
+                        }
+                      }}
                     >
-                      Your browser does not support the video tag.
-                      <br />
-                      <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }}>
-                        Download the video directly
-                      </a>
+                      <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4" />
+                      <p style={{ color: 'white', padding: '2rem', textAlign: 'center' }}>
+                        Your browser does not support the video tag or the video cannot be loaded.
+                        <br /><br />
+                        <strong>Video: Screen Overstimulation Essay (319MB)</strong>
+                        <br /><br />
+                        <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }} target="_blank">
+                          📥 Download Video (MP4, 319MB)
+                        </a>
+                        <br /><br />
+                        <small style={{ color: '#999' }}>
+                          Due to the large file size, the video may take time to load. Click the download link above to view it directly.
+                        </small>
+                      </p>
                     </video>
                   </div>
                 </div>
