@@ -1416,8 +1416,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               <ContentSection>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Allied Apartments Installation</SectionTitle>
                 <ContentGrid>
-                  <TextCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                    <ContentText>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessText>
                       I collaborated with <strong>Timothy Prieto</strong> and <strong>Nathalie Beatty</strong> to design 
                       custom rug and wall pieces for the <strong>8th Floor Lounges</strong> of the to-be-built 
                       <strong>Allied Apartments in Harbor Point, Baltimore</strong>.
@@ -1426,8 +1426,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       scaled up to fit architectural proportions. The color palette was carefully selected to align 
                       with the apartment's diverse interior themes, ensuring each piece complements the building's 
                       overall aesthetic.
-                    </ContentText>
-                  </TextCard>
+                    </BusinessText>
+                  </BusinessCard>
                   <AssetCard
                     whileHover={{ scale: 1.02 }}
                     initial={{ opacity: 0, x: 20 }}
