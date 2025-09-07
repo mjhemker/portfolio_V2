@@ -580,6 +580,49 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '7') {
+      return {
+        logo: "/projects_assets/make_a_note_take_a_note/final_display2.jpeg",
+        title: "Make a Note, Take a Note",
+        tagline: "A social experiment in anonymous community building. Interactive installation designed to foster connection among strangers through shared notes and messages.",
+        colors: {
+          primary: "255, 193, 7",
+          secondary: "255, 152, 0", 
+          accent: "#ffc107"
+        },
+        siteUrl: "https://example.com",
+        technologies: ["Product Design", "Social Design", "Prototyping", "Community Building", "Physical Computing", "User Experience", "Interactive Installation"],
+        content: {
+          sections: [
+            {
+              title: "The Challenge",
+              subtitle: "Creating a product for public good",
+              text: "For a class assignment to create a product for public good — with the constraint of presenting it only through a small gallery stand — my partner and I decided to make the stand itself the product. The result was Make a Note, Take a Note: a simple, interactive installation designed to foster connection among strangers.",
+              image: "/projects_assets/make_a_note_take_a_note/building.jpeg",
+              features: [
+                "Class assignment for public good",
+                "Gallery stand constraint",
+                "Interactive installation design",
+                "Foster connection among strangers",
+                "Simple yet meaningful concept"
+              ]
+            },
+            {
+              title: "How It Works",
+              subtitle: "Anonymous but intimate interaction",
+              text: "Passersby were invited to: Write a note — a brief, personal message to an unknown future reader. Categorize it — place the note into a pocket labeled by theme (hope, humor, advice, gratitude, etc.). Take a note — retrieve a message left by someone else in the same category. This exchange created a cycle of anonymous but intimate interaction.",
+              image: "/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg",
+              features: [
+                "Write a personal message to unknown reader",
+                "Categorize by theme (hope, humor, advice, gratitude)",
+                "Take a note from someone else",
+                "Cycle of anonymous interaction",
+                "Gifts of thought and encouragement"
+              ]
+            }
+          ]
+        }
+      };
     }
     return null;
   };
@@ -1738,6 +1781,148 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       src="/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png" 
                       alt="Final Logo"
                       style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
+          ) : projectId === '7' ? (
+            // Make a Note, Take a Note content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Challenge</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessText>
+                      For a class assignment to create a product for <strong>public good</strong> — with the constraint of 
+                      presenting it only through a small gallery stand — my partner and I decided to <strong>make the stand 
+                      itself the product</strong>.
+                      <br /><br />
+                      The result was <strong>Make a Note, Take a Note</strong>: a simple, interactive installation designed 
+                      to foster connection among strangers through the power of anonymous but meaningful exchange.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/make_a_note_take_a_note/building.jpeg" 
+                      alt="Building Process"
+                      style={{ padding: '0.5rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Write a Note</FeatureTitle>
+                      <FeatureText>
+                        Passersby were invited to <strong>write a brief, personal message</strong> to an unknown future reader. 
+                        These notes could contain anything — encouragement, humor, advice, or simple observations about life.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/make_a_note_take_a_note/first_sketch.jpeg" 
+                          alt="First Sketch"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Categorize by Theme</FeatureTitle>
+                      <FeatureText>
+                        Notes were placed into <strong>labeled pockets by theme</strong> — hope, humor, advice, gratitude, 
+                        and more. This categorization helped ensure that people could find the type of message they needed most.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg" 
+                          alt="Category Planning"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Take a Note</FeatureTitle>
+                      <FeatureText>
+                        Visitors could <strong>retrieve a message</strong> left by someone else in the same category. 
+                        This created a cycle of <strong>anonymous but intimate interaction</strong>, where gifts of thought 
+                        and encouragement moved silently from one person to another.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/make_a_note_take_a_note/needfinding2.jpeg" 
+                          alt="User Interaction"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Results</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Astounding Success</BusinessTitle>
+                    <BusinessText>
+                      The experiment was an <strong>astounding success</strong>: By the end of the testing week, the stack 
+                      of notes and envelopes had been <strong>completely depleted</strong>.
+                      <br /><br />
+                      Participants commented on both the <strong>craftsmanship and visual appeal</strong> of the prototype, 
+                      which drew them in. The project demonstrated how even the smallest interventions can spark 
+                      <strong>genuine moments of connection</strong>.
+                      <br /><br />
+                      <em>Make a Note, Take a Note</em> showed that <strong>community can be built one note at a time</strong> — 
+                      transforming a simple stand into a platform for sharing and human connection.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/make_a_note_take_a_note/results.jpeg" 
+                      alt="Project Results"
+                      style={{ padding: '0.5rem', background: 'transparent' }}
                     />
                   </AssetCard>
                 </ContentGrid>

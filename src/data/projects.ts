@@ -60,5 +60,15 @@ export const projects: Project[] = [
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
     duration: '2:45'
+  },
+  {
+    id: '7',
+    title: 'Make a Note, Take a Note',
+    description: 'A social experiment in anonymous community building. Interactive installation designed to foster connection among strangers through shared notes and messages.',
+    technologies: ['Product Design', 'Social Design', 'Prototyping', 'Community Building', 'Physical Computing'],
+    image: '/projects_assets/make_a_note_take_a_note/final_display2.jpeg',
+    liveUrl: 'https://example.com',
+    repoUrl: 'https://github.com/example',
+    duration: '3:15'
   }
 ];
