@@ -2041,11 +2041,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         minHeight: '400px',
                         objectFit: 'contain'
                       }}
-                      src="/projects_assets/video_essays/Michael Final Cut.mp4"
+                      src="/projects_assets/video_essays/final_cut.mp4"
                     >
                       Your browser does not support the video tag.
                       <br />
-                      <a href="/projects_assets/video_essays/Michael Final Cut.mp4" style={{ color: '#dc3545' }}>
+                      <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }}>
                         Download the video directly
                       </a>
                     </video>
