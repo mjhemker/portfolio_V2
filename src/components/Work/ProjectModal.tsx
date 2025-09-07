@@ -537,6 +537,49 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '6') {
+      return {
+        logo: "/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png",
+        title: "The Periphery Podcast",
+        tagline: "Logo & cover art rebrand for a nationally recognized podcast. Designing a new identity for a Top 200 U.S. podcast and leading voice in law and finance.",
+        colors: {
+          primary: "220, 38, 127",
+          secondary: "75, 0, 130", 
+          accent: "#dc267f"
+        },
+        siteUrl: "https://example.com",
+        technologies: ["Brand Design", "Logo Design", "Cover Art", "Visual Identity", "Adobe Illustrator", "Podcast Branding", "Media Design"],
+        content: {
+          sections: [
+            {
+              title: "Brand Challenge",
+              subtitle: "Designing for a nationally recognized podcast",
+              text: "I was commissioned to rebrand The Periphery Podcast, which at the time ranked among the Top 200 podcasts in the U.S. and was a leading voice in the law and finance genre. The challenge was to create a visual identity that matched the podcast's reputation for thoughtful, balanced storytelling while also feeling bold and modern enough to stand out in a crowded digital space.",
+              image: "/projects_assets/periphery_podcast/PERIPHERY RADIO LOGO V1.png",
+              features: [
+                "Top 200 podcast in the United States",
+                "Leading voice in law and finance genre",
+                "National recognition and reputation",
+                "Need for modern, bold visual identity",
+                "Crowded digital podcast marketplace"
+              ]
+            },
+            {
+              title: "Design Process",
+              subtitle: "From concept sketches to final identity",
+              text: "The logo symbolizes the podcast's role as a mediator between perspectives. Two opposing sides converge in the center, connected through the podcast itself — the 'middle-man' that bridges speakers and listeners, law and finance, story and interpretation. The clean, geometric design reflects clarity and professionalism, while the symmetry communicates balance and fairness.",
+              image: "/projects_assets/periphery_podcast/initial_sketches.jpg",
+              features: [
+                "Logo symbolizes mediator between perspectives",
+                "Two opposing sides converging in center",
+                "Clean, geometric design for clarity",
+                "Symmetry communicates balance and fairness",
+                "Professional yet modern aesthetic"
+              ]
+            }
+          ]
+        }
+      };
     }
     return null;
   };
@@ -1552,6 +1595,149 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       src="/projects_assets/vinnie_hager/vinnie_carpet_w_furniture.JPG" 
                       alt="Installation with Furniture"
                       style={{ padding: '0.5rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
+          ) : projectId === '6' ? (
+            // The Periphery Podcast content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Brand Challenge</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessText>
+                      I was commissioned to rebrand <strong>The Periphery Podcast</strong>, which at the time ranked among the 
+                      <strong>Top 200 podcasts in the U.S.</strong> and was a leading voice in the <strong>law and finance genre</strong>.
+                      <br /><br />
+                      The challenge was to create a visual identity that matched the podcast's reputation for 
+                      <strong>thoughtful, balanced storytelling</strong> while also feeling <strong>bold and modern</strong> 
+                      enough to stand out in a crowded digital space.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/periphery_podcast/PERIPHERY RADIO LOGO V1.png" 
+                      alt="Periphery Radio Logo"
+                      style={{ padding: '1rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Logo Design</FeatureTitle>
+                      <FeatureText>
+                        The logo symbolizes the podcast's role as a <strong>mediator between perspectives</strong>. 
+                        Two opposing sides converge in the center, connected through the podcast itself — the 
+                        "middle-man" that bridges speakers and listeners, law and finance, story and interpretation.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/periphery_podcast/sketches_for_P_logo.jpg" 
+                          alt="Logo Sketches"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Design Process</FeatureTitle>
+                      <FeatureText>
+                        The <strong>clean, geometric design</strong> reflects clarity and professionalism, while the 
+                        <strong>symmetry communicates balance and fairness</strong>. Multiple iterations refined 
+                        the concept from initial sketches to the final polished identity.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/periphery_podcast/initial_sketches.jpg" 
+                          alt="Initial Sketches"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Cover Art</FeatureTitle>
+                      <FeatureText>
+                        The redesigned cover art builds on themes of <strong>accessibility and broadcast</strong>, 
+                        nodding to the early days of radio as a metaphor for bringing news directly to the people. 
+                        Simple yet powerful, designed to be instantly recognizable across platforms.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/periphery_podcast/refined_sketches.jpg" 
+                          alt="Refined Sketches"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Outcome</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Cohesive New Identity</BusinessTitle>
+                    <BusinessText>
+                      Together, the logo and cover art provided <strong>The Periphery Podcast</strong> with a 
+                      <strong>cohesive new identity</strong> that elevated its presence among top-tier shows.
+                      <br /><br />
+                      The rebrand communicates its mission clearly: to <strong>connect complex issues with everyday listeners</strong>, 
+                      bridging the gap between expertise and audience.
+                      <br /><br />
+                      The visual identity conveys <strong>trust, authority, and approachability</strong> — essential qualities 
+                      for a podcast covering law and finance topics for a broad audience.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png" 
+                      alt="Final Logo"
+                      style={{ padding: '1rem', background: 'transparent' }}
                     />
                   </AssetCard>
                 </ContentGrid>

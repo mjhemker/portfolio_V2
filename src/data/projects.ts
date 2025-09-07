@@ -53,12 +53,12 @@ export const projects: Project[] = [
   },
   {
     id: '6',
-    title: 'Music Streaming UI',
-    description: 'Spotify-inspired music streaming interface with playlist management, audio visualization, and responsive design.',
-    technologies: ['React', 'Web Audio API', 'Canvas', 'CSS Grid', 'Local Storage'],
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=600&fit=crop',
+    title: 'The Periphery Podcast',
+    description: 'Logo & cover art rebrand for a nationally recognized podcast. Designing a new identity for a Top 200 U.S. podcast and leading voice in law and finance.',
+    technologies: ['Brand Design', 'Logo Design', 'Cover Art', 'Visual Identity', 'Adobe Illustrator'],
+    image: '/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '5:17'
+    duration: '2:45'
   }
 ];
