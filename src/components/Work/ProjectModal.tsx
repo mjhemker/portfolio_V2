@@ -1976,148 +1976,123 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
             <>
               <ContentSection>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Art of Video Essays</SectionTitle>
-                <ContentGrid>
-                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                    <BusinessText>
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  gap: '2rem',
+                  width: '100%'
+                }}>
+                  <BusinessCard style={{ 
+                    borderColor: `rgba(${project.colors.primary}, 0.2)`,
+                    width: '100%'
+                  }}>
+                    <BusinessText style={{ fontSize: '1.1rem', lineHeight: '1.7' }}>
                       As part of a course centered on the <strong>art of the video essay</strong>, I explored how 
-                      narrative, visuals, and audio can combine to create compelling forms of storytelling.
+                      narrative, visuals, and audio can combine to create compelling forms of storytelling. Over the span 
+                      of the class, I produced <strong>three distinct video essays</strong>, each different in subject matter, 
+                      tone, and creative approach — demonstrating versatility across multiple storytelling formats and topics.
                       <br /><br />
-                      Over the span of the class, I produced <strong>three distinct video essays</strong>, each different 
-                      in subject matter, tone, and creative approach — demonstrating versatility across multiple 
-                      storytelling formats and topics.
+                      Each project allowed me to experiment with <strong>visual rhythm, editing techniques, and audio design</strong>, 
+                      while sharpening my skills in research-based storytelling.
                     </BusinessText>
                   </BusinessCard>
-                  <AssetCard
-                    whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
-                  >
-                    <MediaImage 
-                      src="/projects_assets/video_essays/video_editting_icon.jpg" 
-                      alt="Video Editing"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
-                  </AssetCard>
-                </ContentGrid>
+                </div>
               </ContentSection>
 
               <ContentSection>
-                <FeatureShowcase>
-                  <FeatureBlock>
-                    <FeatureNumber style={{ 
-                      color: project.colors.accent,
-                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
-                      borderColor: `rgba(${project.colors.primary}, 0.3)`
-                    }}>01</FeatureNumber>
-                    <FeatureContent>
-                      <FeatureTitle style={{ color: project.colors.accent }}>Personal Reflection</FeatureTitle>
-                      <FeatureText>
-                        <strong>Video Essay 1</strong>: A personal reflection on the motivations behind my 
-                        <strong>visual arts practice</strong>, blending voiceover with imagery to connect process and purpose. 
-                        This intimate piece explores the 'why' behind creative work.
-                      </FeatureText>
-                    </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/video_essays/video_editting_icon.jpg" 
-                          alt="Personal Video Essay"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
-                    </FeatureMedia>
-                  </FeatureBlock>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Featured Video Essay</SectionTitle>
+                <div style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  gap: '2rem',
+                  width: '100%'
+                }}>
+                  <BusinessCard style={{ 
+                    borderColor: `rgba(${project.colors.primary}, 0.2)`,
+                    width: '100%'
+                  }}>
+                    <BusinessTitle style={{ color: project.colors.accent, marginBottom: '1rem' }}>
+                      Screen Overstimulation: A Cultural Critique
+                    </BusinessTitle>
+                    <BusinessText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
+                      A critical commentary on the <strong>overuse and overstimulation of screens</strong> in modern life, 
+                      examining how advancing technology reshapes attention, habits, and well-being. This video essay explores 
+                      the psychological and social implications of our increasingly screen-dominated world.
+                    </BusinessText>
+                  </BusinessCard>
 
-                  <FeatureBlock>
-                    <FeatureNumber style={{ 
-                      color: project.colors.accent,
-                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
-                      borderColor: `rgba(${project.colors.primary}, 0.3)`
-                    }}>02</FeatureNumber>
-                    <FeatureContent>
-                      <FeatureTitle style={{ color: project.colors.accent }}>Cultural Critique</FeatureTitle>
-                      <FeatureText>
-                        <strong>Video Essay 2</strong>: A critical commentary on the <strong>overuse and overstimulation 
-                        of screens</strong> in modern life, examining how advancing technology reshapes attention, habits, 
-                        and well-being. <em>(This video is featured in the collection.)</em>
-                      </FeatureText>
-                    </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <video 
-                          controls
-                          style={{ 
-                            width: '100%', 
-                            height: 'auto',
-                            borderRadius: '8px'
-                          }}
-                        >
-                          <source src="/projects_assets/video_essays/Michael Final Cut.mp4" type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      </AssetCard>
-                    </FeatureMedia>
-                  </FeatureBlock>
-
-                  <FeatureBlock>
-                    <FeatureNumber style={{ 
-                      color: project.colors.accent,
-                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
-                      borderColor: `rgba(${project.colors.primary}, 0.3)`
-                    }}>03</FeatureNumber>
-                    <FeatureContent>
-                      <FeatureTitle style={{ color: project.colors.accent }}>Technological Commentary</FeatureTitle>
-                      <FeatureText>
-                        <strong>Video Essay 3</strong>: An investigative piece on the rise of <strong>deepfake technology</strong>, 
-                        highlighting its potential dangers not only for public figures, but also for everyday individuals 
-                        navigating issues of trust, privacy, and digital identity.
-                      </FeatureText>
-                    </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/video_essays/video_editting_icon.jpg" 
-                          alt="Technology Video Essay"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
-                    </FeatureMedia>
-                  </FeatureBlock>
-                </FeatureShowcase>
+                  <div style={{
+                    width: '100%',
+                    maxWidth: '900px',
+                    margin: '0 auto',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    boxShadow: `0 20px 40px rgba(${project.colors.primary}, 0.3)`,
+                    border: `2px solid rgba(${project.colors.primary}, 0.2)`
+                  }}>
+                    <video 
+                      controls
+                      style={{ 
+                        width: '100%', 
+                        height: 'auto',
+                        display: 'block',
+                        backgroundColor: '#000'
+                      }}
+                    >
+                      <source src="/projects_assets/video_essays/Michael Final Cut.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
               </ContentSection>
 
               <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
-                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Creative Range</SectionTitle>
-                <ContentGrid>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Complete Video Essay Series</SectionTitle>
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr',
+                  gap: '2rem',
+                  width: '100%'
+                }}>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>01. Personal Reflection</BusinessTitle>
+                    <BusinessText>
+                      A personal reflection on the motivations behind my <strong>visual arts practice</strong>, blending 
+                      voiceover with imagery to connect process and purpose. This intimate piece explores the 'why' behind 
+                      creative work, examining the intersection of personal experience and artistic expression.
+                    </BusinessText>
+                  </BusinessCard>
+
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>02. Screen Overstimulation (Featured Above)</BusinessTitle>
+                    <BusinessText>
+                      A critical commentary on the <strong>overuse and overstimulation of screens</strong> in modern life, 
+                      examining how advancing technology reshapes attention, habits, and well-being. This cultural critique 
+                      investigates the psychological impact of our digital-first society.
+                    </BusinessText>
+                  </BusinessCard>
+
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>03. Deepfake Technology</BusinessTitle>
+                    <BusinessText>
+                      An investigative piece on the rise of <strong>deepfake technology</strong>, highlighting its potential 
+                      dangers not only for public figures, but also for everyday individuals navigating issues of trust, privacy, 
+                      and digital identity. This technological commentary explores the ethical implications of AI-generated media.
+                    </BusinessText>
+                  </BusinessCard>
+                </div>
+
+                <div style={{ marginTop: '2rem' }}>
                   <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                     <BusinessTitle style={{ color: project.colors.accent }}>Visual Storytelling Mastery</BusinessTitle>
                     <BusinessText>
-                      Each project allowed me to experiment with <strong>visual rhythm, editing techniques, and audio design</strong>, 
-                      while sharpening my skills in research-based storytelling.
-                      <br /><br />
                       This collection of essays demonstrates my ability to move fluidly between <strong>personal narrative, 
-                      cultural critique, and technological commentary</strong> — all through the medium of video.
-                      <br /><br />
-                      The work showcases technical proficiency in video editing software while developing a strong 
-                      voice in <strong>visual storytelling and critical analysis</strong>.
+                      cultural critique, and technological commentary</strong> — all through the medium of video. The work 
+                      showcases technical proficiency in video editing software while developing a strong voice in 
+                      <strong>visual storytelling and critical analysis</strong>.
                     </BusinessText>
                   </BusinessCard>
-                  <AssetCard
-                    whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
-                  >
-                    <MediaImage 
-                      src="/projects_assets/video_essays/video_editting_icon.jpg" 
-                      alt="Video Production"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
-                  </AssetCard>
-                </ContentGrid>
+                </div>
               </BusinessSection>
             </>
           ) : null}
