@@ -1410,6 +1410,153 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </BusinessSection>
             </>
+          ) : projectId === '5' ? (
+            // Vinnie Hager Rugs content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Allied Apartments Installation</SectionTitle>
+                <ContentGrid>
+                  <TextCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <ContentText>
+                      I collaborated with <strong>Timothy Prieto</strong> and <strong>Nathalie Beatty</strong> to design 
+                      custom rug and wall pieces for the <strong>8th Floor Lounges</strong> of the to-be-built 
+                      <strong>Allied Apartments in Harbor Point, Baltimore</strong>.
+                      <br /><br />
+                      The designs are heavily influenced by the <strong>doodle-like work of artist Vinnie Hager</strong>, 
+                      scaled up to fit architectural proportions. The color palette was carefully selected to align 
+                      with the apartment's diverse interior themes, ensuring each piece complements the building's 
+                      overall aesthetic.
+                    </ContentText>
+                  </TextCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/vinnie_hager/vinnie_carpet_full_room.JPG" 
+                      alt="Full Room Installation"
+                      style={{ padding: '0.5rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>28' x 18' Floor Rug</FeatureTitle>
+                      <FeatureText>
+                        A massive <strong>28' x 18' floor rug</strong>, rendered in AutoCAD with precise measurements 
+                        and color specifications. The large scale transforms Vinnie Hager's intricate doodle work 
+                        into a statement floor piece that anchors the entire lounge space.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/vinnie_hager/vinnie_28x18.jpg" 
+                          alt="28x18 Rug Design"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>18' x 14' Wall Installation</FeatureTitle>
+                      <FeatureText>
+                        An <strong>18' x 14' decorative wall installation</strong>, also rendered in AutoCAD, 
+                        designed as a bold focal point for the lounge space. The wall piece creates vertical 
+                        visual interest and serves as a conversation starter.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/vinnie_hager/vinnie_18x14.jpg" 
+                          alt="18x14 Wall Design"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Material Testing & Sample</FeatureTitle>
+                      <FeatureText>
+                        A <strong>2' x 3' "strike-off" sample</strong> was produced by <strong>Kebabian's Rugs</strong> 
+                        to test color and material accuracy prior to full manufacturing. This crucial step ensured 
+                        the final installation would meet our exact specifications.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <MediaImage 
+                          src="/projects_assets/vinnie_hager/vinnie_sample.jpg" 
+                          alt="Material Sample"
+                          style={{ padding: '1rem', background: 'transparent' }}
+                        />
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Design Impact</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Site-Specific Artworks</BusinessTitle>
+                    <BusinessText>
+                      Together, these pieces serve as <strong>vibrant, site-specific artworks</strong> that bring energy 
+                      and identity to the Allied Apartments' communal areas. They function not just as décor, but as 
+                      <strong>statement installations</strong> that set the tone for the building's shared environment.
+                      <br /><br />
+                      The project demonstrates how <strong>artist collaboration</strong> can scale intimate creative work 
+                      to architectural proportions, creating spaces that are both functional and inspiring.
+                      <br /><br />
+                      By working closely with <strong>Timothy Prieto</strong> and <strong>Nathalie Beatty</strong>, we ensured 
+                      the designs would integrate seamlessly with the apartment's diverse interior themes while maintaining 
+                      their bold artistic identity.
+                    </BusinessText>
+                  </BusinessCard>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <MediaImage 
+                      src="/projects_assets/vinnie_hager/vinnie_carpet_w_furniture.JPG" 
+                      alt="Installation with Furniture"
+                      style={{ padding: '0.5rem', background: 'transparent' }}
+                    />
+                  </AssetCard>
+                </ContentGrid>
+              </BusinessSection>
+            </>
           ) : null}
 
           <TechStackSection>
