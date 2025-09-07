@@ -2032,15 +2032,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   }}>
                     <video 
                       controls
+                      preload="metadata"
+                      width="100%"
                       style={{ 
                         width: '100%', 
                         height: 'auto',
                         display: 'block',
-                        backgroundColor: '#000'
+                        backgroundColor: '#000',
+                        minHeight: '400px'
                       }}
                     >
-                      <source src="/projects_assets/video_essays/Michael Final Cut.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
+                      <source src="/projects_assets/video_essays/Michael%20Final%20Cut.mp4" type="video/mp4" />
+                      <p style={{ color: 'white', padding: '2rem', textAlign: 'center' }}>
+                        Your browser does not support the video tag. 
+                        <a href="/projects_assets/video_essays/Michael%20Final%20Cut.mp4" style={{ color: '#dc3545' }}>
+                          Download the video
+                        </a>
+                      </p>
                     </video>
                   </div>
                 </div>

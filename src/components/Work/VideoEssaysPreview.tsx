@@ -22,26 +22,6 @@ const PreviewCard = styled(motion.div)`
   display: flex;
   flex-direction: column;
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
-    height: 100%;
-    background-image: url('/projects_assets/video_essays/video_editting_icon.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center right;
-    opacity: 0.15;
-    z-index: 1;
-    transition: all 0.5s ease;
-  }
-  
-  &:hover::before {
-    opacity: 0.25;
-    transform: scale(1.05) rotate(2deg);
-  }
   
   &::after {
     content: '';
