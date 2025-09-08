@@ -2032,43 +2032,35 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   }}>
                     <video 
                       controls
-                      preload="none"
-                      poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNsaWNrIHRvIFBsYXkgVmlkZW8gKDMxOU1CKTwvdGV4dD48L3N2Zz4="
+                      preload="metadata"
+                      width="100%"
+                      height="400"
                       style={{ 
                         width: '100%', 
-                        height: 'auto',
+                        height: '400px',
                         display: 'block',
-                        backgroundColor: '#000',
-                        minHeight: '400px',
-                        objectFit: 'contain',
-                        cursor: 'pointer'
+                        backgroundColor: '#000'
                       }}
-                      onLoadStart={() => console.log('Video load started')}
-                      onLoadedMetadata={() => console.log('Video metadata loaded')}
-                      onCanPlay={() => console.log('Video can start playing')}
+                      onLoadStart={() => console.log('✅ Video load started')}
+                      onLoadedMetadata={() => console.log('✅ Video metadata loaded')}
+                      onCanPlay={() => console.log('✅ Video can start playing')}
                       onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
-                        console.error('Video error:', e);
+                        console.error('❌ Video error event:', e);
                         const videoElement = e.currentTarget;
+                        console.error('❌ Video src:', videoElement.src);
+                        console.error('❌ Video current source:', videoElement.currentSrc);
                         if (videoElement.error) {
-                          console.error('Error code:', videoElement.error.code);
-                          console.error('Error message:', videoElement.error.message);
+                          console.error('❌ Error code:', videoElement.error.code);
+                          console.error('❌ Error message:', videoElement.error.message);
                         }
                       }}
+                      src="/projects_assets/video_essays/final_cut.mp4"
                     >
-                      <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4" />
-                      <p style={{ color: 'white', padding: '2rem', textAlign: 'center' }}>
-                        Your browser does not support the video tag or the video cannot be loaded.
-                        <br /><br />
-                        <strong>Video: Screen Overstimulation Essay (319MB)</strong>
-                        <br /><br />
-                        <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }} target="_blank">
-                          📥 Download Video (MP4, 319MB)
-                        </a>
-                        <br /><br />
-                        <small style={{ color: '#999' }}>
-                          Due to the large file size, the video may take time to load. Click the download link above to view it directly.
-                        </small>
-                      </p>
+                      Your browser does not support the video tag.
+                      <br />
+                      <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }} target="_blank">
+                        📥 Download Video Directly
+                      </a>
                     </video>
                   </div>
                 </div>
