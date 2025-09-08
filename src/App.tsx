@@ -107,15 +107,20 @@ const BackgroundTransition = styled.div<{ $isPlaying: boolean; $isLightTheme: bo
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
-  background: ${({ $isPlaying, $isLightTheme }) => {
-    if ($isLightTheme) {
-      return 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)';
-    }
-    return $isPlaying ? 'transparent' : '#0a0a0a';
-  }};
+  z-index: ${({ $isLightTheme }) => $isLightTheme ? 10 : -1};
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   
+  /* Light theme - always show light background */
+  ${({ $isLightTheme }) => $isLightTheme && css`
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%) !important;
+  `}
+  
+  /* Dark theme - static background when not playing */
+  ${({ $isLightTheme, $isPlaying }) => !$isLightTheme && !$isPlaying && css`
+    background: #0a0a0a;
+  `}
+  
+  /* Dark theme - animated background when playing */
   ${({ $isPlaying, $isLightTheme }) => $isPlaying && !$isLightTheme && css`
     background: linear-gradient(-45deg, 
       #0a0a0a 0%,
@@ -443,6 +448,11 @@ const AmbientGlow = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
 const AppContent: React.FC = () => {
   const { activeTab, playerState } = useAppContext();
   const isLightTheme = activeTab === 'art';
+  
+  // Debug logging
+  React.useEffect(() => {
+    console.log('Active tab:', activeTab, 'IsLightTheme:', isLightTheme);
+  }, [activeTab, isLightTheme]);
   
   // Initialize keyboard controls
   useKeyboardControls();
