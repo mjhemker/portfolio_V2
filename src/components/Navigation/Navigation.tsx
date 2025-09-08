@@ -10,7 +10,7 @@ const tabs: Tab[] = [
   { id: 'about', label: 'About' }
 ];
 
-const NavigationContainer = styled(motion.nav)`
+const NavigationContainer = styled(motion.nav)<{ $isLightTheme: boolean }>`
   position: fixed;
   top: 2rem;
   left: 0;
@@ -23,29 +23,33 @@ const NavigationContainer = styled(motion.nav)`
   
   > div {
     pointer-events: all;
-    background: linear-gradient(135deg, 
-      rgba(26, 26, 26, 0.95) 0%,
-      rgba(40, 40, 40, 0.9) 50%,
-      rgba(26, 26, 26, 0.95) 100%);
+    background: ${({ $isLightTheme }) => $isLightTheme 
+      ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%)'
+      : 'linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(40, 40, 40, 0.9) 50%, rgba(26, 26, 26, 0.95) 100%)'
+    };
     backdrop-filter: blur(25px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid ${({ $isLightTheme }) => $isLightTheme 
+      ? 'rgba(0, 0, 0, 0.1)'
+      : 'rgba(255, 255, 255, 0.1)'
+    };
     border-radius: ${({ theme }) => theme.borderRadius.full};
     padding: 0.5rem 1.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      0 0 60px rgba(138, 43, 226, 0.4),
-      0 0 100px rgba(30, 144, 255, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: ${({ $isLightTheme }) => $isLightTheme 
+      ? '0 8px 32px rgba(0, 0, 0, 0.1), 0 0 60px rgba(29, 185, 84, 0.2), inset 0 1px 0 rgba(0, 0, 0, 0.05)'
+      : '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(138, 43, 226, 0.4), 0 0 100px rgba(30, 144, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+    };
     position: relative;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
 `;
 
 const TabButton = styled(motion.button)<{ 
   $isActive: boolean;
+  $isLightTheme: boolean;
 }>`
   position: relative;
   padding: 0.8rem 2.5rem;
@@ -54,20 +58,30 @@ const TabButton = styled(motion.button)<{
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  color: ${({ $isActive, theme }) => 
-    $isActive ? theme.colors.text.primary : theme.colors.text.secondary
-  };
-  transition: all ${({ theme }) => theme.animations.fast};
+  color: ${({ $isActive, $isLightTheme }) => {
+    if ($isLightTheme) {
+      return $isActive ? '#212529' : '#495057';
+    }
+    return $isActive ? '#ffffff' : '#b3b3b3';
+  }};
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   white-space: nowrap;
-  text-shadow: ${({ $isActive }) => 
-    $isActive ? '0 0 10px rgba(255, 255, 255, 0.3)' : 'none'
-  };
+  text-shadow: ${({ $isActive, $isLightTheme }) => {
+    if ($isLightTheme) {
+      return $isActive ? '0 0 10px rgba(0, 0, 0, 0.1)' : 'none';
+    }
+    return $isActive ? '0 0 10px rgba(255, 255, 255, 0.3)' : 'none';
+  }};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text.primary};
+    color: ${({ $isLightTheme }) => $isLightTheme ? '#212529' : '#ffffff'};
     transform: scale(1.05);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    text-shadow: ${({ $isLightTheme }) => 
+      $isLightTheme 
+        ? '0 0 15px rgba(0, 0, 0, 0.2)' 
+        : '0 0 15px rgba(255, 255, 255, 0.4)'
+    };
   }
 
   @media (max-width: 768px) {
@@ -94,11 +108,16 @@ const ActiveIndicator = styled(motion.div)`
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 `;
 
-export const Navigation: React.FC = () => {
+interface NavigationProps {
+  isLightTheme?: boolean;
+}
+
+export const Navigation: React.FC<NavigationProps> = ({ isLightTheme = false }) => {
   const { activeTab, setActiveTab } = useAppContext();
 
   return (
     <NavigationContainer
+      $isLightTheme={isLightTheme}
       initial={{ opacity: 0, y: -20 }}
       animate={{ 
         opacity: 1, 
@@ -116,6 +135,7 @@ export const Navigation: React.FC = () => {
           <TabButton
             key={tab.id}
             $isActive={activeTab === tab.id}
+            $isLightTheme={isLightTheme}
             onClick={() => setActiveTab(tab.id)}
             whileHover={{ 
               scale: 1.02,

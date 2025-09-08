@@ -481,7 +481,7 @@ const AppContent: React.FC = () => {
       <ParticleField $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
       <MusicEffects $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
       <div style={{ position: 'relative', zIndex: 100 }}>
-        <Navigation />
+        <Navigation isLightTheme={isLightTheme} />
         <AnimatePresence mode="wait">
           {renderActiveTab()}
         </AnimatePresence>
