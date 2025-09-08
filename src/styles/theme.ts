@@ -14,6 +14,21 @@ export const theme = {
     border: '#333333',
     hover: '#282828'
   },
+  lightColors: {
+    primary: '#ffffff', // Pure white
+    secondary: '#f8f9fa', // Light gray
+    surface: '#e9ecef', // Lighter gray
+    surfaceLight: '#dee2e6', // Medium gray
+    accent: '#1DB954', // Keep same green accent
+    accentHover: '#1ed760',
+    text: {
+      primary: '#212529', // Dark text
+      secondary: '#495057', // Medium gray text
+      tertiary: '#868e96' // Light gray text
+    },
+    border: '#dee2e6',
+    hover: '#e9ecef'
+  },
   gradients: {
     primary: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f23 100%)',
     secondary: 'linear-gradient(135deg, #121212 0%, #1a1a1a 100%)',

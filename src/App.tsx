@@ -101,17 +101,22 @@ const ambientGlow = keyframes`
   }
 `;
 
-const BackgroundTransition = styled.div<{ $isPlaying: boolean }>`
+const BackgroundTransition = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: ${({ $isPlaying }) => $isPlaying ? 'transparent' : '#0a0a0a'};
-  transition: all 0.5s ease;
+  background: ${({ $isPlaying, $isLightTheme }) => {
+    if ($isLightTheme) {
+      return 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)';
+    }
+    return $isPlaying ? 'transparent' : '#0a0a0a';
+  }};
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   
-  ${({ $isPlaying }) => $isPlaying && css`
+  ${({ $isPlaying, $isLightTheme }) => $isPlaying && !$isLightTheme && css`
     background: linear-gradient(-45deg, 
       #0a0a0a 0%,
       #2a1a3a 15%,
@@ -161,7 +166,7 @@ const BackgroundTransition = styled.div<{ $isPlaying: boolean }>`
   `}
 `;
 
-const MusicEffects = styled.div<{ $isPlaying: boolean }>`
+const MusicEffects = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -169,7 +174,7 @@ const MusicEffects = styled.div<{ $isPlaying: boolean }>`
   bottom: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
+  opacity: ${({ $isPlaying, $isLightTheme }) => ($isPlaying && !$isLightTheme) ? 1 : 0};
   transition: opacity 1s ease;
   
   &::before {
@@ -199,7 +204,7 @@ const MusicEffects = styled.div<{ $isPlaying: boolean }>`
   }
 `;
 
-const WaveOverlay = styled.div<{ $isPlaying: boolean }>`
+const WaveOverlay = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -207,7 +212,7 @@ const WaveOverlay = styled.div<{ $isPlaying: boolean }>`
   bottom: 0;
   z-index: 4;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
+  opacity: ${({ $isPlaying, $isLightTheme }) => ($isPlaying && !$isLightTheme) ? 1 : 0};
   transition: opacity 1s ease;
   
   &::before {
@@ -243,7 +248,7 @@ const WaveOverlay = styled.div<{ $isPlaying: boolean }>`
   }
 `;
 
-const ParticleField = styled.div<{ $isPlaying: boolean }>`
+const ParticleField = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -251,7 +256,7 @@ const ParticleField = styled.div<{ $isPlaying: boolean }>`
   bottom: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
+  opacity: ${({ $isPlaying, $isLightTheme }) => ($isPlaying && !$isLightTheme) ? 1 : 0};
   transition: opacity 1.5s ease;
   
   &::before {
@@ -296,7 +301,7 @@ const ParticleField = styled.div<{ $isPlaying: boolean }>`
   }
 `;
 
-const EnergyField = styled.div<{ $isPlaying: boolean }>`
+const EnergyField = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -304,7 +309,7 @@ const EnergyField = styled.div<{ $isPlaying: boolean }>`
   bottom: 0;
   z-index: 3;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
+  opacity: ${({ $isPlaying, $isLightTheme }) => ($isPlaying && !$isLightTheme) ? 1 : 0};
   transition: opacity 2s ease;
   
   &::before {
@@ -348,7 +353,7 @@ const EnergyField = styled.div<{ $isPlaying: boolean }>`
   }
 `;
 
-const HeatShimmer = styled.div<{ $isPlaying: boolean }>`
+const HeatShimmer = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -356,7 +361,7 @@ const HeatShimmer = styled.div<{ $isPlaying: boolean }>`
   bottom: 0;
   z-index: 5;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 0.6 : 0};
+  opacity: ${({ $isPlaying, $isLightTheme }) => ($isPlaying && !$isLightTheme) ? 0.6 : 0};
   transition: opacity 2.5s ease;
   
   &::before {
@@ -388,7 +393,7 @@ const HeatShimmer = styled.div<{ $isPlaying: boolean }>`
   }
 `;
 
-const AmbientGlow = styled.div<{ $isPlaying: boolean }>`
+const AmbientGlow = styled.div<{ $isPlaying: boolean; $isLightTheme: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -396,7 +401,7 @@ const AmbientGlow = styled.div<{ $isPlaying: boolean }>`
   bottom: 0;
   z-index: 6;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 0.8 : 0};
+  opacity: ${({ $isPlaying, $isLightTheme }) => ($isPlaying && !$isLightTheme) ? 0.8 : 0};
   transition: opacity 3s ease;
   
   &::before {
@@ -437,6 +442,7 @@ const AmbientGlow = styled.div<{ $isPlaying: boolean }>`
 
 const AppContent: React.FC = () => {
   const { activeTab, playerState } = useAppContext();
+  const isLightTheme = activeTab === 'art';
   
   // Initialize keyboard controls
   useKeyboardControls();
@@ -457,13 +463,13 @@ const AppContent: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      <AmbientGlow $isPlaying={playerState.isPlaying} />
-      <BackgroundTransition $isPlaying={playerState.isPlaying} />
-      <HeatShimmer $isPlaying={playerState.isPlaying} />
-      <WaveOverlay $isPlaying={playerState.isPlaying} />
-      <EnergyField $isPlaying={playerState.isPlaying} />
-      <ParticleField $isPlaying={playerState.isPlaying} />
-      <MusicEffects $isPlaying={playerState.isPlaying} />
+      <AmbientGlow $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
+      <BackgroundTransition $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
+      <HeatShimmer $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
+      <WaveOverlay $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
+      <EnergyField $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
+      <ParticleField $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
+      <MusicEffects $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
       <Navigation />
       <AnimatePresence mode="wait">
         {renderActiveTab()}

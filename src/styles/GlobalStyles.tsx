@@ -35,6 +35,7 @@ export const GlobalStyles = createGlobalStyle`
       background: ${theme.gradients.glow};
       pointer-events: none;
       z-index: -30;
+      transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
