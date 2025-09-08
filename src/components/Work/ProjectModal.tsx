@@ -2028,71 +2028,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     borderRadius: '12px',
                     overflow: 'hidden',
                     boxShadow: `0 20px 40px rgba(${project.colors.primary}, 0.3)`,
-                    border: `2px solid rgba(${project.colors.primary}, 0.2)`,
-                    backgroundColor: '#111'
+                    border: `2px solid rgba(${project.colors.primary}, 0.2)`
                   }}>
-                    <div style={{
-                      padding: '3rem 2rem',
-                      textAlign: 'center',
-                      color: 'white',
-                      background: 'linear-gradient(135deg, #000, #222)'
-                    }}>
-                      <div style={{
-                        fontSize: '3rem',
-                        marginBottom: '1rem',
-                        color: '#dc3545'
-                      }}>
-                        🎬
-                      </div>
-                      <h3 style={{
-                        color: '#dc3545',
-                        marginBottom: '1rem',
-                        fontSize: '1.5rem'
-                      }}>
-                        Screen Overstimulation: A Cultural Critique
-                      </h3>
-                      <p style={{
-                        color: '#ccc',
-                        marginBottom: '2rem',
-                        lineHeight: '1.6',
-                        fontSize: '1.1rem'
-                      }}>
-                        This video essay explores the psychological and social implications of our increasingly screen-dominated world. 
-                        Due to video encoding compatibility, please download to view.
-                      </p>
-                      <a 
-                        href="/projects_assets/video_essays/final_cut.mp4" 
-                        download="Screen_Overstimulation_Essay.mp4"
-                        style={{ 
-                          display: 'inline-block',
-                          backgroundColor: '#dc3545',
-                          color: 'white',
-                          padding: '1rem 2rem',
-                          borderRadius: '8px',
-                          textDecoration: 'none',
-                          fontSize: '1.1rem',
-                          fontWeight: 'bold',
-                          transition: 'all 0.3s ease',
-                          border: '2px solid #dc3545'
-                        }}
-                        onMouseOver={(e) => {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.borderColor = '#dc3545';
-                        }}
-                        onMouseOut={(e) => {
-                          e.currentTarget.style.backgroundColor = '#dc3545';
-                        }}
-                      >
-                        📥 Download Video Essay (319MB)
-                      </a>
-                      <p style={{
-                        marginTop: '1.5rem',
-                        fontSize: '0.9rem',
-                        color: '#999'
-                      }}>
-                        MP4 format • 319MB • Click to download and view locally
-                      </p>
-                    </div>
+                    <video 
+                      controls
+                      width="100%"
+                      height="500"
+                      style={{ 
+                        width: '100%', 
+                        height: '500px',
+                        display: 'block',
+                        backgroundColor: '#000'
+                      }}
+                      preload="metadata"
+                      crossOrigin="anonymous"
+                    >
+                      <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </div>
               </ContentSection>
