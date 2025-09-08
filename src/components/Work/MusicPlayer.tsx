@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Pause, SkipBack, SkipForward, ExternalLink, Github } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, ExternalLink, Github, Volume2, VolumeX } from 'lucide-react';
 import { useAppContext } from '../../contexts/AppContext';
 import { projects } from '../../data/projects';
 import { Button } from '../UI/Button';
@@ -400,8 +400,65 @@ interface MusicPlayerProps {
 export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = false }) => {
   const { playerState, setPlayerState } = useAppContext();
   const [localProgress, setLocalProgress] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   
   const currentProject = projects[playerState.currentProjectIndex];
+
+  // Initialize audio element
+  useEffect(() => {
+    if (!audioRef.current && currentProject.musicUrl) {
+      audioRef.current = new Audio(currentProject.musicUrl);
+      audioRef.current.volume = playerState.isMuted ? 0 : playerState.volume;
+      audioRef.current.loop = true; // Loop the short clips
+      
+      // Add event listeners for audio events
+      audioRef.current.addEventListener('loadeddata', () => {
+        console.log('Audio loaded for:', currentProject.title);
+      });
+      
+      audioRef.current.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+      });
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  // Update audio when project changes
+  useEffect(() => {
+    if (audioRef.current && currentProject.musicUrl) {
+      audioRef.current.pause();
+      audioRef.current.src = currentProject.musicUrl;
+      audioRef.current.volume = playerState.isMuted ? 0 : playerState.volume;
+      
+      if (playerState.isPlaying) {
+        audioRef.current.play().catch(console.error);
+      }
+    }
+  }, [playerState.currentProjectIndex, currentProject.musicUrl]);
+
+  // Handle play/pause state changes
+  useEffect(() => {
+    if (audioRef.current) {
+      if (playerState.isPlaying && currentProject.musicUrl) {
+        audioRef.current.play().catch(console.error);
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [playerState.isPlaying, currentProject.musicUrl]);
+
+  // Handle volume changes
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = playerState.isMuted ? 0 : playerState.volume;
+    }
+  }, [playerState.volume, playerState.isMuted]);
 
   useEffect(() => {
     let interval: number;
@@ -455,6 +512,13 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = fal
       currentProjectIndex: newIndex
     }));
     setLocalProgress(0);
+  };
+
+  const handleVolumeToggle = () => {
+    setPlayerState((prev) => ({
+      ...prev,
+      isMuted: !prev.isMuted
+    }));
   };
 
   const progressPercentage = (localProgress / playerState.duration) * 100;
@@ -517,6 +581,15 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = fal
             <Button 
               icon={<SkipForward size={20} />} 
               onClick={handleNext}
+            />
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button 
+              icon={playerState.isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />} 
+              onClick={handleVolumeToggle}
             />
           </motion.div>
         </ControlButtons>
@@ -699,6 +772,15 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({ showControlsOnly = fal
             <Button 
               icon={<SkipForward size={20} />} 
               onClick={handleNext}
+            />
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button 
+              icon={playerState.isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />} 
+              onClick={handleVolumeToggle}
             />
           </motion.div>
         </ControlButtons>

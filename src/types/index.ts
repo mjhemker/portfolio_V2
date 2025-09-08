@@ -7,6 +7,7 @@ export interface Project {
   liveUrl?: string;
   repoUrl?: string;
   duration: string; // fake duration for music player simulation
+  musicUrl?: string; // background music for each project
 }
 
 export interface Artwork {
@@ -29,6 +30,8 @@ export interface PlayerState {
   currentProjectIndex: number;
   progress: number;
   duration: number;
+  volume: number; // 0-1 for volume control
+  isMuted: boolean; // mute state
 }
 
 export type Theme = {

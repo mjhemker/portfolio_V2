@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  assetsInclude: ['**/*.mp4'],
+  assetsInclude: ['**/*.mp4', '**/*.mp3'],
   server: {
     fs: {
       allow: ['..']

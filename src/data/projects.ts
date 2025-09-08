@@ -9,7 +9,8 @@ export const projects: Project[] = [
     image: '/projects_assets/pantreat/app_cover.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '4:28'
+    duration: '4:28',
+    musicUrl: '/music/Cocktail Hour - Aaron Kenny (1).mp3'
   },
   {
     id: '2',
@@ -19,7 +20,8 @@ export const projects: Project[] = [
     image: '/projects_assets/inkd/INKD_app_version1.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '4:12'
+    duration: '4:12',
+    musicUrl: '/music/Manhattan - Dyalla.mp3'
   },
   {
     id: '3',
@@ -29,7 +31,8 @@ export const projects: Project[] = [
     image: '/projects_assets/fizz/fizz_redesign.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '3:45'
+    duration: '3:45',
+    musicUrl: '/music/Glo Fi - Windows of Ken.mp3'
   },
   {
     id: '4',
@@ -39,7 +42,8 @@ export const projects: Project[] = [
     image: '/projects_assets/pocketpeople/pocketpeople_home.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '4:15'
+    duration: '4:15',
+    musicUrl: '/music/Home for the Holidays - TrackTribe (1).mp3'
   },
   {
     id: '5',
@@ -49,7 +53,8 @@ export const projects: Project[] = [
     image: '/projects_assets/vinnie_hager/vinnie_square_closeup.jpg',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '3:22'
+    duration: '3:22',
+    musicUrl: '/music/Los Encinos - Quincas Moreira (1).mp3'
   },
   {
     id: '6',
@@ -59,7 +64,8 @@ export const projects: Project[] = [
     image: '/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '2:45'
+    duration: '2:45',
+    musicUrl: '/music/Treat Yourself - Dyalla (1).mp3'
   },
   {
     id: '7',
@@ -69,7 +75,8 @@ export const projects: Project[] = [
     image: '/projects_assets/make_a_note_take_a_note/final_display2.jpeg',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '3:15'
+    duration: '3:15',
+    musicUrl: '/music/Wish You\'d Never Left - TrackTribe (1).mp3'
   },
   {
     id: '8',
@@ -79,6 +86,7 @@ export const projects: Project[] = [
     image: '/projects_assets/video_essays/video_editting_icon.jpg',
     liveUrl: 'https://example.com',
     repoUrl: 'https://github.com/example',
-    duration: '4:30'
+    duration: '4:30',
+    musicUrl: '/music/Abroad Again - Jeremy Blake.mp3'
   }
 ];

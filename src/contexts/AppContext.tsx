@@ -29,7 +29,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     isPlaying: false,
     currentProjectIndex: 0,
     progress: 0,
-    duration: 8 // 8 seconds per project cycle
+    duration: 8, // 8 seconds per project cycle
+    volume: 0.7, // Default volume at 70%
+    isMuted: false // Not muted by default
   });
 
   const value = {
