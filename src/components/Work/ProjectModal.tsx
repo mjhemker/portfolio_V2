@@ -2046,12 +2046,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       onLoadStart={() => console.log('Video load started')}
                       onLoadedMetadata={() => console.log('Video metadata loaded')}
                       onCanPlay={() => console.log('Video can start playing')}
-                      onError={(e) => {
+                      onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
                         console.error('Video error:', e);
-                        console.error('Video error details:', e.target.error);
-                        if (e.target.error) {
-                          console.error('Error code:', e.target.error.code);
-                          console.error('Error message:', e.target.error.message);
+                        const videoElement = e.currentTarget;
+                        if (videoElement.error) {
+                          console.error('Error code:', videoElement.error.code);
+                          console.error('Error message:', videoElement.error.message);
                         }
                       }}
                     >
