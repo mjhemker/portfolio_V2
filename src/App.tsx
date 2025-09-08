@@ -107,7 +107,7 @@ const BackgroundTransition = styled.div<{ $isPlaying: boolean; $isLightTheme: bo
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: ${({ $isLightTheme }) => $isLightTheme ? 10 : -1};
+  z-index: -1;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Light theme - always show light background */
@@ -480,10 +480,12 @@ const AppContent: React.FC = () => {
       <EnergyField $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
       <ParticleField $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
       <MusicEffects $isPlaying={playerState.isPlaying} $isLightTheme={isLightTheme} />
-      <Navigation />
-      <AnimatePresence mode="wait">
-        {renderActiveTab()}
-      </AnimatePresence>
+      <div style={{ position: 'relative', zIndex: 100 }}>
+        <Navigation />
+        <AnimatePresence mode="wait">
+          {renderActiveTab()}
+        </AnimatePresence>
+      </div>
     </>
   );
 };
