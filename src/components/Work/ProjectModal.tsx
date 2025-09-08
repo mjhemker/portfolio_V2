@@ -2036,47 +2036,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       controls 
                       preload="metadata"
                       poster="/projects_assets/video_essays/video_editting_icon.jpg"
-                      onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
-                        console.error('Video error:', e);
-                        const target = e.currentTarget;
-                        target.style.display = 'none';
-                        const parent = target.parentElement;
-                        if (parent) {
-                          parent.innerHTML = `
-                            <div style="
-                              background: #000;
-                              color: white;
-                              padding: 3rem;
-                              text-align: center;
-                              border-radius: 8px;
-                              min-height: 400px;
-                              display: flex;
-                              flex-direction: column;
-                              justify-content: center;
-                              align-items: center;
-                            ">
-                              <h3 style="color: #dc3545; margin-bottom: 1rem;">Video Format Not Supported</h3>
-                              <p style="margin-bottom: 2rem; opacity: 0.8;">
-                                This video uses a codec that isn't compatible with web browsers.
-                              </p>
-                              <a 
-                                href="/projects_assets/video_essays/final_cut.mp4" 
-                                download="Screen_Overstimulation_Video_Essay.mp4"
-                                style="
-                                  background: #dc3545;
-                                  color: white;
-                                  padding: 12px 24px;
-                                  text-decoration: none;
-                                  border-radius: 6px;
-                                  font-weight: 500;
-                                "
-                              >
-                                Download Video (319MB)
-                              </a>
-                            </div>
-                          `;
-                        }
-                      }}
                       style={{ 
                         width: '100%', 
                         height: 'auto',
@@ -2086,14 +2045,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         borderRadius: '8px'
                       }}
                     >
-                      <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2" />
-                      <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4" />
-                      <p style={{ color: 'white', padding: '2rem', textAlign: 'center' }}>
-                        Your browser doesn't support HTML5 video. 
-                        <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }}>
-                          Download the video
-                        </a> instead.
-                      </p>
+                      <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
                     </video>
                   </div>
                 </div>
