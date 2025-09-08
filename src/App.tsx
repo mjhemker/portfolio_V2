@@ -107,8 +107,8 @@ const BackgroundTransition = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -20;
-  background: #0a0a0a;
+  z-index: -1;
+  background: ${({ $isPlaying }) => $isPlaying ? 'transparent' : '#0a0a0a'};
   transition: all 0.5s ease;
   
   ${({ $isPlaying }) => $isPlaying && css`
@@ -167,7 +167,7 @@ const MusicEffects = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -15;
+  z-index: 1;
   pointer-events: none;
   opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
   transition: opacity 1s ease;
@@ -179,7 +179,7 @@ const MusicEffects = styled.div<{ $isPlaying: boolean }>`
     right: 10%;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(138, 43, 226, 0.4) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.8) 0%, rgba(138, 43, 226, 0.4) 40%, transparent 80%);
     border-radius: 50%;
     animation: ${sparkle} 3s ease-in-out infinite;
     filter: blur(20px);
@@ -192,7 +192,7 @@ const MusicEffects = styled.div<{ $isPlaying: boolean }>`
     left: 15%;
     width: 250px;
     height: 250px;
-    background: radial-gradient(circle, rgba(30, 144, 255, 0.4) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(30, 144, 255, 0.8) 0%, rgba(30, 144, 255, 0.4) 40%, transparent 80%);
     border-radius: 50%;
     animation: ${sparkle} 2.5s ease-in-out infinite 1s;
     filter: blur(25px);

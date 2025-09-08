@@ -17,7 +17,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: ${theme.typography.fontFamily.primary};
-    background: ${theme.gradients.primary};
+    background: ${theme.colors.primary};
     color: ${theme.colors.text.primary};
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -34,7 +34,7 @@ export const GlobalStyles = createGlobalStyle`
       bottom: 0;
       background: ${theme.gradients.glow};
       pointer-events: none;
-      z-index: -1;
+      z-index: -30;
     }
   }
 
