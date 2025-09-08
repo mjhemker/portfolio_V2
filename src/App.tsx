@@ -205,7 +205,7 @@ const WaveOverlay = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -18;
+  z-index: 4;
   pointer-events: none;
   opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
   transition: opacity 1s ease;
@@ -219,9 +219,9 @@ const WaveOverlay = styled.div<{ $isPlaying: boolean }>`
     height: 100%;
     background: linear-gradient(90deg, 
       transparent 0%,
-      rgba(138, 43, 226, 0.1) 20%,
-      rgba(30, 144, 255, 0.08) 40%,
-      rgba(138, 43, 226, 0.1) 60%,
+      rgba(138, 43, 226, 0.3) 20%,
+      rgba(30, 144, 255, 0.25) 40%,
+      rgba(138, 43, 226, 0.3) 60%,
       transparent 100%);
     animation: ${waveEffect} 8s ease-in-out infinite;
   }
@@ -235,9 +235,9 @@ const WaveOverlay = styled.div<{ $isPlaying: boolean }>`
     height: 100%;
     background: linear-gradient(90deg, 
       transparent 0%,
-      rgba(30, 144, 255, 0.06) 30%,
-      rgba(138, 43, 226, 0.04) 50%,
-      rgba(30, 144, 255, 0.06) 70%,
+      rgba(30, 144, 255, 0.2) 30%,
+      rgba(138, 43, 226, 0.15) 50%,
+      rgba(30, 144, 255, 0.2) 70%,
       transparent 100%);
     animation: ${waveEffect} 12s ease-in-out infinite reverse;
   }
@@ -249,7 +249,7 @@ const ParticleField = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -16;
+  z-index: 2;
   pointer-events: none;
   opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
   transition: opacity 1.5s ease;
@@ -259,18 +259,20 @@ const ParticleField = styled.div<{ $isPlaying: boolean }>`
     position: absolute;
     bottom: -50px;
     left: 10%;
-    width: 8px;
-    height: 8px;
-    background: radial-gradient(circle, rgba(138, 43, 226, 0.8) 0%, transparent 70%);
+    width: 12px;
+    height: 12px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 1) 0%, rgba(138, 43, 226, 0.6) 50%, transparent 80%);
     border-radius: 50%;
     animation: ${particleDrift} 25s linear infinite;
     box-shadow: 
-      200px 0 0 rgba(138, 43, 226, 0.6),
-      400px -100px 0 rgba(30, 144, 255, 0.7),
-      -100px -50px 0 rgba(138, 43, 226, 0.5),
-      600px -200px 0 rgba(30, 144, 255, 0.4),
-      800px -80px 0 rgba(138, 43, 226, 0.6),
-      300px -300px 0 rgba(30, 144, 255, 0.8);
+      200px 0 0 rgba(138, 43, 226, 0.9),
+      400px -100px 0 rgba(30, 144, 255, 1),
+      -100px -50px 0 rgba(138, 43, 226, 0.8),
+      600px -200px 0 rgba(30, 144, 255, 0.7),
+      800px -80px 0 rgba(138, 43, 226, 0.9),
+      300px -300px 0 rgba(30, 144, 255, 1),
+      500px -150px 0 rgba(138, 43, 226, 0.8),
+      100px -250px 0 rgba(30, 144, 255, 0.9);
   }
   
   &::after {
@@ -278,17 +280,19 @@ const ParticleField = styled.div<{ $isPlaying: boolean }>`
     position: absolute;
     bottom: -30px;
     right: 15%;
-    width: 6px;
-    height: 6px;
-    background: radial-gradient(circle, rgba(30, 144, 255, 0.9) 0%, transparent 70%);
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgba(30, 144, 255, 1) 0%, rgba(30, 144, 255, 0.6) 50%, transparent 80%);
     border-radius: 50%;
     animation: ${particleDrift} 20s linear infinite 5s;
     box-shadow: 
-      -150px -50px 0 rgba(30, 144, 255, 0.7),
-      -300px -100px 0 rgba(138, 43, 226, 0.6),
-      100px -150px 0 rgba(30, 144, 255, 0.5),
-      -500px -200px 0 rgba(138, 43, 226, 0.4),
-      -250px -250px 0 rgba(30, 144, 255, 0.8);
+      -150px -50px 0 rgba(30, 144, 255, 1),
+      -300px -100px 0 rgba(138, 43, 226, 0.9),
+      100px -150px 0 rgba(30, 144, 255, 0.8),
+      -500px -200px 0 rgba(138, 43, 226, 0.7),
+      -250px -250px 0 rgba(30, 144, 255, 1),
+      -50px -300px 0 rgba(138, 43, 226, 0.8),
+      -400px -50px 0 rgba(30, 144, 255, 0.9);
   }
 `;
 
@@ -298,7 +302,7 @@ const EnergyField = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -17;
+  z-index: 3;
   pointer-events: none;
   opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
   transition: opacity 2s ease;
@@ -350,9 +354,9 @@ const HeatShimmer = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -19;
+  z-index: 5;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 0.3 : 0};
+  opacity: ${({ $isPlaying }) => $isPlaying ? 0.6 : 0};
   transition: opacity 2.5s ease;
   
   &::before {
@@ -390,9 +394,9 @@ const AmbientGlow = styled.div<{ $isPlaying: boolean }>`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -21;
+  z-index: 6;
   pointer-events: none;
-  opacity: ${({ $isPlaying }) => $isPlaying ? 1 : 0};
+  opacity: ${({ $isPlaying }) => $isPlaying ? 0.8 : 0};
   transition: opacity 3s ease;
   
   &::before {
