@@ -2034,8 +2034,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       width="100%" 
                       height="auto" 
                       controls 
-                      preload="metadata"
-                      poster="/projects_assets/video_essays/video_editting_icon.jpg"
+                      preload="auto"
                       style={{ 
                         width: '100%', 
                         height: 'auto',
@@ -2044,6 +2043,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         backgroundColor: '#000',
                         borderRadius: '8px'
                       }}
+                      onLoadStart={() => console.log('Video load started')}
+                      onLoadedData={() => console.log('Video data loaded')}
+                      onCanPlay={() => console.log('Video can play')}
+                      onError={(e) => console.error('Video error:', e)}
                     >
                       <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
                     </video>
