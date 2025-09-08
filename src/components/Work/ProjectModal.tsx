@@ -2031,20 +2031,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     border: `2px solid rgba(${project.colors.primary}, 0.2)`
                   }}>
                     <video 
-                      controls
-                      width="100%"
-                      height="500"
+                      width="100%" 
+                      height="auto" 
+                      controls 
+                      preload="metadata"
                       style={{ 
                         width: '100%', 
-                        height: '500px',
+                        height: 'auto',
+                        minHeight: '400px',
                         display: 'block',
-                        backgroundColor: '#000'
+                        backgroundColor: '#000',
+                        borderRadius: '8px'
                       }}
-                      preload="metadata"
-                      crossOrigin="anonymous"
                     >
                       <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
+                      <p style={{ color: 'white', padding: '2rem', textAlign: 'center' }}>
+                        Your browser doesn't support HTML5 video. 
+                        <a href="/projects_assets/video_essays/final_cut.mp4" style={{ color: '#dc3545' }}>
+                          Download the video
+                        </a> instead.
+                      </p>
                     </video>
                   </div>
                 </div>
