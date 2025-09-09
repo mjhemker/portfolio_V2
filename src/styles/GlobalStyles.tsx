@@ -17,13 +17,25 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: ${theme.typography.fontFamily.primary};
-    background: transparent;
+    background: ${theme.colors.primary};
     color: ${theme.colors.text.primary};
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     position: relative;
+    
+    &::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: ${theme.gradients.glow};
+      pointer-events: none;
+      z-index: -30;
+    }
   }
 
   #root {

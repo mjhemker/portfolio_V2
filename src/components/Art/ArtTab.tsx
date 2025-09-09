@@ -1,43 +1,9 @@
 import React, { useState } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { artworkByYear, drawingsByCategory } from '../../data/artwork';
 import type { Artwork } from '../../types/index';
 import { ArtworkModal } from './ArtworkModal';
-import { theme } from '../../styles/theme';
-
-// Create light theme for Art tab
-const lightTheme = {
-  ...theme,
-  colors: {
-    ...theme.colors,
-    primary: '#ffffff' as const,
-    secondary: '#f8f9fa' as const,
-    surface: '#e9ecef' as const,
-    surfaceLight: '#dee2e6' as const,
-    text: {
-      primary: '#212529' as const,
-      secondary: '#495057' as const,
-      tertiary: '#868e96' as const
-    },
-    border: '#dee2e6' as const,
-    hover: '#e9ecef' as const
-  },
-  gradients: {
-    ...theme.gradients,
-    primary: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%)',
-    secondary: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-    card: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 100%)',
-    glow: 'radial-gradient(circle at 50% 50%, rgba(29, 185, 84, 0.1) 0%, transparent 70%)'
-  },
-  shadows: {
-    ...theme.shadows,
-    sm: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-    md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
-  }
-} as any;
 
 const ArtContainer = styled(motion.div)`
   padding: 8rem 0 2rem;
@@ -286,7 +252,7 @@ export const ArtTab: React.FC = () => {
   };
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <>
       <ArtContainer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -404,6 +370,6 @@ export const ArtTab: React.FC = () => {
           }}
         />
       )}
-    </ThemeProvider>
+    </>
   );
 };
