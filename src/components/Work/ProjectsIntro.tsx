@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import Spline from '@splinetool/react-spline/next';
+import Spline from '@splinetool/react-spline';
 
 const IntroSection = styled(motion.div)`
   position: relative;
