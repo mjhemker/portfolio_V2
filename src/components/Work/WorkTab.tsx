@@ -25,6 +25,18 @@ const ripple = keyframes`
   100% { transform: scale(2.4); opacity: 0; }
 `;
 
+const TransitionSection = styled(motion.div)`
+  position: relative;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.1) 20%,
+    rgba(10, 10, 10, 0.8) 60%,
+    #0a0a0a 100%
+  );
+  min-height: 100vh;
+  z-index: 2;
+`;
+
 const WorkContainer = styled(motion.div)<{ $isPlaying: boolean }>`
   display: flex;
   height: 100vh;
@@ -129,13 +141,19 @@ export const WorkTab: React.FC = () => {
   return (
     <>
       <ProjectsIntro />
-      <WorkContainer
-        $isPlaying={playerState.isPlaying}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        transition={{ duration: 0.4, ease: "easeOut" as const }}
+      <TransitionSection
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" as const }}
       >
+        <WorkContainer
+          $isPlaying={playerState.isPlaying}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" as const }}
+        >
         <PlayerSection>
           {playerState.currentProjectIndex === 0 ? (
             <ProjectPreview onProjectClick={handleProjectClick} />
@@ -161,7 +179,8 @@ export const WorkTab: React.FC = () => {
         <QueueSection>
           <ProjectQueue />
         </QueueSection>
-      </WorkContainer>
+        </WorkContainer>
+      </TransitionSection>
       
       <ProjectModal 
         isOpen={isProjectModalOpen} 
