@@ -32,16 +32,28 @@ const StyledButton = styled(motion.button)<{
         return `
           padding: 0.5rem 1rem;
           font-size: ${theme.typography.fontSize.sm};
+          @media (max-width: 768px) {
+            padding: 0.375rem 0.75rem;
+            font-size: ${theme.typography.fontSize.xs};
+          }
         `;
       case 'lg':
         return `
           padding: 1rem 1.5rem;
           font-size: ${theme.typography.fontSize.lg};
+          @media (max-width: 768px) {
+            padding: 0.75rem 1rem;
+            font-size: ${theme.typography.fontSize.base};
+          }
         `;
       default:
         return `
           padding: 0.75rem 1.25rem;
           font-size: ${theme.typography.fontSize.base};
+          @media (max-width: 768px) {
+            padding: 0.5rem 0.875rem;
+            font-size: ${theme.typography.fontSize.sm};
+          }
         `;
     }
   }}

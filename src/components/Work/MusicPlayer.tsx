@@ -221,8 +221,8 @@ const PlayButton = styled(motion.button)<{ $isPlaying: boolean }>`
   }
 
   @media (max-width: 768px) {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     
     &:hover {
       transform: scale(1.05);
