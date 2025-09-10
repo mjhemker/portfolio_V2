@@ -42,6 +42,16 @@ const NavigationContainer = styled(motion.nav)`
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
   }
+
+  @media (max-width: 768px) {
+    top: 1rem;
+    
+    > div {
+      padding: 0.25rem 0.75rem;
+      gap: 0.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
 `;
 
 const TabButton = styled(motion.button)<{ 
@@ -71,8 +81,12 @@ const TabButton = styled(motion.button)<{
   }
 
   @media (max-width: 768px) {
-    padding: 1rem 2rem;
-    font-size: ${({ theme }) => theme.typography.fontSize.base};
+    padding: 0.5rem 1rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.sm};
+    
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `;
 
