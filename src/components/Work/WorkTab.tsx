@@ -88,8 +88,10 @@ const WorkContainer = styled(motion.div)<{ $isPlaying: boolean }>`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 6rem 1rem 1rem;
-    gap: 1rem;
+    height: auto;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+    gap: 2rem;
   }
 `;
 
@@ -99,6 +101,11 @@ const PlayerSection = styled.div`
   flex-direction: column;
   min-width: 0;
   gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+    order: 2;
+  }
 `;
 
 const QueueSection = styled.div`
@@ -107,8 +114,8 @@ const QueueSection = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    order: -1;
-    max-height: 200px;
+    order: 1;
+    max-height: none;
   }
 `;
 

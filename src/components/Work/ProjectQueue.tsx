@@ -51,6 +51,13 @@ const QueueContainer = styled(motion.div)`
     background: linear-gradient(180deg, #8A2BE2, #1E90FF);
     border-radius: 3px;
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    height: auto;
+    max-height: 400px;
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+  }
 `;
 
 const QueueHeader = styled(motion.h3)`
@@ -73,6 +80,11 @@ const QueueHeader = styled(motion.h3)`
     background: linear-gradient(90deg, #8A2BE2, #1E90FF, #8A2BE2);
     border-radius: 1px;
     opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
+    margin-bottom: 1rem;
   }
 `;
 
@@ -125,7 +137,13 @@ const QueueItem = styled(motion.div)<{ $isActive: boolean; $isPlaying: boolean }
   }
 
   @media (max-width: 768px) {
-    padding: 0.5rem;
+    padding: 0.75rem;
+    gap: 0.75rem;
+    
+    &:hover {
+      transform: none;
+      scale: 1;
+    }
   }
 `;
 

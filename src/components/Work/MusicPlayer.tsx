@@ -167,6 +167,11 @@ const Controls = styled(motion.div)<{ $isPlaying: boolean }>`
       animation: ${ripple} 2s ease-in-out infinite;
     `}
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+  }
 `;
 
 const ControlButtons = styled.div`
@@ -175,6 +180,11 @@ const ControlButtons = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 const PlayButton = styled(motion.button)<{ $isPlaying: boolean }>`
@@ -208,6 +218,15 @@ const PlayButton = styled(motion.button)<{ $isPlaying: boolean }>`
     background: ${({ theme }) => theme.colors.accentHover};
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(138, 43, 226, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    width: 56px;
+    height: 56px;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 `;
 

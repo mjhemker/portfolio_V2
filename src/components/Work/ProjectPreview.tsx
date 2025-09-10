@@ -58,6 +58,15 @@ const PreviewCard = styled(motion.div)`
     pointer-events: none;
     z-index: 2;
   }
+
+  @media (max-width: 768px) {
+    height: 400px;
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+    
+    &:hover::before {
+      transform: scale(1.02);
+    }
+  }
 `;
 
 const ProjectHeader = styled.div`
@@ -67,6 +76,13 @@ const ProjectHeader = styled.div`
   padding: 2rem 2rem 0;
   position: relative;
   z-index: 3;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem 1.5rem 0;
+    gap: 1rem;
+  }
 `;
 
 const ProjectLogo = styled.img`
@@ -85,6 +101,16 @@ const ProjectLogo = styled.img`
     transform: scale(1.08) rotate(-2deg);
     box-shadow: 0 20px 40px rgba(255, 140, 0, 0.5);
     border-color: rgba(255, 140, 0, 0.6);
+  }
+
+  @media (max-width: 768px) {
+    height: 80px;
+    max-width: 250px;
+    padding: 0.75rem;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 `;
 
@@ -106,6 +132,11 @@ const ProjectTagline = styled.p`
   -webkit-text-fill-color: transparent;
   text-transform: uppercase;
   letter-spacing: 1px;
+
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+    letter-spacing: 0.5px;
+  }
 `;
 
 const ProjectContent = styled.div`
@@ -117,6 +148,11 @@ const ProjectContent = styled.div`
   position: relative;
   z-index: 3;
   min-height: 0;
+
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem 0;
+    gap: 1rem;
+  }
 `;
 
 const ProjectFeatures = styled.div`
