@@ -25,6 +25,7 @@ const ModalContent = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     max-width: 95vw;
+    max-height: 95vh;
   }
 `;
 
@@ -61,10 +62,26 @@ const InfoSection = styled.div`
   gap: 1.5rem;
   min-width: 300px;
   background: #ffffff;
+  overflow-y: auto;
+  max-height: 90vh;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
 
   @media (max-width: 768px) {
     padding: 1.5rem;
     min-width: unset;
+    max-height: 60vh;
   }
 `;
 
@@ -183,59 +200,22 @@ const VideoTitle = styled.h3`
   margin-bottom: 1rem;
 `;
 
-const VideoWrapper = styled(motion.div)`
-  position: relative;
-  max-width: 250px;
-  width: 100%;
-  margin: 0 auto;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  overflow: hidden;
-  background: #000;
-  cursor: pointer;
-  aspect-ratio: 9/16;
-  
-  @media (max-width: 768px) {
-    max-width: 200px;
-  }
-`;
-
-const VideoPlayer = styled.video`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  background: #000;
-`;
-
-const PlayButton = styled(motion.button)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  color: #212529;
-  border: none;
+const VideoContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  width: 100%;
   
-  &:hover {
-    background: #ffffff;
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-
-  @media (max-width: 768px) {
-    width: 50px;
-    height: 50px;
+  video {
+    width: 300px;
+    height: 533px;
+    
+    @media (max-width: 768px) {
+      width: 250px;
+      height: 444px;
+    }
   }
 `;
+
 
 export const ArtworkModal: React.FC<ArtworkModalProps> = ({
   artwork,
@@ -304,35 +284,36 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
           {artwork.processVideo && (
             <ProcessVideoSection>
               <VideoTitle>Painting Process</VideoTitle>
-              <VideoWrapper onClick={() => handleVideoClick(artwork.processVideo!)}>
-                <VideoPlayer
-                  src={artwork.processVideo}
-                  muted
-                  loop
-                  playsInline
-                  ref={(video) => {
-                    if (video) {
-                      if (playingVideo === artwork.processVideo) {
-                        video.play();
-                      } else {
-                        video.pause();
-                      }
-                    }
-                  }}
-                />
-                <AnimatePresence>
-                  {playingVideo !== artwork.processVideo && (
-                    <PlayButton
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <Play size={24} />
-                    </PlayButton>
-                  )}
-                </AnimatePresence>
-              </VideoWrapper>
+              <VideoContainer>
+                <div style={{ 
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)',
+                  border: '2px solid #dee2e6'
+                }}>
+                  <video 
+                    controls 
+                    preload="metadata"
+                    style={{ 
+                      display: 'block',
+                      backgroundColor: '#000',
+                      borderRadius: '8px'
+                    }}
+                    onLoadStart={() => {
+                      console.log('🎬 Video loading started');
+                    }}
+                    onLoadedMetadata={() => {
+                      console.log('📊 Video metadata loaded');
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Video can start playing');
+                    }}
+                  >
+                    <source src={artwork.processVideo} type="video/mp4" />
+                    Your browser doesn't support HTML5 video.
+                  </video>
+                </div>
+              </VideoContainer>
             </ProcessVideoSection>
           )}
           
