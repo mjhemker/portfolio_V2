@@ -18,6 +18,7 @@ export interface Artwork {
   dimensions: string;
   description: string;
   image: string;
+  processVideo?: string; // Optional process video URL
 }
 
 export interface Tab {

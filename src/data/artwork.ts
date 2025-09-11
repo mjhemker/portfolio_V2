@@ -9,7 +9,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil painting',
       dimensions: '72" x 72"',
       description: 'Exploring how the music I listen to influences what/how I paint. In this case, there was heavy influence from "If This World Were Mine" by Marvin Gaye and Tammi Terrell.',
-      image: '/images/art/2025/flowerfield.jpg'
+      image: '/images/art/2025/flowerfield.jpg',
+      processVideo: '/art_vods/compressed/2025/If_This_World_Were_Mine_vid.mp4'
     },
     {
       id: 'art-2025-2',
@@ -18,7 +19,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil painting',
       dimensions: '72" x 36"',
       description: 'Painting based on an image of the dominant Teofilo Stevenson, the favorite amateur boxer from Cuba of my Abuelo.',
-      image: '/images/art/2025/IMG_0107.jpg'
+      image: '/images/art/2025/IMG_0107.jpg',
+      processVideo: '/art_vods/compressed/2025/Dancers_Dance_vid.mp4'
     }
   ],
   2024: [
@@ -29,7 +31,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil painting',
       dimensions: '24" x 24"',
       description: 'An exploritory study portrait of my friend\'s dog, Keeda. The background represents the mountions and lake of Lake Tahoe, CA.',
-      image: '/images/art/2024/Keeda.jpg'
+      image: '/images/art/2024/Keeda.jpg',
+      processVideo: '/art_vods/compressed/2024/Keeda_vid.mp4'
     },
     {
       id: 'art-2024-2',
@@ -47,7 +50,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil painting',
       dimensions: '24" x 18"',
       description: 'A metaphorical exploration of pursuit, desire, and the elusive nature of our goals. Inspired by my time abroad in Madrid, Spain for 3 months.',
-      image: '/images/art/2024/We\'re_All_Chasing_The_Red_Cape.jpeg'
+      image: '/images/art/2024/We\'re_All_Chasing_The_Red_Cape.jpeg',
+      processVideo: '/art_vods/compressed/2024/We\'re_All_Chasing_The_Red_Cape_vid.mp4'
     },
     {
       id: 'art-2024-4',
@@ -56,7 +60,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '36" x 48"',
       description: 'A commissioned painting for my close friend, Gobi, consisting of many easter eggs and references to our experiences together.',
-      image: '/images/art/2024/gobi 4.jpg'
+      image: '/images/art/2024/gobi 4.jpg',
+      processVideo: '/art_vods/compressed/2024/Walk_Down_Memory_Lane_vid.mp4'
     },
     {
       id: 'art-2024-5',
@@ -65,7 +70,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '18" x 18"',
       description: 'A portrait study of my friend, Sage, with a contemporary take on floral backgrounds and imagery.',
-      image: '/images/art/2024/IMG_0774 2.jpg'
+      image: '/images/art/2024/IMG_0774 2.jpg',
+      processVideo: '/art_vods/compressed/2024/Sage_vid.mp4'
     },
     {
       id: 'art-2024-6',
@@ -74,7 +80,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '24" x 18"',
       description: 'Portrait study based on a scene from the movie, The Batman.',
-      image: '/images/art/2024/IMG_8413 2.jpeg'
+      image: '/images/art/2024/IMG_8413 2.jpeg',
+      processVideo: '/art_vods/compressed/2024/The_Bat_and_The_Cat_vid.mp4'
     },
     {
       id: 'art-2024-7',
@@ -83,7 +90,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '18" x 18"',
       description: 'Painting based on a photograph of my Abuelo, who was a deputy commander of the Bay of Pigs invasion and eventually became a 2-star general for the United States.',
-      image: '/images/art/2024/IMG_8676.jpeg'
+      image: '/images/art/2024/IMG_8676.jpeg',
+      processVideo: '/art_vods/compressed/2024/Commander_vid.mp4'
     },
     {
       id: 'art-2024-8',
@@ -92,7 +100,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '48" x 48"',
       description: 'Commisioned portrait painting of a person\'s family dog, Mia. The painting features some elements that Mia particularly likes, such as the snow and, of course, laying around doing nothing.',
-      image: '/images/art/2024/IMG_8708.jpeg'
+      image: '/images/art/2024/IMG_8708.jpeg',
+      processVideo: '/art_vods/compressed/2024/Mia_vid.mp4'
     }
   ],
   2022: [
@@ -159,7 +168,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Acrylic Painting',
       dimensions: '12" x 12"',
       description: 'Another movie-inspired painting, this time based on the movie, Blade Runner 2049.',
-      image: '/images/art/2023/Blade Runner.jpg'
+      image: '/images/art/2023/Blade Runner.jpg',
+      processVideo: '/art_vods/compressed/2023/You_Look_Lonely,_I_Can_Fix_That_vid.mp4'
     },
     {
       id: 'art-2023-2',
@@ -168,7 +178,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '24" x 24"',
       description: 'This painting was a challenge I put upon myself to create an entire painting within 24 hours. After a couple hours of making reference photos and editting, then 13 hours of painting, it was complete..',
-      image: '/images/art/2023/Butterfly.jpg'
+      image: '/images/art/2023/Butterfly.jpg',
+      processVideo: '/art_vods/compressed/2023/New_vid.mp4'
     },
     {
       id: 'art-2023-3',
@@ -186,7 +197,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '20" x 16"',
       description: 'Portrait study of my friend\'s dog, Rusty.',
-      image: '/images/art/2023/IMG_4385 2.jpg'
+      image: '/images/art/2023/IMG_4385 2.jpg',
+      processVideo: '/art_vods/compressed/2023/Rusty_vid.mp4'
     },
     {
       id: 'art-2023-5',
@@ -204,7 +216,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '16" x 12"',
       description: 'Portrait study of my friend\'s dog, Bingo, and her cat, Meow-Meow.',
-      image: '/images/art/2023/Lauren Pets.jpg'
+      image: '/images/art/2023/Lauren Pets.jpg',
+      processVideo: '/art_vods/compressed/2023/Bingo_and_Meow-Meow_vid.mp4'
     },
     {
       id: 'art-2023-7',
@@ -222,7 +235,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil and Acrylic Painting',
       dimensions: '24" x 24"',
       description: 'Portrait study of my friend, Owen, with his fiery energy and glow surrounding him through colorful abstractions.',
-      image: '/images/art/2023/Owen Portrait.JPG'
+      image: '/images/art/2023/Owen Portrait.JPG',
+      processVideo: '/art_vods/compressed/2023/The_Campfire_vid.mp4'
     },
     {
       id: 'art-2023-9',
@@ -231,7 +245,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil and Acrylic Painting',
       dimensions: '48" x 48"',
       description: 'Self portrait that explores the concept of duality through visual metaphor, and representing who I was at the time of painting.',
-      image: '/images/art/2023/duality.jpg'
+      image: '/images/art/2023/duality.jpg',
+      processVideo: '/art_vods/compressed/2023/Duality_vid.mp4'
     },
     {
       id: 'art-2023-10',

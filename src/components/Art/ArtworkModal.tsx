@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { Modal } from '../UI/Modal';
 import { Button } from '../UI/Button';
 import type { Artwork } from '../../types/index';
@@ -170,12 +170,85 @@ const RightNavButton = styled(ImageNavButton)`
   right: 1rem;
 `;
 
+const ProcessVideoSection = styled.div`
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #dee2e6;
+`;
+
+const VideoTitle = styled.h3`
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  color: #212529;
+  margin-bottom: 1rem;
+`;
+
+const VideoWrapper = styled(motion.div)`
+  position: relative;
+  max-width: 250px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+  aspect-ratio: 9/16;
+  
+  @media (max-width: 768px) {
+    max-width: 200px;
+  }
+`;
+
+const VideoPlayer = styled.video`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+`;
+
+const PlayButton = styled(motion.button)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #212529;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  &:hover {
+    background: #ffffff;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+`;
+
 export const ArtworkModal: React.FC<ArtworkModalProps> = ({
   artwork,
   onClose,
   onPrevious,
   onNext
 }) => {
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
+  const handleVideoClick = (videoUrl: string) => {
+    setPlayingVideo(playingVideo === videoUrl ? null : videoUrl);
+  };
+
   return (
     <Modal isOpen={true} onClose={onClose}>
       <ModalContent>
@@ -227,6 +300,41 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
             <DescriptionTitle>About this work</DescriptionTitle>
             <DescriptionText>{artwork.description}</DescriptionText>
           </ArtworkDescription>
+
+          {artwork.processVideo && (
+            <ProcessVideoSection>
+              <VideoTitle>Painting Process</VideoTitle>
+              <VideoWrapper onClick={() => handleVideoClick(artwork.processVideo!)}>
+                <VideoPlayer
+                  src={artwork.processVideo}
+                  muted
+                  loop
+                  playsInline
+                  ref={(video) => {
+                    if (video) {
+                      if (playingVideo === artwork.processVideo) {
+                        video.play();
+                      } else {
+                        video.pause();
+                      }
+                    }
+                  }}
+                />
+                <AnimatePresence>
+                  {playingVideo !== artwork.processVideo && (
+                    <PlayButton
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Play size={24} />
+                    </PlayButton>
+                  )}
+                </AnimatePresence>
+              </VideoWrapper>
+            </ProcessVideoSection>
+          )}
           
           <NavigationButtons>
             <NavButton
