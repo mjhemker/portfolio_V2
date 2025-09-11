@@ -41,7 +41,8 @@ export const artworkByYear: Record<number, Artwork[]> = {
       medium: 'Oil Painting',
       dimensions: '24" x 24"',
       description: 'A contemporary take on classic fairy tale imagery with modern artistic sensibilities, using my friend as the model for the little red riding hood character.',
-      image: '/images/art/2024/Little_Red.jpg'
+      image: '/images/art/2024/Little_Red.jpg',
+      processVideo: '/art_vods/compressed/2024/Red_Hood_vid.mp4'
     },
     {
       id: 'art-2024-3',
