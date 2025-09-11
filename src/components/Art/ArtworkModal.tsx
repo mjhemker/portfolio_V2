@@ -320,19 +320,20 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
                             errorMessage += 'Unknown error';
                         }
                         errorMessage += `\nAttempted URL: ${artwork.processVideo}`;
-                        errorMessage += `\nVideo naturalWidth: ${video.naturalWidth}`;
-                        errorMessage += `\nVideo naturalHeight: ${video.naturalHeight}`;
+                        errorMessage += `\nVideo videoWidth: ${video.videoWidth}`;
+                        errorMessage += `\nVideo videoHeight: ${video.videoHeight}`;
                         errorMessage += `\nVideo readyState: ${video.readyState}`;
                         errorMessage += `\nVideo networkState: ${video.networkState}`;
                         
                         console.error(errorMessage);
-                      }}
-                      onLoadedMetadata={() => {
-                        console.log('✅ Video metadata loaded successfully');
-                      }}
-                      onCanPlay={() => {
-                        console.log('✅ Video can start playing');
-                      }}
+                      }
+                    }}
+                    onLoadedMetadata={() => {
+                      console.log('✅ Video metadata loaded successfully');
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Video can start playing');
+                    }}
                     >
                       <source src={`http://localhost:5173${artwork.processVideo}`} type="video/mp4" />
                       <source src={artwork.processVideo} type="video/mp4" />
