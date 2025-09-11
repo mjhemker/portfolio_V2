@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Modal } from '../UI/Modal';
 import { Button } from '../UI/Button';
 import type { Artwork } from '../../types/index';
@@ -223,12 +223,6 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
   onPrevious,
   onNext
 }) => {
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
-
-  const handleVideoClick = (videoUrl: string) => {
-    setPlayingVideo(playingVideo === videoUrl ? null : videoUrl);
-  };
-
   return (
     <Modal isOpen={true} onClose={onClose}>
       <ModalContent>
