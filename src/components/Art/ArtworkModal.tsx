@@ -297,10 +297,66 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
                       backgroundColor: '#000',
                       borderRadius: '8px'
                     }}
+                    onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+                      const video = e.currentTarget;
+                      const error = video.error;
+                      let errorMessage = 'Art Process Video Error Details:\n';
+                      
+                      if (error) {
+                        switch(error.code) {
+                          case 1:
+                            errorMessage += 'MEDIA_ERR_ABORTED: Video loading was aborted';
+                            break;
+                          case 2:
+                            errorMessage += 'MEDIA_ERR_NETWORK: Network error while loading video';
+                            break;
+                          case 3:
+                            errorMessage += 'MEDIA_ERR_DECODE: Video file is corrupted or encoded incorrectly';
+                            break;
+                          case 4:
+                            errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED: Video format not supported by browser';
+                            break;
+                          default:
+                            errorMessage += 'Unknown error: ' + error.code;
+                        }
+                        errorMessage += '\nError message: ' + (error.message || 'No additional message');
+                        errorMessage += '\nAttempted URL: ' + artwork.processVideo;
+                        errorMessage += '\nVideo src: ' + video.currentSrc;
+                        errorMessage += '\nVideo readyState: ' + video.readyState;
+                        errorMessage += '\nVideo networkState: ' + video.networkState;
+                      }
+                      
+                      console.error('🚨 ART PROCESS VIDEO ERROR:', errorMessage);
+                    }}
+                    onLoadedMetadata={() => {
+                      console.log('✅ Art process video metadata loaded for:', artwork.title);
+                    }}
+                    onCanPlay={() => {
+                      console.log('✅ Art process video can start playing for:', artwork.title);
+                    }}
+                    onLoadStart={() => {
+                      console.log('🎬 Art process video loading started for:', artwork.title);
+                    }}
                   >
+                    <source src={artwork.processVideo} type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                     <source src={artwork.processVideo} type="video/mp4" />
+                    <source src={artwork.processVideo} />
                     Your browser doesn't support HTML5 video.
                   </video>
+                  
+                  {/* Debug info */}
+                  <div style={{ 
+                    marginTop: '10px', 
+                    padding: '10px', 
+                    background: '#f0f0f0', 
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    color: '#333'
+                  }}>
+                    <strong>Debug Info:</strong><br />
+                    Video Path: {artwork.processVideo}<br />
+                    Full URL: {window.location.origin + artwork.processVideo}
+                  </div>
                 </div>
               </VideoContainer>
             </ProcessVideoSection>

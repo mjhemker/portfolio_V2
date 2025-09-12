@@ -2042,10 +2042,60 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         backgroundColor: '#000',
                         borderRadius: '8px'
                       }}
+                      onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+                        const video = e.currentTarget;
+                        const error = video.error;
+                        let errorMessage = 'Video Error Details:\n';
+                        
+                        if (error) {
+                          switch(error.code) {
+                            case 1:
+                              errorMessage += 'MEDIA_ERR_ABORTED: Video loading was aborted';
+                              break;
+                            case 2:
+                              errorMessage += 'MEDIA_ERR_NETWORK: Network error while loading video';
+                              break;
+                            case 3:
+                              errorMessage += 'MEDIA_ERR_DECODE: Video file is corrupted or encoded incorrectly';
+                              break;
+                            case 4:
+                              errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED: Video format not supported by browser';
+                              break;
+                            default:
+                              errorMessage += 'Unknown error: ' + error.code;
+                          }
+                          errorMessage += '\nError message: ' + (error.message || 'No additional message');
+                          errorMessage += '\nVideo src: ' + video.currentSrc;
+                          errorMessage += '\nVideo readyState: ' + video.readyState;
+                          errorMessage += '\nVideo networkState: ' + video.networkState;
+                        }
+                        
+                        console.error('🚨 VIDEO ESSAYS ERROR:', errorMessage);
+                      }}
+                      onLoadedMetadata={() => {
+                        console.log('✅ Video Essays metadata loaded successfully');
+                      }}
+                      onCanPlay={() => {
+                        console.log('✅ Video Essays can start playing');
+                      }}
+                      onLoadStart={() => {
+                        console.log('🎬 Video Essays loading started');
+                      }}
                     >
+                      <source src="/projects_assets/video_essays/video_essay_2.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
                       <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
+                      <source src="/projects_assets/video_essays/video_essay_2.mp4" />
                       Your browser doesn't support HTML5 video.
                     </video>
+                    
+                    {/* Test with known working external video for comparison */}
+                    <div style={{ marginTop: '20px', padding: '10px', background: '#f0f0f0', borderRadius: '8px' }}>
+                      <h4 style={{ margin: '0 0 10px 0', color: '#333' }}>Test Video (External - Should Work):</h4>
+                      <video controls width="400" height="225" style={{ backgroundColor: '#000' }}>
+                        <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4" />
+                        Test video not supported
+                      </video>
+                    </div>
                   </div>
                 </div>
               </ContentSection>
