@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head><title>Simple Video Test</title></head>
+<body style="padding: 20px; font-family: Arial;">
+    <h1>🎥 Ultra Simple Video Test</h1>
+    
+    <h2>Test 1: Video Essays</h2>
+    <video controls width="400" height="300">
+        <source src="projects_assets/video_essays/video_essay_2.mp4" type="video/mp4">
+        Not supported
+    </video>
+    
+    <h2>Test 2: Art Process Video</h2>
+    <video controls width="300" height="400">
+        <source src="art_vods/compressed/2025/Dancers_Dance_vid.mp4" type="video/mp4">
+        Not supported
+    </video>
+    
+    <h2>Test 3: Direct Links</h2>
+    <p><a href="projects_assets/video_essays/video_essay_2.mp4" target="_blank">Direct Video Essays Link</a></p>
+    <p><a href="art_vods/compressed/2025/Dancers_Dance_vid.mp4" target="_blank">Direct Art Video Link</a></p>
+    
+    <script>
+        console.log('Simple test page loaded');
+        
+        // Log any video errors
+        document.querySelectorAll('video').forEach((video, index) => {
+            video.addEventListener('error', (e) => {
+                console.error(`Video ${index + 1} error:`, e);
+            });
+            video.addEventListener('loadeddata', () => {
+                console.log(`✅ Video ${index + 1} loaded successfully`);
+            });
+        });
+    </script>
+</body>
+</html>
