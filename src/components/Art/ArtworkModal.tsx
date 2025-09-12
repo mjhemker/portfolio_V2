@@ -297,48 +297,10 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
                       backgroundColor: '#000',
                       borderRadius: '8px'
                     }}
-                    onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
-                      const video = e.currentTarget;
-                      const error = video.error;
-                      let errorMessage = 'Video Error Details:\n';
-                      
-                      if (error) {
-                        switch(error.code) {
-                          case 1:
-                            errorMessage += 'MEDIA_ERR_ABORTED: Video loading was aborted';
-                            break;
-                          case 2:
-                            errorMessage += 'MEDIA_ERR_NETWORK: Network error occurred';
-                            break;
-                          case 3:
-                            errorMessage += 'MEDIA_ERR_DECODE: Video decoding error';
-                            break;
-                          case 4:
-                            errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED: Video format not supported';
-                            break;
-                          default:
-                            errorMessage += 'Unknown error';
-                        }
-                        errorMessage += `\nAttempted URL: ${artwork.processVideo}`;
-                        errorMessage += `\nVideo videoWidth: ${video.videoWidth}`;
-                        errorMessage += `\nVideo videoHeight: ${video.videoHeight}`;
-                        errorMessage += `\nVideo readyState: ${video.readyState}`;
-                        errorMessage += `\nVideo networkState: ${video.networkState}`;
-                        
-                        console.error(errorMessage);
-                      }
-                    }}
-                    onLoadedMetadata={() => {
-                      console.log('✅ Video metadata loaded successfully');
-                    }}
-                    onCanPlay={() => {
-                      console.log('✅ Video can start playing');
-                    }}
-                    >
-                      <source src={`http://localhost:5173${artwork.processVideo}`} type="video/mp4" />
-                      <source src={artwork.processVideo} type="video/mp4" />
-                      Your browser doesn't support HTML5 video.
-                    </video>
+                  >
+                    <source src={artwork.processVideo} type="video/mp4" />
+                    Your browser doesn't support HTML5 video.
+                  </video>
                 </div>
               </VideoContainer>
             </ProcessVideoSection>

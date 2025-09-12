@@ -2042,41 +2042,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         backgroundColor: '#000',
                         borderRadius: '8px'
                       }}
-                      onError={(e: React.SyntheticEvent<HTMLVideoElement>) => {
-                        const video = e.currentTarget;
-                        const error = video.error;
-                        let errorMessage = 'Video Error Details:\n';
-                        
-                        if (error) {
-                          switch(error.code) {
-                            case 1:
-                              errorMessage += 'MEDIA_ERR_ABORTED: Video loading was aborted';
-                              break;
-                            case 2:
-                              errorMessage += 'MEDIA_ERR_NETWORK: Network error while loading video';
-                              break;
-                            case 3:
-                              errorMessage += 'MEDIA_ERR_DECODE: Video file is corrupted or encoded incorrectly';
-                              break;
-                            case 4:
-                              errorMessage += 'MEDIA_ERR_SRC_NOT_SUPPORTED: Video format not supported by browser';
-                              break;
-                            default:
-                              errorMessage += 'Unknown error: ' + error.code;
-                          }
-                          errorMessage += '\nError message: ' + (error.message || 'No additional message');
-                        }
-                        
-                        console.error(errorMessage);
-                      }}
-                      onLoadedMetadata={() => {
-                        console.log('✅ Video metadata loaded successfully');
-                      }}
-                      onCanPlay={() => {
-                        console.log('✅ Video can start playing');
-                      }}
                     >
-                      <source src="http://localhost:5173/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
                       <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
                       Your browser doesn't support HTML5 video.
                     </video>
