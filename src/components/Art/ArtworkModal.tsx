@@ -223,6 +223,11 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
   onPrevious,
   onNext
 }) => {
+  // Debug logging for artwork data
+  console.log(`🎨 [ART MODAL] Opened for artwork: "${artwork.title}"`);
+  console.log(`🎨 [ART MODAL] Process video path: ${artwork.processVideo}`);
+  console.log(`🎨 [ART MODAL] Has process video: ${!!artwork.processVideo}`);
+
   return (
     <Modal isOpen={true} onClose={onClose}>
       <ModalContent>
@@ -296,6 +301,60 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
                       borderRadius: '8px'
                     }}
                     playsInline
+                    onLoadStart={() => {
+                      const videoSrc = artwork.processVideo?.replace('/art_vods/', 'art_vods/');
+                      console.log(`🔄 [ART VIDEO] Loading started for: ${videoSrc}`);
+                      console.log(`🔄 [ART VIDEO] Original path: ${artwork.processVideo}`);
+                      console.log(`🔄 [ART VIDEO] Processed path: ${videoSrc}`);
+                    }}
+                    onLoadedMetadata={(e) => {
+                      const video = e.target as HTMLVideoElement;
+                      console.log(`✅ [ART VIDEO] Metadata loaded successfully`);
+                      console.log(`✅ [ART VIDEO] Duration: ${video.duration}s`);
+                      console.log(`✅ [ART VIDEO] Dimensions: ${video.videoWidth}x${video.videoHeight}`);
+                      console.log(`✅ [ART VIDEO] Current src: ${video.currentSrc}`);
+                      console.log(`✅ [ART VIDEO] Ready state: ${video.readyState}`);
+                      console.log(`✅ [ART VIDEO] Network state: ${video.networkState}`);
+                    }}
+                    onLoadedData={() => {
+                      console.log(`✅ [ART VIDEO] Data loaded - ready to play`);
+                    }}
+                    onCanPlay={() => {
+                      console.log(`✅ [ART VIDEO] Can start playing`);
+                    }}
+                    onCanPlayThrough={() => {
+                      console.log(`✅ [ART VIDEO] Can play through without buffering`);
+                    }}
+                    onError={(e) => {
+                      const video = e.target as HTMLVideoElement;
+                      const error = video.error;
+                      console.error(`❌ [ART VIDEO] Error occurred:`);
+                      console.error(`❌ [ART VIDEO] Error code: ${error?.code}`);
+                      console.error(`❌ [ART VIDEO] Error message: ${error?.message}`);
+                      console.error(`❌ [ART VIDEO] Current src: ${video.currentSrc}`);
+                      console.error(`❌ [ART VIDEO] Ready state: ${video.readyState}`);
+                      console.error(`❌ [ART VIDEO] Network state: ${video.networkState}`);
+                      
+                      let errorDesc = 'Unknown error';
+                      if (error) {
+                        switch(error.code) {
+                          case 1: errorDesc = 'MEDIA_ERR_ABORTED - Loading was aborted'; break;
+                          case 2: errorDesc = 'MEDIA_ERR_NETWORK - Network error'; break;
+                          case 3: errorDesc = 'MEDIA_ERR_DECODE - Decode error'; break;
+                          case 4: errorDesc = 'MEDIA_ERR_SRC_NOT_SUPPORTED - Source not supported'; break;
+                        }
+                      }
+                      console.error(`❌ [ART VIDEO] Error description: ${errorDesc}`);
+                    }}
+                    onAbort={() => {
+                      console.warn(`⚠️ [ART VIDEO] Loading aborted`);
+                    }}
+                    onStalled={() => {
+                      console.warn(`⚠️ [ART VIDEO] Loading stalled`);
+                    }}
+                    onSuspend={() => {
+                      console.warn(`⚠️ [ART VIDEO] Loading suspended`);
+                    }}
                   >
                     <source src={artwork.processVideo?.replace('/art_vods/', 'art_vods/')} type="video/mp4" />
                     Your browser doesn't support HTML5 video.

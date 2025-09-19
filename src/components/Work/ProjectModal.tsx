@@ -219,6 +219,114 @@ const MediaImage = styled.img`
   height: auto;
   object-fit: contain;
   max-height: 400px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const ClickableImageWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+  
+  &::after {
+    content: '🔍 Click to enlarge';
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+`;
+
+const ClickableVideoWrapper = styled(VideoWrapper)`
+  &::after {
+    content: '🔍 Click to enlarge';
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+`;
+
+const MediaOverlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+`;
+
+const EnlargedMediaContainer = styled(motion.div)`
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+`;
+
+const EnlargedImage = styled.img`
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+`;
+
+const EnlargedVideo = styled.video`
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background 0.2s ease;
+  
+  &:hover {
+    background: white;
+  }
 `;
 
 const FeatureShowcase = styled.div`
@@ -372,9 +480,18 @@ const TechTag = styled.span`
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, projectId }) => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [enlargedMedia, setEnlargedMedia] = useState<{ src: string; type: 'image' | 'video' } | null>(null);
 
   const handleVideoClick = (src: string) => {
     setPlayingVideo(playingVideo === src ? null : src);
+  };
+
+  const handleMediaClick = (src: string, type: 'image' | 'video') => {
+    setEnlargedMedia({ src, type });
+  };
+
+  const handleCloseEnlarged = () => {
+    setEnlargedMedia(null);
   };
 
   const getProjectData = () => {
@@ -396,7 +513,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Background",
               subtitle: "The Problem with Gen Z & Cooking",
               text: "I grew up in a household where cooking was not just a task, but a way to bring people together — a way to prioritize health as well as the wallet. Sadly, this isn't the case for many younger generations today. Recipes are no longer passed down, and people spend more time in front of a screen than a stove.",
-              image: "/projects_assets/pantreat/screen_shots/App_preview_Home.png",
               features: [
                 {
                   number: "01",
@@ -721,21 +837,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               {project.tagline}
             </ProjectTagline>
             
-            <ActionButtons>
-              <ActionButton
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => window.open(project.siteUrl, '_blank')}
-                style={{
-                  background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
-                  borderColor: `rgba(${project.colors.primary}, 0.4)`,
-                  color: project.colors.accent
-                }}
-              >
-                <ExternalLink size={20} />
-                Visit {project.title}
-              </ActionButton>
-            </ActionButtons>
+            {projectId !== '7' && (
+              <ActionButtons>
+                <ActionButton
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => window.open(project.siteUrl, '_blank')}
+                  style={{
+                    background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                    borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                    color: project.colors.accent
+                  }}
+                >
+                  <ExternalLink size={20} />
+                  Visit {project.title}
+                </ActionButton>
+              </ActionButtons>
+            )}
           </HeroSection>
 
           {projectId === '1' ? (
@@ -752,19 +870,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       Recipes are no longer passed down, and people spend more time in front of a screen than a stove.
                     </ContentText>
                   </TextBlock>
-                  <AssetCard
-                    whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
-                  >
-                    <MediaImage 
-                      src="/projects_assets/pantreat/screen_shots/App_preview_Home.png" 
-                      alt="Home Screen"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
-                  </AssetCard>
                 </ContentGrid>
               </ContentSection>
               
@@ -778,11 +883,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.3 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/pantreat/iphone_app_mockups/pantreat_mockup1.png" 
-                      alt="App Mockups"
-                      style={{ padding: '2rem', background: 'transparent' }}
-                    />
+                    <ClickableVideoWrapper onClick={() => {
+                      handleVideoClick('/projects_assets/pantreat/demo_videos/short_pantreat_interviews.mp4');
+                      handleMediaClick('/projects_assets/pantreat/demo_videos/short_pantreat_interviews.mp4', 'video');
+                    }}>
+                      <VideoPlayer
+                        src="/projects_assets/pantreat/demo_videos/short_pantreat_interviews.mp4"
+                        controls
+                        style={{ maxHeight: '300px' }}
+                      />
+                    </ClickableVideoWrapper>
                   </AssetCard>
                   <TextBlock>
                     <SubTitle style={{ color: project.colors.accent }}>Research Results</SubTitle>
@@ -815,14 +925,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces. On average, Americans throw away <strong>20% of their groceries.</strong>
                       </FeatureText>
                       <FeatureText style={{ marginTop: '1rem' }}>
-                        • Helping you make meals with what you already have
+                        Pantreat helps by:
+                        <br />• Helping you make meals with what you already have
                         <br />• Keeping you accountable and organized with reminders for expiration dates
                         <br />• Suggesting daily, personalized meals based on your schedule and dietary preferences
                         <br /><br /><strong>Result:</strong> More good food on the table, and extra cash in your pocket.
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4')}>
+                      <ClickableVideoWrapper onClick={() => {
+                        handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4');
+                        handleMediaClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
+                      }}>
                         <VideoPlayer
                           src="/projects_assets/pantreat/demo_videos/MyPantry.mp4"
                           muted loop playsInline
@@ -874,13 +988,35 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
-                          alt="Cook Mode"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                          <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/App_preview_Cook.png", 'image')}>
+                            <MediaImage 
+                              src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
+                              alt="Cook Mode"
+                              style={{ padding: '0.5rem', background: 'transparent', maxHeight: '200px' }}
+                            />
+                          </ClickableImageWrapper>
+                        </AssetCard>
+                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                          <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/cooking_tip.png", 'image')}>
+                            <MediaImage 
+                              src="/projects_assets/pantreat/screen_shots/cooking_tip.png" 
+                              alt="Cooking Tip"
+                              style={{ padding: '0.5rem', background: 'transparent', maxHeight: '200px' }}
+                            />
+                          </ClickableImageWrapper>
+                        </AssetCard>
+                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                          <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/share.png", 'image')}>
+                            <MediaImage 
+                              src="/projects_assets/pantreat/screen_shots/share.png" 
+                              alt="Share Feature"
+                              style={{ padding: '0.5rem', background: 'transparent', maxHeight: '200px' }}
+                            />
+                          </ClickableImageWrapper>
+                        </AssetCard>
+                      </div>
                     </FeatureMedia>
                   </FeatureBlock>
 
@@ -902,14 +1038,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/recipes.mp4')}>
+                      <ClickableVideoWrapper onClick={() => {
+                        handleVideoClick('/projects_assets/pantreat/demo_videos/feed.mp4');
+                        handleMediaClick('/projects_assets/pantreat/demo_videos/feed.mp4', 'video');
+                      }}>
                         <VideoPlayer
-                          src="/projects_assets/pantreat/demo_videos/recipes.mp4"
+                          src="/projects_assets/pantreat/demo_videos/feed.mp4"
                           muted loop playsInline
                           style={{ maxHeight: '300px' }}
                           ref={(video) => {
                             if (video) {
-                              if (playingVideo === '/projects_assets/pantreat/demo_videos/recipes.mp4') {
+                              if (playingVideo === '/projects_assets/pantreat/demo_videos/feed.mp4') {
                                 video.play();
                               } else {
                                 video.pause();
@@ -918,7 +1057,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           }}
                         />
                         <AnimatePresence>
-                          {playingVideo !== '/projects_assets/pantreat/demo_videos/recipes.mp4' && (
+                          {playingVideo !== '/projects_assets/pantreat/demo_videos/feed.mp4' && (
                             <PlayButton
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}
@@ -930,7 +1069,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                             </PlayButton>
                           )}
                         </AnimatePresence>
-                      </VideoWrapper>
+                      </ClickableVideoWrapper>
                     </FeatureMedia>
                   </FeatureBlock>
                 </FeatureShowcase>
@@ -961,11 +1100,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/pantreat/screen_shots/App_preview_Profile.png" 
-                      alt="Profile Screen"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/feed_mockup.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/pantreat/screen_shots/feed_mockup.png" 
+                        alt="Feed Mockup"
+                        style={{ padding: '1rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                 </ContentGrid>
               </BusinessSection>
@@ -980,35 +1121,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.5 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <VideoWrapper onClick={() => handleVideoClick('/projects_assets/pantreat/demo_videos/input+filters.mp4')}>
-                      <VideoPlayer
-                        src="/projects_assets/pantreat/demo_videos/input+filters.mp4"
-                        muted loop playsInline
-                        style={{ maxHeight: '300px' }}
-                        ref={(video) => {
-                          if (video) {
-                            if (playingVideo === '/projects_assets/pantreat/demo_videos/input+filters.mp4') {
-                              video.play();
-                            } else {
-                              video.pause();
-                            }
-                          }
-                        }}
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/conclusion.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/pantreat/screen_shots/conclusion.png" 
+                        alt="Conclusion Mockup"
+                        style={{ padding: '1rem', background: 'transparent' }}
                       />
-                      <AnimatePresence>
-                        {playingVideo !== '/projects_assets/pantreat/demo_videos/input+filters.mp4' && (
-                          <PlayButton
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.8 }}
-                            whileHover={{ scale: 1.1 }}
-                            style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
-                          >
-                            <Play size={24} />
-                          </PlayButton>
-                        )}
-                      </AnimatePresence>
-                    </VideoWrapper>
+                    </ClickableImageWrapper>
                   </AssetCard>
                   <TextBlock>
                     <SubTitle style={{ color: project.colors.accent }}>Making Cooking Cool Again</SubTitle>
@@ -1258,35 +1377,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       borderColor: `rgba(${project.colors.primary}, 0.3)`
                     }}>02</FeatureNumber>
                     <FeatureContent>
-                      <FeatureTitle style={{ color: project.colors.accent }}>Final Design Direction</FeatureTitle>
-                      <FeatureText>
-                        The final design balances visual impact with usability, creating a cohesive experience that maintains 
-                        Fizz's student-focused identity while expanding its capabilities.
-                      </FeatureText>
-                    </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/fizz/process_pic_fizz_final_redesign.png" 
-                          alt="Final Redesign Process"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
-                    </FeatureMedia>
-                  </FeatureBlock>
-                </FeatureShowcase>
-              </ContentSection>
-
-              <ContentSection>
-                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>New Features</SectionTitle>
-                <FeatureShowcase>
-                  <FeatureBlock>
-                    <FeatureNumber style={{ 
-                      color: project.colors.accent,
-                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
-                      borderColor: `rgba(${project.colors.primary}, 0.3)`
-                    }}>01</FeatureNumber>
-                    <FeatureContent>
                       <FeatureTitle style={{ color: project.colors.accent }}>Project Tags</FeatureTitle>
                       <FeatureText>
                         <strong>Custom tags</strong> to help students promote or join campus projects. This feature addresses 
@@ -1295,11 +1385,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/fizz/fizz_full_redesign1.png" 
-                          alt="Project Tags Feature"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/fizz_full_redesign1.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/fizz/fizz_full_redesign1.png" 
+                            alt="Project Tags Feature"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1309,7 +1401,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       color: project.colors.accent,
                       background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
                       borderColor: `rgba(${project.colors.primary}, 0.3)`
-                    }}>02</FeatureNumber>
+                    }}>03</FeatureNumber>
                     <FeatureContent>
                       <FeatureTitle style={{ color: project.colors.accent }}>Job Section</FeatureTitle>
                       <FeatureText>
@@ -1319,16 +1411,45 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/fizz/fizz_full_redesign2.png" 
-                          alt="Jobs Feature"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/fizz_full_redesign2.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/fizz/fizz_full_redesign2.png" 
+                            alt="Jobs Feature"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
+                      </AssetCard>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{ 
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>04</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Final Design Direction</FeatureTitle>
+                      <FeatureText>
+                        The final design balances visual impact with usability, creating a cohesive experience that maintains 
+                        Fizz's student-focused identity while expanding its capabilities.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/process_pic_fizz_final_redesign.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/fizz/process_pic_fizz_final_redesign.png" 
+                            alt="Final Redesign Process"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
                 </FeatureShowcase>
               </ContentSection>
+
 
               <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Final Solution</SectionTitle>
@@ -1852,11 +1973,85 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/make_a_note_take_a_note/building.jpeg" 
-                      alt="Building Process"
-                      style={{ padding: '0.5rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/building.jpeg", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/make_a_note_take_a_note/building.jpeg" 
+                        alt="Building Process"
+                        style={{ padding: '0.5rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
+                  </AssetCard>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Process</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <ContentText>
+                      To initially find the problem that we were to solve, we conducted many interviews with other students around campus, asking questions revolving around social life at Stanford, within and outside of freshman dorms, in dining halls, and more. We then collected all of the notes together and organized them based on 'What they said', 'What they think', 'What they did', and 'What they feel' using the classic Stanford D. School method of post-it notes.
+                    </ContentText>
+                  </TextBlock>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/neefinding_post-its.jpeg", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/make_a_note_take_a_note/neefinding_post-its.jpeg" 
+                        alt="Need Finding Post-its"
+                        style={{ padding: '0.5rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
+                  </AssetCard>
+                </ContentGrid>
+                
+                <ContentGrid style={{ marginTop: '2rem' }}>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/needfinding2.jpeg", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/make_a_note_take_a_note/needfinding2.jpeg" 
+                        alt="Need Finding Process"
+                        style={{ padding: '0.5rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
+                  </AssetCard>
+                  <TextBlock>
+                    <ContentText>
+                      From there our driving question was 'How might we allow students to reflect and recharge without the feeling of missing out, by giving them a framework to facilitate greater community bonding and spontaneity?'
+                    </ContentText>
+                  </TextBlock>
+                </ContentGrid>
+
+                <ContentGrid style={{ marginTop: '2rem' }}>
+                  <TextBlock>
+                    <ContentText>
+                      We built the product/prototype out of cardboard and purchased multicolored envelopes and cards for the notes. Here is the initial sketch I had made for the stand:
+                    </ContentText>
+                  </TextBlock>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/first_sketch.jpeg", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/make_a_note_take_a_note/first_sketch.jpeg" 
+                        alt="Initial Sketch"
+                        style={{ padding: '0.5rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                 </ContentGrid>
               </ContentSection>
@@ -1876,15 +2071,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         These notes could contain anything — encouragement, humor, advice, or simple observations about life.
                       </FeatureText>
                     </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/make_a_note_take_a_note/first_sketch.jpeg" 
-                          alt="First Sketch"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
-                    </FeatureMedia>
                   </FeatureBlock>
 
                   <FeatureBlock>
@@ -1900,15 +2086,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         and more. This categorization helped ensure that people could find the type of message they needed most.
                       </FeatureText>
                     </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg" 
-                          alt="Category Planning"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
-                    </FeatureMedia>
                   </FeatureBlock>
 
                   <FeatureBlock>
@@ -1925,17 +2102,29 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         and encouragement moved silently from one person to another.
                       </FeatureText>
                     </FeatureContent>
-                    <FeatureMedia>
-                      <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/make_a_note_take_a_note/needfinding2.jpeg" 
-                          alt="User Interaction"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
-                      </AssetCard>
-                    </FeatureMedia>
                   </FeatureBlock>
                 </FeatureShowcase>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Final Product</SectionTitle>
+                <ContentGrid>
+                  <AssetCard
+                    whileHover={{ scale: 1.02 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/final_display1.jpeg", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/make_a_note_take_a_note/final_display1.jpeg" 
+                        alt="Final Product Display"
+                        style={{ padding: '0.5rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
+                  </AssetCard>
+                </ContentGrid>
               </ContentSection>
 
               <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
@@ -2041,6 +2230,57 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         borderRadius: '8px'
                       }}
                       playsInline
+                      onLoadStart={() => {
+                        console.log(`🔄 [VIDEO ESSAYS] Loading started for: projects_assets/video_essays/video_essay_2.mp4`);
+                      }}
+                      onLoadedMetadata={(e) => {
+                        const video = e.target as HTMLVideoElement;
+                        console.log(`✅ [VIDEO ESSAYS] Metadata loaded successfully`);
+                        console.log(`✅ [VIDEO ESSAYS] Duration: ${video.duration}s`);
+                        console.log(`✅ [VIDEO ESSAYS] Dimensions: ${video.videoWidth}x${video.videoHeight}`);
+                        console.log(`✅ [VIDEO ESSAYS] Current src: ${video.currentSrc}`);
+                        console.log(`✅ [VIDEO ESSAYS] Ready state: ${video.readyState}`);
+                        console.log(`✅ [VIDEO ESSAYS] Network state: ${video.networkState}`);
+                      }}
+                      onLoadedData={() => {
+                        console.log(`✅ [VIDEO ESSAYS] Data loaded - ready to play`);
+                      }}
+                      onCanPlay={() => {
+                        console.log(`✅ [VIDEO ESSAYS] Can start playing`);
+                      }}
+                      onCanPlayThrough={() => {
+                        console.log(`✅ [VIDEO ESSAYS] Can play through without buffering`);
+                      }}
+                      onError={(e) => {
+                        const video = e.target as HTMLVideoElement;
+                        const error = video.error;
+                        console.error(`❌ [VIDEO ESSAYS] Error occurred:`);
+                        console.error(`❌ [VIDEO ESSAYS] Error code: ${error?.code}`);
+                        console.error(`❌ [VIDEO ESSAYS] Error message: ${error?.message}`);
+                        console.error(`❌ [VIDEO ESSAYS] Current src: ${video.currentSrc}`);
+                        console.error(`❌ [VIDEO ESSAYS] Ready state: ${video.readyState}`);
+                        console.error(`❌ [VIDEO ESSAYS] Network state: ${video.networkState}`);
+                        
+                        let errorDesc = 'Unknown error';
+                        if (error) {
+                          switch(error.code) {
+                            case 1: errorDesc = 'MEDIA_ERR_ABORTED - Loading was aborted'; break;
+                            case 2: errorDesc = 'MEDIA_ERR_NETWORK - Network error'; break;
+                            case 3: errorDesc = 'MEDIA_ERR_DECODE - Decode error'; break;
+                            case 4: errorDesc = 'MEDIA_ERR_SRC_NOT_SUPPORTED - Source not supported'; break;
+                          }
+                        }
+                        console.error(`❌ [VIDEO ESSAYS] Error description: ${errorDesc}`);
+                      }}
+                      onAbort={() => {
+                        console.warn(`⚠️ [VIDEO ESSAYS] Loading aborted`);
+                      }}
+                      onStalled={() => {
+                        console.warn(`⚠️ [VIDEO ESSAYS] Loading stalled`);
+                      }}
+                      onSuspend={() => {
+                        console.warn(`⚠️ [VIDEO ESSAYS] Loading suspended`);
+                      }}
                     >
                       <source src="projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
                       Your browser doesn't support HTML5 video.
@@ -2119,6 +2359,34 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           </TechStackSection>
         </ScrollContainer>
       </ModalContent>
+      
+      {/* Enlarged Media Overlay */}
+      {enlargedMedia && (
+        <MediaOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={handleCloseEnlarged}
+        >
+          <EnlargedMediaContainer
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0.8 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <CloseButton onClick={handleCloseEnlarged}>
+              ×
+            </CloseButton>
+            {enlargedMedia.type === 'image' ? (
+              <EnlargedImage src={enlargedMedia.src} alt="Enlarged view" />
+            ) : (
+              <EnlargedVideo controls autoPlay>
+                <source src={enlargedMedia.src} type="video/mp4" />
+              </EnlargedVideo>
+            )}
+          </EnlargedMediaContainer>
+        </MediaOverlay>
+      )}
     </Modal>
   );
 };

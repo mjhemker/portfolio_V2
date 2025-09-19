@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Logging Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f0f0f0; 
+        }
+        .container { 
+            background: white; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .logs { 
+            background: #1e1e1e; 
+            color: #00ff00; 
+            padding: 15px; 
+            font-family: 'Courier New', monospace; 
+            border-radius: 5px; 
+            height: 300px; 
+            overflow-y: auto; 
+            margin-top: 15px;
+        }
+        button {
+            padding: 10px 20px; 
+            margin: 5px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Video Logging Test Page</h1>
+    
+    <div class="container">
+        <h2>Test Controls</h2>
+        <button onclick="clearLogs()">Clear Logs</button>
+        <button onclick="testVideoEssays()">Test Video Essays</button>
+        <button onclick="testArtVideo()">Test Art Video</button>
+        <button onclick="testBothVideos()">Test Both Videos</button>
+        <button onclick="testFileAccess()">Test File Access</button>
+    </div>
+
+    <div class="container">
+        <h2>Live Console Logs</h2>
+        <div id="logs" class="logs">📋 Console logs will appear here...\n</div>
+    </div>
+
+    <div class="container">
+        <h2>Video Essays Test</h2>
+        <video id="videoEssays" controls width="400" height="225" style="background: #000; border-radius: 4px;">
+            <source src="projects_assets/video_essays/video_essay_2.mp4" type="video/mp4">
+            Video not supported
+        </video>
+    </div>
+
+    <div class="container">
+        <h2>Art Process Video Test</h2>
+        <video id="artVideo" controls width="300" height="400" style="background: #000; border-radius: 4px;">
+            <source src="art_vods/compressed/2025/Dancers_Dance_vid.mp4" type="video/mp4">
+            Video not supported
+        </video>
+    </div>
+
+    <script>
+        const logsDiv = document.getElementById('logs');
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        const originalConsoleWarn = console.warn;
+
+        function addToLog(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : '📝';
+            logsDiv.innerHTML += `[${timestamp}] ${prefix} ${message}\n`;
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        // Override console methods to capture logs
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            addToLog(args.join(' '), 'log');
+        };
+
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            addToLog(args.join(' '), 'error');
+        };
+
+        console.warn = function(...args) {
+            originalConsoleWarn.apply(console, args);
+            addToLog(args.join(' '), 'warn');
+        };
+
+        function clearLogs() {
+            logsDiv.innerHTML = '📋 Logs cleared...\n';
+        }
+
+        function setupVideoLogging(videoId, label) {
+            const video = document.getElementById(videoId);
+            if (!video) {
+                console.error(`❌ [${label}] Video element not found: ${videoId}`);
+                return;
+            }
+
+            console.log(`🔧 [${label}] Setting up logging for video: ${video.src || 'no src'}`);
+
+            video.addEventListener('loadstart', () => {
+                console.log(`🔄 [${label}] Loading started`);
+                console.log(`🔄 [${label}] Current src: ${video.currentSrc}`);
+            });
+
+            video.addEventListener('loadedmetadata', () => {
+                console.log(`✅ [${label}] Metadata loaded - Duration: ${video.duration}s, Size: ${video.videoWidth}x${video.videoHeight}`);
+            });
+
+            video.addEventListener('loadeddata', () => {
+                console.log(`✅ [${label}] Data loaded - ready to play`);
+            });
+
+            video.addEventListener('canplay', () => {
+                console.log(`✅ [${label}] Can start playing`);
+            });
+
+            video.addEventListener('canplaythrough', () => {
+                console.log(`✅ [${label}] Can play through without buffering`);
+            });
+
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                console.error(`❌ [${label}] Error - Code: ${error?.code}, Message: ${error?.message}`);
+                console.error(`❌ [${label}] Current src: ${video.currentSrc}, Ready state: ${video.readyState}, Network state: ${video.networkState}`);
+            });
+
+            video.addEventListener('abort', () => {
+                console.warn(`⚠️ [${label}] Loading aborted`);
+            });
+
+            video.addEventListener('stalled', () => {
+                console.warn(`⚠️ [${label}] Loading stalled`);
+            });
+
+            video.addEventListener('suspend', () => {
+                console.warn(`⚠️ [${label}] Loading suspended`);
+            });
+        }
+
+        function testVideoEssays() {
+            console.log('🧪 [TEST] Testing Video Essays...');
+            const video = document.getElementById('videoEssays');
+            video.load(); // Reload the video to trigger events
+        }
+
+        function testArtVideo() {
+            console.log('🧪 [TEST] Testing Art Process Video...');
+            const video = document.getElementById('artVideo');
+            video.load(); // Reload the video to trigger events
+        }
+
+        function testBothVideos() {
+            console.log('🧪 [TEST] Testing both videos...');
+            testVideoEssays();
+            setTimeout(() => testArtVideo(), 1000);
+        }
+
+        async function testFileAccess() {
+            console.log('🧪 [TEST] Testing direct file access...');
+            
+            const files = [
+                'projects_assets/video_essays/video_essay_2.mp4',
+                'art_vods/compressed/2025/Dancers_Dance_vid.mp4'
+            ];
+
+            for (const file of files) {
+                try {
+                    console.log(`🔍 [FILE TEST] Testing: ${file}`);
+                    const response = await fetch(file, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    const type = response.headers.get('content-type');
+                    console.log(`✅ [FILE TEST] ${file}: ${response.status} OK (${Math.round(size/1024/1024)}MB, ${type})`);
+                } catch (error) {
+                    console.error(`❌ [FILE TEST] ${file}: ${error.message}`);
+                }
+            }
+        }
+
+        // Initialize
+        console.log('🚀 Video logging test page loaded');
+        setupVideoLogging('videoEssays', 'VIDEO ESSAYS');
+        setupVideoLogging('artVideo', 'ART VIDEO');
+        
+        // Auto-test file access on load
+        setTimeout(testFileAccess, 2000);
+    </script>
+</body>
+</html>
