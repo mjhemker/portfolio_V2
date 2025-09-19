@@ -893,32 +893,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         style={{ maxHeight: '300px' }}
                         preload="metadata"
                         onLoadStart={() => {
-                          console.log('🔄 [VIDEO] Loading started: short_pantreat_interviews.mp4');
+                          console.log('🔄 [INTERVIEWS] Loading started');
                         }}
                         onLoadedMetadata={(e) => {
                           const video = e.target as HTMLVideoElement;
-                          console.log(`✅ [VIDEO] Metadata loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
-                        }}
-                        onLoadedData={() => {
-                          console.log('✅ [VIDEO] Data loaded - ready to play');
+                          console.log(`✅ [INTERVIEWS] Metadata loaded: ${video.duration}s`);
                         }}
                         onCanPlay={() => {
-                          console.log('✅ [VIDEO] Can start playing');
+                          console.log('✅ [INTERVIEWS] Ready to play');
                         }}
                         onError={(e) => {
                           const video = e.target as HTMLVideoElement;
                           const error = video.error;
-                          console.error('❌ [VIDEO] Error occurred:', {
+                          console.error('❌ [INTERVIEWS] Failed to load:', {
                             code: error?.code,
                             message: error?.message,
-                            src: video.currentSrc,
-                            readyState: video.readyState,
-                            networkState: video.networkState
+                            src: video.currentSrc
                           });
                         }}
-                        onAbort={() => console.warn('⚠️ [VIDEO] Loading aborted')}
-                        onStalled={() => console.warn('⚠️ [VIDEO] Loading stalled')}
-                        onSuspend={() => console.warn('⚠️ [VIDEO] Loading suspended')}
                       >
                         <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4" />
                         Your browser doesn't support HTML5 video.
@@ -975,42 +967,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           ref={(video) => {
                             if (video) {
                               if (playingVideo === 'projects_assets/pantreat/demo_videos/MyPantry.mp4') {
-                                video.play();
+                                video.play().catch(err => console.warn('Auto-play failed:', err));
                               } else {
                                 video.pause();
                               }
                             }
                           }}
                           onLoadStart={() => {
-                            console.log('🔄 [VIDEO] Loading started: MyPantry.mp4');
+                            console.log('🔄 [MYPANTRY] Loading started');
                           }}
                           onLoadedMetadata={(e) => {
                             const video = e.target as HTMLVideoElement;
-                            console.log(`✅ [VIDEO] MyPantry metadata loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
-                            console.log(`✅ [VIDEO] MyPantry codecs: ${video.canPlayType('video/mp4; codecs="avc1.42E01E"')}`);
-                          }}
-                          onLoadedData={() => {
-                            console.log('✅ [VIDEO] MyPantry data loaded - ready to play');
+                            console.log(`✅ [MYPANTRY] Metadata loaded: ${video.duration}s`);
                           }}
                           onCanPlay={() => {
-                            console.log('✅ [VIDEO] MyPantry can start playing');
+                            console.log('✅ [MYPANTRY] Ready to play');
                           }}
                           onError={(e) => {
                             const video = e.target as HTMLVideoElement;
                             const error = video.error;
-                            console.error('❌ [VIDEO] MyPantry error:', {
+                            console.error('❌ [MYPANTRY] Failed to load:', {
                               code: error?.code,
                               message: error?.message,
-                              src: video.currentSrc,
-                              readyState: video.readyState,
-                              networkState: video.networkState,
-                              canPlayH264: video.canPlayType('video/mp4; codecs="avc1.42E01E"'),
-                              canPlayMP4: video.canPlayType('video/mp4')
+                              src: video.currentSrc
                             });
                           }}
-                          onAbort={() => console.warn('⚠️ [VIDEO] MyPantry loading aborted')}
-                          onStalled={() => console.warn('⚠️ [VIDEO] MyPantry loading stalled')}
-                          onSuspend={() => console.warn('⚠️ [VIDEO] MyPantry loading suspended')}
                         >
                           <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4" />
                           Your browser doesn't support HTML5 video.
@@ -1161,42 +1142,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           ref={(video) => {
                             if (video) {
                               if (playingVideo === 'projects_assets/pantreat/demo_videos/feed.mp4') {
-                                video.play();
+                                video.play().catch(err => console.warn('Auto-play failed:', err));
                               } else {
                                 video.pause();
                               }
                             }
                           }}
                           onLoadStart={() => {
-                            console.log('🔄 [VIDEO] Loading started: feed.mp4');
+                            console.log('🔄 [FEED] Loading started');
                           }}
                           onLoadedMetadata={(e) => {
                             const video = e.target as HTMLVideoElement;
-                            console.log(`✅ [VIDEO] Feed metadata loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
-                            console.log(`✅ [VIDEO] Feed codecs: ${video.canPlayType('video/mp4; codecs="avc1.42E01E"')}`);
-                          }}
-                          onLoadedData={() => {
-                            console.log('✅ [VIDEO] Feed data loaded - ready to play');
+                            console.log(`✅ [FEED] Metadata loaded: ${video.duration}s`);
                           }}
                           onCanPlay={() => {
-                            console.log('✅ [VIDEO] Feed can start playing');
+                            console.log('✅ [FEED] Ready to play');
                           }}
                           onError={(e) => {
                             const video = e.target as HTMLVideoElement;
                             const error = video.error;
-                            console.error('❌ [VIDEO] Feed error:', {
+                            console.error('❌ [FEED] Failed to load:', {
                               code: error?.code,
                               message: error?.message,
-                              src: video.currentSrc,
-                              readyState: video.readyState,
-                              networkState: video.networkState,
-                              canPlayH264: video.canPlayType('video/mp4; codecs="avc1.42E01E"'),
-                              canPlayMP4: video.canPlayType('video/mp4')
+                              src: video.currentSrc
                             });
                           }}
-                          onAbort={() => console.warn('⚠️ [VIDEO] Feed loading aborted')}
-                          onStalled={() => console.warn('⚠️ [VIDEO] Feed loading stalled')}
-                          onSuspend={() => console.warn('⚠️ [VIDEO] Feed loading suspended')}
                         >
                           <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4" />
                           Your browser doesn't support HTML5 video.

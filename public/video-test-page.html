@@ -161,7 +161,29 @@
         // Initialize
         addToLog('🚀 Video compatibility test page loaded');
         addToLog(`📊 Browser: ${navigator.userAgent}`);
+        addToLog(`📊 Platform: ${navigator.platform}`);
         
+        // Test fetch capabilities
+        async function testVideoAccess() {
+            const videos = [
+                'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                'projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                'projects_assets/pantreat/demo_videos/feed.mp4'
+            ];
+            
+            for (const video of videos) {
+                try {
+                    const response = await fetch(video, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    const type = response.headers.get('content-type');
+                    addToLog(`✅ [FETCH] ${video}: ${response.status} OK (${Math.round(size/1024/1024)}MB, ${type})`);
+                } catch (error) {
+                    addToLog(`❌ [FETCH] ${video}: ${error.message}`, 'error');
+                }
+            }
+        }
+        
+        testVideoAccess();
         setupVideoLogging('video1', 'INTERVIEWS');
         setupVideoLogging('video2', 'MYPANTRY');
         setupVideoLogging('video3', 'FEED');
