@@ -483,6 +483,33 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const [enlargedMedia, setEnlargedMedia] = useState<{ src: string; type: 'image' | 'video' } | null>(null);
 
+  // Enhanced video error handler
+  const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement>, videoName: string) => {
+    const video = e.target as HTMLVideoElement;
+    const error = video.error;
+    
+    console.group(`❌ [VIDEO] ERROR: ${videoName}`);
+    console.error('Error Code:', error?.code || 'undefined');
+    console.error('Error Message:', error?.message || 'undefined');
+    console.error('Current Source:', video.currentSrc || 'undefined');
+    console.error('Ready State:', video.readyState);
+    console.error('Network State:', video.networkState);
+    console.error('Video Width:', video.videoWidth || 'undefined');
+    console.error('Video Height:', video.videoHeight || 'undefined');
+    console.error('Duration:', video.duration || 'undefined');
+    
+    // Error code meanings:
+    const errorCodes = {
+      1: 'MEDIA_ERR_ABORTED - Loading aborted',
+      2: 'MEDIA_ERR_NETWORK - Network error',
+      3: 'MEDIA_ERR_DECODE - Decode error',
+      4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Format not supported'
+    };
+    
+    console.error('Error Explanation:', error?.code ? errorCodes[error.code as keyof typeof errorCodes] : 'Unknown error');
+    console.groupEnd();
+  };
+
   const handleVideoClick = (src: string) => {
     setPlayingVideo(playingVideo === src ? null : src);
   };
@@ -902,32 +929,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         onCanPlay={() => {
                           console.log('✅ [INTERVIEWS] Ready to play');
                         }}
-                        onError={(e) => {
-                          const video = e.target as HTMLVideoElement;
-                          const error = video.error;
-                          console.group('❌ [INTERVIEWS] VIDEO ERROR DETAILS');
-                          console.error('Error Code:', error?.code);
-                          console.error('Error Message:', error?.message);
-                          console.error('Current Source:', video.currentSrc);
-                          console.error('Ready State:', video.readyState);
-                          console.error('Network State:', video.networkState);
-                          console.error('Video Width:', video.videoWidth);
-                          console.error('Video Height:', video.videoHeight);
-                          console.error('Duration:', video.duration);
-                          
-                          // Detailed error code explanation
-                          let errorExplanation = 'Unknown error';
-                          if (error) {
-                            switch(error.code) {
-                              case 1: errorExplanation = 'MEDIA_ERR_ABORTED: The user aborted the video loading process'; break;
-                              case 2: errorExplanation = 'MEDIA_ERR_NETWORK: A network error occurred while loading the video'; break;
-                              case 3: errorExplanation = 'MEDIA_ERR_DECODE: An error occurred when trying to decode the video'; break;
-                              case 4: errorExplanation = 'MEDIA_ERR_SRC_NOT_SUPPORTED: The video format is not supported'; break;
-                            }
-                          }
-                          console.error('Error Explanation:', errorExplanation);
-                          console.groupEnd();
-                        }}
+                        onLoadStart={() => console.log('🔄 [INTERVIEWS] Video loading started')}
+                        onLoadedMetadata={() => console.log('✅ [INTERVIEWS] Video metadata loaded')}
+                        onCanPlay={() => console.log('▶️ [INTERVIEWS] Video ready to play')}
+                        onError={(e) => handleVideoError(e, 'Pantreat Interviews')}
                       >
                         <source src="/projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4" />
                         Your browser doesn't support HTML5 video.
@@ -2545,7 +2550,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         console.warn(`⚠️ [VIDEO ESSAYS] Loading suspended`);
                       }}
                     >
-                      <source src="projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
+                      <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
                       Your browser doesn't support HTML5 video.
                     </video>
                   </div>

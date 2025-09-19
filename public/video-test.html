@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Accessibility Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f5f5f5; 
+        }
+        .container { 
+            background: white; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+        .pending { border-color: #ffc107; background: #fff3cd; }
+        video { 
+            width: 100%; 
+            max-width: 400px; 
+            border: 1px solid #ddd; 
+            margin: 10px 0;
+        }
+        button { 
+            padding: 10px 20px; 
+            margin: 5px; 
+            background: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        button:hover { background: #0056b3; }
+        .link { 
+            color: #007bff; 
+            text-decoration: none; 
+            font-weight: bold; 
+            margin: 0 10px;
+        }
+        .link:hover { text-decoration: underline; }
+        .console { 
+            background: #1e1e1e; 
+            color: #00ff00; 
+            padding: 15px; 
+            font-family: monospace; 
+            height: 300px; 
+            overflow-y: auto; 
+            border-radius: 5px; 
+            margin-top: 20px; 
+        }
+        .status {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎥 Video File Accessibility Test</h1>
+    <p><strong>Purpose:</strong> Verify that video files can be accessed and played correctly after deployment</p>
+    
+    <div class="container">
+        <h2>🚀 Quick Actions</h2>
+        <button onclick="testAllVideos()">Test All Videos</button>
+        <button onclick="openAllDirectLinks()">Open All Direct Links</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+    
+    <div class="container">
+        <h2>📁 Direct Links Test</h2>
+        <p>Click these links to test if videos open directly in browser:</p>
+        <div class="test-section pending" id="link-test">
+            <p>
+                <a href="/projects_assets/pantreat/short_pantreat_interviews.mp4" target="_blank" class="link">📂 Interviews Video</a>
+                <a href="/projects_assets/pantreat/demo_videos/MyPantry.mp4" target="_blank" class="link">📂 MyPantry Video</a>
+                <a href="/projects_assets/pantreat/demo_videos/feed.mp4" target="_blank" class="link">📂 Feed Video</a>
+                <a href="/projects_assets/video_essays/video_essay_2.mp4" target="_blank" class="link">📂 Video Essay</a>
+            </p>
+            <div class="status" id="link-status">⏳ Click links above to test direct access</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>🎬 Video Player Tests</h2>
+        
+        <div class="test-section pending" id="test1">
+            <h3>Short Pantreat Interviews</h3>
+            <video controls id="video1">
+                <source src="/projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+                Video not supported
+            </video>
+            <div class="status" id="status1">⏳ Ready to test</div>
+        </div>
+        
+        <div class="test-section pending" id="test2">
+            <h3>MyPantry Demo</h3>
+            <video controls id="video2">
+                <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4">
+                Video not supported
+            </video>
+            <div class="status" id="status2">⏳ Ready to test</div>
+        </div>
+        
+        <div class="test-section pending" id="test3">
+            <h3>Feed Demo</h3>
+            <video controls id="video3">
+                <source src="/projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4">
+                Video not supported
+            </video>
+            <div class="status" id="status3">⏳ Ready to test</div>
+        </div>
+        
+        <div class="test-section pending" id="test4">
+            <h3>Video Essay</h3>
+            <video controls id="video4">
+                <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4">
+                Video not supported
+            </video>
+            <div class="status" id="status4">⏳ Ready to test</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>🌐 Fetch API Tests</h2>
+        <div id="fetchResults"></div>
+    </div>
+    
+    <div class="container">
+        <h2>📡 Debug Console</h2>
+        <div class="console" id="console">🔧 Video test page loaded. Click "Test All Videos" to begin.\n</div>
+    </div>
+
+    <script>
+        const consoleDiv = document.getElementById('console');
+        const fetchResults = document.getElementById('fetchResults');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            consoleDiv.innerHTML += `[${timestamp}] ${message}\n`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function clearResults() {
+            consoleDiv.innerHTML = '🔧 Results cleared.\n';
+            fetchResults.innerHTML = '';
+            // Reset all test sections
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`test${i}`).className = 'test-section pending';
+                document.getElementById(`status${i}`).textContent = '⏳ Ready to test';
+            }
+        }
+        
+        function setupVideoTest(videoId, statusId, testId, name) {
+            const video = document.getElementById(videoId);
+            const status = document.getElementById(statusId);
+            const testSection = document.getElementById(testId);
+            
+            video.addEventListener('loadstart', () => {
+                log(`${name}: Loading started`);
+                status.textContent = '🔄 Loading...';
+            });
+            
+            video.addEventListener('loadedmetadata', () => {
+                const duration = video.duration.toFixed(1);
+                const dimensions = `${video.videoWidth}x${video.videoHeight}`;
+                log(`${name}: ✅ SUCCESS - ${duration}s, ${dimensions}`);
+                status.textContent = `✅ Loaded: ${duration}s, ${dimensions}`;
+                testSection.className = 'test-section success';
+            });
+            
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                const errorCode = error?.code || 'unknown';
+                const errorMsg = error?.message || 'No error message';
+                log(`${name}: ❌ FAILED - Error ${errorCode}: ${errorMsg}`);
+                status.textContent = `❌ Error ${errorCode}`;
+                testSection.className = 'test-section error';
+                
+                // Enhanced error logging
+                console.group(`❌ [VIDEO] ERROR: ${name}`);
+                console.error('Error Code:', error?.code || 'undefined');
+                console.error('Error Message:', error?.message || 'undefined');
+                console.error('Current Source:', video.currentSrc || 'undefined');
+                console.error('Ready State:', video.readyState);
+                console.error('Network State:', video.networkState);
+                console.error('Video Width:', video.videoWidth || 'undefined');
+                console.error('Video Height:', video.videoHeight || 'undefined');
+                console.error('Duration:', video.duration || 'undefined');
+                console.groupEnd();
+            });
+            
+            video.addEventListener('canplay', () => {
+                log(`${name}: Ready to play`);
+            });
+        }
+        
+        async function testFetch(url, name) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    const size = response.headers.get('content-length');
+                    const type = response.headers.get('content-type');
+                    const sizeText = size ? `${Math.round(size/1024/1024)}MB` : 'unknown';
+                    log(`${name} (FETCH): ✅ SUCCESS - ${response.status}, ${sizeText}, ${type}`);
+                    return { success: true, status: response.status, size: sizeText, type };
+                } else {
+                    log(`${name} (FETCH): ❌ FAILED - HTTP ${response.status}`);
+                    return { success: false, status: response.status };
+                }
+            } catch (error) {
+                log(`${name} (FETCH): ❌ ERROR - ${error.message}`);
+                return { success: false, error: error.message };
+            }
+        }
+        
+        async function testAllVideos() {
+            log('🚀 Starting comprehensive video test...');
+            log(`🌐 Current URL: ${window.location.href}`);
+            
+            fetchResults.innerHTML = '<p>🔄 Testing video file accessibility...</p>';
+            
+            // Test fetch for all videos
+            const videos = [
+                { url: '/projects_assets/pantreat/short_pantreat_interviews.mp4', name: 'Interviews' },
+                { url: '/projects_assets/pantreat/demo_videos/MyPantry.mp4', name: 'MyPantry' },
+                { url: '/projects_assets/pantreat/demo_videos/feed.mp4', name: 'Feed' },
+                { url: '/projects_assets/video_essays/video_essay_2.mp4', name: 'Video Essay' }
+            ];
+            
+            for (const video of videos) {
+                const result = await testFetch(video.url, video.name);
+                
+                const div = document.createElement('div');
+                div.style.cssText = `padding: 10px; margin: 5px 0; border-radius: 5px; ${result.success ? 'background: #d4edda; border: 1px solid #c3e6cb;' : 'background: #f8d7da; border: 1px solid #f5c6cb;'}`;
+                div.innerHTML = `${result.success ? '✅' : '❌'} <strong>${video.name}</strong>: ${result.success ? `${result.status} OK (${result.size}, ${result.type})` : (result.error || `HTTP ${result.status}`)}`;
+                fetchResults.appendChild(div);
+                
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+            
+            log('🎥 Video element tests will show results automatically');
+            log('🏁 Test completed - check video elements above');
+        }
+        
+        function openAllDirectLinks() {
+            log('📂 Opening all video URLs in new tabs...');
+            const urls = [
+                '/projects_assets/pantreat/short_pantreat_interviews.mp4',
+                '/projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                '/projects_assets/pantreat/demo_videos/feed.mp4',
+                '/projects_assets/video_essays/video_essay_2.mp4'
+            ];
+            
+            urls.forEach((url, index) => {
+                setTimeout(() => {
+                    window.open(url, '_blank');
+                    log(`📂 Opened: ${url}`);
+                }, index * 500);
+            });
+        }
+        
+        // Setup video monitoring for all test videos
+        setupVideoTest('video1', 'status1', 'test1', 'Interviews');
+        setupVideoTest('video2', 'status2', 'test2', 'MyPantry');
+        setupVideoTest('video3', 'status3', 'test3', 'Feed');
+        setupVideoTest('video4', 'status4', 'test4', 'Video Essay');
+        
+        log('🎯 Video accessibility test ready');
+        log('💡 This page tests the exact same video paths used in the main app');
+        log('🔍 Open browser dev tools → Network tab to monitor requests');
+        
+        // Auto-start test after 2 seconds
+        setTimeout(() => {
+            log('🚀 Auto-starting video accessibility test...');
+            testAllVideos();
+        }, 2000);
+    </script>
+</body>
+</html>
