@@ -889,10 +889,40 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       handleMediaClick('projects_assets/pantreat/short_pantreat_interviews.mp4', 'video');
                     }}>
                       <VideoPlayer
-                        src="projects_assets/pantreat/short_pantreat_interviews.mp4"
                         controls
                         style={{ maxHeight: '300px' }}
-                      />
+                        preload="metadata"
+                        onLoadStart={() => {
+                          console.log('🔄 [VIDEO] Loading started: short_pantreat_interviews.mp4');
+                        }}
+                        onLoadedMetadata={(e) => {
+                          const video = e.target as HTMLVideoElement;
+                          console.log(`✅ [VIDEO] Metadata loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
+                        }}
+                        onLoadedData={() => {
+                          console.log('✅ [VIDEO] Data loaded - ready to play');
+                        }}
+                        onCanPlay={() => {
+                          console.log('✅ [VIDEO] Can start playing');
+                        }}
+                        onError={(e) => {
+                          const video = e.target as HTMLVideoElement;
+                          const error = video.error;
+                          console.error('❌ [VIDEO] Error occurred:', {
+                            code: error?.code,
+                            message: error?.message,
+                            src: video.currentSrc,
+                            readyState: video.readyState,
+                            networkState: video.networkState
+                          });
+                        }}
+                        onAbort={() => console.warn('⚠️ [VIDEO] Loading aborted')}
+                        onStalled={() => console.warn('⚠️ [VIDEO] Loading stalled')}
+                        onSuspend={() => console.warn('⚠️ [VIDEO] Loading suspended')}
+                      >
+                        <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4" />
+                        Your browser doesn't support HTML5 video.
+                      </VideoPlayer>
                     </ClickableVideoWrapper>
                   </AssetCard>
                   <TextBlock>
@@ -939,9 +969,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         handleMediaClick('projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
                       }}>
                         <VideoPlayer
-                          src="projects_assets/pantreat/demo_videos/MyPantry.mp4"
                           muted loop playsInline
                           style={{ maxHeight: '300px' }}
+                          preload="metadata"
                           ref={(video) => {
                             if (video) {
                               if (playingVideo === 'projects_assets/pantreat/demo_videos/MyPantry.mp4') {
@@ -951,7 +981,40 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                               }
                             }
                           }}
-                        />
+                          onLoadStart={() => {
+                            console.log('🔄 [VIDEO] Loading started: MyPantry.mp4');
+                          }}
+                          onLoadedMetadata={(e) => {
+                            const video = e.target as HTMLVideoElement;
+                            console.log(`✅ [VIDEO] MyPantry metadata loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
+                            console.log(`✅ [VIDEO] MyPantry codecs: ${video.canPlayType('video/mp4; codecs="avc1.42E01E"')}`);
+                          }}
+                          onLoadedData={() => {
+                            console.log('✅ [VIDEO] MyPantry data loaded - ready to play');
+                          }}
+                          onCanPlay={() => {
+                            console.log('✅ [VIDEO] MyPantry can start playing');
+                          }}
+                          onError={(e) => {
+                            const video = e.target as HTMLVideoElement;
+                            const error = video.error;
+                            console.error('❌ [VIDEO] MyPantry error:', {
+                              code: error?.code,
+                              message: error?.message,
+                              src: video.currentSrc,
+                              readyState: video.readyState,
+                              networkState: video.networkState,
+                              canPlayH264: video.canPlayType('video/mp4; codecs="avc1.42E01E"'),
+                              canPlayMP4: video.canPlayType('video/mp4')
+                            });
+                          }}
+                          onAbort={() => console.warn('⚠️ [VIDEO] MyPantry loading aborted')}
+                          onStalled={() => console.warn('⚠️ [VIDEO] MyPantry loading stalled')}
+                          onSuspend={() => console.warn('⚠️ [VIDEO] MyPantry loading suspended')}
+                        >
+                          <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4" />
+                          Your browser doesn't support HTML5 video.
+                        </VideoPlayer>
                         <AnimatePresence>
                           {playingVideo !== 'projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
                             <PlayButton
@@ -1023,8 +1086,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         {/* Cooking Tip - Left Overlapping */}
                         <div style={{
                           position: 'absolute',
-                          top: '80px',
-                          left: '50px',
+                          top: '60px',
+                          left: '10px',
                           transform: 'rotate(8deg)',
                           zIndex: 2,
                           filter: 'drop-shadow(0 12px 20px rgba(0,0,0,0.25))'
@@ -1046,8 +1109,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         {/* Share Feature - Right Overlapping */}
                         <div style={{
                           position: 'absolute',
-                          top: '60px',
-                          right: '40px',
+                          top: '80px',
+                          right: '10px',
                           transform: 'rotate(-5deg)',
                           zIndex: 3,
                           filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.3))'
@@ -1092,9 +1155,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         handleMediaClick('projects_assets/pantreat/demo_videos/feed.mp4', 'video');
                       }}>
                         <VideoPlayer
-                          src="projects_assets/pantreat/demo_videos/feed.mp4"
                           muted loop playsInline
                           style={{ maxHeight: '300px' }}
+                          preload="metadata"
                           ref={(video) => {
                             if (video) {
                               if (playingVideo === 'projects_assets/pantreat/demo_videos/feed.mp4') {
@@ -1104,7 +1167,40 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                               }
                             }
                           }}
-                        />
+                          onLoadStart={() => {
+                            console.log('🔄 [VIDEO] Loading started: feed.mp4');
+                          }}
+                          onLoadedMetadata={(e) => {
+                            const video = e.target as HTMLVideoElement;
+                            console.log(`✅ [VIDEO] Feed metadata loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
+                            console.log(`✅ [VIDEO] Feed codecs: ${video.canPlayType('video/mp4; codecs="avc1.42E01E"')}`);
+                          }}
+                          onLoadedData={() => {
+                            console.log('✅ [VIDEO] Feed data loaded - ready to play');
+                          }}
+                          onCanPlay={() => {
+                            console.log('✅ [VIDEO] Feed can start playing');
+                          }}
+                          onError={(e) => {
+                            const video = e.target as HTMLVideoElement;
+                            const error = video.error;
+                            console.error('❌ [VIDEO] Feed error:', {
+                              code: error?.code,
+                              message: error?.message,
+                              src: video.currentSrc,
+                              readyState: video.readyState,
+                              networkState: video.networkState,
+                              canPlayH264: video.canPlayType('video/mp4; codecs="avc1.42E01E"'),
+                              canPlayMP4: video.canPlayType('video/mp4')
+                            });
+                          }}
+                          onAbort={() => console.warn('⚠️ [VIDEO] Feed loading aborted')}
+                          onStalled={() => console.warn('⚠️ [VIDEO] Feed loading stalled')}
+                          onSuspend={() => console.warn('⚠️ [VIDEO] Feed loading suspended')}
+                        >
+                          <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4" />
+                          Your browser doesn't support HTML5 video.
+                        </VideoPlayer>
                         <AnimatePresence>
                           {playingVideo !== 'projects_assets/pantreat/demo_videos/feed.mp4' && (
                             <PlayButton

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Compatibility Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: #f0f0f0; 
+        }
+        .container { 
+            background: white; 
+            padding: 20px; 
+            margin: 20px 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        .logs { 
+            background: #1e1e1e; 
+            color: #00ff00; 
+            padding: 15px; 
+            font-family: 'Courier New', monospace; 
+            border-radius: 5px; 
+            height: 300px; 
+            overflow-y: auto; 
+            margin-top: 15px;
+        }
+        video {
+            background: #000;
+            border-radius: 8px;
+            margin: 10px;
+            border: 2px solid #ddd;
+        }
+        .video-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎥 Video Compatibility Test Page</h1>
+    
+    <div class="container">
+        <h2>Pantreat Videos Test</h2>
+        
+        <h3>1. Short Pantreat Interviews</h3>
+        <video id="video1" controls width="400" height="225">
+            <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+        </video>
+        <div class="video-info" id="info1"></div>
+        
+        <h3>2. MyPantry Demo</h3>
+        <video id="video2" controls width="300" height="400">
+            <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+        </video>
+        <div class="video-info" id="info2"></div>
+        
+        <h3>3. Feed Demo</h3>
+        <video id="video3" controls width="300" height="400">
+            <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+        </video>
+        <div class="video-info" id="info3"></div>
+    </div>
+
+    <div class="container">
+        <h2>Live Console Logs</h2>
+        <div id="logs" class="logs">📋 Video diagnostics will appear here...\n</div>
+    </div>
+
+    <script>
+        const logsDiv = document.getElementById('logs');
+        
+        function addToLog(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : '📝';
+            logsDiv.innerHTML += `[${timestamp}] ${prefix} ${message}\n`;
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+        }
+
+        function setupVideoLogging(videoId, label) {
+            const video = document.getElementById(videoId);
+            const infoDiv = document.getElementById(`info${videoId.slice(-1)}`);
+            
+            if (!video) {
+                addToLog(`❌ [${label}] Video element not found: ${videoId}`, 'error');
+                return;
+            }
+
+            addToLog(`🔧 [${label}] Setting up logging for: ${video.currentSrc || 'no src'}`);
+
+            // Test codec support
+            const h264Support = video.canPlayType('video/mp4; codecs="avc1.42E01E"');
+            const mp4Support = video.canPlayType('video/mp4');
+            const movSupport = video.canPlayType('video/quicktime');
+            
+            infoDiv.innerHTML = `
+                H.264 support: ${h264Support || 'none'}<br>
+                MP4 support: ${mp4Support || 'none'}<br>
+                QuickTime support: ${movSupport || 'none'}
+            `;
+
+            video.addEventListener('loadstart', () => {
+                addToLog(`🔄 [${label}] Loading started`);
+                addToLog(`🔄 [${label}] Current src: ${video.currentSrc}`);
+            });
+
+            video.addEventListener('loadedmetadata', () => {
+                addToLog(`✅ [${label}] Metadata loaded - Duration: ${video.duration}s, Size: ${video.videoWidth}x${video.videoHeight}`);
+                infoDiv.innerHTML += `<br>Duration: ${video.duration}s<br>Size: ${video.videoWidth}x${video.videoHeight}`;
+            });
+
+            video.addEventListener('loadeddata', () => {
+                addToLog(`✅ [${label}] Data loaded - ready to play`);
+            });
+
+            video.addEventListener('canplay', () => {
+                addToLog(`✅ [${label}] Can start playing`);
+            });
+
+            video.addEventListener('canplaythrough', () => {
+                addToLog(`✅ [${label}] Can play through without buffering`);
+            });
+
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                addToLog(`❌ [${label}] Error - Code: ${error?.code}, Message: ${error?.message}`, 'error');
+                addToLog(`❌ [${label}] Current src: ${video.currentSrc}, Ready state: ${video.readyState}, Network state: ${video.networkState}`, 'error');
+                
+                let errorDesc = 'Unknown error';
+                if (error) {
+                    switch(error.code) {
+                        case 1: errorDesc = 'MEDIA_ERR_ABORTED - Loading was aborted'; break;
+                        case 2: errorDesc = 'MEDIA_ERR_NETWORK - Network error'; break;
+                        case 3: errorDesc = 'MEDIA_ERR_DECODE - Decode error'; break;
+                        case 4: errorDesc = 'MEDIA_ERR_SRC_NOT_SUPPORTED - Source not supported'; break;
+                    }
+                }
+                addToLog(`❌ [${label}] Error description: ${errorDesc}`, 'error');
+            });
+
+            video.addEventListener('abort', () => {
+                addToLog(`⚠️ [${label}] Loading aborted`, 'warn');
+            });
+
+            video.addEventListener('stalled', () => {
+                addToLog(`⚠️ [${label}] Loading stalled`, 'warn');
+            });
+
+            video.addEventListener('suspend', () => {
+                addToLog(`⚠️ [${label}] Loading suspended`, 'warn');
+            });
+
+            // Test loading
+            video.load();
+        }
+
+        // Initialize
+        addToLog('🚀 Video compatibility test page loaded');
+        addToLog(`📊 Browser: ${navigator.userAgent}`);
+        
+        setupVideoLogging('video1', 'INTERVIEWS');
+        setupVideoLogging('video2', 'MYPANTRY');
+        setupVideoLogging('video3', 'FEED');
+    </script>
+</body>
+</html>
