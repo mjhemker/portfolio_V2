@@ -919,18 +919,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         controls
                         style={{ maxHeight: '300px' }}
                         preload="metadata"
-                        onLoadStart={() => {
-                          console.log('🔄 [INTERVIEWS] Loading started');
-                        }}
+                        onLoadStart={() => console.log('🔄 [INTERVIEWS] Video loading started')}
                         onLoadedMetadata={(e) => {
                           const video = e.target as HTMLVideoElement;
                           console.log(`✅ [INTERVIEWS] Metadata loaded: ${video.duration}s`);
                         }}
-                        onCanPlay={() => {
-                          console.log('✅ [INTERVIEWS] Ready to play');
-                        }}
-                        onLoadStart={() => console.log('🔄 [INTERVIEWS] Video loading started')}
-                        onLoadedMetadata={() => console.log('✅ [INTERVIEWS] Video metadata loaded')}
                         onCanPlay={() => console.log('▶️ [INTERVIEWS] Video ready to play')}
                         onError={(e) => handleVideoError(e, 'Pantreat Interviews')}
                       >
