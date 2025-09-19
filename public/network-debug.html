@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🌐 Network Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .debug-info { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .error { background: #f8d7da; color: #721c24; }
+        .success { background: #d4edda; color: #155724; }
+        .warning { background: #fff3cd; color: #856404; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        video { border: 2px solid #ddd; margin: 10px; }
+        .network-request { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .request-url { font-family: monospace; background: #f8f9fa; padding: 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>🌐 Network Request Debug Tool</h1>
+    
+    <div class="container">
+        <h2>📍 Current Environment</h2>
+        <div class="debug-info">
+            <strong>URL:</strong> <span id="currentUrl"></span><br>
+            <strong>Origin:</strong> <span id="origin"></span><br>
+            <strong>Pathname:</strong> <span id="pathname"></span><br>
+            <strong>Base URL:</strong> <span id="baseUrl"></span>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>🔍 Direct Fetch Tests</h2>
+        <button onclick="testVideoFetch()">Test Video Fetch</button>
+        <button onclick="testWithDifferentPaths()">Test Different Path Formats</button>
+        <div id="fetchResults"></div>
+    </div>
+    
+    <div class="container">
+        <h2>🎥 Simple Video Test</h2>
+        <p>Testing the exact same video element as used in the main app:</p>
+        <video controls width="400" height="225" id="testVideo">
+            <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+            Video not supported
+        </video>
+        <div id="videoStatus">⏳ Ready to test</div>
+    </div>
+    
+    <div class="container">
+        <h2>📡 Network Requests</h2>
+        <div id="networkRequests"></div>
+    </div>
+
+    <script>
+        // Display environment info
+        document.getElementById('currentUrl').textContent = window.location.href;
+        document.getElementById('origin').textContent = window.location.origin;
+        document.getElementById('pathname').textContent = window.location.pathname;
+        document.getElementById('baseUrl').textContent = new URL('.', window.location.href).href;
+        
+        const fetchResults = document.getElementById('fetchResults');
+        const networkRequests = document.getElementById('networkRequests');
+        const videoStatus = document.getElementById('videoStatus');
+        
+        function addNetworkRequest(url, method, status, size, type, error) {
+            const div = document.createElement('div');
+            div.className = `network-request ${status >= 200 && status < 300 ? 'success' : 'error'}`;
+            div.innerHTML = `
+                <div class="request-url">${method} ${url}</div>
+                <div>Status: ${status} | Size: ${size || 'unknown'} | Type: ${type || 'unknown'}</div>
+                ${error ? `<div style="color: red;">Error: ${error}</div>` : ''}
+            `;
+            networkRequests.appendChild(div);
+        }
+        
+        async function testSingleFetch(url, description) {
+            try {
+                console.log(`Testing: ${url}`);
+                const response = await fetch(url, { method: 'HEAD' });
+                const size = response.headers.get('content-length');
+                const type = response.headers.get('content-type');
+                
+                addNetworkRequest(url, 'HEAD', response.status, size ? `${Math.round(size/1024/1024)}MB` : null, type);
+                
+                return {
+                    url,
+                    description,
+                    status: response.status,
+                    ok: response.ok,
+                    size,
+                    type
+                };
+            } catch (error) {
+                addNetworkRequest(url, 'HEAD', 'ERROR', null, null, error.message);
+                return {
+                    url,
+                    description,
+                    error: error.message
+                };
+            }
+        }
+        
+        async function testVideoFetch() {
+            fetchResults.innerHTML = '<p>🔄 Testing video file accessibility...</p>';
+            
+            const testUrls = [
+                'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                'projects_assets/pantreat/demo_videos/MyPantry.mp4', 
+                'projects_assets/pantreat/demo_videos/feed.mp4'
+            ];
+            
+            for (const url of testUrls) {
+                const result = await testSingleFetch(url, `Video: ${url.split('/').pop()}`);
+                
+                const div = document.createElement('div');
+                div.className = `debug-info ${result.ok ? 'success' : 'error'}`;
+                
+                if (result.ok) {
+                    div.innerHTML = `✅ <strong>${result.description}</strong><br>
+                        Status: ${result.status} | Size: ${result.size ? Math.round(result.size/1024/1024) + 'MB' : 'unknown'} | Type: ${result.type}`;
+                } else {
+                    div.innerHTML = `❌ <strong>${result.description}</strong><br>
+                        ${result.error || `HTTP ${result.status}`}`;
+                }
+                
+                fetchResults.appendChild(div);
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+        }
+        
+        async function testWithDifferentPaths() {
+            fetchResults.innerHTML = '<p>🔄 Testing different path formats...</p>';
+            
+            const pathVariations = [
+                'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                '/projects_assets/pantreat/short_pantreat_interviews.mp4',
+                './projects_assets/pantreat/short_pantreat_interviews.mp4',
+                '../projects_assets/pantreat/short_pantreat_interviews.mp4',
+                'short_pantreat_interviews.mp4',
+                'pantreat/short_pantreat_interviews.mp4'
+            ];
+            
+            for (const path of pathVariations) {
+                const result = await testSingleFetch(path, `Path: ${path}`);
+                
+                const div = document.createElement('div');
+                div.className = `debug-info ${result.ok ? 'success' : 'error'}`;
+                div.innerHTML = `${result.ok ? '✅' : '❌'} <code>${path}</code> → ${result.ok ? result.status : (result.error || result.status)}`;
+                
+                fetchResults.appendChild(div);
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+        }
+        
+        // Setup video element monitoring
+        const video = document.getElementById('testVideo');
+        
+        video.addEventListener('loadstart', () => {
+            videoStatus.textContent = '🔄 Loading started...';
+            console.log('Video loading started');
+        });
+        
+        video.addEventListener('loadedmetadata', () => {
+            videoStatus.textContent = `✅ Loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`;
+            console.log('Video metadata loaded');
+        });
+        
+        video.addEventListener('error', (e) => {
+            const error = video.error;
+            videoStatus.textContent = `❌ Error: ${error?.code} - ${error?.message || 'Unknown error'}`;
+            console.error('Video error:', error);
+            
+            // Log detailed error info
+            addNetworkRequest(
+                video.currentSrc || 'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                'VIDEO',
+                'ERROR',
+                null,
+                null,
+                `Video Error ${error?.code}: ${error?.message || 'Unknown'}`
+            );
+        });
+        
+        console.log('🌐 Network debug tool loaded');
+        console.log('Current URL:', window.location.href);
+    </script>
+</body>
+</html>

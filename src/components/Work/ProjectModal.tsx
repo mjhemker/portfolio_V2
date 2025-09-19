@@ -519,7 +519,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   number: "01",
                   title: "Organization",
                   description: "Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces.",
-                  video: "projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                  video: "/projects_assets/pantreat/demo_videos/MyPantry.mp4"
                 }
               ]
             }
@@ -885,8 +885,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <ClickableVideoWrapper onClick={() => {
-                      handleVideoClick('projects_assets/pantreat/short_pantreat_interviews.mp4');
-                      handleMediaClick('projects_assets/pantreat/short_pantreat_interviews.mp4', 'video');
+                      handleVideoClick('/projects_assets/pantreat/short_pantreat_interviews.mp4');
+                      handleMediaClick('/projects_assets/pantreat/short_pantreat_interviews.mp4', 'video');
                     }}>
                       <VideoPlayer
                         controls
@@ -929,7 +929,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           console.groupEnd();
                         }}
                       >
-                        <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4" />
+                        <source src="/projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4" />
                         Your browser doesn't support HTML5 video.
                       </VideoPlayer>
                     </ClickableVideoWrapper>
@@ -974,8 +974,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <ClickableVideoWrapper onClick={() => {
-                        handleVideoClick('projects_assets/pantreat/demo_videos/MyPantry.mp4');
-                        handleMediaClick('projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
+                        handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4');
+                        handleMediaClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
                       }}>
                         <VideoPlayer
                           muted loop playsInline
@@ -983,7 +983,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           preload="metadata"
                           ref={(video) => {
                             if (video) {
-                              if (playingVideo === 'projects_assets/pantreat/demo_videos/MyPantry.mp4') {
+                              if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
                                 video.play().catch(err => console.warn('Auto-play failed:', err));
                               } else {
                                 video.pause();
@@ -1027,12 +1027,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                             console.groupEnd();
                           }}
                         >
-                          <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/quicktime" />
-                          <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4" />
+                          <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/quicktime" />
+                          <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4" />
                           Your browser doesn't support HTML5 video.
                         </VideoPlayer>
                         <AnimatePresence>
-                          {playingVideo !== 'projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
+                          {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
                             <PlayButton
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}
@@ -1167,8 +1167,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <ClickableVideoWrapper onClick={() => {
-                        handleVideoClick('projects_assets/pantreat/demo_videos/feed.mp4');
-                        handleMediaClick('projects_assets/pantreat/demo_videos/feed.mp4', 'video');
+                        handleVideoClick('/projects_assets/pantreat/demo_videos/feed.mp4');
+                        handleMediaClick('/projects_assets/pantreat/demo_videos/feed.mp4', 'video');
                       }}>
                         <VideoPlayer
                           muted loop playsInline
@@ -1176,7 +1176,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           preload="metadata"
                           ref={(video) => {
                             if (video) {
-                              if (playingVideo === 'projects_assets/pantreat/demo_videos/feed.mp4') {
+                              if (playingVideo === '/projects_assets/pantreat/demo_videos/feed.mp4') {
                                 video.play().catch(err => console.warn('Auto-play failed:', err));
                               } else {
                                 video.pause();
@@ -1220,12 +1220,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                             console.groupEnd();
                           }}
                         >
-                          <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/quicktime" />
-                          <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4" />
+                          <source src="/projects_assets/pantreat/demo_videos/feed.mp4" type="video/quicktime" />
+                          <source src="/projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4" />
                           Your browser doesn't support HTML5 video.
                         </VideoPlayer>
                         <AnimatePresence>
-                          {playingVideo !== 'projects_assets/pantreat/demo_videos/feed.mp4' && (
+                          {playingVideo !== '/projects_assets/pantreat/demo_videos/feed.mp4' && (
                             <PlayButton
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}

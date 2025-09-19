@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔗 Direct URL Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .url-test { margin: 15px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .pending { background: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 8px 16px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        code { background: #f8f9fa; padding: 2px 6px; border-radius: 3px; }
+        .network-log { background: #1e1e1e; color: #00ff00; padding: 15px; font-family: monospace; height: 300px; overflow-y: auto; border-radius: 5px; }
+        .direct-link { color: #007bff; text-decoration: none; font-weight: bold; }
+        .direct-link:hover { text-decoration: underline; }
+        .status { font-weight: bold; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>🔗 Direct URL Accessibility Test</h1>
+    <p><strong>Purpose:</strong> Test if video files can be accessed directly via their URLs</p>
+    
+    <div class="container">
+        <h2>🚀 Quick Tests</h2>
+        <button onclick="testAllUrls()">Test All URLs</button>
+        <button onclick="openAllInTabs()">Open All in New Tabs</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+    
+    <div class="container">
+        <h2>📁 Video File Direct Access Tests</h2>
+        <div id="url-tests">
+            <div class="url-test pending" id="test1">
+                <h3>🎬 Short Pantreat Interviews</h3>
+                <p><strong>Relative URL:</strong> <code>projects_assets/pantreat/short_pantreat_interviews.mp4</code></p>
+                <p><strong>Absolute URL:</strong> <code>/projects_assets/pantreat/short_pantreat_interviews.mp4</code></p>
+                <a href="projects_assets/pantreat/short_pantreat_interviews.mp4" target="_blank" class="direct-link">📂 Relative Link</a>
+                <a href="/projects_assets/pantreat/short_pantreat_interviews.mp4" target="_blank" class="direct-link">📂 Absolute Link</a>
+                <span class="status" id="status1">⏳ Not tested</span>
+            </div>
+            
+            <div class="url-test pending" id="test2">
+                <h3>🎬 MyPantry Demo</h3>
+                <p><strong>Expected URL:</strong> <code>projects_assets/pantreat/demo_videos/MyPantry.mp4</code></p>
+                <a href="projects_assets/pantreat/demo_videos/MyPantry.mp4" target="_blank" class="direct-link">📂 Open Direct Link</a>
+                <span class="status" id="status2">⏳ Not tested</span>
+            </div>
+            
+            <div class="url-test pending" id="test3">
+                <h3>🎬 Feed Demo</h3>
+                <p><strong>Expected URL:</strong> <code>projects_assets/pantreat/demo_videos/feed.mp4</code></p>
+                <a href="projects_assets/pantreat/demo_videos/feed.mp4" target="_blank" class="direct-link">📂 Open Direct Link</a>
+                <span class="status" id="status3">⏳ Not tested</span>
+            </div>
+            
+            <div class="url-test pending" id="test4">
+                <h3>🖼️ App Cover (Control Test)</h3>
+                <p><strong>Expected URL:</strong> <code>projects_assets/pantreat/app_cover.png</code></p>
+                <a href="projects_assets/pantreat/app_cover.png" target="_blank" class="direct-link">📂 Open Direct Link</a>
+                <span class="status" id="status4">⏳ Not tested</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>🌐 Alternative URL Formats</h2>
+        <p>Testing different potential URL formats:</p>
+        <ul>
+            <li><a href="/projects_assets/pantreat/short_pantreat_interviews.mp4" target="_blank">With leading slash</a></li>
+            <li><a href="./projects_assets/pantreat/short_pantreat_interviews.mp4" target="_blank">With ./ prefix</a></li>
+            <li><a href="../projects_assets/pantreat/short_pantreat_interviews.mp4" target="_blank">With ../ prefix</a></li>
+            <li><a href="pantreat/short_pantreat_interviews.mp4" target="_blank">Direct pantreat path</a></li>
+            <li><a href="short_pantreat_interviews.mp4" target="_blank">Just filename</a></li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <h2>📡 Network Activity Log</h2>
+        <p>Monitor the Network tab in browser dev tools while testing</p>
+        <div class="network-log" id="networkLog">
+🔧 Network monitoring ready. Open browser dev tools → Network tab, then test URLs above.\n
+Look for:\n
+✅ 200 OK responses (file found)\n
+❌ 404 Not Found (file missing)\n
+❌ 403 Forbidden (permission denied)\n
+❌ 500 Server Error (server issue)\n
+        </div>
+    </div>
+
+    <script>
+        const networkLog = document.getElementById('networkLog');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            networkLog.innerHTML += `[${timestamp}] ${message}\n`;
+            networkLog.scrollTop = networkLog.scrollHeight;
+        }
+        
+        function clearResults() {
+            networkLog.innerHTML = '🔧 Results cleared.\n';
+            // Reset all test statuses
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`test${i}`).className = 'url-test pending';
+                document.getElementById(`status${i}`).textContent = '⏳ Not tested';
+            }
+        }
+        
+        async function testUrl(url, testId, statusId, name) {
+            log(`Testing: ${name} → ${url}`);
+            
+            try {
+                const response = await fetch(url, { 
+                    method: 'HEAD',
+                    cache: 'no-cache'
+                });
+                
+                const testDiv = document.getElementById(testId);
+                const statusSpan = document.getElementById(statusId);
+                
+                if (response.ok) {
+                    const size = response.headers.get('content-length');
+                    const type = response.headers.get('content-type');
+                    const sizeText = size ? `${Math.round(size / 1024 / 1024)}MB` : 'unknown size';
+                    
+                    testDiv.className = 'url-test success';
+                    statusSpan.textContent = `✅ Found: ${sizeText}, ${type}`;
+                    log(`✅ SUCCESS: ${name} (${response.status}) - ${sizeText}, ${type}`);
+                } else {
+                    testDiv.className = 'url-test error';
+                    statusSpan.textContent = `❌ HTTP ${response.status}: ${response.statusText}`;
+                    log(`❌ FAILED: ${name} (${response.status}) - ${response.statusText}`);
+                }
+            } catch (error) {
+                const testDiv = document.getElementById(testId);
+                const statusSpan = document.getElementById(statusId);
+                
+                testDiv.className = 'url-test error';
+                statusSpan.textContent = `❌ Error: ${error.message}`;
+                log(`❌ ERROR: ${name} - ${error.message}`);
+            }
+        }
+        
+        async function testAllUrls() {
+            log('🚀 Starting URL accessibility test...');
+            log(`🌐 Base URL: ${window.location.origin}`);
+            log(`📍 Current path: ${window.location.pathname}`);
+            
+            const tests = [
+                { url: 'projects_assets/pantreat/short_pantreat_interviews.mp4', testId: 'test1', statusId: 'status1', name: 'Interviews Video' },
+                { url: 'projects_assets/pantreat/demo_videos/MyPantry.mp4', testId: 'test2', statusId: 'status2', name: 'MyPantry Video' },
+                { url: 'projects_assets/pantreat/demo_videos/feed.mp4', testId: 'test3', statusId: 'status3', name: 'Feed Video' },
+                { url: 'projects_assets/pantreat/app_cover.png', testId: 'test4', statusId: 'status4', name: 'App Cover Image' }
+            ];
+            
+            for (const test of tests) {
+                await testUrl(test.url, test.testId, test.statusId, test.name);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            log('🏁 URL testing completed');
+        }
+        
+        function openAllInTabs() {
+            log('📂 Opening all URLs in new tabs...');
+            const urls = [
+                'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                'projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                'projects_assets/pantreat/demo_videos/feed.mp4',
+                'projects_assets/pantreat/app_cover.png'
+            ];
+            
+            urls.forEach((url, index) => {
+                setTimeout(() => {
+                    window.open(url, '_blank');
+                    log(`📂 Opened: ${url}`);
+                }, index * 500);
+            });
+        }
+        
+        log('🔧 Direct URL test page loaded');
+        log('💡 Instructions:');
+        log('1. Click "Test All URLs" to check file accessibility');
+        log('2. Click "Open All in New Tabs" to manually verify');
+        log('3. Check Network tab in dev tools for request details');
+    </script>
+</body>
+</html>
