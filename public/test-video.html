@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Format Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        video { margin: 20px; border: 2px solid #ddd; }
+        .test-section { margin: 30px 0; padding: 20px; border: 1px solid #ccc; }
+        .console { background: #000; color: #0f0; padding: 10px; font-family: monospace; height: 200px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Video Format Compatibility Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Short Pantreat Interviews (True MP4)</h2>
+        <video controls width="400" height="225" id="video1">
+            <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+        </video>
+        <p id="status1">Loading...</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: MyPantry (QuickTime MOV)</h2>
+        <video controls width="300" height="400" id="video2">
+            <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/quicktime">
+            <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4">
+        </video>
+        <p id="status2">Loading...</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Feed (QuickTime MOV)</h2>
+        <video controls width="300" height="400" id="video3">
+            <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/quicktime">
+            <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4">
+        </video>
+        <p id="status3">Loading...</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Browser Codec Support</h2>
+        <div id="codec-support"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Console Log</h2>
+        <div class="console" id="console"></div>
+    </div>
+
+    <script>
+        const consoleDiv = document.getElementById('console');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            consoleDiv.innerHTML += `[${timestamp}] ${message}\n`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function setupVideo(videoId, statusId, label) {
+            const video = document.getElementById(videoId);
+            const status = document.getElementById(statusId);
+            
+            video.addEventListener('loadstart', () => {
+                log(`${label}: Loading started`);
+                status.textContent = 'Loading started...';
+            });
+            
+            video.addEventListener('loadedmetadata', () => {
+                log(`${label}: Metadata loaded - ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`);
+                status.textContent = `✅ Loaded: ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`;
+            });
+            
+            video.addEventListener('canplay', () => {
+                log(`${label}: Can play`);
+                status.textContent += ' - Ready to play';
+            });
+            
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                let errorMsg = `Error ${error?.code}: `;
+                switch(error?.code) {
+                    case 1: errorMsg += 'ABORTED'; break;
+                    case 2: errorMsg += 'NETWORK'; break;
+                    case 3: errorMsg += 'DECODE'; break;
+                    case 4: errorMsg += 'SRC_NOT_SUPPORTED'; break;
+                    default: errorMsg += 'UNKNOWN';
+                }
+                log(`${label}: ${errorMsg} - ${error?.message}`);
+                status.textContent = `❌ ${errorMsg}`;
+                status.style.color = 'red';
+            });
+        }
+        
+        // Test codec support
+        const video = document.createElement('video');
+        const codecSupport = document.getElementById('codec-support');
+        const codecs = [
+            'video/mp4',
+            'video/mp4; codecs="avc1.42E01E"',
+            'video/mp4; codecs="avc1.42E01E, mp4a.40.2"',
+            'video/quicktime',
+            'video/x-msvideo'
+        ];
+        
+        codecSupport.innerHTML = codecs.map(codec => {
+            const support = video.canPlayType(codec);
+            return `${codec}: ${support || 'no support'}`;
+        }).join('<br>');
+        
+        // Setup all videos
+        setupVideo('video1', 'status1', 'INTERVIEWS');
+        setupVideo('video2', 'status2', 'MYPANTRY');
+        setupVideo('video3', 'status3', 'FEED');
+        
+        log('Video test page loaded');
+        log('Browser: ' + navigator.userAgent);
+    </script>
+</body>
+</html>

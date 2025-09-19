@@ -905,11 +905,28 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         onError={(e) => {
                           const video = e.target as HTMLVideoElement;
                           const error = video.error;
-                          console.error('❌ [INTERVIEWS] Failed to load:', {
-                            code: error?.code,
-                            message: error?.message,
-                            src: video.currentSrc
-                          });
+                          console.group('❌ [INTERVIEWS] VIDEO ERROR DETAILS');
+                          console.error('Error Code:', error?.code);
+                          console.error('Error Message:', error?.message);
+                          console.error('Current Source:', video.currentSrc);
+                          console.error('Ready State:', video.readyState);
+                          console.error('Network State:', video.networkState);
+                          console.error('Video Width:', video.videoWidth);
+                          console.error('Video Height:', video.videoHeight);
+                          console.error('Duration:', video.duration);
+                          
+                          // Detailed error code explanation
+                          let errorExplanation = 'Unknown error';
+                          if (error) {
+                            switch(error.code) {
+                              case 1: errorExplanation = 'MEDIA_ERR_ABORTED: The user aborted the video loading process'; break;
+                              case 2: errorExplanation = 'MEDIA_ERR_NETWORK: A network error occurred while loading the video'; break;
+                              case 3: errorExplanation = 'MEDIA_ERR_DECODE: An error occurred when trying to decode the video'; break;
+                              case 4: errorExplanation = 'MEDIA_ERR_SRC_NOT_SUPPORTED: The video format is not supported'; break;
+                            }
+                          }
+                          console.error('Error Explanation:', errorExplanation);
+                          console.groupEnd();
                         }}
                       >
                         <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4" />
@@ -986,13 +1003,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           onError={(e) => {
                             const video = e.target as HTMLVideoElement;
                             const error = video.error;
-                            console.error('❌ [MYPANTRY] Failed to load:', {
-                              code: error?.code,
-                              message: error?.message,
-                              src: video.currentSrc
-                            });
+                            console.group('❌ [MYPANTRY] VIDEO ERROR DETAILS');
+                            console.error('Error Code:', error?.code);
+                            console.error('Error Message:', error?.message);
+                            console.error('Current Source:', video.currentSrc);
+                            console.error('Ready State:', video.readyState);
+                            console.error('Network State:', video.networkState);
+                            console.error('Video Width:', video.videoWidth);
+                            console.error('Video Height:', video.videoHeight);
+                            console.error('Duration:', video.duration);
+                            
+                            // Detailed error code explanation
+                            let errorExplanation = 'Unknown error';
+                            if (error) {
+                              switch(error.code) {
+                                case 1: errorExplanation = 'MEDIA_ERR_ABORTED: The user aborted the video loading process'; break;
+                                case 2: errorExplanation = 'MEDIA_ERR_NETWORK: A network error occurred while loading the video'; break;
+                                case 3: errorExplanation = 'MEDIA_ERR_DECODE: An error occurred when trying to decode the video'; break;
+                                case 4: errorExplanation = 'MEDIA_ERR_SRC_NOT_SUPPORTED: The video format is not supported'; break;
+                              }
+                            }
+                            console.error('Error Explanation:', errorExplanation);
+                            console.groupEnd();
                           }}
                         >
+                          <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/quicktime" />
                           <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4" />
                           Your browser doesn't support HTML5 video.
                         </VideoPlayer>
@@ -1161,13 +1196,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           onError={(e) => {
                             const video = e.target as HTMLVideoElement;
                             const error = video.error;
-                            console.error('❌ [FEED] Failed to load:', {
-                              code: error?.code,
-                              message: error?.message,
-                              src: video.currentSrc
-                            });
+                            console.group('❌ [FEED] VIDEO ERROR DETAILS');
+                            console.error('Error Code:', error?.code);
+                            console.error('Error Message:', error?.message);
+                            console.error('Current Source:', video.currentSrc);
+                            console.error('Ready State:', video.readyState);
+                            console.error('Network State:', video.networkState);
+                            console.error('Video Width:', video.videoWidth);
+                            console.error('Video Height:', video.videoHeight);
+                            console.error('Duration:', video.duration);
+                            
+                            // Detailed error code explanation
+                            let errorExplanation = 'Unknown error';
+                            if (error) {
+                              switch(error.code) {
+                                case 1: errorExplanation = 'MEDIA_ERR_ABORTED: The user aborted the video loading process'; break;
+                                case 2: errorExplanation = 'MEDIA_ERR_NETWORK: A network error occurred while loading the video'; break;
+                                case 3: errorExplanation = 'MEDIA_ERR_DECODE: An error occurred when trying to decode the video'; break;
+                                case 4: errorExplanation = 'MEDIA_ERR_SRC_NOT_SUPPORTED: The video format is not supported'; break;
+                              }
+                            }
+                            console.error('Error Explanation:', errorExplanation);
+                            console.groupEnd();
                           }}
                         >
+                          <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/quicktime" />
                           <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4" />
                           Your browser doesn't support HTML5 video.
                         </VideoPlayer>
