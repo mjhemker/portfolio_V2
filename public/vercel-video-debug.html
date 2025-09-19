@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vercel Video Debug Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .status.error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .status.loading { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        video {
+            max-width: 100%;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .file-info {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Vercel Video Deployment Debug</h1>
+    <p>Testing video file accessibility on Vercel deployment</p>
+
+    <div class="test-section">
+        <h2>📋 Test Results Summary</h2>
+        <div id="summary" class="status loading">Running tests...</div>
+    </div>
+
+    <div class="test-grid">
+        <!-- Pantreat Interviews Video -->
+        <div class="test-section">
+            <h3>🎬 Pantreat Interviews (79MB)</h3>
+            <div class="file-info">
+                URL: /projects_assets/pantreat/short_pantreat_interviews.mp4<br>
+                Expected Size: ~79MB
+            </div>
+            <div id="pantreat-status" class="status loading">Testing...</div>
+            <button onclick="testPantreatVideo()">Test Video</button>
+            <button onclick="testPantreatDirect()">Test Direct URL</button>
+            <video id="pantreat-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+                Your browser doesn't support HTML5 video.
+            </video>
+        </div>
+
+        <!-- Video Essays Video -->
+        <div class="test-section">
+            <h3>📝 Video Essays (319MB)</h3>
+            <div class="file-info">
+                URL: /projects_assets/video_essays/final_cut.mp4<br>
+                Expected Size: ~319MB
+            </div>
+            <div id="video-essays-status" class="status loading">Testing...</div>
+            <button onclick="testVideoEssaysVideo()">Test Video</button>
+            <button onclick="testVideoEssaysDirect()">Test Direct URL</button>
+            <video id="video-essays-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4">
+                Your browser doesn't support HTML5 video.
+            </video>
+        </div>
+
+        <!-- Smaller Demo Video for Comparison -->
+        <div class="test-section">
+            <h3>✅ Demo Video (Smaller)</h3>
+            <div class="file-info">
+                URL: /projects_assets/pantreat/demo_videos/MyPantry.mp4<br>
+                Expected Size: Smaller than 50MB
+            </div>
+            <div id="demo-status" class="status loading">Testing...</div>
+            <button onclick="testDemoVideo()">Test Video</button>
+            <video id="demo-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4">
+                Your browser doesn't support HTML5 video.
+            </video>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Network Analysis</h2>
+        <div id="network-info" class="file-info">
+            <p>Open browser DevTools (F12) → Network tab → Reload page to see:</p>
+            <ul>
+                <li>404 errors for missing files</li>
+                <li>File sizes being loaded</li>
+                <li>Response headers from Vercel</li>
+                <li>Load times for different video sizes</li>
+            </ul>
+        </div>
+        <button onclick="testAllUrls()">Test All URLs</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Detailed Results</h2>
+        <div id="detailed-results"></div>
+    </div>
+
+    <script>
+        const results = {
+            pantreat: { loaded: false, error: null, size: null },
+            videoEssays: { loaded: false, error: null, size: null },
+            demo: { loaded: false, error: null, size: null }
+        };
+
+        function updateSummary() {
+            const total = Object.keys(results).length;
+            const loaded = Object.values(results).filter(r => r.loaded).length;
+            const failed = Object.values(results).filter(r => r.error).length;
+            
+            const summaryEl = document.getElementById('summary');
+            if (loaded === total) {
+                summaryEl.className = 'status success';
+                summaryEl.textContent = `✅ All ${total} videos loaded successfully!`;
+            } else if (failed > 0) {
+                summaryEl.className = 'status error';
+                summaryEl.textContent = `❌ ${failed}/${total} videos failed to load`;
+            } else {
+                summaryEl.className = 'status loading';
+                summaryEl.textContent = `⏳ ${loaded}/${total} videos loaded...`;
+            }
+        }
+
+        async function testVideo(videoId, resultKey, statusId) {
+            const video = document.getElementById(videoId);
+            const status = document.getElementById(statusId);
+            
+            status.className = 'status loading';
+            status.textContent = '⏳ Loading video...';
+            
+            return new Promise((resolve) => {
+                video.style.display = 'block';
+                
+                const timeout = setTimeout(() => {
+                    results[resultKey] = { loaded: false, error: 'Timeout after 10 seconds', size: null };
+                    status.className = 'status error';
+                    status.textContent = '❌ Timeout - Video failed to load within 10 seconds';
+                    updateSummary();
+                    resolve();
+                }, 10000);
+
+                video.onloadedmetadata = () => {
+                    clearTimeout(timeout);
+                    results[resultKey] = { loaded: true, error: null, size: video.duration };
+                    status.className = 'status success';
+                    status.textContent = `✅ Video loaded! Duration: ${video.duration.toFixed(2)}s`;
+                    updateSummary();
+                    resolve();
+                };
+
+                video.onerror = (e) => {
+                    clearTimeout(timeout);
+                    const errorMsg = video.error ? `Error ${video.error.code}: ${video.error.message}` : 'Unknown error';
+                    results[resultKey] = { loaded: false, error: errorMsg, size: null };
+                    status.className = 'status error';
+                    status.textContent = `❌ Failed to load: ${errorMsg}`;
+                    updateSummary();
+                    resolve();
+                };
+
+                video.load();
+            });
+        }
+
+        async function testDirectUrl(url, resultKey, statusId) {
+            const status = document.getElementById(statusId);
+            status.className = 'status loading';
+            status.textContent = '⏳ Testing direct URL...';
+
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                const size = response.headers.get('content-length');
+                const sizeText = size ? `${(parseInt(size) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                
+                if (response.ok) {
+                    results[resultKey] = { loaded: true, error: null, size: sizeText };
+                    status.className = 'status success';
+                    status.textContent = `✅ URL accessible! Size: ${sizeText}, Status: ${response.status}`;
+                } else {
+                    results[resultKey] = { loaded: false, error: `HTTP ${response.status}`, size: null };
+                    status.className = 'status error';
+                    status.textContent = `❌ URL failed: HTTP ${response.status} ${response.statusText}`;
+                }
+            } catch (error) {
+                results[resultKey] = { loaded: false, error: error.message, size: null };
+                status.className = 'status error';
+                status.textContent = `❌ Network error: ${error.message}`;
+            }
+            
+            updateSummary();
+        }
+
+        function testPantreatVideo() {
+            testVideo('pantreat-video', 'pantreat', 'pantreat-status');
+        }
+
+        function testPantreatDirect() {
+            testDirectUrl('/projects_assets/pantreat/short_pantreat_interviews.mp4', 'pantreat', 'pantreat-status');
+        }
+
+        function testVideoEssaysVideo() {
+            testVideo('video-essays-video', 'videoEssays', 'video-essays-status');
+        }
+
+        function testVideoEssaysDirect() {
+            testDirectUrl('/projects_assets/video_essays/final_cut.mp4', 'videoEssays', 'video-essays-status');
+        }
+
+        function testDemoVideo() {
+            testVideo('demo-video', 'demo', 'demo-status');
+        }
+
+        async function testAllUrls() {
+            const urls = [
+                '/projects_assets/pantreat/short_pantreat_interviews.mp4',
+                '/projects_assets/video_essays/final_cut.mp4',
+                '/projects_assets/pantreat/demo_videos/MyPantry.mp4'
+            ];
+
+            const detailedResults = document.getElementById('detailed-results');
+            detailedResults.innerHTML = '<h3>🔍 URL Test Results:</h3>';
+
+            for (const url of urls) {
+                const div = document.createElement('div');
+                div.className = 'file-info';
+                div.innerHTML = `<strong>${url}</strong><br>Testing...`;
+                detailedResults.appendChild(div);
+
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    const sizeText = size ? `${(parseInt(size) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                    
+                    div.innerHTML = `
+                        <strong>${url}</strong><br>
+                        Status: ${response.status} ${response.statusText}<br>
+                        Size: ${sizeText}<br>
+                        Content-Type: ${response.headers.get('content-type') || 'Unknown'}
+                    `;
+                    div.style.borderLeft = response.ok ? '4px solid #28a745' : '4px solid #dc3545';
+                } catch (error) {
+                    div.innerHTML = `
+                        <strong>${url}</strong><br>
+                        Error: ${error.message}
+                    `;
+                    div.style.borderLeft = '4px solid #dc3545';
+                }
+            }
+        }
+
+        function clearResults() {
+            Object.keys(results).forEach(key => {
+                results[key] = { loaded: false, error: null, size: null };
+            });
+            
+            ['pantreat-status', 'video-essays-status', 'demo-status'].forEach(id => {
+                const el = document.getElementById(id);
+                el.className = 'status loading';
+                el.textContent = 'Ready to test...';
+            });
+            
+            ['pantreat-video', 'video-essays-video', 'demo-video'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            document.getElementById('detailed-results').innerHTML = '';
+            updateSummary();
+        }
+
+        // Auto-run initial tests
+        setTimeout(() => {
+            console.log('🚀 Starting automatic video tests...');
+            testAllUrls();
+        }, 1000);
+    </script>
+</body>
+</html>
