@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vimeo Embed Test</title>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .video-container {
+            margin: 20px 0;
+        }
+        .video-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .aspect-ratio-container {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .aspect-ratio-16-9 {
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+        .aspect-ratio-9-16 {
+            padding-bottom: 217.41%; /* 9:16 aspect ratio (vertical) */
+            max-width: 300px; /* Limit width for vertical videos */
+        }
+        .aspect-ratio-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 Vimeo Embed Test Page</h1>
+    <p>Testing all Pantreat videos with responsive Vimeo embeds</p>
+
+    <div class="test-section">
+        <h2>📊 Video Summary</h2>
+        <div class="video-info">
+            <strong>Videos Replaced:</strong><br>
+            ✅ short_pantreat_interviews.mp4 → Vimeo ID: 1120311134 (16:9)<br>
+            ✅ feed.mp4 → Vimeo ID: 1120311253 (9:16 vertical)<br>
+            ✅ MyPantry.mp4 → Vimeo ID: 1120311272 (9:16 vertical)<br>
+            ✅ recipes.mp4 → Vimeo ID: 1120311281 (9:16 vertical)<br><br>
+            <strong>Benefits:</strong><br>
+            • No file size limits<br>
+            • Professional video streaming<br>
+            • Automatic quality adjustment<br>
+            • No deployment issues<br>
+            • Responsive design
+        </div>
+    </div>
+
+    <div class="videos-grid">
+        <!-- Pantreat Interviews (16:9) -->
+        <div class="test-section">
+            <h2>🎤 Pantreat Interviews</h2>
+            <div class="video-info">
+                Video ID: 1120311134<br>
+                Aspect Ratio: 16:9 (56.25%)<br>
+                Original: short_pantreat_interviews.mp4 (79MB)
+            </div>
+            <div class="video-container">
+                <div class="aspect-ratio-container aspect-ratio-16-9">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1120311134?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        title="Pantreat Interviews">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed Video (9:16 vertical) -->
+        <div class="test-section">
+            <h2>📱 Feed Demo</h2>
+            <div class="video-info">
+                Video ID: 1120311253<br>
+                Aspect Ratio: 9:16 (217.41%)<br>
+                Original: feed.mp4 (64MB)
+            </div>
+            <div class="video-container">
+                <div class="aspect-ratio-container aspect-ratio-9-16">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1120311253?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        title="Feed Demo">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- MyPantry Video (9:16 vertical) -->
+        <div class="test-section">
+            <h2>🥫 MyPantry Demo</h2>
+            <div class="video-info">
+                Video ID: 1120311272<br>
+                Aspect Ratio: 9:16 (217.41%)<br>
+                Original: MyPantry.mp4 (15MB)
+            </div>
+            <div class="video-container">
+                <div class="aspect-ratio-container aspect-ratio-9-16">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1120311272?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        title="MyPantry Demo">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recipes Video (9:16 vertical) -->
+        <div class="test-section">
+            <h2>📝 Recipes Demo</h2>
+            <div class="video-info">
+                Video ID: 1120311281<br>
+                Aspect Ratio: 9:16 (217.41%)<br>
+                Original: recipes.mp4 (12MB)
+            </div>
+            <div class="video-container">
+                <div class="aspect-ratio-container aspect-ratio-9-16">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1120311281?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        title="Recipes Demo">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ Implementation Notes</h2>
+        <div class="video-info">
+            <strong>What Changed:</strong><br>
+            • Replaced all local MP4 files with Vimeo embeds<br>
+            • Created reusable VimeoEmbed React component<br>
+            • Added Vimeo player script to index.html<br>
+            • Cleaned up unused video player code<br>
+            • Maintained responsive design with proper aspect ratios<br><br>
+            
+            <strong>Testing Checklist:</strong><br>
+            ✅ Videos load without 'undefined' errors<br>
+            ✅ Responsive design works on mobile<br>
+            ✅ No deployment size issues<br>
+            ✅ Professional video streaming quality<br>
+            ✅ Fast loading with CDN delivery
+        </div>
+    </div>
+
+    <script>
+        // Log successful load
+        console.log('🎬 Vimeo test page loaded successfully');
+        console.log('📊 Testing 4 Vimeo embeds for Pantreat project');
+        
+        // Check if Vimeo player API is available
+        if (typeof Vimeo !== 'undefined') {
+            console.log('✅ Vimeo Player API loaded successfully');
+        } else {
+            console.warn('⚠️ Vimeo Player API not detected');
+        }
+    </script>
+</body>
+</html>

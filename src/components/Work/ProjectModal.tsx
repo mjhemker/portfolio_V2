@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Play, ExternalLink } from 'lucide-react';
-import { Modal } from '../UI/Modal';
+import { motion } from 'framer-motion';
+import { X, ExternalLink } from 'lucide-react';
+import { Modal, VimeoEmbed } from '../UI';
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -373,60 +373,6 @@ const FeatureMedia = styled.div`
   }
 `;
 
-const VideoPlayer = styled.video`
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
-  object-fit: contain;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  background: rgba(0, 0, 0, 0.1);
-`;
-
-const PlayButton = styled(motion.div)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, rgba(255, 140, 0, 0.9), rgba(255, 69, 0, 0.9));
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  pointer-events: none;
-  box-shadow: 0 8px 25px rgba(255, 140, 0, 0.3);
-`;
-
-const VideoWrapper = styled.div`
-  position: relative;
-  cursor: pointer;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  overflow: hidden;
-`;
-
-const ClickableVideoWrapper = styled(VideoWrapper)`
-  &::after {
-    content: '🔍 Click to enlarge';
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-    z-index: 10;
-  }
-  
-  &:hover::after {
-    opacity: 1;
-  }
-`;
 
 const BusinessSection = styled.div`
   padding: 3rem;
@@ -480,39 +426,8 @@ const TechTag = styled.span`
 `;
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, projectId }) => {
-  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const [enlargedMedia, setEnlargedMedia] = useState<{ src: string; type: 'image' | 'video' } | null>(null);
 
-  // Enhanced video error handler
-  const handleVideoError = (e: React.SyntheticEvent<HTMLVideoElement>, videoName: string) => {
-    const video = e.target as HTMLVideoElement;
-    const error = video.error;
-    
-    console.group(`❌ [VIDEO] ERROR: ${videoName}`);
-    console.error('Error Code:', error?.code || 'undefined');
-    console.error('Error Message:', error?.message || 'undefined');
-    console.error('Current Source:', video.currentSrc || 'undefined');
-    console.error('Ready State:', video.readyState);
-    console.error('Network State:', video.networkState);
-    console.error('Video Width:', video.videoWidth || 'undefined');
-    console.error('Video Height:', video.videoHeight || 'undefined');
-    console.error('Duration:', video.duration || 'undefined');
-    
-    // Error code meanings:
-    const errorCodes = {
-      1: 'MEDIA_ERR_ABORTED - Loading aborted',
-      2: 'MEDIA_ERR_NETWORK - Network error',
-      3: 'MEDIA_ERR_DECODE - Decode error',
-      4: 'MEDIA_ERR_SRC_NOT_SUPPORTED - Format not supported'
-    };
-    
-    console.error('Error Explanation:', error?.code ? errorCodes[error.code as keyof typeof errorCodes] : 'Unknown error');
-    console.groupEnd();
-  };
-
-  const handleVideoClick = (src: string) => {
-    setPlayingVideo(playingVideo === src ? null : src);
-  };
 
   const handleMediaClick = (src: string, type: 'image' | 'video') => {
     setEnlargedMedia({ src, type });
@@ -546,7 +461,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   number: "01",
                   title: "Organization",
                   description: "Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces.",
-                  video: "/projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                  video: "vimeo:1120311272"
                 }
               ]
             }
@@ -911,26 +826,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.3 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableVideoWrapper onClick={() => {
-                      handleVideoClick('/projects_assets/pantreat/short_pantreat_interviews_compressed.mp4');
-                      handleMediaClick('/projects_assets/pantreat/short_pantreat_interviews_compressed.mp4', 'video');
-                    }}>
-                      <VideoPlayer
-                        controls
-                        style={{ maxHeight: '300px' }}
-                        preload="metadata"
-                        onLoadStart={() => console.log('🔄 [INTERVIEWS] Video loading started')}
-                        onLoadedMetadata={(e) => {
-                          const video = e.target as HTMLVideoElement;
-                          console.log(`✅ [INTERVIEWS] Metadata loaded: ${video.duration}s`);
-                        }}
-                        onCanPlay={() => console.log('▶️ [INTERVIEWS] Video ready to play')}
-                        onError={(e) => handleVideoError(e, 'Pantreat Interviews')}
-                      >
-                        <source src="/projects_assets/pantreat/short_pantreat_interviews_compressed.mp4" type="video/mp4" />
-                        Your browser doesn't support HTML5 video.
-                      </VideoPlayer>
-                    </ClickableVideoWrapper>
+                    <VimeoEmbed
+                      videoId="1120311134"
+                      title="Pantreat Interviews"
+                      style={{ maxHeight: '300px' }}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
                   </AssetCard>
                   <TextBlock>
                     <SubTitle style={{ color: project.colors.accent }}>Research Results</SubTitle>
@@ -971,78 +875,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <ClickableVideoWrapper onClick={() => {
-                        handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4');
-                        handleMediaClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
-                      }}>
-                        <VideoPlayer
-                          muted loop playsInline
-                          style={{ maxHeight: '300px' }}
-                          preload="metadata"
-                          ref={(video) => {
-                            if (video) {
-                              if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
-                                video.play().catch(err => console.warn('Auto-play failed:', err));
-                              } else {
-                                video.pause();
-                              }
-                            }
-                          }}
-                          onLoadStart={() => {
-                            console.log('🔄 [MYPANTRY] Loading started');
-                          }}
-                          onLoadedMetadata={(e) => {
-                            const video = e.target as HTMLVideoElement;
-                            console.log(`✅ [MYPANTRY] Metadata loaded: ${video.duration}s`);
-                          }}
-                          onCanPlay={() => {
-                            console.log('✅ [MYPANTRY] Ready to play');
-                          }}
-                          onError={(e) => {
-                            const video = e.target as HTMLVideoElement;
-                            const error = video.error;
-                            console.group('❌ [MYPANTRY] VIDEO ERROR DETAILS');
-                            console.error('Error Code:', error?.code);
-                            console.error('Error Message:', error?.message);
-                            console.error('Current Source:', video.currentSrc);
-                            console.error('Ready State:', video.readyState);
-                            console.error('Network State:', video.networkState);
-                            console.error('Video Width:', video.videoWidth);
-                            console.error('Video Height:', video.videoHeight);
-                            console.error('Duration:', video.duration);
-                            
-                            // Detailed error code explanation
-                            let errorExplanation = 'Unknown error';
-                            if (error) {
-                              switch(error.code) {
-                                case 1: errorExplanation = 'MEDIA_ERR_ABORTED: The user aborted the video loading process'; break;
-                                case 2: errorExplanation = 'MEDIA_ERR_NETWORK: A network error occurred while loading the video'; break;
-                                case 3: errorExplanation = 'MEDIA_ERR_DECODE: An error occurred when trying to decode the video'; break;
-                                case 4: errorExplanation = 'MEDIA_ERR_SRC_NOT_SUPPORTED: The video format is not supported'; break;
-                              }
-                            }
-                            console.error('Error Explanation:', errorExplanation);
-                            console.groupEnd();
-                          }}
-                        >
-                          <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/quicktime" />
-                          <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4" />
-                          Your browser doesn't support HTML5 video.
-                        </VideoPlayer>
-                        <AnimatePresence>
-                          {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
-                            <PlayButton
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              exit={{ opacity: 0, scale: 0.8 }}
-                              whileHover={{ scale: 1.1 }}
-                              style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
-                            >
-                              <Play size={24} />
-                            </PlayButton>
-                          )}
-                        </AnimatePresence>
-                      </ClickableVideoWrapper>
+                      <VimeoEmbed
+                        videoId="1120311272"
+                        title="MyPantry"
+                        aspectRatio="217.41%"
+                        style={{ maxHeight: '300px' }}
+                        autoplay={false}
+                        muted={true}
+                        showTitle={false}
+                        showByline={false}
+                        showPortrait={false}
+                        showBadge={false}
+                      />
                     </FeatureMedia>
                   </FeatureBlock>
 
@@ -1164,78 +1008,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <ClickableVideoWrapper onClick={() => {
-                        handleVideoClick('/projects_assets/pantreat/demo_videos/feed_compressed.mp4');
-                        handleMediaClick('/projects_assets/pantreat/demo_videos/feed_compressed.mp4', 'video');
-                      }}>
-                        <VideoPlayer
-                          muted loop playsInline
-                          style={{ maxHeight: '300px' }}
-                          preload="metadata"
-                          ref={(video) => {
-                            if (video) {
-                              if (playingVideo === '/projects_assets/pantreat/demo_videos/feed_compressed.mp4') {
-                                video.play().catch(err => console.warn('Auto-play failed:', err));
-                              } else {
-                                video.pause();
-                              }
-                            }
-                          }}
-                          onLoadStart={() => {
-                            console.log('🔄 [FEED] Loading started');
-                          }}
-                          onLoadedMetadata={(e) => {
-                            const video = e.target as HTMLVideoElement;
-                            console.log(`✅ [FEED] Metadata loaded: ${video.duration}s`);
-                          }}
-                          onCanPlay={() => {
-                            console.log('✅ [FEED] Ready to play');
-                          }}
-                          onError={(e) => {
-                            const video = e.target as HTMLVideoElement;
-                            const error = video.error;
-                            console.group('❌ [FEED] VIDEO ERROR DETAILS');
-                            console.error('Error Code:', error?.code);
-                            console.error('Error Message:', error?.message);
-                            console.error('Current Source:', video.currentSrc);
-                            console.error('Ready State:', video.readyState);
-                            console.error('Network State:', video.networkState);
-                            console.error('Video Width:', video.videoWidth);
-                            console.error('Video Height:', video.videoHeight);
-                            console.error('Duration:', video.duration);
-                            
-                            // Detailed error code explanation
-                            let errorExplanation = 'Unknown error';
-                            if (error) {
-                              switch(error.code) {
-                                case 1: errorExplanation = 'MEDIA_ERR_ABORTED: The user aborted the video loading process'; break;
-                                case 2: errorExplanation = 'MEDIA_ERR_NETWORK: A network error occurred while loading the video'; break;
-                                case 3: errorExplanation = 'MEDIA_ERR_DECODE: An error occurred when trying to decode the video'; break;
-                                case 4: errorExplanation = 'MEDIA_ERR_SRC_NOT_SUPPORTED: The video format is not supported'; break;
-                              }
-                            }
-                            console.error('Error Explanation:', errorExplanation);
-                            console.groupEnd();
-                          }}
-                        >
-                          <source src="/projects_assets/pantreat/demo_videos/feed_compressed.mp4" type="video/quicktime" />
-                          <source src="/projects_assets/pantreat/demo_videos/feed_compressed.mp4" type="video/mp4" />
-                          Your browser doesn't support HTML5 video.
-                        </VideoPlayer>
-                        <AnimatePresence>
-                          {playingVideo !== '/projects_assets/pantreat/demo_videos/feed_compressed.mp4' && (
-                            <PlayButton
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              exit={{ opacity: 0, scale: 0.8 }}
-                              whileHover={{ scale: 1.1 }}
-                              style={{ background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.9), rgba(${project.colors.secondary}, 0.9))` }}
-                            >
-                              <Play size={24} />
-                            </PlayButton>
-                          )}
-                        </AnimatePresence>
-                      </ClickableVideoWrapper>
+                      <VimeoEmbed
+                        videoId="1120311253"
+                        title="Pantreat Feed"
+                        aspectRatio="217.41%"
+                        style={{ maxHeight: '300px' }}
+                        autoplay={false}
+                        muted={true}
+                        showTitle={false}
+                        showByline={false}
+                        showPortrait={false}
+                        showBadge={false}
+                      />
                     </FeatureMedia>
                   </FeatureBlock>
                 </FeatureShowcase>
