@@ -519,7 +519,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   number: "01",
                   title: "Organization",
                   description: "Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces.",
-                  video: "/projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                  video: "projects_assets/pantreat/demo_videos/MyPantry.mp4"
                 }
               ]
             }
@@ -1014,7 +1014,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                                 height: '400px', 
                                 width: 'auto', 
                                 borderRadius: '20px',
-                                border: '3px solid rgba(255, 255, 255, 0.8)'
+                                border: 'none'
                               }}
                             />
                           </ClickableImageWrapper>
@@ -1024,7 +1024,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         <div style={{
                           position: 'absolute',
                           top: '80px',
-                          left: '30px',
+                          left: '50px',
                           transform: 'rotate(8deg)',
                           zIndex: 2,
                           filter: 'drop-shadow(0 12px 20px rgba(0,0,0,0.25))'
@@ -1037,9 +1037,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                                 height: '320px', 
                                 width: 'auto', 
                                 borderRadius: '16px',
-                                border: '2px solid rgba(255, 255, 255, 0.9)',
-                                backgroundColor: 'white',
-                                padding: '4px'
+                                border: 'none'
                               }}
                             />
                           </ClickableImageWrapper>
@@ -1049,7 +1047,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         <div style={{
                           position: 'absolute',
                           top: '60px',
-                          right: '20px',
+                          right: '40px',
                           transform: 'rotate(-5deg)',
                           zIndex: 3,
                           filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.3))'
@@ -1062,9 +1060,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                                 height: '280px', 
                                 width: 'auto', 
                                 borderRadius: '14px',
-                                border: '2px solid rgba(255, 255, 255, 0.95)',
-                                backgroundColor: 'white',
-                                padding: '3px'
+                                border: 'none'
                               }}
                             />
                           </ClickableImageWrapper>
@@ -1143,23 +1139,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   zIndex: 2
                 }}>
                   <BusinessCard style={{ 
-                    borderColor: `rgba(${project.colors.primary}, 0.2)`,
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    backdropFilter: 'blur(10px)',
+                    borderColor: `rgba(${project.colors.primary}, 0.3)`,
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    backdropFilter: 'blur(15px)',
                     zIndex: 3
                   }}>
                     <BusinessTitle style={{ color: project.colors.accent }}>Revenue Streams</BusinessTitle>
-                    <BusinessText>
-                      Pantreat is sticky because it integrates into <strong>daily routines</strong>, creating multiple natural revenue streams:
+                    <BusinessText style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
+                      Pantreat is sticky because it integrates into <strong style={{ color: 'white' }}>daily routines</strong>, creating multiple natural revenue streams:
                       <br /><br />
-                      • <strong>Grocery Affiliate Partnerships</strong> (Instacart, Amazon, Walmart)
-                      <br />• U.S. Grocery Market Sales (2025): <strong>$1.6 trillion</strong> (+3.1% YoY growth)
-                      <br />• Online U.S. Grocery Sales (May 2025): <strong>$8.7 billion</strong> (+27% YoY)
+                      • <strong style={{ color: 'white' }}>Grocery Affiliate Partnerships</strong> (Instacart, Amazon, Walmart)
+                      <br />• U.S. Grocery Market Sales (2025): <strong style={{ color: 'white' }}>$1.6 trillion</strong> (+3.1% YoY growth)
+                      <br />• Online U.S. Grocery Sales (May 2025): <strong style={{ color: 'white' }}>$8.7 billion</strong> (+27% YoY)
                       <br /><br />
-                      • <strong>Advertisements & Algorithmic Product Suggestions</strong>
-                      <br />• <strong>Long-Term:</strong> Data-driven personalization for health/fitness integrations
+                      • <strong style={{ color: 'white' }}>Advertisements & Algorithmic Product Suggestions</strong>
+                      <br />• <strong style={{ color: 'white' }}>Long-Term:</strong> Data-driven personalization for health/fitness integrations
                       <br /><br />
-                      <strong>Creator Incentive:</strong> Whenever a user orders groceries linked to a creator's recipe video, that creator gets a cut — encouraging more content and engagement.
+                      <strong style={{ color: 'white' }}>Creator Incentive:</strong> Whenever a user orders groceries linked to a creator's recipe video, that creator gets a cut — encouraging more content and engagement.
                     </BusinessText>
                   </BusinessCard>
                   
@@ -1273,16 +1269,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   
                   <TextBlock style={{ 
                     padding: '2rem',
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
                     borderRadius: '16px',
-                    backdropFilter: 'blur(10px)',
-                    border: `2px solid rgba(${project.colors.primary}, 0.1)`
+                    backdropFilter: 'blur(15px)',
+                    border: `2px solid rgba(${project.colors.primary}, 0.3)`
                   }}>
                     <SubTitle style={{ color: project.colors.accent, fontSize: '2rem', marginBottom: '1.5rem' }}>Making Cooking Cool Again</SubTitle>
-                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
-                      Pantreat combines <strong>AI, community, and short-form content</strong> to remove the friction of cooking, reduce waste, and make the kitchen exciting again.
+                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '1.5rem', color: 'rgba(255, 255, 255, 0.9)' }}>
+                      Pantreat combines <strong style={{ color: 'white' }}>AI, community, and short-form content</strong> to remove the friction of cooking, reduce waste, and make the kitchen exciting again.
                     </ContentText>
-                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '2rem' }}>
+                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '2rem', color: 'rgba(255, 255, 255, 0.9)' }}>
                       With tools to organize, motivate, and inspire, Pantreat empowers a new generation to step away from delivery apps and rediscover the joy of home cooking.
                     </ContentText>
                     <ActionButton
