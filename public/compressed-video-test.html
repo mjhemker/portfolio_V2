@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compressed Video Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.loading { background: #d1ecf1; color: #0c5460; }
+        video {
+            max-width: 100%;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .file-info {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Compressed Video Test</h1>
+    <p>Testing the compressed videos to verify they work correctly</p>
+
+    <div class="test-section">
+        <h2>📊 Compressed Videos Summary</h2>
+        <div class="file-info">
+            <strong>Original vs Compressed:</strong><br>
+            feed.mp4: 64MB → 10MB (84% reduction)<br>
+            short_pantreat_interviews.mp4: 79MB → 5.0MB (94% reduction)
+        </div>
+        <div id="summary" class="status loading">Testing compressed videos...</div>
+    </div>
+
+    <div class="test-section">
+        <h3>✅ Feed Video (Compressed 10MB)</h3>
+        <div class="file-info">
+            URL: /projects_assets/pantreat/demo_videos/feed_compressed.mp4<br>
+            Original: 64MB → Compressed: 10MB
+        </div>
+        <div id="feed-status" class="status loading">Testing...</div>
+        <button onclick="testFeedVideo()">Test Feed Video</button>
+        <video id="feed-video" controls preload="none" style="display: none;">
+            <source src="/projects_assets/pantreat/demo_videos/feed_compressed.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+        </video>
+    </div>
+
+    <div class="test-section">
+        <h3>✅ Interviews Video (Compressed 5MB)</h3>
+        <div class="file-info">
+            URL: /projects_assets/pantreat/short_pantreat_interviews_compressed.mp4<br>
+            Original: 79MB → Compressed: 5.0MB
+        </div>
+        <div id="interviews-status" class="status loading">Testing...</div>
+        <button onclick="testInterviewsVideo()">Test Interviews Video</button>
+        <video id="interviews-video" controls preload="none" style="display: none;">
+            <source src="/projects_assets/pantreat/short_pantreat_interviews_compressed.mp4" type="video/mp4">
+            Your browser doesn't support HTML5 video.
+        </video>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Network Test Results</h2>
+        <div id="network-results"></div>
+        <button onclick="testAllUrls()">Test All URLs</button>
+    </div>
+
+    <script>
+        const results = {};
+
+        async function testVideo(videoId, url, statusId, resultKey) {
+            const status = document.getElementById(statusId);
+            const video = document.getElementById(videoId);
+            
+            status.className = 'status loading';
+            status.textContent = '⏳ Testing video...';
+            
+            try {
+                // Test URL first
+                const response = await fetch(url, { method: 'HEAD' });
+                const size = response.headers.get('content-length');
+                const sizeText = size ? `${(parseInt(size) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                
+                if (response.ok) {
+                    // Test video loading
+                    video.style.display = 'block';
+                    video.src = url;
+                    
+                    const loadPromise = new Promise((resolve) => {
+                        const timeout = setTimeout(() => {
+                            results[resultKey] = { success: false, error: 'Load timeout' };
+                            status.className = 'status error';
+                            status.textContent = `❌ Timeout loading ${sizeText} video`;
+                            resolve();
+                        }, 10000);
+
+                        video.onloadedmetadata = () => {
+                            clearTimeout(timeout);
+                            results[resultKey] = { 
+                                success: true, 
+                                size: sizeText, 
+                                duration: video.duration.toFixed(2) + 's' 
+                            };
+                            status.className = 'status success';
+                            status.textContent = `✅ Success! ${sizeText}, ${video.duration.toFixed(2)}s duration`;
+                            resolve();
+                        };
+
+                        video.onerror = () => {
+                            clearTimeout(timeout);
+                            const errorMsg = video.error ? `Error ${video.error.code}` : 'Unknown error';
+                            results[resultKey] = { success: false, error: errorMsg };
+                            status.className = 'status error';
+                            status.textContent = `❌ Video error: ${errorMsg}`;
+                            resolve();
+                        };
+                    });
+                    
+                    await loadPromise;
+                } else {
+                    results[resultKey] = { success: false, error: `HTTP ${response.status}` };
+                    status.className = 'status error';
+                    status.textContent = `❌ URL failed: HTTP ${response.status}`;
+                }
+            } catch (error) {
+                results[resultKey] = { success: false, error: error.message };
+                status.className = 'status error';
+                status.textContent = `❌ Network error: ${error.message}`;
+            }
+            
+            updateSummary();
+        }
+
+        function testFeedVideo() {
+            testVideo('feed-video', '/projects_assets/pantreat/demo_videos/feed_compressed.mp4', 'feed-status', 'feed');
+        }
+
+        function testInterviewsVideo() {
+            testVideo('interviews-video', '/projects_assets/pantreat/short_pantreat_interviews_compressed.mp4', 'interviews-status', 'interviews');
+        }
+
+        async function testAllUrls() {
+            const urls = [
+                '/projects_assets/pantreat/demo_videos/feed_compressed.mp4',
+                '/projects_assets/pantreat/short_pantreat_interviews_compressed.mp4'
+            ];
+
+            const networkResults = document.getElementById('network-results');
+            networkResults.innerHTML = '<h4>🔗 URL Accessibility Test:</h4>';
+
+            for (const url of urls) {
+                const div = document.createElement('div');
+                div.className = 'file-info';
+                div.innerHTML = `<strong>${url}</strong><br>Testing...`;
+                networkResults.appendChild(div);
+
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    const sizeText = size ? `${(parseInt(size) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                    
+                    div.innerHTML = `
+                        <strong>${url}</strong><br>
+                        Status: ${response.status} ${response.statusText}<br>
+                        Size: ${sizeText}<br>
+                        Content-Type: ${response.headers.get('content-type') || 'Unknown'}
+                    `;
+                    div.style.borderLeft = response.ok ? '4px solid #28a745' : '4px solid #dc3545';
+                } catch (error) {
+                    div.innerHTML = `
+                        <strong>${url}</strong><br>
+                        Error: ${error.message}
+                    `;
+                    div.style.borderLeft = '4px solid #dc3545';
+                }
+            }
+        }
+
+        function updateSummary() {
+            const total = 2;
+            const tested = Object.keys(results).length;
+            const working = Object.values(results).filter(r => r.success).length;
+            
+            const summaryEl = document.getElementById('summary');
+            
+            if (tested === 0) {
+                summaryEl.textContent = 'Ready to test compressed videos...';
+                return;
+            }
+            
+            if (working === tested && tested === total) {
+                summaryEl.className = 'status success';
+                summaryEl.textContent = `✅ All ${working}/${total} compressed videos working perfectly!`;
+            } else if (working > 0) {
+                summaryEl.className = 'status loading';
+                summaryEl.textContent = `⏳ ${working}/${tested} videos working so far...`;
+            } else {
+                summaryEl.className = 'status error';
+                summaryEl.textContent = `❌ ${tested} videos tested, none working`;
+            }
+        }
+
+        // Auto-start basic test
+        setTimeout(() => {
+            testAllUrls();
+        }, 1000);
+    </script>
+</body>
+</html>

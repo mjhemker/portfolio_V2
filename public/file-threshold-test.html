@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Size Threshold Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .status.success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .status.error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .status.loading { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        .status.warning { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+        .file-info {
+            background: #f8f9fa;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 3px;
+            font-size: 11px;
+        }
+        button:hover { background: #0056b3; }
+        button.test-all { background: #28a745; padding: 8px 16px; font-size: 13px; }
+        video {
+            max-width: 100%;
+            height: 150px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .threshold-indicator {
+            text-align: center;
+            background: #e9ecef;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .results-summary {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 File Size Threshold Test</h1>
+    <p>Testing to identify the exact file size where videos stop working in Vercel deployment</p>
+
+    <div class="test-section">
+        <h2>📊 Test Progress</h2>
+        <div id="progress" class="status loading">Initializing tests...</div>
+        <button class="test-all" onclick="runAllTests()">🚀 Run All Tests</button>
+        <button class="test-all" onclick="runQuickDiagnostic()">⚡ Quick Diagnostic</button>
+        <button onclick="generateDetailedReport()">📋 Generate Report</button>
+    </div>
+
+    <div class="threshold-indicator">
+        🎯 Testing Range: 12MB → 16MB → 64MB → 79MB → 90MB → 319MB
+    </div>
+
+    <div class="test-grid">
+        <!-- 12MB - Known working size -->
+        <div class="test-section">
+            <h3>✅ Baseline (12MB)</h3>
+            <div class="file-info">
+                File: input+filters.mp4<br>
+                Size: ~12MB<br>
+                Expected: ✅ Should work
+            </div>
+            <div id="baseline-status" class="status loading">Ready</div>
+            <button onclick="testFile('baseline', '/projects_assets/pantreat/demo_videos/input+filters.mp4')">Test</button>
+            <video id="baseline-video" controls preload="none" style="display: none;"></video>
+        </div>
+
+        <!-- 15MB - Still small -->
+        <div class="test-section">
+            <h3>✅ Small (15MB)</h3>
+            <div class="file-info">
+                File: MyPantry.mp4<br>
+                Size: ~15MB<br>
+                Expected: ✅ Should work
+            </div>
+            <div id="small-status" class="status loading">Ready</div>
+            <button onclick="testFile('small', '/projects_assets/pantreat/demo_videos/MyPantry.mp4')">Test</button>
+            <video id="small-video" controls preload="none" style="display: none;"></video>
+        </div>
+
+        <!-- 16MB - Last known small size -->
+        <div class="test-section">
+            <h3>⚠️ Medium-Small (16MB)</h3>
+            <div class="file-info">
+                File: add_recipe.mp4<br>
+                Size: ~16MB<br>
+                Expected: ✅ Probably works
+            </div>
+            <div id="medium-small-status" class="status loading">Ready</div>
+            <button onclick="testFile('medium-small', '/projects_assets/pantreat/demo_videos/add_recipe.mp4')">Test</button>
+            <video id="medium-small-video" controls preload="none" style="display: none;"></video>
+        </div>
+
+        <!-- 64MB - First jump in size -->
+        <div class="test-section">
+            <h3>❓ Medium (64MB)</h3>
+            <div class="file-info">
+                File: feed.mp4<br>
+                Size: ~64MB<br>
+                Expected: ❓ Critical test point
+            </div>
+            <div id="medium-status" class="status loading">Ready</div>
+            <button onclick="testFile('medium', '/projects_assets/pantreat/demo_videos/feed.mp4')">Test</button>
+            <video id="medium-video" controls preload="none" style="display: none;"></video>
+        </div>
+
+        <!-- 79MB - Reported problem size -->
+        <div class="test-section">
+            <h3>❌ Large (79MB)</h3>
+            <div class="file-info">
+                File: short_pantreat_interviews.mp4<br>
+                Size: ~79MB<br>
+                Expected: ❌ Known to fail
+            </div>
+            <div id="large-status" class="status loading">Ready</div>
+            <button onclick="testFile('large', '/projects_assets/pantreat/short_pantreat_interviews.mp4')">Test</button>
+            <video id="large-video" controls preload="none" style="display: none;"></video>
+        </div>
+
+        <!-- 90MB - Another data point -->
+        <div class="test-section">
+            <h3>❌ X-Large (90MB)</h3>
+            <div class="file-info">
+                File: video_essay_2.mp4<br>
+                Size: ~90MB<br>
+                Expected: ❌ Likely to fail
+            </div>
+            <div id="xlarge-status" class="status loading">Ready</div>
+            <button onclick="testFile('xlarge', '/projects_assets/video_essays/video_essay_2.mp4')">Test</button>
+            <video id="xlarge-video" controls preload="none" style="display: none;"></video>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>📈 Results Analysis</h2>
+        <div id="results-analysis" class="results-summary">
+            Run tests to see detailed analysis...
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🛠️ Technical Diagnostics</h2>
+        <div id="tech-diagnostics"></div>
+        <button onclick="runTechnicalDiagnostics()">Run Diagnostics</button>
+    </div>
+
+    <script>
+        const testResults = {};
+        const fileSizes = {
+            'baseline': { size: '12MB', expected: 'success' },
+            'small': { size: '15MB', expected: 'success' },
+            'medium-small': { size: '16MB', expected: 'success' },
+            'medium': { size: '64MB', expected: 'unknown' },
+            'large': { size: '79MB', expected: 'fail' },
+            'xlarge': { size: '90MB', expected: 'fail' }
+        };
+
+        async function testFile(testKey, url) {
+            const statusEl = document.getElementById(`${testKey}-status`);
+            const videoEl = document.getElementById(`${testKey}-video`);
+            
+            statusEl.className = 'status loading';
+            statusEl.textContent = '⏳ Testing URL accessibility...';
+            
+            const startTime = performance.now();
+            
+            try {
+                // Test URL accessibility first
+                const response = await fetch(url, { method: 'HEAD' });
+                const actualSize = response.headers.get('content-length');
+                const sizeText = actualSize ? `${(parseInt(actualSize) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                
+                if (!response.ok) {
+                    testResults[testKey] = {
+                        accessible: false,
+                        httpStatus: response.status,
+                        error: `HTTP ${response.status} ${response.statusText}`,
+                        loadTime: performance.now() - startTime
+                    };
+                    statusEl.className = 'status error';
+                    statusEl.textContent = `❌ URL failed: HTTP ${response.status}`;
+                    updateProgress();
+                    return;
+                }
+                
+                statusEl.textContent = `✅ URL accessible (${sizeText}), testing video load...`;
+                
+                // Test video loading
+                videoEl.style.display = 'block';
+                videoEl.src = url;
+                
+                const loadPromise = new Promise((resolve) => {
+                    const timeout = setTimeout(() => {
+                        testResults[testKey] = {
+                            accessible: true,
+                            loadable: false,
+                            httpStatus: response.status,
+                            actualSize: sizeText,
+                            error: 'Video load timeout (10s)',
+                            loadTime: performance.now() - startTime
+                        };
+                        statusEl.className = 'status warning';
+                        statusEl.textContent = `⚠️ URL works (${sizeText}) but video won't load`;
+                        resolve();
+                    }, 10000);
+
+                    videoEl.onloadedmetadata = () => {
+                        clearTimeout(timeout);
+                        testResults[testKey] = {
+                            accessible: true,
+                            loadable: true,
+                            httpStatus: response.status,
+                            actualSize: sizeText,
+                            duration: videoEl.duration.toFixed(2) + 's',
+                            loadTime: performance.now() - startTime
+                        };
+                        statusEl.className = 'status success';
+                        statusEl.textContent = `✅ Perfect! ${sizeText}, ${videoEl.duration.toFixed(2)}s, loaded in ${(performance.now() - startTime).toFixed(0)}ms`;
+                        resolve();
+                    };
+
+                    videoEl.onerror = () => {
+                        clearTimeout(timeout);
+                        const errorMsg = videoEl.error ? `Error ${videoEl.error.code}` : 'Unknown error';
+                        testResults[testKey] = {
+                            accessible: true,
+                            loadable: false,
+                            httpStatus: response.status,
+                            actualSize: sizeText,
+                            error: errorMsg,
+                            loadTime: performance.now() - startTime
+                        };
+                        statusEl.className = 'status error';
+                        statusEl.textContent = `❌ URL accessible but video error: ${errorMsg}`;
+                        resolve();
+                    };
+                });
+                
+                await loadPromise;
+            } catch (error) {
+                testResults[testKey] = {
+                    accessible: false,
+                    loadable: false,
+                    error: error.message,
+                    loadTime: performance.now() - startTime
+                };
+                statusEl.className = 'status error';
+                statusEl.textContent = `❌ Network error: ${error.message}`;
+            }
+            
+            updateProgress();
+            analyzeResults();
+        }
+
+        async function runAllTests() {
+            const tests = ['baseline', 'small', 'medium-small', 'medium', 'large', 'xlarge'];
+            const progressEl = document.getElementById('progress');
+            
+            progressEl.textContent = '🚀 Running comprehensive file size threshold test...';
+            
+            for (const testKey of tests) {
+                const url = {
+                    'baseline': '/projects_assets/pantreat/demo_videos/input+filters.mp4',
+                    'small': '/projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                    'medium-small': '/projects_assets/pantreat/demo_videos/add_recipe.mp4',
+                    'medium': '/projects_assets/pantreat/demo_videos/feed.mp4',
+                    'large': '/projects_assets/pantreat/short_pantreat_interviews.mp4',
+                    'xlarge': '/projects_assets/video_essays/video_essay_2.mp4'
+                }[testKey];
+                
+                await testFile(testKey, url);
+                await new Promise(resolve => setTimeout(resolve, 500)); // Brief pause between tests
+            }
+            
+            progressEl.className = 'status success';
+            progressEl.textContent = '✅ All tests completed!';
+        }
+
+        async function runQuickDiagnostic() {
+            // Test key thresholds: 16MB and 64MB
+            await testFile('medium-small', '/projects_assets/pantreat/demo_videos/add_recipe.mp4');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await testFile('medium', '/projects_assets/pantreat/demo_videos/feed.mp4');
+        }
+
+        function updateProgress() {
+            const total = Object.keys(fileSizes).length;
+            const tested = Object.keys(testResults).length;
+            const working = Object.values(testResults).filter(r => r.loadable).length;
+            
+            if (tested === 0) return;
+            
+            const progressEl = document.getElementById('progress');
+            progressEl.textContent = `Progress: ${tested}/${total} tested, ${working} working`;
+            
+            if (tested === total) {
+                progressEl.className = 'status success';
+            }
+        }
+
+        function analyzeResults() {
+            const analysisEl = document.getElementById('results-analysis');
+            
+            if (Object.keys(testResults).length === 0) {
+                return;
+            }
+            
+            let analysis = '<h4>🔍 Threshold Analysis:</h4>';
+            
+            // Find the threshold
+            const sortedResults = Object.entries(testResults).sort((a, b) => {
+                const sizeA = parseFloat(fileSizes[a[0]].size);
+                const sizeB = parseFloat(fileSizes[b[0]].size);
+                return sizeA - sizeB;
+            });
+            
+            let workingMax = 0;
+            let failingMin = Infinity;
+            
+            for (const [testKey, result] of sortedResults) {
+                const size = parseFloat(fileSizes[testKey].size);
+                if (result.loadable) {
+                    workingMax = Math.max(workingMax, size);
+                } else if (result.accessible === false || result.loadable === false) {
+                    failingMin = Math.min(failingMin, size);
+                }
+            }
+            
+            if (workingMax > 0 && failingMin < Infinity) {
+                analysis += `<div class="file-info">
+                    🎯 <strong>Threshold Identified:</strong><br>
+                    ✅ Working up to: ${workingMax}MB<br>
+                    ❌ Failing from: ${failingMin}MB<br>
+                    📊 Threshold appears to be between ${workingMax}MB and ${failingMin}MB
+                </div>`;
+            }
+            
+            // Detailed results
+            analysis += '<h4>📋 Detailed Results:</h4>';
+            for (const [testKey, result] of sortedResults) {
+                const info = fileSizes[testKey];
+                analysis += `<div class="file-info">
+                    <strong>${info.size} (${testKey}):</strong> `;
+                
+                if (result.loadable) {
+                    analysis += `✅ Working (${result.actualSize}, loaded in ${result.loadTime.toFixed(0)}ms)`;
+                } else if (result.accessible) {
+                    analysis += `⚠️ URL accessible but video won't load (${result.error})`;
+                } else {
+                    analysis += `❌ URL not accessible (${result.error})`;
+                }
+                analysis += '</div>';
+            }
+            
+            analysisEl.innerHTML = analysis;
+        }
+
+        async function runTechnicalDiagnostics() {
+            const diagEl = document.getElementById('tech-diagnostics');
+            diagEl.innerHTML = '<h4>🔧 Running Technical Diagnostics...</h4>';
+            
+            let diag = '<div class="file-info">';
+            diag += `<strong>Browser Info:</strong><br>`;
+            diag += `User Agent: ${navigator.userAgent}<br>`;
+            diag += `Platform: ${navigator.platform}<br>`;
+            diag += `Connection: ${navigator.connection ? navigator.connection.effectiveType : 'Unknown'}<br><br>`;
+            
+            diag += `<strong>Current URL:</strong> ${window.location.href}<br><br>`;
+            
+            diag += `<strong>Video Support Test:</strong><br>`;
+            const video = document.createElement('video');
+            diag += `MP4 Support: ${video.canPlayType('video/mp4') || 'Unknown'}<br>`;
+            diag += `WebM Support: ${video.canPlayType('video/webm') || 'Unknown'}<br><br>`;
+            
+            // Test a few critical URLs
+            const testUrls = [
+                '/projects_assets/pantreat/demo_videos/add_recipe.mp4',
+                '/projects_assets/pantreat/demo_videos/feed.mp4',
+                '/projects_assets/pantreat/short_pantreat_interviews.mp4'
+            ];
+            
+            diag += `<strong>Direct URL Tests:</strong><br>`;
+            for (const url of testUrls) {
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    const sizeText = size ? `${(parseInt(size) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                    diag += `${url}: ${response.status} (${sizeText})<br>`;
+                } catch (error) {
+                    diag += `${url}: ERROR - ${error.message}<br>`;
+                }
+            }
+            
+            diag += '</div>';
+            diagEl.innerHTML = diag;
+        }
+
+        function generateDetailedReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                url: window.location.href,
+                userAgent: navigator.userAgent,
+                testResults: testResults,
+                fileSizes: fileSizes
+            };
+            
+            console.log('🔍 File Size Threshold Report:', report);
+            
+            const reportText = JSON.stringify(report, null, 2);
+            const blob = new Blob([reportText], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vercel-file-threshold-report.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Auto-start basic diagnostics
+        setTimeout(() => {
+            runTechnicalDiagnostics();
+        }, 1000);
+    </script>
+</body>
+</html>

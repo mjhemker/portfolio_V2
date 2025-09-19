@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Size Accessibility Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status.success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .status.error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .status.loading { background: #d1ecf1; border: 1px solid #bee5eb; color: #0c5460; }
+        .file-info {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 12px;
+        }
+        button:hover { background: #0056b3; }
+        video {
+            max-width: 100%;
+            height: 200px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Video Size Accessibility Test</h1>
+    <p>Testing different video file sizes to identify Vercel deployment limits</p>
+
+    <div class="test-section">
+        <h2>📊 Test Summary</h2>
+        <div id="summary" class="status loading">Running tests...</div>
+        <div id="results-summary"></div>
+    </div>
+
+    <div class="test-grid">
+        <!-- Small Video Tests (12-16MB) -->
+        <div class="test-section">
+            <h3>✅ Small Video (12MB)</h3>
+            <div class="file-info">
+                URL: /projects_assets/pantreat/demo_videos/input+filters.mp4<br>
+                Size: ~12MB
+            </div>
+            <div id="small-status" class="status loading">Testing...</div>
+            <button onclick="testSmallVideo()">Test Small Video</button>
+            <video id="small-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/pantreat/demo_videos/input+filters.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Medium Video Tests (15MB) -->
+        <div class="test-section">
+            <h3>⚠️ Medium Video (15MB)</h3>
+            <div class="file-info">
+                URL: /projects_assets/pantreat/demo_videos/MyPantry.mp4<br>
+                Size: ~15MB
+            </div>
+            <div id="medium-status" class="status loading">Testing...</div>
+            <button onclick="testMediumVideo()">Test Medium Video</button>
+            <video id="medium-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Large Video Tests (79MB) -->
+        <div class="test-section">
+            <h3>❌ Large Video (79MB)</h3>
+            <div class="file-info">
+                URL: /projects_assets/pantreat/short_pantreat_interviews.mp4<br>
+                Size: ~79MB
+            </div>
+            <div id="large-status" class="status loading">Testing...</div>
+            <button onclick="testLargeVideo()">Test Large Video</button>
+            <video id="large-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Extra Large Video Tests (319MB) -->
+        <div class="test-section">
+            <h3>🚫 Extra Large Video (319MB)</h3>
+            <div class="file-info">
+                URL: /projects_assets/video_essays/final_cut.mp4<br>
+                Size: ~319MB
+            </div>
+            <div id="xl-status" class="status loading">Testing...</div>
+            <button onclick="testXLVideo()">Test XL Video</button>
+            <video id="xl-video" controls preload="none" style="display: none;">
+                <source src="/projects_assets/video_essays/final_cut.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Direct URL Tests</h2>
+        <div id="url-results"></div>
+        <button onclick="testAllDirectUrls()">Test All Direct URLs</button>
+        <button onclick="generateReport()">Generate Report</button>
+    </div>
+
+    <script>
+        const testResults = {};
+        const videoSizes = {
+            'small': { size: '12MB', name: 'Small Video' },
+            'medium': { size: '15MB', name: 'Medium Video' },
+            'large': { size: '79MB', name: 'Large Video' },
+            'xl': { size: '319MB', name: 'Extra Large Video' }
+        };
+
+        async function testVideoAccess(videoId, url, statusId, resultKey) {
+            const status = document.getElementById(statusId);
+            const video = document.getElementById(videoId);
+            
+            status.className = 'status loading';
+            status.textContent = '⏳ Testing video access...';
+            
+            // Test direct URL first
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                const actualSize = response.headers.get('content-length');
+                const sizeText = actualSize ? `${(parseInt(actualSize) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                
+                if (response.ok) {
+                    // URL accessible, try video loading
+                    video.style.display = 'block';
+                    
+                    const loadPromise = new Promise((resolve) => {
+                        const timeout = setTimeout(() => {
+                            testResults[resultKey] = { 
+                                accessible: true, 
+                                loadable: false, 
+                                size: sizeText,
+                                error: 'Video load timeout',
+                                httpStatus: response.status
+                            };
+                            status.className = 'status error';
+                            status.textContent = `⚠️ URL accessible (${sizeText}) but video won't load`;
+                            resolve();
+                        }, 8000);
+
+                        video.onloadedmetadata = () => {
+                            clearTimeout(timeout);
+                            testResults[resultKey] = { 
+                                accessible: true, 
+                                loadable: true, 
+                                size: sizeText,
+                                duration: video.duration.toFixed(2) + 's',
+                                httpStatus: response.status
+                            };
+                            status.className = 'status success';
+                            status.textContent = `✅ Success! Size: ${sizeText}, Duration: ${video.duration.toFixed(2)}s`;
+                            resolve();
+                        };
+
+                        video.onerror = () => {
+                            clearTimeout(timeout);
+                            const errorMsg = video.error ? `Error ${video.error.code}` : 'Unknown error';
+                            testResults[resultKey] = { 
+                                accessible: true, 
+                                loadable: false, 
+                                size: sizeText,
+                                error: errorMsg,
+                                httpStatus: response.status
+                            };
+                            status.className = 'status error';
+                            status.textContent = `❌ URL accessible but video error: ${errorMsg}`;
+                            resolve();
+                        };
+
+                        video.load();
+                    });
+                    
+                    await loadPromise;
+                } else {
+                    testResults[resultKey] = { 
+                        accessible: false, 
+                        loadable: false, 
+                        httpStatus: response.status,
+                        error: `HTTP ${response.status} ${response.statusText}`
+                    };
+                    status.className = 'status error';
+                    status.textContent = `❌ URL not accessible: HTTP ${response.status}`;
+                }
+            } catch (error) {
+                testResults[resultKey] = { 
+                    accessible: false, 
+                    loadable: false, 
+                    error: error.message
+                };
+                status.className = 'status error';
+                status.textContent = `❌ Network error: ${error.message}`;
+            }
+            
+            updateSummary();
+        }
+
+        function testSmallVideo() {
+            testVideoAccess('small-video', '/projects_assets/pantreat/demo_videos/input+filters.mp4', 'small-status', 'small');
+        }
+
+        function testMediumVideo() {
+            testVideoAccess('medium-video', '/projects_assets/pantreat/demo_videos/MyPantry.mp4', 'medium-status', 'medium');
+        }
+
+        function testLargeVideo() {
+            testVideoAccess('large-video', '/projects_assets/pantreat/short_pantreat_interviews.mp4', 'large-status', 'large');
+        }
+
+        function testXLVideo() {
+            testVideoAccess('xl-video', '/projects_assets/video_essays/final_cut.mp4', 'xl-status', 'xl');
+        }
+
+        async function testAllDirectUrls() {
+            const urls = [
+                '/projects_assets/pantreat/demo_videos/input+filters.mp4',
+                '/projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                '/projects_assets/pantreat/short_pantreat_interviews.mp4',
+                '/projects_assets/video_essays/final_cut.mp4'
+            ];
+
+            const urlResults = document.getElementById('url-results');
+            urlResults.innerHTML = '<h4>🔗 Direct URL Test Results:</h4>';
+
+            for (const url of urls) {
+                const div = document.createElement('div');
+                div.className = 'file-info';
+                div.innerHTML = `<strong>${url}</strong><br>Testing...`;
+                urlResults.appendChild(div);
+
+                try {
+                    const response = await fetch(url, { method: 'HEAD' });
+                    const size = response.headers.get('content-length');
+                    const sizeText = size ? `${(parseInt(size) / 1024 / 1024).toFixed(1)}MB` : 'Unknown';
+                    
+                    div.innerHTML = `
+                        <strong>${url}</strong><br>
+                        Status: ${response.status} ${response.statusText}<br>
+                        Size: ${sizeText}<br>
+                        Content-Type: ${response.headers.get('content-type') || 'Unknown'}
+                    `;
+                    div.style.borderLeft = response.ok ? '4px solid #28a745' : '4px solid #dc3545';
+                } catch (error) {
+                    div.innerHTML = `
+                        <strong>${url}</strong><br>
+                        Error: ${error.message}
+                    `;
+                    div.style.borderLeft = '4px solid #dc3545';
+                }
+            }
+        }
+
+        function updateSummary() {
+            const total = Object.keys(videoSizes).length;
+            const tested = Object.keys(testResults).length;
+            const accessible = Object.values(testResults).filter(r => r.accessible).length;
+            const loadable = Object.values(testResults).filter(r => r.loadable).length;
+            
+            const summaryEl = document.getElementById('summary');
+            const resultsSummaryEl = document.getElementById('results-summary');
+            
+            if (tested === 0) {
+                summaryEl.className = 'status loading';
+                summaryEl.textContent = 'Ready to test videos...';
+                return;
+            }
+            
+            if (loadable === tested) {
+                summaryEl.className = 'status success';
+                summaryEl.textContent = `✅ All ${loadable}/${tested} tested videos work perfectly!`;
+            } else if (accessible > loadable) {
+                summaryEl.className = 'status error';
+                summaryEl.textContent = `⚠️ ${accessible}/${tested} URLs accessible, but only ${loadable}/${tested} videos load`;
+            } else {
+                summaryEl.className = 'status error';
+                summaryEl.textContent = `❌ ${accessible}/${tested} URLs accessible, ${loadable}/${tested} videos load`;
+            }
+            
+            // Detailed breakdown
+            let breakdown = '<div class="file-info"><strong>Test Results Breakdown:</strong><br>';
+            for (const [key, result] of Object.entries(testResults)) {
+                const info = videoSizes[key];
+                breakdown += `${info.name} (${info.size}): `;
+                if (result.loadable) {
+                    breakdown += `✅ Working<br>`;
+                } else if (result.accessible) {
+                    breakdown += `⚠️ URL accessible but won't load<br>`;
+                } else {
+                    breakdown += `❌ URL not accessible<br>`;
+                }
+            }
+            breakdown += '</div>';
+            resultsSummaryEl.innerHTML = breakdown;
+        }
+
+        function generateReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                url: window.location.href,
+                results: testResults
+            };
+            
+            console.log('🔍 Video Accessibility Report:', report);
+            
+            const reportText = JSON.stringify(report, null, 2);
+            const blob = new Blob([reportText], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vercel-video-accessibility-report.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Auto-start tests
+        setTimeout(() => {
+            console.log('🚀 Starting automatic video accessibility tests...');
+            testAllDirectUrls();
+        }, 1000);
+    </script>
+</body>
+</html>
