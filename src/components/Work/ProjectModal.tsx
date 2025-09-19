@@ -989,34 +989,86 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
-                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, minHeight: '350px' }}>
+                      <div style={{ 
+                        position: 'relative', 
+                        height: '500px', 
+                        width: '100%',
+                        background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.05), rgba(${project.colors.secondary}, 0.02))`,
+                        borderRadius: '16px',
+                        overflow: 'hidden'
+                      }}>
+                        {/* Main Cook Mode - Center Background */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '20px',
+                          left: '50%',
+                          transform: 'translateX(-50%) rotate(-2deg)',
+                          zIndex: 1,
+                          filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.2))'
+                        }}>
                           <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/App_preview_Cook.png", 'image')}>
                             <MediaImage 
                               src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
                               alt="Cook Mode"
-                              style={{ padding: '1rem', background: 'transparent', maxHeight: '320px', width: '100%' }}
+                              style={{ 
+                                height: '400px', 
+                                width: 'auto', 
+                                borderRadius: '20px',
+                                border: '3px solid rgba(255, 255, 255, 0.8)'
+                              }}
                             />
                           </ClickableImageWrapper>
-                        </AssetCard>
-                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, minHeight: '350px' }}>
+                        </div>
+                        
+                        {/* Cooking Tip - Left Overlapping */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '80px',
+                          left: '30px',
+                          transform: 'rotate(8deg)',
+                          zIndex: 2,
+                          filter: 'drop-shadow(0 12px 20px rgba(0,0,0,0.25))'
+                        }}>
                           <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/cooking_tip.png", 'image')}>
                             <MediaImage 
                               src="/projects_assets/pantreat/screen_shots/cooking_tip.png" 
                               alt="Cooking Tip"
-                              style={{ padding: '1rem', background: 'transparent', maxHeight: '320px', width: '100%' }}
+                              style={{ 
+                                height: '320px', 
+                                width: 'auto', 
+                                borderRadius: '16px',
+                                border: '2px solid rgba(255, 255, 255, 0.9)',
+                                backgroundColor: 'white',
+                                padding: '4px'
+                              }}
                             />
                           </ClickableImageWrapper>
-                        </AssetCard>
-                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, minHeight: '350px' }}>
+                        </div>
+                        
+                        {/* Share Feature - Right Overlapping */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '60px',
+                          right: '20px',
+                          transform: 'rotate(-5deg)',
+                          zIndex: 3,
+                          filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.3))'
+                        }}>
                           <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/share.png", 'image')}>
                             <MediaImage 
                               src="/projects_assets/pantreat/screen_shots/share.png" 
                               alt="Share Feature"
-                              style={{ padding: '1rem', background: 'transparent', maxHeight: '320px', width: '100%' }}
+                              style={{ 
+                                height: '280px', 
+                                width: 'auto', 
+                                borderRadius: '14px',
+                                border: '2px solid rgba(255, 255, 255, 0.95)',
+                                backgroundColor: 'white',
+                                padding: '3px'
+                              }}
                             />
                           </ClickableImageWrapper>
-                        </AssetCard>
+                        </div>
                       </div>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1076,10 +1128,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </FeatureShowcase>
               </ContentSection>
 
-              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+              <BusinessSection style={{ 
+                background: `rgba(${project.colors.primary}, 0.05)`,
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Business Model</SectionTitle>
-                <ContentGrid>
-                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr 1fr', 
+                  gap: '3rem', 
+                  alignItems: 'center',
+                  position: 'relative',
+                  zIndex: 2
+                }}>
+                  <BusinessCard style={{ 
+                    borderColor: `rgba(${project.colors.primary}, 0.2)`,
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    backdropFilter: 'blur(10px)',
+                    zIndex: 3
+                  }}>
                     <BusinessTitle style={{ color: project.colors.accent }}>Revenue Streams</BusinessTitle>
                     <BusinessText>
                       Pantreat is sticky because it integrates into <strong>daily routines</strong>, creating multiple natural revenue streams:
@@ -1094,48 +1162,113 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       <strong>Creator Incentive:</strong> Whenever a user orders groceries linked to a creator's recipe video, that creator gets a cut — encouraging more content and engagement.
                     </BusinessText>
                   </BusinessCard>
-                  <AssetCard
-                    whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
-                  >
+                  
+                  {/* Large Feed Mockup */}
+                  <div style={{ 
+                    position: 'relative',
+                    height: '600px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
                     <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/iphone_app_mockups/feed_mockup.png", 'image')}>
                       <MediaImage 
                         src="/projects_assets/pantreat/iphone_app_mockups/feed_mockup.png" 
                         alt="Feed Mockup"
-                        style={{ padding: '1rem', background: 'transparent' }}
+                        style={{ 
+                          height: '580px', 
+                          width: 'auto',
+                          filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))',
+                          borderRadius: '25px',
+                          border: '4px solid rgba(255, 255, 255, 0.8)',
+                          transform: 'rotate(-3deg)',
+                          transition: 'transform 0.3s ease'
+                        }}
                       />
                     </ClickableImageWrapper>
-                  </AssetCard>
-                </ContentGrid>
+                  </div>
+                </div>
+                
+                {/* Background Pattern */}
+                <div style={{
+                  position: 'absolute',
+                  top: '20%',
+                  right: '-10%',
+                  width: '400px',
+                  height: '400px',
+                  background: `radial-gradient(circle, rgba(${project.colors.primary}, 0.1), transparent)`,
+                  borderRadius: '50%',
+                  zIndex: 1
+                }} />
               </BusinessSection>
 
-              <ContentSection>
+              <ContentSection style={{ 
+                position: 'relative', 
+                background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.08), rgba(${project.colors.secondary}, 0.03))`,
+                borderRadius: '20px',
+                overflow: 'hidden',
+                padding: '4rem'
+              }}>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Conclusion</SectionTitle>
-                <ContentGrid>
-                  <AssetCard
-                    whileHover={{ scale: 1.02 }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
-                  >
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr 1fr', 
+                  gap: '4rem', 
+                  alignItems: 'center',
+                  position: 'relative',
+                  zIndex: 2
+                }}>
+                  {/* Large Conclusion Mockup with Dynamic Positioning */}
+                  <div style={{ 
+                    position: 'relative',
+                    height: '650px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                    {/* Background Phone Shadow */}
+                    <div style={{
+                      position: 'absolute',
+                      width: '300px',
+                      height: '600px',
+                      background: `linear-gradient(145deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderRadius: '35px',
+                      transform: 'rotate(5deg) translateX(20px) translateY(10px)',
+                      filter: 'blur(15px)',
+                      zIndex: 1
+                    }} />
+                    
                     <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/iphone_app_mockups/conclusion.png", 'image')}>
                       <MediaImage 
                         src="/projects_assets/pantreat/iphone_app_mockups/conclusion.png" 
                         alt="Conclusion Mockup"
-                        style={{ padding: '1rem', background: 'transparent' }}
+                        style={{ 
+                          height: '620px', 
+                          width: 'auto',
+                          filter: 'drop-shadow(0 25px 50px rgba(0,0,0,0.4))',
+                          borderRadius: '30px',
+                          border: '5px solid rgba(255, 255, 255, 0.9)',
+                          transform: 'rotate(-2deg)',
+                          transition: 'transform 0.3s ease',
+                          zIndex: 2,
+                          position: 'relative'
+                        }}
                       />
                     </ClickableImageWrapper>
-                  </AssetCard>
-                  <TextBlock>
-                    <SubTitle style={{ color: project.colors.accent }}>Making Cooking Cool Again</SubTitle>
-                    <ContentText>
+                  </div>
+                  
+                  <TextBlock style={{ 
+                    padding: '2rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '16px',
+                    backdropFilter: 'blur(10px)',
+                    border: `2px solid rgba(${project.colors.primary}, 0.1)`
+                  }}>
+                    <SubTitle style={{ color: project.colors.accent, fontSize: '2rem', marginBottom: '1.5rem' }}>Making Cooking Cool Again</SubTitle>
+                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
                       Pantreat combines <strong>AI, community, and short-form content</strong> to remove the friction of cooking, reduce waste, and make the kitchen exciting again.
                     </ContentText>
-                    <ContentText>
+                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '2rem' }}>
                       With tools to organize, motivate, and inspire, Pantreat empowers a new generation to step away from delivery apps and rediscover the joy of home cooking.
                     </ContentText>
                     <ActionButton
@@ -1153,7 +1286,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       Try Pantreat Now
                     </ActionButton>
                   </TextBlock>
-                </ContentGrid>
+                </div>
               </ContentSection>
             </>
           ) : projectId === '2' ? (
