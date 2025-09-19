@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔧 Video Diagnostic Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .success { background: #d4edda; color: #155724; padding: 10px; border-radius: 4px; margin: 5px 0; }
+        .error { background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin: 5px 0; }
+        .warning { background: #fff3cd; color: #856404; padding: 10px; border-radius: 4px; margin: 5px 0; }
+        .console { background: #1e1e1e; color: #00ff00; padding: 15px; font-family: 'Courier New', monospace; height: 400px; overflow-y: auto; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        video { border: 2px solid #ddd; border-radius: 8px; margin: 10px; }
+        .status { font-weight: bold; margin: 10px 0; }
+        code { background: #f8f9fa; padding: 2px 4px; border-radius: 3px; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Video Loading Diagnostic Tool</h1>
+    <p><strong>Purpose:</strong> Comprehensive testing of video file accessibility and loading</p>
+    
+    <div class="container">
+        <h2>🚀 Quick Actions</h2>
+        <button onclick="runFullDiagnostic()">Run Full Diagnostic</button>
+        <button onclick="testVideoFiles()">Test Video Files</button>
+        <button onclick="testDirectLinks()">Test Direct Links</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+    
+    <div class="container">
+        <h2>📊 Test Results</h2>
+        <div id="results"></div>
+    </div>
+    
+    <div class="container">
+        <h2>🎥 Video Tests</h2>
+        <div class="test-grid">
+            <div>
+                <h3>Short Pantreat Interviews</h3>
+                <p><code>projects_assets/pantreat/short_pantreat_interviews.mp4</code></p>
+                <video id="video1" controls width="300" height="169" preload="metadata">
+                    <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+                </video>
+                <div class="status" id="status1">⏳ Ready to test</div>
+            </div>
+            
+            <div>
+                <h3>MyPantry Demo</h3>
+                <p><code>projects_assets/pantreat/demo_videos/MyPantry.mp4</code></p>
+                <video id="video2" controls width="300" height="400" preload="metadata">
+                    <source src="projects_assets/pantreat/demo_videos/MyPantry.mp4" type="video/mp4">
+                </video>
+                <div class="status" id="status2">⏳ Ready to test</div>
+            </div>
+            
+            <div>
+                <h3>Feed Demo</h3>
+                <p><code>projects_assets/pantreat/demo_videos/feed.mp4</code></p>
+                <video id="video3" controls width="300" height="400" preload="metadata">
+                    <source src="projects_assets/pantreat/demo_videos/feed.mp4" type="video/mp4">
+                </video>
+                <div class="status" id="status3">⏳ Ready to test</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>📋 Live Diagnostic Log</h2>
+        <div class="console" id="console">🔧 Diagnostic tool loaded. Click "Run Full Diagnostic" to begin.\n</div>
+    </div>
+
+    <script>
+        const consoleDiv = document.getElementById('console');
+        const resultsDiv = document.getElementById('results');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const icons = { info: '📝', success: '✅', error: '❌', warning: '⚠️' };
+            const icon = icons[type] || '📝';
+            consoleDiv.innerHTML += `[${timestamp}] ${icon} ${message}\n`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(`${icon} ${message}`);
+        }
+        
+        function clearLog() {
+            consoleDiv.innerHTML = '🔧 Log cleared.\n';
+            resultsDiv.innerHTML = '';
+        }
+        
+        function addResult(title, status, details) {
+            const div = document.createElement('div');
+            div.className = status === 'success' ? 'success' : status === 'error' ? 'error' : 'warning';
+            div.innerHTML = `<strong>${title}</strong><br>${details}`;
+            resultsDiv.appendChild(div);
+        }
+        
+        async function testFileAccess(url, name) {
+            log(`Testing file access: ${name}`, 'info');
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    const size = response.headers.get('content-length');
+                    const type = response.headers.get('content-type');
+                    const sizeInfo = size ? `${Math.round(size / 1024 / 1024)}MB` : 'unknown size';
+                    log(`File accessible: ${name} (${sizeInfo}, ${type})`, 'success');
+                    addResult(`✅ ${name}`, 'success', `Size: ${sizeInfo} | Type: ${type} | Status: ${response.status}`);
+                    return { success: true, size: sizeInfo, type };
+                } else {
+                    log(`File not accessible: ${name} - Status ${response.status}`, 'error');
+                    addResult(`❌ ${name}`, 'error', `HTTP ${response.status}: ${response.statusText}`);
+                    return { success: false, error: `HTTP ${response.status}` };
+                }
+            } catch (error) {
+                log(`File access error: ${name} - ${error.message}`, 'error');
+                addResult(`❌ ${name}`, 'error', `Network error: ${error.message}`);
+                return { success: false, error: error.message };
+            }
+        }
+        
+        function setupVideoTest(videoId, statusId, name) {
+            const video = document.getElementById(videoId);
+            const status = document.getElementById(statusId);
+            
+            video.addEventListener('loadstart', () => {
+                log(`${name}: Loading started`, 'info');
+                status.textContent = '🔄 Loading...';
+                status.className = 'status';
+            });
+            
+            video.addEventListener('loadedmetadata', () => {
+                log(`${name}: Metadata loaded - ${video.duration}s, ${video.videoWidth}x${video.videoHeight}`, 'success');
+                status.textContent = `✅ Loaded: ${video.duration.toFixed(1)}s, ${video.videoWidth}x${video.videoHeight}`;
+                status.className = 'status success';
+            });
+            
+            video.addEventListener('canplay', () => {
+                log(`${name}: Ready to play`, 'success');
+                status.textContent += ' - Ready to play';
+            });
+            
+            video.addEventListener('error', (e) => {
+                const error = video.error;
+                const errorCodes = {
+                    1: 'MEDIA_ERR_ABORTED',
+                    2: 'MEDIA_ERR_NETWORK', 
+                    3: 'MEDIA_ERR_DECODE',
+                    4: 'MEDIA_ERR_SRC_NOT_SUPPORTED'
+                };
+                const errorName = errorCodes[error?.code] || 'UNKNOWN_ERROR';
+                log(`${name}: ERROR ${error?.code} - ${errorName}`, 'error');
+                status.textContent = `❌ Error ${error?.code}: ${errorName}`;
+                status.className = 'status error';
+            });
+        }
+        
+        async function testDirectLinks() {
+            log('Testing direct file links...', 'info');
+            const files = [
+                'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                'projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                'projects_assets/pantreat/demo_videos/feed.mp4'
+            ];
+            
+            for (const file of files) {
+                window.open(file, '_blank');
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+        
+        async function testVideoFiles() {
+            log('Testing video file accessibility...', 'info');
+            resultsDiv.innerHTML = '';
+            
+            const tests = [
+                { url: 'projects_assets/pantreat/short_pantreat_interviews.mp4', name: 'Pantreat Interviews' },
+                { url: 'projects_assets/pantreat/demo_videos/MyPantry.mp4', name: 'MyPantry Demo' },
+                { url: 'projects_assets/pantreat/demo_videos/feed.mp4', name: 'Feed Demo' },
+                { url: 'projects_assets/pantreat/app_cover.png', name: 'App Cover (Image Test)' }
+            ];
+            
+            for (const test of tests) {
+                await testFileAccess(test.url, test.name);
+                await new Promise(resolve => setTimeout(resolve, 200));
+            }
+        }
+        
+        async function runFullDiagnostic() {
+            clearLog();
+            log('🚀 Starting full diagnostic...', 'info');
+            log(`🌐 Current URL: ${window.location.href}`, 'info');
+            log(`📍 Origin: ${window.location.origin}`, 'info');
+            log(`🖥️ User Agent: ${navigator.userAgent}`, 'info');
+            
+            // Test browser codec support
+            const video = document.createElement('video');
+            const codecs = [
+                'video/mp4',
+                'video/mp4; codecs="avc1.42E01E"',
+                'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+            ];
+            
+            log('🎬 Testing codec support...', 'info');
+            codecs.forEach(codec => {
+                const support = video.canPlayType(codec);
+                log(`Codec ${codec}: ${support || 'not supported'}`, support ? 'success' : 'warning');
+            });
+            
+            // Test file accessibility
+            await testVideoFiles();
+            
+            log('🏁 Full diagnostic completed', 'info');
+        }
+        
+        // Initialize video tests
+        setupVideoTest('video1', 'status1', 'INTERVIEWS');
+        setupVideoTest('video2', 'status2', 'MYPANTRY');
+        setupVideoTest('video3', 'status3', 'FEED');
+        
+        log('🔧 Video diagnostic tool ready', 'info');
+    </script>
+</body>
+</html>

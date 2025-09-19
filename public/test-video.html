@@ -13,11 +13,14 @@
     <h1>Video Format Compatibility Test</h1>
     
     <div class="test-section">
-        <h2>Test 1: Short Pantreat Interviews (True MP4)</h2>
-        <video controls width="400" height="225" id="video1">
+        <h2>Test 1: Short Pantreat Interviews</h2>
+        <p><strong>File Path:</strong> <code>projects_assets/pantreat/short_pantreat_interviews.mp4</code></p>
+        <video controls width="400" height="225" id="video1" preload="metadata">
             <source src="projects_assets/pantreat/short_pantreat_interviews.mp4" type="video/mp4">
+            Video not supported by browser
         </video>
         <p id="status1">Loading...</p>
+        <button onclick="testDirectAccess('projects_assets/pantreat/short_pantreat_interviews.mp4')">Test Direct Access</button>
     </div>
     
     <div class="test-section">
@@ -116,6 +119,26 @@
         
         log('Video test page loaded');
         log('Browser: ' + navigator.userAgent);
+        
+        // Function to test direct file access
+        async function testDirectAccess(filePath) {
+            log(`Testing direct access to: ${filePath}`);
+            try {
+                const response = await fetch(filePath, { method: 'HEAD' });
+                if (response.ok) {
+                    const size = response.headers.get('content-length');
+                    const type = response.headers.get('content-type');
+                    log(`✅ Direct access SUCCESS: ${filePath} (${Math.round(size/1024/1024)}MB, ${type})`);
+                    
+                    // Try to open in new tab
+                    window.open(filePath, '_blank');
+                } else {
+                    log(`❌ Direct access FAILED: ${filePath} - Status: ${response.status}`);
+                }
+            } catch (error) {
+                log(`❌ Direct access ERROR: ${filePath} - ${error.message}`);
+            }
+        }
     </script>
 </body>
 </html>

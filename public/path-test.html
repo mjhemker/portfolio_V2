@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Path Accessibility Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .console { background: #000; color: #0f0; padding: 15px; font-family: monospace; height: 300px; overflow-y: auto; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🔍 File Path Accessibility Test</h1>
+    <p><strong>Purpose:</strong> Test if video files are accessible via their expected paths</p>
+    
+    <button onclick="testAllPaths()">Test All File Paths</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <div id="results"></div>
+    
+    <h2>Live Console</h2>
+    <div class="console" id="console"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        const consoleDiv = document.getElementById('console');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : type === 'warning' ? '⚠️' : '📝';
+            consoleDiv.innerHTML += `[${timestamp}] ${prefix} ${message}\n`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function clearResults() {
+            resultsDiv.innerHTML = '';
+            consoleDiv.innerHTML = '';
+        }
+        
+        async function testPath(path, description) {
+            log(`Testing: ${path}`, 'info');
+            
+            try {
+                // Test with HEAD request first
+                const headResponse = await fetch(path, { method: 'HEAD' });
+                
+                if (headResponse.ok) {
+                    const contentLength = headResponse.headers.get('content-length');
+                    const contentType = headResponse.headers.get('content-type');
+                    const size = contentLength ? `${Math.round(contentLength / 1024 / 1024)}MB` : 'unknown size';
+                    
+                    log(`✅ HEAD SUCCESS: ${path} (${size}, ${contentType})`, 'success');
+                    
+                    // Test with GET request to see if content is actually accessible
+                    const getResponse = await fetch(path, { method: 'GET' });
+                    if (getResponse.ok) {
+                        log(`✅ GET SUCCESS: ${path} - fully accessible`, 'success');
+                        return { success: true, size, contentType, status: getResponse.status };
+                    } else {
+                        log(`❌ GET FAILED: ${path} - Status: ${getResponse.status}`, 'error');
+                        return { success: false, error: `GET failed with status ${getResponse.status}` };
+                    }
+                } else {
+                    log(`❌ HEAD FAILED: ${path} - Status: ${headResponse.status}`, 'error');
+                    return { success: false, error: `HEAD failed with status ${headResponse.status}` };
+                }
+            } catch (error) {
+                log(`❌ FETCH ERROR: ${path} - ${error.message}`, 'error');
+                return { success: false, error: error.message };
+            }
+        }
+        
+        function displayResult(path, description, result) {
+            const div = document.createElement('div');
+            div.className = `test-result ${result.success ? 'success' : 'error'}`;
+            
+            if (result.success) {
+                div.innerHTML = `
+                    <strong>✅ ${description}</strong><br>
+                    Path: <code>${path}</code><br>
+                    Size: ${result.size} | Type: ${result.contentType} | Status: ${result.status}
+                `;
+            } else {
+                div.innerHTML = `
+                    <strong>❌ ${description}</strong><br>
+                    Path: <code>${path}</code><br>
+                    Error: ${result.error}
+                `;
+            }
+            
+            resultsDiv.appendChild(div);
+        }
+        
+        async function testAllPaths() {
+            clearResults();
+            log('🚀 Starting comprehensive file path test...', 'info');
+            log(`🌐 Current URL: ${window.location.href}`, 'info');
+            log(`📍 Base URL: ${window.location.origin}`, 'info');
+            
+            const testFiles = [
+                {
+                    path: 'projects_assets/pantreat/short_pantreat_interviews.mp4',
+                    description: 'Pantreat Interviews Video'
+                },
+                {
+                    path: 'projects_assets/pantreat/demo_videos/MyPantry.mp4',
+                    description: 'MyPantry Demo Video'
+                },
+                {
+                    path: 'projects_assets/pantreat/demo_videos/feed.mp4',
+                    description: 'Feed Demo Video'
+                },
+                {
+                    path: 'projects_assets/pantreat/app_cover.png',
+                    description: 'App Cover Image (control test)'
+                },
+                {
+                    path: 'projects_assets/pantreat/iphone_app_mockups/feed_mockup.png',
+                    description: 'Feed Mockup Image (control test)'
+                }
+            ];
+            
+            for (const file of testFiles) {
+                const result = await testPath(file.path, file.description);
+                displayResult(file.path, file.description, result);
+                
+                // Small delay between requests
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            log('🏁 File path testing completed', 'info');
+        }
+        
+        // Auto-run test on page load
+        log('📋 File path test page loaded', 'info');
+        log('🔧 Ready to test file accessibility', 'info');
+    </script>
+</body>
+</html>
