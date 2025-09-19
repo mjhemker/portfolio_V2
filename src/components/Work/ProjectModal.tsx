@@ -218,7 +218,7 @@ const MediaImage = styled.img`
   width: 100%;
   height: auto;
   object-fit: contain;
-  max-height: 400px;
+  max-height: 500px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   
@@ -989,31 +989,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem' }}>
+                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, minHeight: '350px' }}>
                           <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/App_preview_Cook.png", 'image')}>
                             <MediaImage 
                               src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
                               alt="Cook Mode"
-                              style={{ padding: '0.5rem', background: 'transparent', maxHeight: '200px' }}
+                              style={{ padding: '1rem', background: 'transparent', maxHeight: '320px', width: '100%' }}
                             />
                           </ClickableImageWrapper>
                         </AssetCard>
-                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, minHeight: '350px' }}>
                           <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/cooking_tip.png", 'image')}>
                             <MediaImage 
                               src="/projects_assets/pantreat/screen_shots/cooking_tip.png" 
                               alt="Cooking Tip"
-                              style={{ padding: '0.5rem', background: 'transparent', maxHeight: '200px' }}
+                              style={{ padding: '1rem', background: 'transparent', maxHeight: '320px', width: '100%' }}
                             />
                           </ClickableImageWrapper>
                         </AssetCard>
-                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                        <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, minHeight: '350px' }}>
                           <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/share.png", 'image')}>
                             <MediaImage 
                               src="/projects_assets/pantreat/screen_shots/share.png" 
                               alt="Share Feature"
-                              style={{ padding: '0.5rem', background: 'transparent', maxHeight: '200px' }}
+                              style={{ padding: '1rem', background: 'transparent', maxHeight: '320px', width: '100%' }}
                             />
                           </ClickableImageWrapper>
                         </AssetCard>
@@ -1101,9 +1101,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/feed_mockup.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/iphone_app_mockups/feed_mockup.png", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/pantreat/screen_shots/feed_mockup.png" 
+                        src="/projects_assets/pantreat/iphone_app_mockups/feed_mockup.png" 
                         alt="Feed Mockup"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />
@@ -1122,9 +1122,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.5 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/conclusion.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/iphone_app_mockups/conclusion.png", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/pantreat/screen_shots/conclusion.png" 
+                        src="/projects_assets/pantreat/iphone_app_mockups/conclusion.png" 
                         alt="Conclusion Mockup"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />

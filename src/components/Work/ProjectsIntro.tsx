@@ -24,6 +24,13 @@ const ScrollIndicator = styled(motion.div)`
   z-index: 20;
   pointer-events: auto;
   cursor: pointer;
+  width: fit-content;
+  justify-content: center;
+  
+  @media (max-width: 768px) {
+    bottom: 1.5rem;
+    font-size: 0.8rem;
+  }
 `;
 
 export const ProjectsIntro: React.FC = () => {
