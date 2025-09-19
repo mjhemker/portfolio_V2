@@ -7,17 +7,39 @@ import Spline from '@splinetool/react-spline';
 const IntroSection = styled(motion.div)`
   position: relative;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SplineContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ScrollIndicator = styled(motion.div)`
   position: absolute;
   bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.9rem;
@@ -25,7 +47,6 @@ const ScrollIndicator = styled(motion.div)`
   pointer-events: auto;
   cursor: pointer;
   width: fit-content;
-  justify-content: center;
   
   @media (max-width: 768px) {
     bottom: 1.5rem;
@@ -58,10 +79,12 @@ export const ProjectsIntro: React.FC = () => {
         opacity
       }}
     >
-      <Spline 
-        scene={`https://prod.spline.design/kqVytWJ5TgSGdTbB/scene.splinecode?t=${Date.now()}`}
-        style={{ width: '100%', height: '100%' }}
-      />
+      <SplineContainer>
+        <Spline 
+          scene={`https://prod.spline.design/kqVytWJ5TgSGdTbB/scene.splinecode?t=${Date.now()}`}
+          style={{ width: '100%', height: '100%' }}
+        />
+      </SplineContainer>
       
       <ScrollIndicator
         initial={{ opacity: 0, y: 20 }}
