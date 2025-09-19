@@ -197,14 +197,12 @@ const SubTitle = styled.h3`
 
 const ContentText = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.base};
-  color: #2d3748;
+  color: ${({ theme }) => theme.colors.text.secondary};
   line-height: 1.7;
   margin-bottom: 1.5rem;
-  font-weight: 400;
   
   strong {
-    color: #1a202c;
-    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `;
 
@@ -355,14 +353,12 @@ const FeatureTitle = styled.h3`
 `;
 
 const FeatureText = styled.p`
-  color: #2d3748;
+  color: ${({ theme }) => theme.colors.text.secondary};
   line-height: 1.6;
   margin-bottom: 1rem;
-  font-weight: 400;
   
   strong {
-    color: #1a202c;
-    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `;
 
@@ -453,13 +449,11 @@ const BusinessTitle = styled.h3`
 `;
 
 const BusinessText = styled.div`
-  color: #2d3748;
+  color: ${({ theme }) => theme.colors.text.secondary};
   line-height: 1.7;
-  font-weight: 400;
   
   strong {
-    color: #1a202c;
-    font-weight: 600;
+    color: ${({ theme }) => theme.colors.text.primary};
   }
 `;
 
@@ -869,15 +863,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               <ContentSection>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Background</SectionTitle>
                 <ContentGrid>
-                  <TextBlock style={{
-                    padding: '2.5rem',
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '16px',
-                    border: `2px solid rgba(${project.colors.primary}, 0.1)`,
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.05)'
-                  }}>
-                    <SubTitle style={{ color: project.colors.accent, fontSize: '1.4rem', marginBottom: '1.5rem' }}>The Problem with Gen Z & Cooking</SubTitle>
-                    <ContentText style={{ fontSize: '1.1rem', color: '#2d3748' }}>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>The Problem with Gen Z & Cooking</SubTitle>
+                    <ContentText>
                       I grew up in a household where cooking was not just a task, but a way to bring people together — 
                       a way to prioritize health as well as the wallet. Sadly, this isn't the case for many younger generations today.
                       Recipes are no longer passed down, and people spend more time in front of a screen than a stove.
@@ -907,19 +895,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       />
                     </ClickableVideoWrapper>
                   </AssetCard>
-                  <TextBlock style={{
-                    padding: '2.5rem',
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '16px',
-                    border: `2px solid rgba(${project.colors.primary}, 0.1)`,
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.05)'
-                  }}>
-                    <SubTitle style={{ color: project.colors.accent, fontSize: '1.4rem', marginBottom: '1.5rem' }}>Research Results</SubTitle>
-                    <ContentText style={{ fontSize: '1.1rem', color: '#2d3748' }}>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Research Results</SubTitle>
+                    <ContentText>
                       I interviewed ~30 students, parents, and young adults from <strong>Baltimore City</strong> and <strong>Stanford</strong>. 
                       Results were surprisingly consistent: <strong>everyone needs help in the kitchen.</strong>
                     </ContentText>
-                    <ContentText style={{ fontSize: '1.1rem', color: '#2d3748' }}>
+                    <ContentText>
                       The three biggest struggles were:
                       <br />1. <strong>Organization</strong>
                       <br />2. <strong>Anxiety</strong>
@@ -1290,18 +1272,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   </div>
                   
                   <TextBlock style={{ 
-                    padding: '3rem',
-                    backgroundColor: 'rgba(255, 255, 255, 0.98)',
-                    borderRadius: '20px',
-                    backdropFilter: 'blur(15px)',
-                    border: `3px solid rgba(${project.colors.primary}, 0.15)`,
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+                    padding: '2rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '16px',
+                    backdropFilter: 'blur(10px)',
+                    border: `2px solid rgba(${project.colors.primary}, 0.1)`
                   }}>
-                    <SubTitle style={{ color: project.colors.accent, fontSize: '2.2rem', marginBottom: '2rem', fontWeight: '700' }}>Making Cooking Cool Again</SubTitle>
-                    <ContentText style={{ fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '2rem', color: '#1a202c' }}>
+                    <SubTitle style={{ color: project.colors.accent, fontSize: '2rem', marginBottom: '1.5rem' }}>Making Cooking Cool Again</SubTitle>
+                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
                       Pantreat combines <strong>AI, community, and short-form content</strong> to remove the friction of cooking, reduce waste, and make the kitchen exciting again.
                     </ContentText>
-                    <ContentText style={{ fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '2.5rem', color: '#1a202c' }}>
+                    <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '2rem' }}>
                       With tools to organize, motivate, and inspire, Pantreat empowers a new generation to step away from delivery apps and rediscover the joy of home cooking.
                     </ContentText>
                     <ActionButton

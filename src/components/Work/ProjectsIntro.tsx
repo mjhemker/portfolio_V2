@@ -11,8 +11,6 @@ const IntroSection = styled(motion.div)`
   overflow: hidden;
   margin: 0;
   padding: 0;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,14 +18,12 @@ const IntroSection = styled(motion.div)`
 
 const SplineContainer = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const ScrollIndicator = styled(motion.div)`
@@ -83,10 +79,7 @@ export const ProjectsIntro: React.FC = () => {
           scene={`https://prod.spline.design/kqVytWJ5TgSGdTbB/scene.splinecode?t=${Date.now()}`}
           style={{ 
             width: '100%', 
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
+            height: '100%'
           }}
         />
       </SplineContainer>
