@@ -498,7 +498,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
   const getProjectData = () => {
     if (projectId === '1') {
       return {
-        logo: "/projects_assets/pantreat/app_cover.png",
+        logo: "projects_assets/pantreat/app_cover.png",
         title: "Pantreat",
         tagline: "Your all-in-one AI-Kitchen assistant that makes cooking cool again. Unlike expensive meal services or smart fridges, all you need is your phone and an appetite.",
         colors: {
@@ -885,11 +885,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <ClickableVideoWrapper onClick={() => {
-                      handleVideoClick('/projects_assets/pantreat/demo_videos/short_pantreat_interviews.mp4');
-                      handleMediaClick('/projects_assets/pantreat/demo_videos/short_pantreat_interviews.mp4', 'video');
+                      handleVideoClick('projects_assets/pantreat/short_pantreat_interviews.mp4');
+                      handleMediaClick('projects_assets/pantreat/short_pantreat_interviews.mp4', 'video');
                     }}>
                       <VideoPlayer
-                        src="/projects_assets/pantreat/demo_videos/short_pantreat_interviews.mp4"
+                        src="projects_assets/pantreat/short_pantreat_interviews.mp4"
                         controls
                         style={{ maxHeight: '300px' }}
                       />
@@ -926,7 +926,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         Cooking is hard — and cooking consistently is even harder. Plans change, value packs pile up, and suddenly you're staring at a fridge full of half-used produce and forgotten sauces. On average, Americans throw away <strong>20% of their groceries.</strong>
                       </FeatureText>
                       <FeatureText style={{ marginTop: '1rem' }}>
-                        Pantreat helps by:
+                        <strong>Pantreat helps...</strong>
                         <br />• Helping you make meals with what you already have
                         <br />• Keeping you accountable and organized with reminders for expiration dates
                         <br />• Suggesting daily, personalized meals based on your schedule and dietary preferences
@@ -935,16 +935,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <ClickableVideoWrapper onClick={() => {
-                        handleVideoClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4');
-                        handleMediaClick('/projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
+                        handleVideoClick('projects_assets/pantreat/demo_videos/MyPantry.mp4');
+                        handleMediaClick('projects_assets/pantreat/demo_videos/MyPantry.mp4', 'video');
                       }}>
                         <VideoPlayer
-                          src="/projects_assets/pantreat/demo_videos/MyPantry.mp4"
+                          src="projects_assets/pantreat/demo_videos/MyPantry.mp4"
                           muted loop playsInline
                           style={{ maxHeight: '300px' }}
                           ref={(video) => {
                             if (video) {
-                              if (playingVideo === '/projects_assets/pantreat/demo_videos/MyPantry.mp4') {
+                              if (playingVideo === 'projects_assets/pantreat/demo_videos/MyPantry.mp4') {
                                 video.play();
                               } else {
                                 video.pause();
@@ -953,7 +953,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           }}
                         />
                         <AnimatePresence>
-                          {playingVideo !== '/projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
+                          {playingVideo !== 'projects_assets/pantreat/demo_videos/MyPantry.mp4' && (
                             <PlayButton
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}
@@ -1006,9 +1006,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           zIndex: 1,
                           filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.2))'
                         }}>
-                          <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/App_preview_Cook.png", 'image')}>
+                          <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/App_preview_Cook.png", 'image')}>
                             <MediaImage 
-                              src="/projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
+                              src="projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
                               alt="Cook Mode"
                               style={{ 
                                 height: '400px', 
@@ -1029,9 +1029,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           zIndex: 2,
                           filter: 'drop-shadow(0 12px 20px rgba(0,0,0,0.25))'
                         }}>
-                          <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/cooking_tip.png", 'image')}>
+                          <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/cooking_tip.png", 'image')}>
                             <MediaImage 
-                              src="/projects_assets/pantreat/screen_shots/cooking_tip.png" 
+                              src="projects_assets/pantreat/screen_shots/cooking_tip.png" 
                               alt="Cooking Tip"
                               style={{ 
                                 height: '320px', 
@@ -1054,9 +1054,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           zIndex: 3,
                           filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.3))'
                         }}>
-                          <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pantreat/screen_shots/share.png", 'image')}>
+                          <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/share.png", 'image')}>
                             <MediaImage 
-                              src="/projects_assets/pantreat/screen_shots/share.png" 
+                              src="projects_assets/pantreat/screen_shots/share.png" 
                               alt="Share Feature"
                               style={{ 
                                 height: '280px', 
@@ -1092,16 +1092,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <ClickableVideoWrapper onClick={() => {
-                        handleVideoClick('/projects_assets/pantreat/demo_videos/feed.mp4');
-                        handleMediaClick('/projects_assets/pantreat/demo_videos/feed.mp4', 'video');
+                        handleVideoClick('projects_assets/pantreat/demo_videos/feed.mp4');
+                        handleMediaClick('projects_assets/pantreat/demo_videos/feed.mp4', 'video');
                       }}>
                         <VideoPlayer
-                          src="/projects_assets/pantreat/demo_videos/feed.mp4"
+                          src="projects_assets/pantreat/demo_videos/feed.mp4"
                           muted loop playsInline
                           style={{ maxHeight: '300px' }}
                           ref={(video) => {
                             if (video) {
-                              if (playingVideo === '/projects_assets/pantreat/demo_videos/feed.mp4') {
+                              if (playingVideo === 'projects_assets/pantreat/demo_videos/feed.mp4') {
                                 video.play();
                               } else {
                                 video.pause();
@@ -1110,7 +1110,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                           }}
                         />
                         <AnimatePresence>
-                          {playingVideo !== '/projects_assets/pantreat/demo_videos/feed.mp4' && (
+                          {playingVideo !== 'projects_assets/pantreat/demo_videos/feed.mp4' && (
                             <PlayButton
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}
