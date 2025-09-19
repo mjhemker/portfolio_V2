@@ -252,27 +252,6 @@ const ClickableImageWrapper = styled.div`
   }
 `;
 
-const ClickableVideoWrapper = styled(VideoWrapper)`
-  &::after {
-    content: '🔍 Click to enlarge';
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-    z-index: 10;
-  }
-  
-  &:hover::after {
-    opacity: 1;
-  }
-`;
 
 const MediaOverlay = styled(motion.div)`
   position: fixed;
@@ -308,7 +287,7 @@ const EnlargedVideo = styled.video`
   border-radius: 8px;
 `;
 
-const CloseButton = styled.button`
+const ModalCloseButton = styled.button`
   position: absolute;
   top: -40px;
   right: 0;
@@ -425,6 +404,28 @@ const VideoWrapper = styled.div`
   cursor: pointer;
   border-radius: ${({ theme }) => theme.borderRadius.md};
   overflow: hidden;
+`;
+
+const ClickableVideoWrapper = styled(VideoWrapper)`
+  &::after {
+    content: '🔍 Click to enlarge';
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
 `;
 
 const BusinessSection = styled.div`
@@ -964,7 +965,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                             </PlayButton>
                           )}
                         </AnimatePresence>
-                      </VideoWrapper>
+                      </ClickableVideoWrapper>
                     </FeatureMedia>
                   </FeatureBlock>
 
@@ -2374,9 +2375,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
             exit={{ scale: 0.8 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <CloseButton onClick={handleCloseEnlarged}>
+            <ModalCloseButton onClick={handleCloseEnlarged}>
               ×
-            </CloseButton>
+            </ModalCloseButton>
             {enlargedMedia.type === 'image' ? (
               <EnlargedImage src={enlargedMedia.src} alt="Enlarged view" />
             ) : (
