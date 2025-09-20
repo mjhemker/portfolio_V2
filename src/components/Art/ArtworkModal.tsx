@@ -17,7 +17,7 @@ interface ArtworkModalProps {
 const ModalContent = styled.div`
   display: flex;
   max-width: 90vw;
-  max-height: 88vh;
+  max-height: 90vh;
   background: #ffffff;
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   overflow: hidden;
@@ -26,7 +26,7 @@ const ModalContent = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     max-width: 95vw;
-    max-height: 92vh;
+    max-height: 95vh;
   }
 `;
 
@@ -64,7 +64,8 @@ const InfoSection = styled.div`
   min-width: 300px;
   background: #ffffff;
   overflow-y: auto;
-  height: 100%;
+  min-height: 0;
+  flex-basis: 0;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -87,7 +88,8 @@ const InfoSection = styled.div`
   @media (max-width: 768px) {
     padding: 1.5rem;
     min-width: unset;
-    height: 100%;
+    min-height: 0;
+    flex-basis: 0;
   }
 `;
 
