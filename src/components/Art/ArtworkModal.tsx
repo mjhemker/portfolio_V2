@@ -64,7 +64,7 @@ const InfoSection = styled.div`
   min-width: 300px;
   background: #ffffff;
   overflow-y: auto;
-  max-height: 90vh;
+  max-height: 80vh;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -82,7 +82,7 @@ const InfoSection = styled.div`
   @media (max-width: 768px) {
     padding: 1.5rem;
     min-width: unset;
-    max-height: 60vh;
+    max-height: 70vh;
   }
 `;
 
@@ -217,12 +217,6 @@ const VideoTitle = styled.h3`
   text-align: center;
   position: relative;
   
-  &::after {
-    content: '🎨';
-    margin-left: 0.5rem;
-    font-size: 1.2em;
-  }
-  
   &::before {
     content: '';
     position: absolute;
@@ -250,29 +244,6 @@ const VideoContainer = styled.div`
       height: 444px !important;
     }
   }
-  
-  /* Styles for Vimeo embed container */
-  > div {
-    width: 300px;
-    max-width: 300px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(147, 51, 234, 0.2);
-    border: 2px solid rgba(147, 51, 234, 0.1);
-    transition: all 0.3s ease;
-    background: #000;
-    
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 50px rgba(147, 51, 234, 0.3);
-      border-color: rgba(147, 51, 234, 0.3);
-    }
-    
-    @media (max-width: 768px) {
-      width: 250px;
-      max-width: 250px;
-    }
-  }
 `;
 
 
@@ -293,7 +264,10 @@ const getVimeoIdForArtwork = (title: string): string | null => {
     "Sage": "1120329118",
     "The Bat and the Cat": "1120329125",
     "Commander": "1120329090",
-    "Mia": "1120329105"
+    "Mia": "1120329105",
+    // 2025 Art Videos
+    "If This World Were Mine": "1120335792",
+    "Dancers Dance": "1120335781"
   };
   return vimeoMapping[title] || null;
 };
@@ -379,20 +353,30 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
               </div>
               <VideoContainer>
                 {vimeoId ? (
-                  <VimeoEmbed
-                    videoId={vimeoId}
-                    aspectRatio="177.78%"
-                    autoplay={true}
-                    muted={true}
-                    showTitle={false}
-                    showByline={false}
-                    showPortrait={false}
-                    showBadge={false}
-                    style={{
-                      borderRadius: '8px',
-                      overflow: 'hidden'
-                    }}
-                  />
+                  <div style={{
+                    width: '300px',
+                    maxWidth: '300px',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                    boxShadow: '0 12px 40px rgba(147, 51, 234, 0.2)',
+                    border: '2px solid rgba(147, 51, 234, 0.1)',
+                    transition: 'all 0.3s ease',
+                    background: '#000'
+                  }}>
+                    <VimeoEmbed
+                      videoId={vimeoId}
+                      aspectRatio="177.78%"
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                      style={{
+                        borderRadius: '8px'
+                      }}
+                    />
+                  </div>
                 ) : (
                   <div style={{ 
                     borderRadius: '12px',
