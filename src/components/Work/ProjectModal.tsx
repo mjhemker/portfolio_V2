@@ -827,7 +827,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <VimeoEmbed
-                      videoId="1120311134"
+                      videoId="1120323416"
                       title="Pantreat Interviews"
                       style={{ maxHeight: '300px' }}
                       showTitle={false}
@@ -880,7 +880,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         title="MyPantry"
                         aspectRatio="217.41%"
                         style={{ maxHeight: '300px' }}
-                        autoplay={false}
+                        autoplay={true}
                         muted={true}
                         showTitle={false}
                         showByline={false}
@@ -1013,7 +1013,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         title="Pantreat Feed"
                         aspectRatio="217.41%"
                         style={{ maxHeight: '300px' }}
-                        autoplay={false}
+                        autoplay={true}
                         muted={true}
                         showTitle={false}
                         showByline={false}

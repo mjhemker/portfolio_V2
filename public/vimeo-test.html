@@ -77,10 +77,10 @@
         <h2>📊 Video Summary</h2>
         <div class="video-info">
             <strong>Videos Replaced:</strong><br>
-            ✅ short_pantreat_interviews.mp4 → Vimeo ID: 1120311134 (16:9)<br>
-            ✅ feed.mp4 → Vimeo ID: 1120311253 (9:16 vertical)<br>
-            ✅ MyPantry.mp4 → Vimeo ID: 1120311272 (9:16 vertical)<br>
-            ✅ recipes.mp4 → Vimeo ID: 1120311281 (9:16 vertical)<br><br>
+            ✅ short_pantreat_interviews.mp4 → Vimeo ID: 1120323416 (16:9) - Manual play<br>
+            ✅ feed.mp4 → Vimeo ID: 1120311253 (9:16 vertical) - Autoplay<br>
+            ✅ MyPantry.mp4 → Vimeo ID: 1120311272 (9:16 vertical) - Autoplay<br>
+            ✅ recipes.mp4 → Vimeo ID: 1120311281 (9:16 vertical) - Autoplay<br><br>
             <strong>Benefits:</strong><br>
             • No file size limits<br>
             • Professional video streaming<br>
@@ -95,17 +95,17 @@
         <div class="test-section">
             <h2>🎤 Pantreat Interviews</h2>
             <div class="video-info">
-                Video ID: 1120311134<br>
+                Video ID: 1120323416<br>
                 Aspect Ratio: 16:9 (56.25%)<br>
                 Original: short_pantreat_interviews.mp4 (79MB)
             </div>
             <div class="video-container">
                 <div class="aspect-ratio-container aspect-ratio-16-9">
                     <iframe 
-                        src="https://player.vimeo.com/video/1120311134?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        src="https://player.vimeo.com/video/1120323416?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin"
-                        title="Pantreat Interviews">
+                        title="Pantreat Interviews Compressed">
                     </iframe>
                 </div>
             </div>
@@ -122,7 +122,7 @@
             <div class="video-container">
                 <div class="aspect-ratio-container aspect-ratio-9-16">
                     <iframe 
-                        src="https://player.vimeo.com/video/1120311253?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        src="https://player.vimeo.com/video/1120311253?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin"
                         title="Feed Demo">
@@ -142,7 +142,7 @@
             <div class="video-container">
                 <div class="aspect-ratio-container aspect-ratio-9-16">
                     <iframe 
-                        src="https://player.vimeo.com/video/1120311272?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        src="https://player.vimeo.com/video/1120311272?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin"
                         title="MyPantry Demo">
@@ -162,7 +162,7 @@
             <div class="video-container">
                 <div class="aspect-ratio-container aspect-ratio-9-16">
                     <iframe 
-                        src="https://player.vimeo.com/video/1120311281?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                        src="https://player.vimeo.com/video/1120311281?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
                         referrerpolicy="strict-origin-when-cross-origin"
                         title="Recipes Demo">
@@ -180,7 +180,8 @@
             • Created reusable VimeoEmbed React component<br>
             • Added Vimeo player script to index.html<br>
             • Cleaned up unused video player code<br>
-            • Maintained responsive design with proper aspect ratios<br><br>
+            • Maintained responsive design with proper aspect ratios<br>
+            • Enabled autoplay for demo videos (except interviews)<br><br>
             
             <strong>Testing Checklist:</strong><br>
             ✅ Videos load without 'undefined' errors<br>
