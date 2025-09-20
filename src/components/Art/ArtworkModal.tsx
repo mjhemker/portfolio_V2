@@ -215,6 +215,17 @@ const VideoContainer = styled.div`
       height: 444px !important;
     }
   }
+  
+  /* Styles for Vimeo embed container */
+  > div {
+    width: 300px;
+    max-width: 300px;
+    
+    @media (max-width: 768px) {
+      width: 250px;
+      max-width: 250px;
+    }
+  }
 `;
 
 
@@ -311,7 +322,6 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
                     showByline={false}
                     showPortrait={false}
                     showBadge={false}
-                    style={{ maxHeight: '533px' }}
                   />
                 ) : (
                   <div style={{ 
