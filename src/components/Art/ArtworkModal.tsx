@@ -189,16 +189,51 @@ const RightNavButton = styled(ImageNavButton)`
 `;
 
 const ProcessVideoSection = styled.div`
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #dee2e6;
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 16px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #9333ea, #7c3aed, #6366f1);
+  }
 `;
 
 const VideoTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: #212529;
-  margin-bottom: 1rem;
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
+  color: #9333ea;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '🎨';
+    margin-left: 0.5rem;
+    font-size: 1.2em;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #9333ea, #7c3aed);
+    border-radius: 2px;
+  }
 `;
 
 const VideoContainer = styled.div`
@@ -220,6 +255,18 @@ const VideoContainer = styled.div`
   > div {
     width: 300px;
     max-width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(147, 51, 234, 0.2);
+    border: 2px solid rgba(147, 51, 234, 0.1);
+    transition: all 0.3s ease;
+    background: #000;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(147, 51, 234, 0.3);
+      border-color: rgba(147, 51, 234, 0.3);
+    }
     
     @media (max-width: 768px) {
       width: 250px;
@@ -231,12 +278,22 @@ const VideoContainer = styled.div`
 
 const getVimeoIdForArtwork = (title: string): string | null => {
   const vimeoMapping: Record<string, string> = {
+    // 2023 Art Videos
     "Bingo and Meow-Meow": "1120327909",
     "Duality": "1120327914", 
     "New": "1120327919",
     "Rusty": "1120327924",
     "The Campfire": "1120327933",
-    "You Look Lonely, I Can Fix That": "1120327961"
+    "You Look Lonely, I Can Fix That": "1120327961",
+    // 2024 Art Videos
+    "Keeda": "1120329097",
+    "Little Red": "1120329109",
+    "We're All Chasing The Red Cape": "1120329145",
+    "Walk Down Memory Lane": "1120329134",
+    "Sage": "1120329118",
+    "The Bat and the Cat": "1120329125",
+    "Commander": "1120329090",
+    "Mia": "1120329105"
   };
   return vimeoMapping[title] || null;
 };
@@ -311,6 +368,15 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
           {(artwork.processVideo || vimeoId) && (
             <ProcessVideoSection>
               <VideoTitle>Painting Process</VideoTitle>
+              <div style={{
+                textAlign: 'center',
+                color: '#6c757d',
+                fontSize: '14px',
+                marginBottom: '1.5rem',
+                fontStyle: 'italic'
+              }}>
+                Watch the artistic journey from blank canvas to finished masterpiece
+              </div>
               <VideoContainer>
                 {vimeoId ? (
                   <VimeoEmbed
@@ -322,6 +388,10 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
                     showByline={false}
                     showPortrait={false}
                     showBadge={false}
+                    style={{
+                      borderRadius: '8px',
+                      overflow: 'hidden'
+                    }}
                   />
                 ) : (
                   <div style={{ 
