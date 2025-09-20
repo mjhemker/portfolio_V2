@@ -286,7 +286,7 @@ export const ArtTab: React.FC = () => {
             <ArtTitle>Art Gallery</ArtTitle>
             <ArtSubtitle>
               A curated collection of my artistic works exploring various mediums and themes, 
-              from digital paintings to traditional canvas works.
+              from oil painting commissions to live pen drawings.
             </ArtSubtitle>
           </ArtHeader>
 
