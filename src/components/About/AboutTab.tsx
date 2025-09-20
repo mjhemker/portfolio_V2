@@ -100,6 +100,7 @@ const ImageSection = styled(motion.div)`
 
   @media (max-width: 768px) {
     height: 400px;
+    overflow: hidden;
   }
 `;
 
@@ -110,6 +111,12 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    width: 100vw;
+    max-width: 100%;
+    overflow: hidden;
+  }
 `;
 
 const AboutTitle = styled.h1`
@@ -234,8 +241,17 @@ const PortraitImage = styled(motion.img)<{
   }
 
   @media (max-width: 768px) {
-    width: calc(${({ $size }) => $size} * 0.8);
-    height: calc(${({ $size }) => $size} * 0.8);
+    width: calc(${({ $size }) => $size} * 0.6);
+    height: calc(${({ $size }) => $size} * 0.6);
+    max-width: 280px;
+    max-height: 280px;
+  }
+  
+  @media (max-width: 480px) {
+    width: calc(${({ $size }) => $size} * 0.5);
+    height: calc(${({ $size }) => $size} * 0.5);
+    max-width: 220px;
+    max-height: 220px;
   }
 `;
 

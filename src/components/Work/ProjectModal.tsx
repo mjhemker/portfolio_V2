@@ -780,7 +780,24 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               {project.tagline}
             </ProjectTagline>
             
-            {projectId !== '7' && (
+            {projectId === '1' && (
+              <ActionButtons>
+                <ActionButton
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => window.open(project.siteUrl, '_blank')}
+                  style={{
+                    background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                    borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                    color: project.colors.accent
+                  }}
+                >
+                  <ExternalLink size={20} />
+                  Visit {project.title}
+                </ActionButton>
+              </ActionButtons>
+            )}
+            {projectId === '2' && (
               <ActionButtons>
                 <ActionButton
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -1225,11 +1242,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/inkd/INKD_Home_page.png" 
-                      alt="INKD Home"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_Home_page.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/inkd/INKD_Home_page.png" 
+                        alt="INKD Home"
+                        style={{ padding: '1rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                 </ContentGrid>
               </ContentSection>
@@ -1255,11 +1274,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/inkd/INKD_Local_page.png" 
-                          alt="Local Discovery"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_Local_page.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/inkd/INKD_Local_page.png" 
+                            alt="Local Discovery"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1282,11 +1303,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/inkd/INKD_3_profile_tabs.png" 
-                          alt="Artist Profile"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_3_profile_tabs.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/inkd/INKD_3_profile_tabs.png" 
+                            alt="Artist Profile"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1315,11 +1338,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/inkd/INKD_onboarding_page.png" 
-                      alt="Onboarding"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_onboarding_page.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/inkd/INKD_onboarding_page.png" 
+                        alt="Onboarding"
+                        style={{ padding: '1rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                 </ContentGrid>
               </BusinessSection>
@@ -1554,11 +1579,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/pocketpeople/pocketpeople_profile.png" 
-                      alt="PocketPeople Profile"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_profile.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/pocketpeople/pocketpeople_profile.png" 
+                        alt="PocketPeople Profile"
+                        style={{ padding: '1rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                 </ContentGrid>
               </ContentSection>
@@ -1573,11 +1600,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.3 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/pocketpeople/pocketpeople_original_plan.png" 
-                      alt="Original Plan"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_original_plan.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/pocketpeople/pocketpeople_original_plan.png" 
+                        alt="Original Plan"
+                        style={{ padding: '1rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                   <TextBlock>
                     <SubTitle style={{ color: project.colors.accent }}>Digital Deck of Cards for Relationships</SubTitle>
@@ -1611,11 +1640,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/pocketpeople/pocketpeople_adding.png" 
-                          alt="Adding People Feature"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_adding.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/pocketpeople/pocketpeople_adding.png" 
+                            alt="Adding People Feature"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1635,11 +1666,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/pocketpeople/pocketpeople_memory.png" 
-                          alt="Memory Games Feature"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_memory.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/pocketpeople/pocketpeople_memory.png" 
+                            alt="Memory Games Feature"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1659,11 +1692,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <MediaImage 
-                          src="/projects_assets/pocketpeople/pocketpeople_home.png" 
-                          alt="Home Screen"
-                          style={{ padding: '1rem', background: 'transparent' }}
-                        />
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_home.png", 'image')}>
+                          <MediaImage 
+                            src="/projects_assets/pocketpeople/pocketpeople_home.png" 
+                            alt="Home Screen"
+                            style={{ padding: '1rem', background: 'transparent' }}
+                          />
+                        </ClickableImageWrapper>
                       </AssetCard>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1696,11 +1731,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <MediaImage 
-                      src="/projects_assets/pocketpeople/process_character_sheet.png" 
-                      alt="Character Design Process"
-                      style={{ padding: '1rem', background: 'transparent' }}
-                    />
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/process_character_sheet.png", 'image')}>
+                      <MediaImage 
+                        src="/projects_assets/pocketpeople/process_character_sheet.png" 
+                        alt="Character Design Process"
+                        style={{ padding: '1rem', background: 'transparent' }}
+                      />
+                    </ClickableImageWrapper>
                   </AssetCard>
                 </ContentGrid>
               </BusinessSection>
@@ -2044,9 +2081,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/neefinding_post-its.jpeg", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/make_a_note_take_a_note/neefinding_post-its.jpeg" 
+                        src="/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg" 
                         alt="Need Finding Post-its"
                         style={{ padding: '0.5rem', background: 'transparent' }}
                       />
@@ -2153,13 +2190,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
 
               <ContentSection>
                 <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Final Product</SectionTitle>
-                <ContentGrid>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
                   <AssetCard
                     whileHover={{ scale: 1.02 }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, maxWidth: '500px' }}
                   >
                     <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/final_display1.jpeg", 'image')}>
                       <MediaImage 
@@ -2169,7 +2206,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       />
                     </ClickableImageWrapper>
                   </AssetCard>
-                </ContentGrid>
+                </div>
               </ContentSection>
 
               <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>

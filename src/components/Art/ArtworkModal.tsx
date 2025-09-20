@@ -26,7 +26,8 @@ const ModalContent = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     max-width: 95vw;
-    max-height: 95vh;
+    max-height: 90vh;
+    overflow: hidden;
   }
 `;
 
@@ -40,7 +41,8 @@ const ImageSection = styled.div`
   min-height: 400px;
 
   @media (max-width: 768px) {
-    min-height: 300px;
+    min-height: 250px;
+    flex: 1;
   }
 `;
 
@@ -69,6 +71,9 @@ const InfoSection = styled.div`
     padding: 1rem;
     min-width: unset;
     gap: 0.75rem;
+    overflow-y: auto;
+    max-height: 60vh;
+    -webkit-overflow-scrolling: touch;
   }
 `;
 

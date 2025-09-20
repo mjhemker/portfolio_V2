@@ -27,6 +27,13 @@ const SplineContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @media (max-width: 768px) {
+    left: 0;
+    right: 0;
+    width: 100%;
+    transform: translateX(0);
+  }
 `;
 
 const ScrollIndicator = styled(motion.div)`
@@ -83,7 +90,7 @@ export const ProjectsIntro: React.FC = () => {
           style={{ 
             width: '100%', 
             height: '100%',
-            transform: 'translateX(2%)'
+            transform: window.innerWidth <= 768 ? 'translateX(0) scale(0.9)' : 'translateX(2%)'
           }}
         />
       </SplineContainer>

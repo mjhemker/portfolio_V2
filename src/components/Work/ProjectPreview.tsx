@@ -60,7 +60,7 @@ const PreviewCard = styled(motion.div)`
   }
 
   @media (max-width: 768px) {
-    height: 400px;
+    height: 480px;
     border-radius: ${({ theme }) => theme.borderRadius.lg};
     
     &:hover::before {
@@ -182,6 +182,13 @@ const ProjectActions = styled.div`
   padding: 2rem;
   position: relative;
   z-index: 3;
+  margin-top: auto;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    gap: 0.75rem;
+    flex-direction: column;
+  }
 `;
 
 const ActionButton = styled(motion.button)`
@@ -201,6 +208,12 @@ const ActionButton = styled(motion.button)`
   box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
   position: relative;
   overflow: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem 1.5rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.sm};
+    min-height: 48px;
+  }
   
   &::before {
     content: '';
@@ -249,6 +262,11 @@ const ProjectDescription = styled.p`
   margin: 0;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
+    line-height: 1.5;
+  }
 `;
 
 
