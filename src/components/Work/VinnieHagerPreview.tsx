@@ -292,18 +292,6 @@ export const VinnieHagerPreview: React.FC<VinnieHagerPreviewProps> = ({ onProjec
           <ArrowRight size={20} />
           Learn More
         </SecondaryActionButton>
-        <ActionButton
-          as={motion.button}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={(e) => {
-            e.stopPropagation();
-            window.open("https://example.com", '_blank');
-          }}
-        >
-          <ExternalLink size={20} />
-          View Project
-        </ActionButton>
       </ProjectActions>
     </PreviewCard>
   );

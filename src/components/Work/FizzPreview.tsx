@@ -292,18 +292,6 @@ export const FizzPreview: React.FC<FizzPreviewProps> = ({ onProjectClick }) => {
           <ArrowRight size={20} />
           Learn More
         </SecondaryActionButton>
-        <ActionButton
-          as={motion.button}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={(e) => {
-            e.stopPropagation();
-            window.open("https://example.com", '_blank');
-          }}
-        >
-          <ExternalLink size={20} />
-          View Design
-        </ActionButton>
       </ProjectActions>
     </PreviewCard>
   );
