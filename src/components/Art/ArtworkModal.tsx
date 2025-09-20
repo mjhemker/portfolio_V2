@@ -57,64 +57,45 @@ const ArtworkImage = styled(motion.img)`
 
 const InfoSection = styled.div`
   flex: 1;
-  padding: 2rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  min-width: 300px;
+  gap: 1rem;
+  min-width: 350px;
   background: #ffffff;
-  overflow-y: auto;
-  min-height: 0;
-  flex-basis: 0;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 4px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    background: #9333ea;
-    border-radius: 4px;
-    
-    &:hover {
-      background: #7c3aed;
-    }
-  }
+  overflow: visible;
 
   @media (max-width: 768px) {
-    padding: 1.5rem;
+    padding: 1rem;
     min-width: unset;
-    min-height: 0;
-    flex-basis: 0;
+    gap: 0.75rem;
   }
 `;
 
 const ArtworkTitle = styled.h2`
-  font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: #212529;
   margin: 0;
+  line-height: 1.2;
 
   @media (max-width: 768px) {
-    font-size: ${({ theme }) => theme.typography.fontSize.xl};
+    font-size: ${({ theme }) => theme.typography.fontSize.lg};
   }
 `;
 
 const ArtworkMeta = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 `;
 
 const MetaItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  padding: 0.125rem 0;
 `;
 
 const MetaLabel = styled.span`
@@ -127,20 +108,20 @@ const MetaValue = styled.span`
 `;
 
 const ArtworkDescription = styled.div`
-  flex: 1;
+  flex-shrink: 0;
 `;
 
 const DescriptionTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: #212529;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 `;
 
 const DescriptionText = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
   color: #6c757d;
-  line-height: 1.6;
+  line-height: 1.4;
   margin: 0;
 `;
 
@@ -148,8 +129,9 @@ const NavigationButtons = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: 0.75rem;
   border-top: 1px solid #dee2e6;
+  margin-top: auto;
 `;
 
 const NavButton = styled(Button)`
@@ -196,12 +178,12 @@ const RightNavButton = styled(ImageNavButton)`
 `;
 
 const ProcessVideoSection = styled.div`
-  margin-top: 2rem;
-  padding: 2rem;
+  margin-top: 1rem;
+  padding: 1rem;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #dee2e6;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
   
@@ -211,29 +193,29 @@ const ProcessVideoSection = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 2px;
     background: linear-gradient(90deg, #9333ea, #7c3aed, #6366f1);
   }
 `;
 
 const VideoTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: #9333ea;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   position: relative;
   
   &::before {
     content: '';
     position: absolute;
-    bottom: -0.5rem;
+    bottom: -0.25rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 2px;
+    width: 40px;
+    height: 1px;
     background: linear-gradient(90deg, #9333ea, #7c3aed);
-    border-radius: 2px;
+    border-radius: 1px;
   }
 `;
 
@@ -243,12 +225,12 @@ const VideoContainer = styled.div`
   width: 100%;
   
   video {
-    width: 300px !important;
-    height: 533px !important;
+    width: 200px !important;
+    height: 356px !important;
     
     @media (max-width: 768px) {
-      width: 250px !important;
-      height: 444px !important;
+      width: 180px !important;
+      height: 320px !important;
     }
   }
 `;
@@ -352,20 +334,20 @@ export const ArtworkModal: React.FC<ArtworkModalProps> = ({
               <div style={{
                 textAlign: 'center',
                 color: '#6c757d',
-                fontSize: '14px',
-                marginBottom: '1.5rem',
+                fontSize: '12px',
+                marginBottom: '0.75rem',
                 fontStyle: 'italic'
               }}>
-                Watch the artistic journey from blank canvas to finished masterpiece
+                Watch the artistic process
               </div>
               <VideoContainer>
                 {vimeoId ? (
                   <div style={{
-                    width: '300px',
-                    maxWidth: '300px',
-                    borderRadius: '12px',
+                    width: '200px',
+                    maxWidth: '200px',
+                    borderRadius: '8px',
                     overflow: 'hidden',
-                    boxShadow: '0 12px 40px rgba(147, 51, 234, 0.2)',
+                    boxShadow: '0 8px 24px rgba(147, 51, 234, 0.15)',
                     border: '2px solid rgba(147, 51, 234, 0.1)',
                     transition: 'all 0.3s ease',
                     background: '#000'
