@@ -725,6 +725,35 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
+    } else if (projectId === '9') {
+      return {
+        logo: "/projects_assets/art_2023/art_icon.jpg",
+        title: "2023 Art Collection",
+        tagline: "A collection of creative video pieces exploring themes of connection, identity, and human experience through experimental visual storytelling.",
+        colors: {
+          primary: "147, 51, 234",
+          secondary: "99, 102, 241", 
+          accent: "#9333ea"
+        },
+        siteUrl: "",
+        technologies: ["Video Art", "Experimental Film", "Visual Storytelling", "Creative Direction", "Sound Design", "Digital Media"],
+        content: {
+          sections: [
+            {
+              title: "Creative Video Collection",
+              subtitle: "Experimental narratives and visual exploration",
+              text: "This collection represents a year of creative exploration through video art, examining themes of connection, solitude, identity, and the human experience. Each piece employs different visual and narrative techniques to create intimate, thought-provoking moments.",
+              image: "/projects_assets/art_2023/art_icon.jpg",
+              features: [
+                "Six distinct video art pieces",
+                "Experimental visual storytelling",
+                "Exploration of human themes and emotions",
+                "Creative sound design and visual composition"
+              ]
+            }
+          ]
+        }
+      };
     }
     return null;
   };
@@ -2264,72 +2293,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     boxShadow: `0 20px 40px rgba(${project.colors.primary}, 0.3)`,
                     border: `2px solid rgba(${project.colors.primary}, 0.2)`
                   }}>
-                    <video 
-                      controls 
-                      width="100%" 
-                      height="400"
-                      style={{ 
-                        width: '100%', 
-                        height: '400px',
-                        backgroundColor: '#000',
-                        borderRadius: '8px'
-                      }}
-                      playsInline
-                      onLoadStart={() => {
-                        console.log(`🔄 [VIDEO ESSAYS] Loading started for: projects_assets/video_essays/video_essay_2.mp4`);
-                      }}
-                      onLoadedMetadata={(e) => {
-                        const video = e.target as HTMLVideoElement;
-                        console.log(`✅ [VIDEO ESSAYS] Metadata loaded successfully`);
-                        console.log(`✅ [VIDEO ESSAYS] Duration: ${video.duration}s`);
-                        console.log(`✅ [VIDEO ESSAYS] Dimensions: ${video.videoWidth}x${video.videoHeight}`);
-                        console.log(`✅ [VIDEO ESSAYS] Current src: ${video.currentSrc}`);
-                        console.log(`✅ [VIDEO ESSAYS] Ready state: ${video.readyState}`);
-                        console.log(`✅ [VIDEO ESSAYS] Network state: ${video.networkState}`);
-                      }}
-                      onLoadedData={() => {
-                        console.log(`✅ [VIDEO ESSAYS] Data loaded - ready to play`);
-                      }}
-                      onCanPlay={() => {
-                        console.log(`✅ [VIDEO ESSAYS] Can start playing`);
-                      }}
-                      onCanPlayThrough={() => {
-                        console.log(`✅ [VIDEO ESSAYS] Can play through without buffering`);
-                      }}
-                      onError={(e) => {
-                        const video = e.target as HTMLVideoElement;
-                        const error = video.error;
-                        console.error(`❌ [VIDEO ESSAYS] Error occurred:`);
-                        console.error(`❌ [VIDEO ESSAYS] Error code: ${error?.code}`);
-                        console.error(`❌ [VIDEO ESSAYS] Error message: ${error?.message}`);
-                        console.error(`❌ [VIDEO ESSAYS] Current src: ${video.currentSrc}`);
-                        console.error(`❌ [VIDEO ESSAYS] Ready state: ${video.readyState}`);
-                        console.error(`❌ [VIDEO ESSAYS] Network state: ${video.networkState}`);
-                        
-                        let errorDesc = 'Unknown error';
-                        if (error) {
-                          switch(error.code) {
-                            case 1: errorDesc = 'MEDIA_ERR_ABORTED - Loading was aborted'; break;
-                            case 2: errorDesc = 'MEDIA_ERR_NETWORK - Network error'; break;
-                            case 3: errorDesc = 'MEDIA_ERR_DECODE - Decode error'; break;
-                            case 4: errorDesc = 'MEDIA_ERR_SRC_NOT_SUPPORTED - Source not supported'; break;
-                          }
-                        }
-                        console.error(`❌ [VIDEO ESSAYS] Error description: ${errorDesc}`);
-                      }}
-                      onAbort={() => {
-                        console.warn(`⚠️ [VIDEO ESSAYS] Loading aborted`);
-                      }}
-                      onStalled={() => {
-                        console.warn(`⚠️ [VIDEO ESSAYS] Loading stalled`);
-                      }}
-                      onSuspend={() => {
-                        console.warn(`⚠️ [VIDEO ESSAYS] Loading suspended`);
-                      }}
-                    >
-                      <source src="/projects_assets/video_essays/video_essay_2.mp4" type="video/mp4" />
-                      Your browser doesn't support HTML5 video.
-                    </video>
+                    <VimeoEmbed
+                      videoId="1120323388"
+                      title="Video Essays - Final Cut Compressed"
+                      style={{ height: '400px' }}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                      autoplay={false}
+                      muted={false}
+                    />
                   </div>
                 </div>
               </ContentSection>
@@ -2378,6 +2352,205 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       cultural critique, and technological commentary</strong> — all through the medium of video. The work 
                       showcases technical proficiency in video editing software while developing a strong voice in 
                       <strong>visual storytelling and critical analysis</strong>.
+                    </BusinessText>
+                  </BusinessCard>
+                </div>
+              </BusinessSection>
+            </>
+          ) : projectId === '9' ? (
+            <>
+              <ContentSection style={{ background: `rgba(${project.colors.primary}, 0.02)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>2023 Art Collection</SectionTitle>
+                <ContentText style={{ fontSize: '1.1rem', lineHeight: '1.8', marginBottom: '2rem' }}>
+                  This collection represents a year of creative exploration through video art, examining themes of 
+                  <strong> connection, solitude, identity, and the human experience</strong>. Each piece employs different 
+                  visual and narrative techniques to create intimate, thought-provoking moments that invite reflection 
+                  and emotional engagement.
+                </ContentText>
+
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+                  gap: '2rem',
+                  marginTop: '3rem'
+                }}>
+                  
+                  {/* Bingo and Meow-Meow */}
+                  <AssetCard
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VimeoEmbed
+                      videoId="1120327909"
+                      title="Bingo and Meow-Meow"
+                      aspectRatio="177.78%"
+                      style={{ maxHeight: '400px' }}
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
+                    <TextBlock>
+                      <SubTitle style={{ color: project.colors.accent }}>Bingo and Meow-Meow</SubTitle>
+                      <ContentText>An intimate exploration of companionship and the bonds between human and animal relationships.</ContentText>
+                    </TextBlock>
+                  </AssetCard>
+
+                  {/* Duality */}
+                  <AssetCard
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VimeoEmbed
+                      videoId="1120327914"
+                      title="Duality"
+                      aspectRatio="177.78%"
+                      style={{ maxHeight: '400px' }}
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
+                    <TextBlock>
+                      <SubTitle style={{ color: project.colors.accent }}>Duality</SubTitle>
+                      <ContentText>A visual meditation on the contradictions and complexities that exist within identity and self-perception.</ContentText>
+                    </TextBlock>
+                  </AssetCard>
+
+                  {/* New */}
+                  <AssetCard
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VimeoEmbed
+                      videoId="1120327919"
+                      title="New"
+                      aspectRatio="177.78%"
+                      style={{ maxHeight: '400px' }}
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
+                    <TextBlock>
+                      <SubTitle style={{ color: project.colors.accent }}>New</SubTitle>
+                      <ContentText>An exploration of transformation, renewal, and the courage required to embrace change and growth.</ContentText>
+                    </TextBlock>
+                  </AssetCard>
+
+                  {/* Rusty */}
+                  <AssetCard
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VimeoEmbed
+                      videoId="1120327924"
+                      title="Rusty"
+                      aspectRatio="177.78%"
+                      style={{ maxHeight: '400px' }}
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
+                    <TextBlock>
+                      <SubTitle style={{ color: project.colors.accent }}>Rusty</SubTitle>
+                      <ContentText>A contemplation on aging, memory, and the beauty found in things that have weathered time and experience.</ContentText>
+                    </TextBlock>
+                  </AssetCard>
+
+                  {/* The Campfire */}
+                  <AssetCard
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VimeoEmbed
+                      videoId="1120327933"
+                      title="The Campfire"
+                      aspectRatio="177.78%"
+                      style={{ maxHeight: '400px' }}
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
+                    <TextBlock>
+                      <SubTitle style={{ color: project.colors.accent }}>The Campfire</SubTitle>
+                      <ContentText>A gathering around warmth and light, exploring themes of community, storytelling, and shared human experience.</ContentText>
+                    </TextBlock>
+                  </AssetCard>
+
+                  {/* You Look Lonely, I Can Fix That */}
+                  <AssetCard
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
+                  >
+                    <VimeoEmbed
+                      videoId="1120327961"
+                      title="You Look Lonely, I Can Fix That"
+                      aspectRatio="177.78%"
+                      style={{ maxHeight: '400px' }}
+                      autoplay={true}
+                      muted={true}
+                      showTitle={false}
+                      showByline={false}
+                      showPortrait={false}
+                      showBadge={false}
+                    />
+                    <TextBlock>
+                      <SubTitle style={{ color: project.colors.accent }}>You Look Lonely, I Can Fix That</SubTitle>
+                      <ContentText>An intimate piece about connection, offering, and the human desire to comfort and be comforted by others.</ContentText>
+                    </TextBlock>
+                  </AssetCard>
+
+                </div>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Creative Approach</SectionTitle>
+                <div style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: '1fr',
+                  gap: '1.5rem',
+                  width: '100%'
+                }}>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Experimental Visual Language</BusinessTitle>
+                    <BusinessText>
+                      Each piece in this collection employs <strong>experimental visual techniques</strong> to create unique 
+                      emotional landscapes. From intimate close-ups to abstract compositions, the work explores how 
+                      visual storytelling can convey complex emotions and universal human experiences.
+                    </BusinessText>
+                  </BusinessCard>
+
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Thematic Exploration</BusinessTitle>
+                    <BusinessText>
+                      The collection examines themes of <strong>connection, solitude, identity, and transformation</strong> 
+                      through a deeply personal lens. Each video art piece serves as both individual expression and part 
+                      of a larger conversation about what it means to be human in contemporary society.
                     </BusinessText>
                   </BusinessCard>
                 </div>

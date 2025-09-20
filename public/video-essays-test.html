@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Essays Vimeo Test</title>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(70, 130, 180, 0.3);
+            border: 2px solid rgba(70, 130, 180, 0.2);
+        }
+        .aspect-ratio-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+        .aspect-ratio-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .video-info {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #4682b4;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .status {
+            padding: 12px 16px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .status.success { background: #d4edda; border-left: 4px solid #28a745; color: #155724; }
+        .status.info { background: #d1ecf1; border-left: 4px solid #17a2b8; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>🎬 Video Essays - Vimeo Integration Test</h1>
+    <p style="text-align: center; color: #666;">Testing the new compressed Video Essays embed</p>
+
+    <div class="test-section">
+        <h2>📊 Update Summary</h2>
+        <div class="video-info">
+            <strong>Project:</strong> Video Essays<br>
+            <strong>Old Video:</strong> /projects_assets/video_essays/video_essay_2.mp4 (90MB)<br>
+            <strong>New Video:</strong> Vimeo ID 1120323388 (final_cut_compressed_mid)<br>
+            <strong>Aspect Ratio:</strong> 16:9 (56.25%)<br>
+            <strong>Autoplay:</strong> Disabled (manual play)<br>
+            <strong>Title:</strong> "Video Essays - Final Cut Compressed"<br><br>
+            
+            <strong>Benefits:</strong><br>
+            ✅ Eliminated 90MB+ file size deployment issues<br>
+            ✅ Professional video streaming with adaptive quality<br>
+            ✅ Responsive design maintained<br>
+            ✅ No more 'undefined' video errors<br>
+            ✅ Faster loading with CDN delivery
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎥 Video Essays - Final Cut (Compressed)</h2>
+        <div class="video-info">
+            <strong>Vimeo Video ID:</strong> 1120323388<br>
+            <strong>Title:</strong> final_cut_compressed_mid<br>
+            <strong>Embed URL:</strong> https://player.vimeo.com/video/1120323388<br>
+            <strong>Settings:</strong> No title, byline, portrait, or badge shown<br>
+            <strong>Control:</strong> Manual play (user must click to start)
+        </div>
+        
+        <div class="video-container">
+            <div class="aspect-ratio-container">
+                <iframe 
+                    src="https://player.vimeo.com/video/1120323388?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    title="Video Essays - Final Cut Compressed">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ Implementation Verification</h2>
+        <div class="status success">
+            <strong>✅ Build Status:</strong> Project builds successfully with new Vimeo embed
+        </div>
+        <div class="status info">
+            <strong>📋 What Was Replaced:</strong> The complex HTML5 video element with extensive error handling and console logging has been replaced with a clean VimeoEmbed React component
+        </div>
+        <div class="status info">
+            <strong>🎯 Result:</strong> The Video Essays project modal now uses professional video streaming instead of problematic large file hosting
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Technical Details</h2>
+        <div class="video-info">
+            <strong>Component Used:</strong> VimeoEmbed React component<br>
+            <strong>Props Configuration:</strong><br>
+            • videoId: "1120323388"<br>
+            • title: "Video Essays - Final Cut Compressed"<br>
+            • style: {{ height: '400px' }}<br>
+            • showTitle: false<br>
+            • showByline: false<br>
+            • showPortrait: false<br>
+            • showBadge: false<br>
+            • autoplay: false<br>
+            • muted: false<br><br>
+            
+            <strong>Styling Maintained:</strong><br>
+            • maxWidth: 900px<br>
+            • Centered layout<br>
+            • Border radius: 12px<br>
+            • Box shadow with project colors<br>
+            • Border with project accent color
+        </div>
+    </div>
+
+    <script>
+        // Log successful load
+        console.log('🎬 Video Essays Vimeo test page loaded');
+        console.log('📊 Testing Vimeo ID: 1120323388');
+        
+        // Check if Vimeo player API is available
+        if (typeof Vimeo !== 'undefined') {
+            console.log('✅ Vimeo Player API loaded successfully');
+        } else {
+            console.warn('⚠️ Vimeo Player API not detected');
+        }
+
+        // Test video accessibility
+        setTimeout(() => {
+            fetch('https://player.vimeo.com/video/1120323388', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('✅ Video Essays Vimeo video is accessible');
+                    } else {
+                        console.warn('⚠️ Video Essays Vimeo video returned:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error testing video accessibility:', error);
+                });
+        }, 2000);
+    </script>
+</body>
+</html>
