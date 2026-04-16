@@ -416,7 +416,7 @@ export const AboutTab: React.FC = () => {
           <AboutTitle>About me</AboutTitle>
           
           <PersonalInfo>
-            <InfoText>Michael Hemker, 21</InfoText>
+            <InfoText>Michael Hemker, 22</InfoText>
             <SubInfoText>Based in Palo Alto, CA and Baltimore, MD</SubInfoText>
             <SubInfoText>Attending Stanford University, Class of 2026</SubInfoText>
             <SubInfoText>Product Designer: Specializing in AI and Digital Design</SubInfoText>

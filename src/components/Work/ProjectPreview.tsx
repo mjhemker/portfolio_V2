@@ -21,6 +21,7 @@ const PreviewCard = styled(motion.div)`
   height: 500px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   
   &::before {
     content: '';
@@ -59,13 +60,40 @@ const PreviewCard = styled(motion.div)`
     z-index: 2;
   }
 
+  @media (max-width: 1100px) and (min-width: 950px) {
+    height: auto;
+    min-height: 750px;
+  }
+
+  @media (max-width: 950px) and (min-width: 850px) {
+    height: auto;
+    min-height: 800px;
+  }
+
+  @media (max-width: 850px) and (min-width: 769px) {
+    height: auto;
+    min-height: 660px;
+  }
+
   @media (max-width: 768px) {
-    height: 480px;
+    height: auto;
+    min-height: 500px;
     border-radius: ${({ theme }) => theme.borderRadius.lg};
+    
+    &::before {
+      width: 100%;
+      background-position: center top;
+      opacity: 0.08;
+    }
     
     &:hover::before {
       transform: scale(1.02);
+      opacity: 0.12;
     }
+  }
+
+  @media (max-width: 480px) {
+    min-height: 450px;
   }
 `;
 
@@ -139,18 +167,28 @@ const ProjectTagline = styled.p`
   }
 `;
 
-const ProjectContent = styled.div`
+const MainContent = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+`;
+
+const ProjectContent = styled.div`
   padding: 1.5rem 2rem 0;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   position: relative;
   z-index: 3;
-  min-height: 0;
+  max-width: 65%;
+  
+  @media (max-width: 1200px) {
+    max-width: 100%;
+  }
 
   @media (max-width: 768px) {
-    padding: 1rem 1.5rem 0;
+    padding: 1rem 1.5rem 0 1.5rem;
     gap: 1rem;
   }
 `;
@@ -159,7 +197,22 @@ const ProjectFeatures = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin: 1rem 0;
+  margin: 1rem 0 4rem 0;
+  max-width: 60%;
+  flex-shrink: 0;
+  
+  @media (max-width: 1200px) {
+    max-width: 100%;
+    margin: 1rem 0 5rem 0;
+  }
+  
+  @media (max-width: 950px) {
+    margin: 1rem 0 4rem 0;
+  }
+  
+  @media (max-width: 768px) {
+    margin: 1rem 0 3rem 0;
+  }
 `;
 
 const FeatureTag = styled(motion.span)`
@@ -183,11 +236,17 @@ const ProjectActions = styled.div`
   position: relative;
   z-index: 3;
   margin-top: auto;
+  flex-shrink: 0;
   
   @media (max-width: 768px) {
     padding: 1.5rem;
     gap: 0.75rem;
     flex-direction: column;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    gap: 0.5rem;
   }
 `;
 
@@ -285,70 +344,71 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
       style={{ 
         background: "radial-gradient(circle at 20% 30%, rgba(255, 140, 0, 0.2) 0%, rgba(255, 69, 0, 0.1) 40%, rgba(0, 0, 0, 0.8) 100%)",
         border: "2px solid rgba(255, 140, 0, 0.4)",
-        '--background-image': "url('/projects_assets/pantreat/iphone_app_mockups/mockrocket-capture.png')"
+        '--background-image': "url('/projects_assets/pantreat/screen_shots/pantreat_mockups.png')"
       } as React.CSSProperties & { '--background-image': string }}
     >
-      <ProjectHeader>
-        <ProjectLogo 
-          src="/projects_assets/pantreat/app+name.png"
-          alt="Pantreat Logo"
-          style={{ 
-            boxShadow: "0 12px 30px rgba(255, 140, 0, 0.4)",
-            borderColor: "rgba(255, 140, 0, 0.2)"
-          }}
-        />
-        <ProjectInfo>
-          <ProjectTagline 
+      <MainContent>
+        <ProjectHeader>
+          <ProjectLogo 
+            src="/projects_assets/pantreat/app+name.png"
+            alt="Pantreat Logo"
             style={{ 
-              background: "linear-gradient(135deg, #fff, #ff8c00)",
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
+              boxShadow: "0 12px 30px rgba(255, 140, 0, 0.4)",
+              borderColor: "rgba(255, 140, 0, 0.2)"
             }}
-          >
-            Make Cooking Cool Again
-          </ProjectTagline>
-        </ProjectInfo>
-      </ProjectHeader>
-      
-      <ProjectContent>
-        <ProjectDescription>
-          Your all-in-one AI Kitchen assistant. Unlike expensive meal services or smart fridges, all you need is your phone and an appetite. Combines AI, community, and short-form content to make cooking exciting again.
-        </ProjectDescription>
+          />
+          <ProjectInfo>
+            <ProjectTagline 
+              style={{ 
+                background: "linear-gradient(135deg, #fff, #ff8c00)",
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              Make Cooking Cool Again
+            </ProjectTagline>
+          </ProjectInfo>
+        </ProjectHeader>
         
-        <ProjectFeatures>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            AI Recipe Generation
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Smart Inventory
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Social Cooking
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Video Content
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Mobile First
-          </FeatureTag>
-        </ProjectFeatures>
-        
-      </ProjectContent>
+        <ProjectContent>
+          <ProjectDescription>
+            Your all-in-one AI Kitchen assistant. Unlike expensive meal services or smart fridges, all you need is your phone and an appetite. Combines AI, community, and short-form content to make cooking exciting again.
+          </ProjectDescription>
+          
+          <ProjectFeatures>
+            <FeatureTag
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              AI Recipe Generation
+            </FeatureTag>
+            <FeatureTag
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Smart Inventory
+            </FeatureTag>
+            <FeatureTag
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Social Cooking
+            </FeatureTag>
+            <FeatureTag
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Video Content
+            </FeatureTag>
+            <FeatureTag
+              whileHover={{ scale: 1.05, y: -3 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Mobile First
+            </FeatureTag>
+          </ProjectFeatures>
+        </ProjectContent>
+      </MainContent>
       
       <ProjectActions>
         <SecondaryActionButton

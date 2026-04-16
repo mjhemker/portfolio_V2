@@ -1,19 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { MusicPlayer } from './MusicPlayer';
 import { ProjectQueue } from './ProjectQueue';
 import { ProjectsIntro } from './ProjectsIntro';
-import { ProjectModal } from './ProjectModal';
-import { ProjectPreview } from './ProjectPreview';
-import { INKDPreview } from './INKDPreview';
-import { FizzPreview } from './FizzPreview';
-import { PocketPeoplePreview } from './PocketPeoplePreview';
-import { VinnieHagerPreview } from './VinnieHagerPreview';
-import { PeripheryPodcastPreview } from './PeripheryPodcastPreview';
-import { MakeANotePreview } from './MakeANotePreview';
-import { VideoEssaysPreview } from './VideoEssaysPreview';
 import { useAppContext } from '../../contexts/AppContext';
+
+// Lazy load preview components for code-splitting
+const ProjectModal = lazy(() => import('./ProjectModal').then(m => ({ default: m.ProjectModal })));
+const ProjectPreview = lazy(() => import('./ProjectPreview').then(m => ({ default: m.ProjectPreview })));
+const INKDPreview = lazy(() => import('./INKDPreview').then(m => ({ default: m.INKDPreview })));
+const FizzPreview = lazy(() => import('./FizzPreview').then(m => ({ default: m.FizzPreview })));
+const PocketPeoplePreview = lazy(() => import('./PocketPeoplePreview').then(m => ({ default: m.PocketPeoplePreview })));
+const VinnieHagerPreview = lazy(() => import('./VinnieHagerPreview').then(m => ({ default: m.VinnieHagerPreview })));
+const PeripheryPodcastPreview = lazy(() => import('./PeripheryPodcastPreview').then(m => ({ default: m.PeripheryPodcastPreview })));
+const MakeANotePreview = lazy(() => import('./MakeANotePreview').then(m => ({ default: m.MakeANotePreview })));
+const VideoEssaysPreview = lazy(() => import('./VideoEssaysPreview').then(m => ({ default: m.VideoEssaysPreview })));
+
+// Loading fallback for lazy components
+const PreviewFallback = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${({ theme }) => theme.colors.secondary};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  min-height: 400px;
+`;
 
 const float = keyframes`
   0%, 100% { transform: translateY(0px); }
@@ -101,10 +115,31 @@ const PlayerSection = styled.div`
   flex-direction: column;
   min-width: 0;
   gap: 1.5rem;
+  min-height: 0;
+
+  @media (max-width: 1600px) {
+    gap: 2rem;
+  }
+
+  @media (max-width: 1400px) {
+    gap: 2.25rem;
+  }
+
+  @media (max-width: 1200px) {
+    gap: 1.75rem;
+  }
+
+  @media (max-width: 1000px) {
+    gap: 1.5rem;
+  }
 
   @media (max-width: 768px) {
     gap: 1.5rem;
     order: 2;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1.25rem;
   }
 `;
 
@@ -162,25 +197,27 @@ export const WorkTab: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" as const }}
         >
         <PlayerSection>
-          {playerState.currentProjectIndex === 0 ? (
-            <ProjectPreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 1 ? (
-            <INKDPreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 2 ? (
-            <FizzPreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 3 ? (
-            <PocketPeoplePreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 4 ? (
-            <VinnieHagerPreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 5 ? (
-            <PeripheryPodcastPreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 6 ? (
-            <MakeANotePreview onProjectClick={handleProjectClick} />
-          ) : playerState.currentProjectIndex === 7 ? (
-            <VideoEssaysPreview onProjectClick={handleProjectClick} />
-          ) : (
-            <MusicPlayer key={playerState.currentProjectIndex} />
-          )}
+          <Suspense fallback={<PreviewFallback />}>
+            {playerState.currentProjectIndex === 0 ? (
+              <ProjectPreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 1 ? (
+              <INKDPreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 2 ? (
+              <FizzPreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 3 ? (
+              <PocketPeoplePreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 4 ? (
+              <VinnieHagerPreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 5 ? (
+              <PeripheryPodcastPreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 6 ? (
+              <MakeANotePreview onProjectClick={handleProjectClick} />
+            ) : playerState.currentProjectIndex === 7 ? (
+              <VideoEssaysPreview onProjectClick={handleProjectClick} />
+            ) : (
+              <MusicPlayer key={playerState.currentProjectIndex} />
+            )}
+          </Suspense>
           <MusicPlayer showControlsOnly={true} />
         </PlayerSection>
         <QueueSection>
@@ -189,11 +226,13 @@ export const WorkTab: React.FC = () => {
         </WorkContainer>
       </TransitionSection>
       
-      <ProjectModal 
-        isOpen={isProjectModalOpen} 
-        onClose={handleCloseModal}
-        projectId={getCurrentProjectId()}
-      />
+      <Suspense fallback={null}>
+        <ProjectModal
+          isOpen={isProjectModalOpen}
+          onClose={handleCloseModal}
+          projectId={getCurrentProjectId()}
+        />
+      </Suspense>
     </>
   );
 };

@@ -892,18 +892,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <VimeoEmbed
-                        videoId="1120311272"
-                        title="MyPantry"
-                        aspectRatio="217.41%"
-                        style={{ maxHeight: '300px' }}
-                        autoplay={true}
-                        muted={true}
-                        showTitle={false}
-                        showByline={false}
-                        showPortrait={false}
-                        showBadge={false}
-                      />
+                      <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_MyPantry.png", 'image')}>
+                        <MediaImage
+                          src="projects_assets/pantreat/screen_shots/pantreat_MyPantry.png"
+                          alt="My Pantry"
+                          style={{
+                            width: '100%',
+                            maxHeight: '400px',
+                            objectFit: 'contain',
+                            borderRadius: '12px'
+                          }}
+                        />
+                      </ClickableImageWrapper>
                     </FeatureMedia>
                   </FeatureBlock>
 
@@ -927,82 +927,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <div style={{ 
-                        position: 'relative', 
-                        height: '500px', 
+                      <div style={{
+                        position: 'relative',
+                        height: '500px',
                         width: '100%',
-                        background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.05), rgba(${project.colors.secondary}, 0.02))`,
-                        borderRadius: '16px',
-                        overflow: 'hidden'
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
                       }}>
-                        {/* Main Cook Mode - Center Background */}
-                        <div style={{
-                          position: 'absolute',
-                          top: '20px',
-                          left: '50%',
-                          transform: 'translateX(-50%) rotate(-2deg)',
-                          zIndex: 1,
-                          filter: 'drop-shadow(0 15px 25px rgba(0,0,0,0.2))'
-                        }}>
-                          <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/App_preview_Cook.png", 'image')}>
-                            <MediaImage 
-                              src="projects_assets/pantreat/screen_shots/App_preview_Cook.png" 
-                              alt="Cook Mode"
-                              style={{ 
-                                height: '400px', 
-                                width: 'auto', 
-                                borderRadius: '20px',
-                                border: 'none'
-                              }}
-                            />
-                          </ClickableImageWrapper>
-                        </div>
-                        
-                        {/* Cooking Tip - Left Overlapping */}
-                        <div style={{
-                          position: 'absolute',
-                          top: '60px',
-                          left: '10px',
-                          transform: 'rotate(8deg)',
-                          zIndex: 2,
-                          filter: 'drop-shadow(0 12px 20px rgba(0,0,0,0.25))'
-                        }}>
-                          <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/cooking_tip.png", 'image')}>
-                            <MediaImage 
-                              src="projects_assets/pantreat/screen_shots/cooking_tip.png" 
-                              alt="Cooking Tip"
-                              style={{ 
-                                height: '320px', 
-                                width: 'auto', 
-                                borderRadius: '16px',
-                                border: 'none'
-                              }}
-                            />
-                          </ClickableImageWrapper>
-                        </div>
-                        
-                        {/* Share Feature - Right Overlapping */}
-                        <div style={{
-                          position: 'absolute',
-                          top: '80px',
-                          right: '10px',
-                          transform: 'rotate(-5deg)',
-                          zIndex: 3,
-                          filter: 'drop-shadow(0 10px 18px rgba(0,0,0,0.3))'
-                        }}>
-                          <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/share.png", 'image')}>
-                            <MediaImage 
-                              src="projects_assets/pantreat/screen_shots/share.png" 
-                              alt="Share Feature"
-                              style={{ 
-                                height: '280px', 
-                                width: 'auto', 
-                                borderRadius: '14px',
-                                border: 'none'
-                              }}
-                            />
-                          </ClickableImageWrapper>
-                        </div>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_cooking_walkthrough_mockup.png", 'image')}>
+                          <MediaImage
+                            src="projects_assets/pantreat/screen_shots/pantreat_cooking_walkthrough_mockup.png"
+                            alt="Cooking Walkthrough"
+                            style={{
+                              maxHeight: '480px',
+                              width: 'auto',
+                              borderRadius: '16px',
+                              filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))'
+                            }}
+                          />
+                        </ClickableImageWrapper>
                       </div>
                     </FeatureMedia>
                   </FeatureBlock>
@@ -1025,18 +969,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <VimeoEmbed
-                        videoId="1120311253"
-                        title="Pantreat Feed"
-                        aspectRatio="217.41%"
-                        style={{ maxHeight: '300px' }}
-                        autoplay={true}
-                        muted={true}
-                        showTitle={false}
-                        showByline={false}
-                        showPortrait={false}
-                        showBadge={false}
-                      />
+                      <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_recipe.png", 'image')}>
+                        <MediaImage
+                          src="projects_assets/pantreat/screen_shots/pantreat_recipe.png"
+                          alt="Pantreat Recipe"
+                          style={{
+                            width: '100%',
+                            maxHeight: '400px',
+                            objectFit: 'contain',
+                            borderRadius: '12px'
+                          }}
+                        />
+                      </ClickableImageWrapper>
                     </FeatureMedia>
                   </FeatureBlock>
                 </FeatureShowcase>
@@ -1077,33 +1021,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </BusinessText>
                   </BusinessCard>
                   
-                  {/* Large Feed Mockup */}
-                  <div style={{ 
+                  {/* Features Mockup */}
+                  <div style={{
                     position: 'relative',
                     height: '600px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center'
                   }}>
-                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/iphone_app_mockups/feed_mockup.png", 'image')}>
-                      <MediaImage 
-                        src="projects_assets/pantreat/iphone_app_mockups/feed_mockup.png" 
-                        alt="Feed Mockup"
-                        style={{ 
-                          height: '580px', 
+                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_features_mockup.png", 'image')}>
+                      <MediaImage
+                        src="projects_assets/pantreat/screen_shots/pantreat_features_mockup.png"
+                        alt="Pantreat Features"
+                        style={{
+                          maxHeight: '580px',
                           width: 'auto',
                           filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))',
-                          borderRadius: '25px',
-                          border: '4px solid rgba(255, 255, 255, 0.9)',
-                          transform: 'rotate(-3deg)',
                           transition: 'transform 0.3s ease'
-                        }}
-                        onLoad={() => console.log('✅ Feed mockup loaded successfully')}
-                        onError={(e) => {
-                          console.error('❌ Failed to load feed_mockup.png');
-                          const target = e.currentTarget as HTMLImageElement;
-                          target.style.border = '2px dashed #ff0000';
-                          target.alt = 'Failed to load feed mockup';
                         }}
                       />
                     </ClickableImageWrapper>
@@ -1139,47 +1073,25 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                   position: 'relative',
                   zIndex: 2
                 }}>
-                  {/* Large Conclusion Mockup with Dynamic Positioning */}
-                  <div style={{ 
+                  {/* App Mockups */}
+                  <div style={{
                     position: 'relative',
                     height: '650px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center'
                   }}>
-                    {/* Background Phone Shadow */}
-                    <div style={{
-                      position: 'absolute',
-                      width: '300px',
-                      height: '600px',
-                      background: `linear-gradient(145deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
-                      borderRadius: '35px',
-                      transform: 'rotate(5deg) translateX(20px) translateY(10px)',
-                      filter: 'blur(15px)',
-                      zIndex: 1
-                    }} />
-                    
-                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/iphone_app_mockups/conclusion.png", 'image')}>
-                      <MediaImage 
-                        src="projects_assets/pantreat/iphone_app_mockups/conclusion.png" 
-                        alt="Conclusion Mockup"
-                        style={{ 
-                          height: '620px', 
+                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_mockups.png", 'image')}>
+                      <MediaImage
+                        src="projects_assets/pantreat/screen_shots/pantreat_mockups.png"
+                        alt="Pantreat App Mockups"
+                        style={{
+                          maxHeight: '620px',
                           width: 'auto',
                           filter: 'drop-shadow(0 25px 50px rgba(0,0,0,0.4))',
-                          borderRadius: '30px',
-                          border: '5px solid rgba(255, 255, 255, 0.95)',
-                          transform: 'rotate(-2deg)',
                           transition: 'transform 0.3s ease',
                           zIndex: 2,
                           position: 'relative'
-                        }}
-                        onLoad={() => console.log('✅ Conclusion mockup loaded successfully')}
-                        onError={(e) => {
-                          console.error('❌ Failed to load conclusion.png');
-                          const target = e.currentTarget as HTMLImageElement;
-                          target.style.border = '2px dashed #ff0000';
-                          target.alt = 'Failed to load conclusion mockup';
                         }}
                       />
                     </ClickableImageWrapper>

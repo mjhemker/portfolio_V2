@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo, memo } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, SkipBack, SkipForward, ExternalLink, Github, Volume2, VolumeX } from 'lucide-react';
@@ -144,6 +144,9 @@ const Controls = styled(motion.div)<{ $isPlaying: boolean }>`
   padding: 1.5rem;
   position: relative;
   overflow: hidden;
+  min-height: 200px;
+  flex-shrink: 0;
+  width: 100%;
   
   ${({ $isPlaying }) => $isPlaying && css`
     background: linear-gradient(135deg, 
@@ -168,9 +171,34 @@ const Controls = styled(motion.div)<{ $isPlaying: boolean }>`
     `}
   }
 
+  @media (max-width: 1600px) {
+    min-height: 220px;
+    padding: 1.75rem;
+  }
+
+  @media (max-width: 1400px) {
+    min-height: 240px;
+    padding: 2rem;
+  }
+
+  @media (max-width: 1200px) {
+    min-height: 200px;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 1000px) {
+    min-height: 180px;
+  }
+
   @media (max-width: 768px) {
     padding: 1rem;
     border-radius: ${({ theme }) => theme.borderRadius.lg};
+    min-height: 160px;
+  }
+
+  @media (max-width: 480px) {
+    min-height: 140px;
+    padding: 0.75rem;
   }
 `;
 
@@ -180,10 +208,26 @@ const ControlButtons = styled.div`
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  flex-shrink: 0;
+
+  @media (max-width: 1400px) {
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  @media (max-width: 1200px) {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
 
   @media (max-width: 768px) {
     gap: 1.5rem;
     margin-bottom: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+    margin-bottom: 0.75rem;
   }
 `;
 
@@ -235,6 +279,22 @@ const ProgressContainer = styled.div`
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-shrink: 0;
+  width: 100%;
+
+  @media (max-width: 1400px) {
+    margin-bottom: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
 `;
 
 const ProgressBar = styled.div`
@@ -283,6 +343,21 @@ const NowPlayingInfo = styled.div`
   gap: 1rem;
   color: ${({ theme }) => theme.colors.text.secondary};
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  flex-shrink: 0;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 0.75rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.xs};
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.5rem;
+    flex-direction: column;
+    text-align: center;
+  }
 `;
 
 // Audio Visualizer Component
@@ -306,20 +381,33 @@ const VisualizerBar = styled(motion.div)<{ $height: number; $delay: number; $opa
   filter: ${({ $opacity }) => $opacity > 0.7 ? 'drop-shadow(0 0 4px rgba(138, 43, 226, 0.6))' : 'none'};
 `;
 
-const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
-  const bars = Array.from({ length: 160 }, (_, i) => {
-    const center = 79.5; // Center of 160 bars (0-159)
+// Memoized bar data - created once and reused
+const createBars = (count: number) => {
+  const center = (count - 1) / 2;
+  return Array.from({ length: count }, (_, i) => {
     const distanceFromCenter = Math.abs(i - center);
-    const maxDistance = 79.5;
+    const maxDistance = center;
     const opacity = Math.max(0, 1 - (distanceFromCenter / maxDistance));
-    
+    // Pre-compute random heights so they don't change on re-render
+    const baseHeight = Math.random() * 60 + 20;
+    const targetHeight = Math.random() * 60 + 20;
+
     return {
       id: i,
-      height: Math.random() * 60 + 20,
-      delay: i * 0.0125,
+      height: baseHeight,
+      targetHeight,
+      delay: i * 0.02,
       opacity
     };
   });
+};
+
+// Reduced from 160 to 60 bars for better performance
+const VISUALIZER_BARS = createBars(60);
+
+const AudioVisualizer: React.FC<{ isPlaying: boolean }> = memo(({ isPlaying }) => {
+  // Use pre-computed static bars array
+  const bars = useMemo(() => VISUALIZER_BARS, []);
 
   return (
     <VisualizerContainer $isPlaying={isPlaying}>
@@ -330,8 +418,8 @@ const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
           $delay={bar.delay}
           $opacity={bar.opacity}
           animate={isPlaying ? {
-            height: [bar.height + '%', (Math.random() * 60 + 20) + '%', bar.height + '%']
-          } : {}}
+            height: [bar.height + '%', bar.targetHeight + '%', bar.height + '%']
+          } : { height: bar.height + '%' }}
           transition={{
             duration: 0.8,
             repeat: Infinity,
@@ -342,7 +430,7 @@ const AudioVisualizer: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
       ))}
     </VisualizerContainer>
   );
-};
+});
 
 // Floating Particles Component
 const ParticlesContainer = styled.div`
@@ -364,14 +452,18 @@ const Particle = styled(motion.div)<{ $size: number; $color: string }>`
   filter: blur(1px);
 `;
 
-const FloatingParticles: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
-  const particles = Array.from({ length: 8 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 4 + 2,
-    color: i % 2 === 0 ? 'rgba(138, 43, 226, 0.6)' : 'rgba(30, 144, 255, 0.6)',
-    initialX: Math.random() * 100,
-    initialY: Math.random() * 100
-  }));
+// Pre-computed particles data
+const PARTICLE_DATA = Array.from({ length: 8 }, (_, i) => ({
+  id: i,
+  size: Math.random() * 4 + 2,
+  color: i % 2 === 0 ? 'rgba(138, 43, 226, 0.6)' : 'rgba(30, 144, 255, 0.6)',
+  initialX: Math.random() * 100,
+  initialY: Math.random() * 100,
+  duration: 4 + Math.random() * 2
+}));
+
+const FloatingParticles: React.FC<{ isPlaying: boolean }> = memo(({ isPlaying }) => {
+  const particles = useMemo(() => PARTICLE_DATA, []);
 
   if (!isPlaying) return null;
 
@@ -383,8 +475,8 @@ const FloatingParticles: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
             key={particle.id}
             $size={particle.size}
             $color={particle.color}
-            initial={{ 
-              x: `${particle.initialX}%`, 
+            initial={{
+              x: `${particle.initialX}%`,
               y: `${particle.initialY}%`,
               opacity: 0
             }}
@@ -394,7 +486,7 @@ const FloatingParticles: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
               opacity: [0, 1, 0]
             }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
               delay: particle.id * 0.5,
               ease: 'linear' as const
@@ -404,7 +496,7 @@ const FloatingParticles: React.FC<{ isPlaying: boolean }> = ({ isPlaying }) => {
       </AnimatePresence>
     </ParticlesContainer>
   );
-};
+});
 
 const formatTime = (seconds: number) => {
   const mins = Math.floor(seconds);
