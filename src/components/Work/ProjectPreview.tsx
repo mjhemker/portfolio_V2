@@ -195,23 +195,22 @@ const ProjectContent = styled.div`
 
 const ProjectFeatures = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.75rem;
   margin: 1rem 0 4rem 0;
-  max-width: 60%;
   flex-shrink: 0;
-  
+
   @media (max-width: 1200px) {
-    max-width: 100%;
     margin: 1rem 0 5rem 0;
   }
-  
+
   @media (max-width: 950px) {
     margin: 1rem 0 4rem 0;
   }
-  
+
   @media (max-width: 768px) {
     margin: 1rem 0 3rem 0;
+    flex-wrap: wrap;
   }
 `;
 
