@@ -394,18 +394,6 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
             >
               Social Cooking
             </FeatureTag>
-            <FeatureTag
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Video Content
-            </FeatureTag>
-            <FeatureTag
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Mobile First
-            </FeatureTag>
           </ProjectFeatures>
         </ProjectContent>
       </MainContent>
