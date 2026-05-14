@@ -312,6 +312,7 @@ export const ArtTab: React.FC = () => {
                     <ArtworkImage
                       src={artwork.image}
                       alt={artwork.title}
+                      loading="lazy"
                     />
                     <ArtworkInfo>
                       <ArtworkTitle>{artwork.title}</ArtworkTitle>
@@ -344,6 +345,7 @@ export const ArtTab: React.FC = () => {
                     <ArtworkImage
                       src={artwork.image}
                       alt={artwork.title}
+                      loading="lazy"
                     />
                     <ArtworkInfo>
                       <ArtworkTitle>{artwork.title}</ArtworkTitle>

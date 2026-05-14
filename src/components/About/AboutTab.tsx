@@ -436,7 +436,7 @@ export const AboutTab: React.FC = () => {
         >
           <ImageContainer>
             <FloatingImage1
-              src="/images/about/red-light-portrait-1.jpeg"
+              src="/images/about/red-light-portrait-1.webp"
               alt="Michael Hemker portrait 1"
               $zIndex={3}
               $top="5%"
@@ -449,7 +449,7 @@ export const AboutTab: React.FC = () => {
               transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
             />
             <FloatingImage2
-              src="/images/about/red-light-portrait-2.png"
+              src="/images/about/red-light-portrait-2.webp"
               alt="Michael Hemker portrait 2"
               $zIndex={2}
               $top="30%"
@@ -462,7 +462,7 @@ export const AboutTab: React.FC = () => {
               transition={{ delay: 0.9, duration: 0.8, ease: "easeOut" }}
             />
             <FloatingImage3
-              src="/images/about/red-light-portrait-3.png"
+              src="/images/about/red-light-portrait-3.webp"
               alt="Michael Hemker portrait 3"
               $zIndex={1}
               $top="10%"

@@ -343,13 +343,13 @@ export const ProjectPreview: React.FC<ProjectPreviewProps> = ({ onProjectClick }
       style={{ 
         background: "radial-gradient(circle at 20% 30%, rgba(255, 140, 0, 0.2) 0%, rgba(255, 69, 0, 0.1) 40%, rgba(0, 0, 0, 0.8) 100%)",
         border: "2px solid rgba(255, 140, 0, 0.4)",
-        '--background-image': "url('/projects_assets/pantreat/screen_shots/pantreat_mockups.png')"
+        '--background-image': "url('/projects_assets/pantreat/screen_shots/pantreat_mockups.webp')"
       } as React.CSSProperties & { '--background-image': string }}
     >
       <MainContent>
         <ProjectHeader>
           <ProjectLogo 
-            src="/projects_assets/pantreat/app+name.png"
+            src="/projects_assets/pantreat/app+name.webp"
             alt="Pantreat Logo"
             style={{ 
               boxShadow: "0 12px 30px rgba(255, 140, 0, 0.4)",

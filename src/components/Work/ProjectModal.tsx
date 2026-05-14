@@ -440,7 +440,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
   const getProjectData = () => {
     if (projectId === '1') {
       return {
-        logo: "projects_assets/pantreat/app_cover.png",
+        logo: "projects_assets/pantreat/app_cover.webp",
         title: "Pantreat",
         tagline: "Your all-in-one AI-Kitchen assistant that makes cooking cool again. Unlike expensive meal services or smart fridges, all you need is your phone and an appetite.",
         colors: {
@@ -470,7 +470,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '2') {
       return {
-        logo: "/projects_assets/inkd/INKD_app_logo_v2.png",
+        logo: "/projects_assets/inkd/INKD_app_logo_v2.webp",
         title: "INKD",
         tagline: "The modern hub for tattoos. Connect artists and enthusiasts, discover local talent, and modernize the tattoo booking experience with AR visualization and smart discovery.",
         colors: {
@@ -486,7 +486,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Mission",
               subtitle: "Modernizing the Tattoo Industry",
               text: "Today, tattoo culture is scattered across Instagram, TikTok, Pinterest, and outdated forums. Artists juggle a dozen tools for design, booking, promotion, and community, while clients struggle to find local artists who match their style, price, and availability.",
-              image: "/projects_assets/inkd/INKD_Home_page.png",
+              image: "/projects_assets/inkd/INKD_Home_page.webp",
               features: [
                 {
                   number: "01",
@@ -507,7 +507,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '3') {
       return {
-        logo: "/projects_assets/fizz/fizz_logo+name.jpeg",
+        logo: "/projects_assets/fizz/fizz_logo+name.webp",
         title: "Fizz Social Media Redesign",
         tagline: "Reimagining the student social network for growth and new opportunities. A comprehensive UI redesign with new features for project collaboration and job opportunities.",
         colors: {
@@ -523,7 +523,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Problem",
               subtitle: "Inconsistent UI and Limited Scope",
               text: "While popular, Fizz's UI felt inconsistent and limited in scope. The existing design lacked a strong visual identity, and its feature set was focused narrowly on casual posting. Students looking for project collaborators or job opportunities had no dedicated space, leaving those needs unmet.",
-              image: "/projects_assets/fizz/fizz_copy1.png",
+              image: "/projects_assets/fizz/fizz_copy1.webp",
               features: []
             }
           ]
@@ -531,7 +531,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '4') {
       return {
-        logo: "/projects_assets/pocketpeople/pocketpeople_home.png",
+        logo: "/projects_assets/pocketpeople/pocketpeople_home.webp",
         title: "PocketPeople",
         tagline: "Because remembering the little things is what makes relationships matter. A personal relationship management app that helps you keep important details about the people you love.",
         colors: {
@@ -547,7 +547,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Why It Matters",
               subtitle: "Thoughtful Relationships Without Perfect Memory",
               text: "Being thoughtful shouldn't depend on having a perfect memory. Relationships thrive when you remember the details that make people feel seen. Most apps focus on productivity or networking — PocketPeople is built purely for personal connection.",
-              image: "/projects_assets/pocketpeople/pocketpeople_profile.png",
+              image: "/projects_assets/pocketpeople/pocketpeople_profile.webp",
               features: []
             }
           ]
@@ -555,7 +555,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '5') {
       return {
-        logo: "/projects_assets/vinnie_hager/vinnie_square_closeup.jpg",
+        logo: "/projects_assets/vinnie_hager/vinnie_square_closeup.webp",
         title: "Vinnie Hager Rugs",
         tagline: "Custom large-scale rug and wall installations for Allied Apartments communal lounge spaces. Designs inspired by artist Vinnie Hager, scaled for architectural proportions.",
         colors: {
@@ -571,7 +571,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Allied Apartments Installation",
               subtitle: "Custom large-scale designs for communal lounge spaces",
               text: "I collaborated with Timothy Prieto and Nathalie Beatty to design custom rug and wall pieces for the 8th Floor Lounges of the to-be-built Allied Apartments in Harbor Point, Baltimore. The designs are heavily influenced by the doodle-like work of artist Vinnie Hager, scaled up to fit architectural proportions.",
-              image: "/projects_assets/vinnie_hager/vinnie_carpet_full_room.JPG",
+              image: "/projects_assets/vinnie_hager/vinnie_carpet_full_room.webp",
               features: [
                 "28' x 18' floor rug rendered in AutoCAD",
                 "18' x 14' decorative wall installation", 
@@ -584,7 +584,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Design Process",
               subtitle: "From artist inspiration to architectural scale",
               text: "The color palette was carefully selected to align with the apartment's diverse interior themes, ensuring each piece complements the building's overall aesthetic. Together, these pieces serve as vibrant, site-specific artworks that bring energy and identity to the Allied Apartments' communal areas.",
-              image: "/projects_assets/vinnie_hager/vinnie_sample.jpg",
+              image: "/projects_assets/vinnie_hager/vinnie_sample.webp",
               features: [
                 "Vinnie Hager inspired doodle-like designs",
                 "Architectural proportion scaling",
@@ -598,7 +598,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '6') {
       return {
-        logo: "/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png",
+        logo: "/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.webp",
         title: "The Periphery Podcast",
         tagline: "Logo & cover art rebrand for a nationally recognized podcast. Designing a new identity for a Top 200 U.S. podcast and leading voice in law and finance.",
         colors: {
@@ -614,7 +614,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Brand Challenge",
               subtitle: "Designing for a nationally recognized podcast",
               text: "I was commissioned to rebrand The Periphery Podcast, which at the time ranked among the Top 200 podcasts in the U.S. and was a leading voice in the law and finance genre. The challenge was to create a visual identity that matched the podcast's reputation for thoughtful, balanced storytelling while also feeling bold and modern enough to stand out in a crowded digital space.",
-              image: "/projects_assets/periphery_podcast/PERIPHERY RADIO LOGO V1.png",
+              image: "/projects_assets/periphery_podcast/PERIPHERY RADIO LOGO V1.webp",
               features: [
                 "Top 200 podcast in the United States",
                 "Leading voice in law and finance genre",
@@ -627,7 +627,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Design Process",
               subtitle: "From concept sketches to final identity",
               text: "The logo symbolizes the podcast's role as a mediator between perspectives. Two opposing sides converge in the center, connected through the podcast itself — the 'middle-man' that bridges speakers and listeners, law and finance, story and interpretation. The clean, geometric design reflects clarity and professionalism, while the symmetry communicates balance and fairness.",
-              image: "/projects_assets/periphery_podcast/initial_sketches.jpg",
+              image: "/projects_assets/periphery_podcast/initial_sketches.webp",
               features: [
                 "Logo symbolizes mediator between perspectives",
                 "Two opposing sides converging in center",
@@ -641,7 +641,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '7') {
       return {
-        logo: "/projects_assets/make_a_note_take_a_note/final_display2.jpeg",
+        logo: "/projects_assets/make_a_note_take_a_note/final_display2.webp",
         title: "Make a Note, Take a Note",
         tagline: "A social experiment in anonymous community building. Interactive installation designed to foster connection among strangers through shared notes and messages.",
         colors: {
@@ -657,7 +657,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "The Challenge",
               subtitle: "Creating a product for public good",
               text: "For a class assignment to create a product for public good — with the constraint of presenting it only through a small gallery stand — my partner and I decided to make the stand itself the product. The result was Make a Note, Take a Note: a simple, interactive installation designed to foster connection among strangers.",
-              image: "/projects_assets/make_a_note_take_a_note/building.jpeg",
+              image: "/projects_assets/make_a_note_take_a_note/building.webp",
               features: [
                 "Class assignment for public good",
                 "Gallery stand constraint",
@@ -670,7 +670,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "How It Works",
               subtitle: "Anonymous but intimate interaction",
               text: "Passersby were invited to: Write a note — a brief, personal message to an unknown future reader. Categorize it — place the note into a pocket labeled by theme (hope, humor, advice, gratitude, etc.). Take a note — retrieve a message left by someone else in the same category. This exchange created a cycle of anonymous but intimate interaction.",
-              image: "/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg",
+              image: "/projects_assets/make_a_note_take_a_note/needfinding_postits.webp",
               features: [
                 "Write a personal message to unknown reader",
                 "Categorize by theme (hope, humor, advice, gratitude)",
@@ -684,7 +684,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '8') {
       return {
-        logo: "/projects_assets/video_essays/video_editting_icon.jpg",
+        logo: "/projects_assets/video_essays/video_editting_icon.webp",
         title: "Video Essays",
         tagline: "Exploring storytelling through moving image and sound. Three distinct video essays covering personal reflection, cultural critique, and technological commentary.",
         colors: {
@@ -700,7 +700,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "The Art of Video Essays",
               subtitle: "Exploring storytelling through moving image and sound",
               text: "As part of a course centered on the art of the video essay, I explored how narrative, visuals, and audio can combine to create compelling forms of storytelling. Over the span of the class, I produced three distinct video essays, each different in subject matter, tone, and creative approach.",
-              image: "/projects_assets/video_essays/video_editting_icon.jpg",
+              image: "/projects_assets/video_essays/video_editting_icon.webp",
               features: [
                 "Three distinct video essays produced",
                 "Different subject matter and creative approaches",
@@ -713,7 +713,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               title: "Creative Range",
               subtitle: "From personal narrative to technological commentary",
               text: "Each project allowed me to experiment with visual rhythm, editing techniques, and audio design, while sharpening my skills in research-based storytelling. This collection of essays demonstrates my ability to move fluidly between personal narrative, cultural critique, and technological commentary — all through the medium of video.",
-              image: "/projects_assets/video_essays/video_editting_icon.jpg",
+              image: "/projects_assets/video_essays/video_editting_icon.webp",
               features: [
                 "Visual rhythm and editing techniques",
                 "Audio design and sound storytelling",
@@ -892,9 +892,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_MyPantry.png", 'image')}>
+                      <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_MyPantry.webp", 'image')}>
                         <MediaImage
-                          src="projects_assets/pantreat/screen_shots/pantreat_MyPantry.png"
+                          src="projects_assets/pantreat/screen_shots/pantreat_MyPantry.webp"
                           alt="My Pantry"
                           style={{
                             width: '100%',
@@ -935,9 +935,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                         justifyContent: 'center',
                         alignItems: 'center'
                       }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_cooking_walkthrough_mockup.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_cooking_walkthrough_mockup.webp", 'image')}>
                           <MediaImage
-                            src="projects_assets/pantreat/screen_shots/pantreat_cooking_walkthrough_mockup.png"
+                            src="projects_assets/pantreat/screen_shots/pantreat_cooking_walkthrough_mockup.webp"
                             alt="Cooking Walkthrough"
                             style={{
                               maxHeight: '480px',
@@ -969,9 +969,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                       </FeatureText>
                     </FeatureContent>
                     <FeatureMedia>
-                      <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_recipe.png", 'image')}>
+                      <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_recipe.webp", 'image')}>
                         <MediaImage
-                          src="projects_assets/pantreat/screen_shots/pantreat_recipe.png"
+                          src="projects_assets/pantreat/screen_shots/pantreat_recipe.webp"
                           alt="Pantreat Recipe"
                           style={{
                             width: '100%',
@@ -1029,9 +1029,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     justifyContent: 'center',
                     alignItems: 'center'
                   }}>
-                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_features_mockup.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_features_mockup.webp", 'image')}>
                       <MediaImage
-                        src="projects_assets/pantreat/screen_shots/pantreat_features_mockup.png"
+                        src="projects_assets/pantreat/screen_shots/pantreat_features_mockup.webp"
                         alt="Pantreat Features"
                         style={{
                           maxHeight: '580px',
@@ -1081,9 +1081,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     justifyContent: 'center',
                     alignItems: 'center'
                   }}>
-                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_mockups.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("projects_assets/pantreat/screen_shots/pantreat_mockups.webp", 'image')}>
                       <MediaImage
-                        src="projects_assets/pantreat/screen_shots/pantreat_mockups.png"
+                        src="projects_assets/pantreat/screen_shots/pantreat_mockups.webp"
                         alt="Pantreat App Mockups"
                         style={{
                           maxHeight: '620px',
@@ -1154,9 +1154,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_Home_page.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_Home_page.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/inkd/INKD_Home_page.png" 
+                        src="/projects_assets/inkd/INKD_Home_page.webp" 
                         alt="INKD Home"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />
@@ -1186,9 +1186,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_Local_page.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_Local_page.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/inkd/INKD_Local_page.png" 
+                            src="/projects_assets/inkd/INKD_Local_page.webp" 
                             alt="Local Discovery"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1215,9 +1215,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_3_profile_tabs.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_3_profile_tabs.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/inkd/INKD_3_profile_tabs.png" 
+                            src="/projects_assets/inkd/INKD_3_profile_tabs.webp" 
                             alt="Artist Profile"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1250,9 +1250,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_onboarding_page.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/inkd/INKD_onboarding_page.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/inkd/INKD_onboarding_page.png" 
+                        src="/projects_assets/inkd/INKD_onboarding_page.webp" 
                         alt="Onboarding"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />
@@ -1286,7 +1286,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/fizz/fizz_copy1.png" 
+                      src="/projects_assets/fizz/fizz_copy1.webp" 
                       alt="Original Fizz UI"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
@@ -1305,7 +1305,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/fizz/process_pic_fizz_copy.png" 
+                      src="/projects_assets/fizz/process_pic_fizz_copy.webp" 
                       alt="Copy Process"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
@@ -1344,7 +1344,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/fizz/process_pic_fizz_full_redesign.png" 
+                          src="/projects_assets/fizz/process_pic_fizz_full_redesign.webp" 
                           alt="Full Redesign Process"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1367,9 +1367,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/fizz_full_redesign1.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/fizz_full_redesign1.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/fizz/fizz_full_redesign1.png" 
+                            src="/projects_assets/fizz/fizz_full_redesign1.webp" 
                             alt="Project Tags Feature"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1393,9 +1393,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/fizz_full_redesign2.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/fizz_full_redesign2.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/fizz/fizz_full_redesign2.png" 
+                            src="/projects_assets/fizz/fizz_full_redesign2.webp" 
                             alt="Jobs Feature"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1419,9 +1419,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/process_pic_fizz_final_redesign.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/fizz/process_pic_fizz_final_redesign.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/fizz/process_pic_fizz_final_redesign.png" 
+                            src="/projects_assets/fizz/process_pic_fizz_final_redesign.webp" 
                             alt="Final Redesign Process"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1458,7 +1458,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/fizz/fizz_final_redesign1.png" 
+                      src="/projects_assets/fizz/fizz_final_redesign1.webp" 
                       alt="Final Design"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
@@ -1491,9 +1491,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_profile.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_profile.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/pocketpeople/pocketpeople_profile.png" 
+                        src="/projects_assets/pocketpeople/pocketpeople_profile.webp" 
                         alt="PocketPeople Profile"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />
@@ -1512,9 +1512,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.3 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_original_plan.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_original_plan.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/pocketpeople/pocketpeople_original_plan.png" 
+                        src="/projects_assets/pocketpeople/pocketpeople_original_plan.webp" 
                         alt="Original Plan"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />
@@ -1552,9 +1552,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_adding.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_adding.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/pocketpeople/pocketpeople_adding.png" 
+                            src="/projects_assets/pocketpeople/pocketpeople_adding.webp" 
                             alt="Adding People Feature"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1578,9 +1578,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_memory.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_memory.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/pocketpeople/pocketpeople_memory.png" 
+                            src="/projects_assets/pocketpeople/pocketpeople_memory.webp" 
                             alt="Memory Games Feature"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1604,9 +1604,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     </FeatureContent>
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
-                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_home.png", 'image')}>
+                        <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/pocketpeople_home.webp", 'image')}>
                           <MediaImage 
-                            src="/projects_assets/pocketpeople/pocketpeople_home.png" 
+                            src="/projects_assets/pocketpeople/pocketpeople_home.webp" 
                             alt="Home Screen"
                             style={{ padding: '1rem', background: 'transparent' }}
                           />
@@ -1643,9 +1643,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/process_character_sheet.png", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/pocketpeople/process_character_sheet.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/pocketpeople/process_character_sheet.png" 
+                        src="/projects_assets/pocketpeople/process_character_sheet.webp" 
                         alt="Character Design Process"
                         style={{ padding: '1rem', background: 'transparent' }}
                       />
@@ -1680,7 +1680,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/vinnie_hager/vinnie_carpet_full_room.JPG" 
+                      src="/projects_assets/vinnie_hager/vinnie_carpet_full_room.webp" 
                       alt="Full Room Installation"
                       style={{ padding: '0.5rem', background: 'transparent' }}
                     />
@@ -1707,7 +1707,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/vinnie_hager/vinnie_28x18.jpg" 
+                          src="/projects_assets/vinnie_hager/vinnie_28x18.webp" 
                           alt="28x18 Rug Design"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1732,7 +1732,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/vinnie_hager/vinnie_18x14.jpg" 
+                          src="/projects_assets/vinnie_hager/vinnie_18x14.webp" 
                           alt="18x14 Wall Design"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1757,7 +1757,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/vinnie_hager/vinnie_sample.jpg" 
+                          src="/projects_assets/vinnie_hager/vinnie_sample.webp" 
                           alt="Material Sample"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1793,7 +1793,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/vinnie_hager/vinnie_carpet_w_furniture.JPG" 
+                      src="/projects_assets/vinnie_hager/vinnie_carpet_w_furniture.webp" 
                       alt="Installation with Furniture"
                       style={{ padding: '0.5rem', background: 'transparent' }}
                     />
@@ -1825,7 +1825,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/periphery_podcast/PERIPHERY RADIO LOGO V1.png" 
+                      src="/projects_assets/periphery_podcast/PERIPHERY RADIO LOGO V1.webp" 
                       alt="Periphery Radio Logo"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
@@ -1852,7 +1852,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/periphery_podcast/sketches_for_P_logo.jpg" 
+                          src="/projects_assets/periphery_podcast/sketches_for_P_logo.webp" 
                           alt="Logo Sketches"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1877,7 +1877,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/periphery_podcast/initial_sketches.jpg" 
+                          src="/projects_assets/periphery_podcast/initial_sketches.webp" 
                           alt="Initial Sketches"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1902,7 +1902,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     <FeatureMedia>
                       <AssetCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
                         <MediaImage 
-                          src="/projects_assets/periphery_podcast/refined_sketches.jpg" 
+                          src="/projects_assets/periphery_podcast/refined_sketches.webp" 
                           alt="Refined Sketches"
                           style={{ padding: '1rem', background: 'transparent' }}
                         />
@@ -1936,7 +1936,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.png" 
+                      src="/projects_assets/periphery_podcast/PERIPHERY CIRCLE LOGO V1.webp" 
                       alt="Final Logo"
                       style={{ padding: '1rem', background: 'transparent' }}
                     />
@@ -1967,9 +1967,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/building.jpeg", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/building.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/make_a_note_take_a_note/building.jpeg" 
+                        src="/projects_assets/make_a_note_take_a_note/building.webp" 
                         alt="Building Process"
                         style={{ padding: '0.5rem', background: 'transparent' }}
                       />
@@ -1993,9 +1993,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/needfinding_postits.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/make_a_note_take_a_note/needfinding_postits.jpeg" 
+                        src="/projects_assets/make_a_note_take_a_note/needfinding_postits.webp" 
                         alt="Need Finding Post-its"
                         style={{ padding: '0.5rem', background: 'transparent' }}
                       />
@@ -2011,9 +2011,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.3 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/needfinding2.jpeg", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/needfinding2.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/make_a_note_take_a_note/needfinding2.jpeg" 
+                        src="/projects_assets/make_a_note_take_a_note/needfinding2.webp" 
                         alt="Need Finding Process"
                         style={{ padding: '0.5rem', background: 'transparent' }}
                       />
@@ -2039,9 +2039,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.4 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/first_sketch.jpeg", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/first_sketch.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/make_a_note_take_a_note/first_sketch.jpeg" 
+                        src="/projects_assets/make_a_note_take_a_note/first_sketch.webp" 
                         alt="Initial Sketch"
                         style={{ padding: '0.5rem', background: 'transparent' }}
                       />
@@ -2110,9 +2110,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     transition={{ delay: 0.2 }}
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)`, maxWidth: '500px' }}
                   >
-                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/final_display1.jpeg", 'image')}>
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/make_a_note_take_a_note/final_display1.webp", 'image')}>
                       <MediaImage 
-                        src="/projects_assets/make_a_note_take_a_note/final_display1.jpeg" 
+                        src="/projects_assets/make_a_note_take_a_note/final_display1.webp" 
                         alt="Final Product Display"
                         style={{ padding: '0.5rem', background: 'transparent' }}
                       />
@@ -2146,7 +2146,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                     style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}
                   >
                     <MediaImage 
-                      src="/projects_assets/make_a_note_take_a_note/results.jpeg" 
+                      src="/projects_assets/make_a_note_take_a_note/results.webp" 
                       alt="Project Results"
                       style={{ padding: '0.5rem', background: 'transparent' }}
                     />

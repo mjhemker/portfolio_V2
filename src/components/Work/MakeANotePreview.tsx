@@ -29,7 +29,7 @@ const PreviewCard = styled(motion.div)`
     right: 0;
     width: 60%;
     height: 100%;
-    background-image: url('/projects_assets/make_a_note_take_a_note/final_display1.jpeg');
+    background-image: url('/projects_assets/make_a_note_take_a_note/final_display1.webp');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center right;
@@ -58,6 +58,42 @@ const PreviewCard = styled(motion.div)`
     pointer-events: none;
     z-index: 2;
   }
+
+  @media (max-width: 1100px) and (min-width: 950px) {
+    height: auto;
+    min-height: 750px;
+  }
+
+  @media (max-width: 950px) and (min-width: 850px) {
+    height: auto;
+    min-height: 800px;
+  }
+
+  @media (max-width: 850px) and (min-width: 769px) {
+    height: auto;
+    min-height: 660px;
+  }
+  
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 500px;
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+    
+    &::before {
+      width: 100%;
+      background-position: center top;
+      opacity: 0.08;
+    }
+    
+    &:hover::before {
+      transform: scale(1.02);
+      opacity: 0.12;
+    }
+  }
+
+  @media (max-width: 480px) {
+    min-height: 450px;
+  }
 `;
 
 const ProjectHeader = styled.div`
@@ -67,6 +103,13 @@ const ProjectHeader = styled.div`
   padding: 2rem 2rem 0;
   position: relative;
   z-index: 3;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem 1.5rem 0;
+    gap: 1rem;
+  }
 `;
 
 const ProjectLogo = styled.img`
@@ -85,6 +128,16 @@ const ProjectLogo = styled.img`
     transform: scale(1.08) rotate(-2deg);
     box-shadow: 0 20px 40px rgba(255, 193, 7, 0.5);
     border-color: rgba(255, 193, 7, 0.6);
+  }
+  
+  @media (max-width: 768px) {
+    height: 80px;
+    max-width: 250px;
+    padding: 0.75rem;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 `;
 
@@ -105,6 +158,11 @@ const ProjectTagline = styled.p`
   -webkit-text-fill-color: transparent;
   text-transform: uppercase;
   letter-spacing: 1px;
+  
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize['2xl']};
+    letter-spacing: 0.5px;
+  }
 `;
 
 const ProjectContent = styled.div`
@@ -116,6 +174,16 @@ const ProjectContent = styled.div`
   position: relative;
   z-index: 3;
   min-height: 0;
+  max-width: 65%;
+  
+  @media (max-width: 1200px) {
+    max-width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 1rem 1.5rem 0;
+    gap: 1rem;
+  }
 `;
 
 const ProjectDescription = styled.p`
@@ -125,13 +193,24 @@ const ProjectDescription = styled.p`
   margin: 0;
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  @media (max-width: 768px) {
+    font-size: ${({ theme }) => theme.typography.fontSize.base};
+    line-height: 1.5;
+  }
 `;
 
 const ProjectFeatures = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin: 1rem 0;
+  margin: 1rem 0 1.5rem 0;
+  flex-shrink: 0;
+  max-width: 60%;
+  
+  @media (max-width: 1200px) {
+    max-width: 100%;
+  }
 `;
 
 const FeatureTag = styled(motion.span)`
@@ -154,6 +233,19 @@ const ProjectActions = styled.div`
   padding: 2rem;
   position: relative;
   z-index: 3;
+  margin-top: auto;
+  flex-shrink: 0;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    gap: 0.75rem;
+    flex-direction: column;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    gap: 0.5rem;
+  }
 `;
 
 const ActionButton = styled(motion.button)`
@@ -200,6 +292,12 @@ const ActionButton = styled(motion.button)`
   &:active {
     transform: translateY(0);
   }
+  
+  @media (max-width: 768px) {
+    padding: 0.875rem 1.5rem;
+    font-size: ${({ theme }) => theme.typography.fontSize.sm};
+    min-height: 48px;
+  }
 `;
 
 const SecondaryActionButton = styled(ActionButton)`
@@ -229,7 +327,7 @@ export const MakeANotePreview: React.FC<MakeANotePreviewProps> = ({ onProjectCli
     >
       <ProjectHeader>
         <ProjectLogo 
-          src="/projects_assets/make_a_note_take_a_note/final_display2.jpeg"
+          src="/projects_assets/make_a_note_take_a_note/final_display2.webp"
           alt="Make a Note Take a Note"
         />
         <ProjectInfo>
