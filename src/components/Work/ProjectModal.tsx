@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { X, ExternalLink } from 'lucide-react';
+import { X, ExternalLink, Globe } from 'lucide-react';
 import { Modal, VimeoEmbed } from '../UI';
 
 interface ProjectModalProps {
@@ -25,20 +25,29 @@ const CloseButton = styled(motion.button)`
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   cursor: pointer;
-  z-index: 10;
-  
+  z-index: 9999;
+  padding: 0;
+  pointer-events: auto;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
   &:hover {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 1);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 `;
 
@@ -470,6 +479,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
       };
     } else if (projectId === '2') {
       return {
+        logo: "/projects_assets/limbo/limbo_icon.webp",
+        title: "Limbo",
+        tagline: "A social app that uses AI-personalized daily prompts to spark authentic conversations within friend groups. Co-founded as part of my Stanford Design Capstone, launched on the App Store in May 2026.",
+        colors: {
+          primary: "255, 215, 0",
+          secondary: "255, 193, 7",
+          accent: "#ffd700"
+        },
+        siteUrl: "https://apps.apple.com/app/limbo",
+        technologies: ["React Native", "TypeScript", "Expo", "Supabase", "OpenAI API", "iOS Development", "User Research"],
+        content: {
+          sections: []
+        }
+      };
+    } else if (projectId === '3') {
+      return {
         logo: "/projects_assets/inkd/INKD_app_logo_v2.webp",
         title: "INKD",
         tagline: "The modern hub for tattoos. Connect artists and enthusiasts, discover local talent, and modernize the tattoo booking experience with AR visualization and smart discovery.",
@@ -505,7 +530,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
-    } else if (projectId === '3') {
+    } else if (projectId === '4') {
       return {
         logo: "/projects_assets/fizz/fizz_logo+name.webp",
         title: "Fizz Social Media Redesign",
@@ -529,7 +554,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
-    } else if (projectId === '4') {
+    } else if (projectId === '5') {
       return {
         logo: "/projects_assets/pocketpeople/pocketpeople_home.webp",
         title: "PocketPeople",
@@ -553,7 +578,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
-    } else if (projectId === '5') {
+    } else if (projectId === '6') {
       return {
         logo: "/projects_assets/vinnie_hager/vinnie_square_closeup.webp",
         title: "Vinnie Hager Rugs",
@@ -596,7 +621,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
           ]
         }
       };
-    } else if (projectId === '6') {
+    } else if (projectId === '7') {
       return {
         logo: "/projects_assets/video_essays/video_editting_icon.webp",
         title: "Video Essays",
@@ -658,11 +683,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
         } as React.CSSProperties & { '--scrollbar-color': string }}
       >
         <CloseButton
-          onClick={onClose}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <X size={20} />
+          <X size={24} strokeWidth={2.5} />
         </CloseButton>
 
         <ScrollContainer style={{ scrollbarColor: `rgba(${project.colors.primary}, 0.3) transparent` }}>
@@ -712,6 +740,36 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               </ActionButtons>
             )}
             {projectId === '2' && (
+              <ActionButtons>
+                <ActionButton
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => window.open('https://www.limbo.social/feed', '_blank')}
+                  style={{
+                    background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                    borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                    color: project.colors.accent
+                  }}
+                >
+                  <Globe size={20} />
+                  Web App
+                </ActionButton>
+                <ActionButton
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => window.open(project.siteUrl, '_blank')}
+                  style={{
+                    background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                    borderColor: `rgba(${project.colors.primary}, 0.4)`,
+                    color: project.colors.accent
+                  }}
+                >
+                  <ExternalLink size={20} />
+                  App Store
+                </ActionButton>
+              </ActionButtons>
+            )}
+            {projectId === '3' && (
               <ActionButtons>
                 <ActionButton
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -1044,6 +1102,243 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
               </ContentSection>
             </>
           ) : projectId === '2' ? (
+            // Limbo content
+            <>
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Problem</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Post-Grad Friendship Crisis</SubTitle>
+                    <ContentText>
+                      When people graduate from college, they lose three social enablers they never consciously appreciated:
+                      <strong> proximity, structure, and randomness</strong>. In school, friendships were effortless by design.
+                      You lived near the same people, followed the same schedules, and stumbled into conversations that never
+                      would have happened if you'd planned them.
+                    </ContentText>
+                    <ContentText>
+                      Post-grad, all of that disappears. Our team set out to understand exactly what that transition feels like from the inside.
+                    </ContentText>
+                  </TextBlock>
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/limbo/home_view_solo.webp", 'image')}>
+                      <MediaImage
+                        src="/projects_assets/limbo/home_view_solo.webp"
+                        alt="Limbo Home"
+                        style={{ maxHeight: '550px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
+                      />
+                    </ClickableImageWrapper>
+                  </motion.div>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Research</SectionTitle>
+                <ContentGrid>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/limbo/screen_shots/daily_prompt_answer_and_feed.webp", 'image')}>
+                      <MediaImage
+                        src="/projects_assets/limbo/screen_shots/daily_prompt_answer_and_feed.webp"
+                        alt="Daily Prompt and Feed"
+                        style={{ maxHeight: '550px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
+                      />
+                    </ClickableImageWrapper>
+                  </motion.div>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>What We Heard</SubTitle>
+                    <ContentText>
+                      We conducted five in-depth interviews with recent graduates from Stanford and SDSU, letting each
+                      conversation run long enough to surface the patterns beneath the surface.
+                    </ContentText>
+                    <ContentText>
+                      <em>"Most of your conversations end up being the most random topics or debates. When you don't see a person that often, you don't have that anymore."</em> — Maraki
+                      <br /><br />
+                      <em>"I need to be spoon-fed social activity. Otherwise I'm not gonna do anything."</em> — Koye
+                      <br /><br />
+                      <em>"Ev is always one good question away from a great conversation."</em> — from synthesis
+                    </ContentText>
+                  </TextBlock>
+                </ContentGrid>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>The Product</SectionTitle>
+                <FeatureShowcase>
+                  <FeatureBlock>
+                    <FeatureNumber style={{
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>01</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>AI-Personalized Daily Prompts</FeatureTitle>
+                      <FeatureText>
+                        Limbo is built around AI-personalized daily prompts shared within friend "circles." Each circle has a context,
+                        like "12 guys from Baltimore in a fantasy football league" or "our college study abroad group," and the AI
+                        generates prompts specific to that group's shared identity.
+                      </FeatureText>
+                      <FeatureText style={{ marginTop: '1rem' }}>
+                        Members respond to the same prompt, then see each other's answers. Over time, those small disclosures add up.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/limbo/screen_shots/daily_prompt_solo.webp", 'image')}>
+                        <MediaImage
+                          src="/projects_assets/limbo/screen_shots/daily_prompt_solo.webp"
+                          alt="Daily Prompt"
+                          style={{ maxHeight: '450px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
+                        />
+                      </ClickableImageWrapper>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>02</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Opinion Slider & Public Feed</FeatureTitle>
+                      <FeatureText>
+                        <strong>Solving the Cold-Start Problem:</strong> In user testing, we noticed that new users who hadn't yet invited friends
+                        had no reason to open the app. We designed features specifically for solo users.
+                      </FeatureText>
+                      <FeatureText style={{ marginTop: '1rem' }}>
+                        • <strong>Opinion Slider</strong> — A daily community vote with a hidden distribution reveal
+                        <br />• <strong>Public Prompt Feed</strong> — An anonymous, browsable feed of opt-in responses
+                        <br /><br />
+                        Each of these works without a social graph, giving users a reason to stay while their network grows.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/limbo/screen_shots/opinions.webp", 'image')}>
+                        <MediaImage
+                          src="/projects_assets/limbo/screen_shots/opinions.webp"
+                          alt="Opinion Slider"
+                          style={{ maxHeight: '450px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
+                        />
+                      </ClickableImageWrapper>
+                    </FeatureMedia>
+                  </FeatureBlock>
+
+                  <FeatureBlock>
+                    <FeatureNumber style={{
+                      color: project.colors.accent,
+                      background: `linear-gradient(135deg, rgba(${project.colors.primary}, 0.2), rgba(${project.colors.secondary}, 0.1))`,
+                      borderColor: `rgba(${project.colors.primary}, 0.3)`
+                    }}>03</FeatureNumber>
+                    <FeatureContent>
+                      <FeatureTitle style={{ color: project.colors.accent }}>Lightning Rounds & Scrapbook</FeatureTitle>
+                      <FeatureText>
+                        <strong>Lightning Rounds</strong> — Rapid-fire personal prompts that populate a persistent self-portrait on the user's profile.
+                      </FeatureText>
+                      <FeatureText style={{ marginTop: '1rem' }}>
+                        <strong>Scrapbook</strong> — Your answers build over time into a personal anthology. The more you share, the more tiers you unlock.
+                        <br /><br />
+                        These features create value even before friends join, solving the classic network effect challenge.
+                      </FeatureText>
+                    </FeatureContent>
+                    <FeatureMedia>
+                      <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/limbo/screen_shots/profile_and_scrapbook.webp", 'image')}>
+                        <MediaImage
+                          src="/projects_assets/limbo/screen_shots/profile_and_scrapbook.webp"
+                          alt="Profile and Scrapbook"
+                          style={{ maxHeight: '450px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
+                        />
+                      </ClickableImageWrapper>
+                    </FeatureMedia>
+                  </FeatureBlock>
+                </FeatureShowcase>
+              </ContentSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>Key Design Decisions</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <SubTitle style={{ color: project.colors.accent }}>Intentional Constraints</SubTitle>
+                    <ContentText>
+                      <strong>Circles over open feeds.</strong> Early explorations included a public discovery layer, but research pushed us
+                      toward a friends-first model. You only share with people you've specifically invited, which creates permission to be more honest.
+                    </ContentText>
+                    <ContentText>
+                      <strong>No public metrics.</strong> No likes, follower counts, or engagement scores. Every design decision that could have
+                      introduced performance pressure was removed intentionally. The app is for cultivation, not audience-building.
+                    </ContentText>
+                  </TextBlock>
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <ClickableImageWrapper onClick={() => handleMediaClick("/projects_assets/limbo/screen_shots/additional_features.webp", 'image')}>
+                      <MediaImage
+                        src="/projects_assets/limbo/screen_shots/additional_features.webp"
+                        alt="Additional Features"
+                        style={{ maxHeight: '550px', width: 'auto', filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
+                      />
+                    </ClickableImageWrapper>
+                  </motion.div>
+                </ContentGrid>
+              </ContentSection>
+
+              <BusinessSection style={{ background: `rgba(${project.colors.primary}, 0.05)` }}>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>My Role & Outcomes</SectionTitle>
+                <ContentGrid>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Co-Founder & Engineer</BusinessTitle>
+                    <BusinessText>
+                      I co-founded Limbo and led all engineering. I built the full iOS app in <strong>React Native</strong> with a
+                      <strong> Supabase</strong> backend, managed App Store submission and review, and owned the technical architecture end-to-end.
+                      <br /><br />
+                      But I was also embedded in every product decision. I participated in all five user research interviews, contributed to
+                      synthesis and HMW framing, helped define the feature set, and collaborated directly with our designer on UX flows and
+                      interaction design.
+                      <br /><br />
+                      <strong>The distinction between engineer and product thinker didn't really exist on our team.</strong>
+                    </BusinessText>
+                  </BusinessCard>
+                  <BusinessCard style={{ borderColor: `rgba(${project.colors.primary}, 0.2)` }}>
+                    <BusinessTitle style={{ color: project.colors.accent }}>Outcomes</BusinessTitle>
+                    <BusinessText>
+                      • Shipped to the <strong>iOS App Store in May 2026</strong> (1.0)
+                      <br />• Available in <strong>173 countries</strong>
+                      <br />• Conducted multiple rounds of user testing across different cohorts
+                      <br />• Refined the product based on live feedback, including identifying and responding to the cold-start problem
+                      <br />• Developed a full GTM strategy, freemium model (<strong>$4.99 Limbo+ / $9.99 Limbo Pro</strong>), and a go-forward feature roadmap
+                    </BusinessText>
+                  </BusinessCard>
+                </ContentGrid>
+              </BusinessSection>
+
+              <ContentSection>
+                <SectionTitle $accent={project.colors.accent} style={{ color: project.colors.accent }}>What I Learned</SectionTitle>
+                <ContentGrid>
+                  <TextBlock>
+                    <ContentText>
+                      The most useful thing I built wasn't any single feature. It was the habit of asking <strong>why someone would open
+                      this app tomorrow</strong>. The cold-start problem forced us to think about the solo user experience as seriously as
+                      the social one.
+                    </ContentText>
+                    <ContentText>
+                      And the research taught me that the best design often just removes friction from something people already want to do.
+                      <strong> Nobody needed to be convinced to want better conversations with their friends. They just needed permission and a starting point.</strong>
+                    </ContentText>
+                  </TextBlock>
+                </ContentGrid>
+              </ContentSection>
+            </>
+          ) : projectId === '3' ? (
             // INKD content
             <>
               <ContentSection>
@@ -1175,7 +1470,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </BusinessSection>
             </>
-          ) : projectId === '3' ? (
+          ) : projectId === '4' ? (
             // Fizz content
             <>
               <ContentSection>
@@ -1380,7 +1675,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </BusinessSection>
             </>
-          ) : projectId === '4' ? (
+          ) : projectId === '5' ? (
             // PocketPeople content
             <>
               <ContentSection>
@@ -1568,7 +1863,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </BusinessSection>
             </>
-          ) : projectId === '5' ? (
+          ) : projectId === '6' ? (
             // Vinnie Hager Rugs content
             <>
               <ContentSection>
@@ -1715,7 +2010,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, pro
                 </ContentGrid>
               </BusinessSection>
             </>
-          ) : projectId === '6' ? (
+          ) : projectId === '7' ? (
             // Video Essays content
             <>
               <ContentSection>

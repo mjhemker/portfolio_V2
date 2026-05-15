@@ -13,9 +13,8 @@ const INKDPreview = lazy(() => import('./INKDPreview').then(m => ({ default: m.I
 const FizzPreview = lazy(() => import('./FizzPreview').then(m => ({ default: m.FizzPreview })));
 const PocketPeoplePreview = lazy(() => import('./PocketPeoplePreview').then(m => ({ default: m.PocketPeoplePreview })));
 const VinnieHagerPreview = lazy(() => import('./VinnieHagerPreview').then(m => ({ default: m.VinnieHagerPreview })));
-const PeripheryPodcastPreview = lazy(() => import('./PeripheryPodcastPreview').then(m => ({ default: m.PeripheryPodcastPreview })));
-const MakeANotePreview = lazy(() => import('./MakeANotePreview').then(m => ({ default: m.MakeANotePreview })));
 const VideoEssaysPreview = lazy(() => import('./VideoEssaysPreview').then(m => ({ default: m.VideoEssaysPreview })));
+const LimboPreview = lazy(() => import('./LimboPreview').then(m => ({ default: m.LimboPreview })));
 
 // Loading fallback for lazy components
 const PreviewFallback = styled.div`
@@ -160,14 +159,13 @@ export const WorkTab: React.FC = () => {
   
   const getCurrentProjectId = () => {
     switch (playerState.currentProjectIndex) {
-      case 0: return '1';
-      case 1: return '2'; 
-      case 2: return '3';
-      case 3: return '4';
-      case 4: return '5';
-      case 5: return '6';
-      case 6: return '7';
-      case 7: return '8';
+      case 0: return '1';  // Pantreat
+      case 1: return '2';  // Limbo
+      case 2: return '3';  // INKD
+      case 3: return '4';  // Fizz Redesign
+      case 4: return '5';  // PocketPeople
+      case 5: return '6';  // Vinnie Hager Rugs
+      case 6: return '7';  // Video Essays
       default: return '1';
     }
   };
@@ -201,18 +199,16 @@ export const WorkTab: React.FC = () => {
             {playerState.currentProjectIndex === 0 ? (
               <ProjectPreview onProjectClick={handleProjectClick} />
             ) : playerState.currentProjectIndex === 1 ? (
-              <INKDPreview onProjectClick={handleProjectClick} />
+              <LimboPreview onProjectClick={handleProjectClick} />
             ) : playerState.currentProjectIndex === 2 ? (
-              <FizzPreview onProjectClick={handleProjectClick} />
+              <INKDPreview onProjectClick={handleProjectClick} />
             ) : playerState.currentProjectIndex === 3 ? (
-              <PocketPeoplePreview onProjectClick={handleProjectClick} />
+              <FizzPreview onProjectClick={handleProjectClick} />
             ) : playerState.currentProjectIndex === 4 ? (
-              <VinnieHagerPreview onProjectClick={handleProjectClick} />
+              <PocketPeoplePreview onProjectClick={handleProjectClick} />
             ) : playerState.currentProjectIndex === 5 ? (
-              <PeripheryPodcastPreview onProjectClick={handleProjectClick} />
+              <VinnieHagerPreview onProjectClick={handleProjectClick} />
             ) : playerState.currentProjectIndex === 6 ? (
-              <MakeANotePreview onProjectClick={handleProjectClick} />
-            ) : playerState.currentProjectIndex === 7 ? (
               <VideoEssaysPreview onProjectClick={handleProjectClick} />
             ) : (
               <MusicPlayer key={playerState.currentProjectIndex} />
