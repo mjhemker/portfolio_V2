@@ -29,7 +29,7 @@ const PreviewCard = styled(motion.div)`
     right: 0;
     width: 60%;
     height: 100%;
-    background-image: url('/projects_assets/pocketpeople/pocketpeople_home.webp');
+    background-image: url('/projects_assets/pocketpeople/pocketpeople_profile.webp');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center right;
@@ -360,18 +360,6 @@ export const PocketPeoplePreview: React.FC<PocketPeoplePreviewProps> = ({ onProj
             whileTap={{ scale: 0.95 }}
           >
             Memory Games
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Favorites
-          </FeatureTag>
-          <FeatureTag
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Personal Connection
           </FeatureTag>
         </ProjectFeatures>
         
